@@ -8,7 +8,7 @@ namespace ManagedX.Audio
 	using Properties;
 
 
-	/// <summary>An <see cref="Exception"/> to be thrown when no audio hardware is available.</summary>
+	/// <summary>A <see cref="MissingRequirementException"/> to be thrown when no audio hardware is available.</summary>
 	[Serializable, DebuggerStepThrough]
 	public sealed class NoAudioHardwareException : MissingRequirementException
 	{

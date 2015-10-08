@@ -7,8 +7,8 @@ namespace ManagedX.Graphics
 {
 	using Properties;
 
-	
-	/// <summary>An <see cref="Exception"/> to be thrown when no graphics device can be used.</summary>
+
+	/// <summary>A <see cref="MissingRequirementException"/> to be thrown when no graphics device can be used.</summary>
 	[Serializable, DebuggerStepThrough]
 	public sealed class NoSuitableGraphicsDeviceException : MissingRequirementException
 	{
