@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 
 namespace ManagedX
 {
 
-	/// <summary>Provides access to common math constants and functions; also provides extension methods to float and double.</summary>
+	/// <summary>Provides access to common math constants and functions, as well as extension methods to <see cref="float"/> and <see cref="double"/>.</summary>
 	public static class XMath
 	{
 
@@ -25,34 +26,39 @@ namespace ManagedX
 		private const float Deg2Rad = 180.0f / Pi;
 		private const float Rad2Deg = Pi / 180.0f;
 
+		
+		/// <summary>Defines the value of the golden number.</summary>
+		public const float GoldenRatio = 1.61803398875f; // (float)( 1.0 + Math.Sqrt( 5.0 ) ) / 2.0 )
+
 		#endregion
 
 
 		#region Lerp
 
-
-		/// <summary></summary>
+		/// <summary>Performs a linear interpolation between two single-precision floating-point values.</summary>
 		/// <param name="from">The source value.</param>
 		/// <param name="to">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; must be within the range [0,1].</param>
+		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
 		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Lerp( float from, float to, float amount )
 		{
 			return from + ( to - from ) * amount;
 			//return from * ( 1.0f - amount ) + to * amount;
 		}
 
-		/// <summary></summary>
+
+		/// <summary>Performs a linear interpolation between two double-precision floating-point values.</summary>
 		/// <param name="from">The source value.</param>
 		/// <param name="to">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; must be within the range [0,1].</param>
+		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
 		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double Lerp( double from, double to, double amount )
 		{
 			return from + ( to - from ) * amount;
 			//return from * ( 1.0 - amount ) + to * amount;
 		}
-
 
 		#endregion
 
@@ -60,6 +66,7 @@ namespace ManagedX
 		/// <summary>Converts an angle in radians to degrees.</summary>
 		/// <param name="radians">An angle in radians.</param>
 		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToDegrees( float radians )
 		{
 			return radians * Rad2Deg;
@@ -69,6 +76,7 @@ namespace ManagedX
 		/// <summary>Converts an angle in degrees to radians.</summary>
 		/// <param name="degrees">An angle in degrees.</param>
 		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToRadians( float degrees )
 		{
 			return degrees * Deg2Rad;
@@ -78,55 +86,38 @@ namespace ManagedX
 		/// <summary>Reduces an angle to a value within the range [-π,+π].</summary>
 		/// <param name="radians">An angle, in radians; must be a valid, finite number.</param>
 		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float WrapAngle( float radians )
 		{
 			radians %= TwoPi; // TODO - use Math.IEEERemainder ?
-			
-			if( radians <= -Pi )
-				radians += TwoPi;
-			else if( radians >= Pi )
-				radians -= TwoPi;
-
-			return radians;
+			return ( radians <= -Pi ) ? radians + TwoPi : ( radians >= Pi ) ? radians - TwoPi : radians;
 		}
 
 
 		#region Extension methods (MakeFinite, Clamp, Saturate)
 
-
-		/// <summary>Converts NaN to 0, +Inf to the maximum value and -Inf to the minimum value; otherwise, returns the specified value.</summary>
-		/// <param name="value">A value.</param>
-		/// <returns></returns>
+		/// <summary>Converts <see cref="float.NaN"/> to 0, <see cref="float.PositiveInfinity"/> to <see cref="float.MaxValue"/> and <see cref="float.NegativeInfinity"/> to <see cref="float.MinValue"/>; otherwise, returns the specified value.</summary>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <returns>Returns the nearest finite value.</returns>
 		public static float MakeFinite( this float value )
 		{
-			if( float.IsNaN( value ) )
-				return 0.0f;
+			if( float.IsInfinity( value ) )
+				return float.IsPositiveInfinity( value ) ? float.MaxValue : float.MinValue;
 
-			if( float.IsPositiveInfinity( value ) )
-				return float.MaxValue;
-
-			if( float.IsNegativeInfinity( value ) )
-				return float.MinValue;
-
-			return value;
+			return float.IsNaN( value ) ? 0.0f : value;
 		}
 
-		/// <summary>Converts NaN to 0, +Inf to the maximum value and -Inf to the minimum value; otherwise, returns the specified value.</summary>
-		/// <param name="value">A value.</param>
-		/// <returns></returns>
+		/// <summary>Converts <see cref="double.NaN"/> to 0, <see cref="double.PositiveInfinity"/> to <see cref="double.MaxValue"/> and <see cref="double.NegativeInfinity"/> to <see cref="double.MinValue"/>; otherwise, returns the specified value.</summary>
+		/// <param name="value">A double-precision floating-point value.</param>
+		/// <returns>Returns the nearest finite value.</returns>
 		public static double MakeFinite( this double value )
 		{
-			if( double.IsNaN( value ) )
-				return 0.0f;
+			if( double.IsInfinity( value ) )
+				return double.IsPositiveInfinity( value ) ? double.MaxValue : double.MinValue;
 
-			if( double.IsPositiveInfinity( value ) )
-				return double.MaxValue;
-
-			if( double.IsNegativeInfinity( value ) )
-				return double.MinValue;
-
-			return value;
+			return double.IsNaN( value ) ? 0.0 : value;
 		}
+
 
 
 		/// <summary>Returns the nearest value within the specified range.</summary>
@@ -139,16 +130,11 @@ namespace ManagedX
 		/// <para><paramref name="max"/> if <paramref name="value"/> is greater than or equal to <paramref name="max"/>.</para>
 		/// <para><paramref name="value"/> otherwise.</para>
 		/// </returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static TValue Clamp<TValue>( this TValue value, TValue min, TValue max )
 			where TValue : struct, IComparable<TValue>
 		{
-			if( value.CompareTo( min ) <= 0 )
-				return min;
-
-			if( value.CompareTo( max ) >= 0 )
-				return max;
-
-			return value;
+			return ( value.CompareTo( min ) <= 0 ) ? min : ( value.CompareTo( max ) >= 0 ) ? max : value;
 		}
 
 
@@ -162,7 +148,7 @@ namespace ManagedX
 		/// </returns>
 		public static float Clamp( this float value, float min, float max )
 		{
-			return Clamp<float>( float.IsNaN( value ) ? 0.0f : value, min, max );
+			return Clamp<float>( MakeFinite( value ), min, max );
 		}
 
 		/// <summary>Returns the nearest value within the specified range.</summary>
@@ -175,42 +161,25 @@ namespace ManagedX
 		/// </returns>
 		public static double Clamp( this double value, double min, double max )
 		{
-			return Clamp<double>( double.IsNaN( value ) ? 0.0 : value, min, max );
+			return Clamp<double>( MakeFinite( value ), min, max );
 		}
 
 
-		/// <summary>Forces the value within the range [0,1].</summary>
+
+		/// <summary>Returns the nearest finite value within the range [0,1].</summary>
 		/// <param name="value">The value to be saturated.</param>
-		/// <returns>Returns 0 if <paramref name="value"/> is not a number, a negative number (including -Inf) or zero.
-		/// <para>Returns 1 if <paramref name="value"/> is greater than or equal to 1 (including +Inf).</para>
-		/// Returns <paramref name="value"/> otherwise.
-		/// </returns>
+		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static float Saturate( this float value )
 		{
-			if( float.IsNaN( value ) || float.IsNegativeInfinity( value ) || value <= 0.0f )
-				return 0.0f;
-
-			if( float.IsPositiveInfinity( value ) || value >= 1.0f )
-				return 1.0f;
-
-			return value;
+			return Clamp<float>( MakeFinite( value ), 0.0f, 1.0f );
 		}
 
-		/// <summary>Forces the value within the range [0,1].</summary>
+		/// <summary>Returns the nearest finite value within the range [0,1].</summary>
 		/// <param name="value">The value to be saturated.</param>
-		/// <returns>Returns 0 if <paramref name="value"/> is not a number, a negative number (including -Inf) or zero.
-		/// <para>Returns 1 if <paramref name="value"/> is greater than or equal to 1 (including +Inf).</para>
-		/// Returns <paramref name="value"/> otherwise.
-		/// </returns>
+		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static double Saturate( this double value )
 		{
-			if( double.IsNaN( value ) || double.IsNegativeInfinity( value ) || value <= 0.0 )
-				return 0.0;
-
-			if( double.IsPositiveInfinity( value ) || value >= 1.0 )
-				return 1.0;
-
-			return value;
+			return Clamp<double>( MakeFinite( value ), 0.0, 1.0 );
 		}
 
 		#endregion
