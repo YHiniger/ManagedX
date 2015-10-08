@@ -38,6 +38,21 @@ namespace ManagedX
 		public Size Size { get { return new Size( Math.Abs( this.Right - this.Left ), Math.Abs( this.Bottom - this.Top ) ); } }
 
 
+		/// <summary>Returns a value indicating whether the rectangle contains or intersects a point.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns></returns>
+		public ContainmentType Contains( Point point )
+		{
+			if( point.X < Left || point.X > Right || point.Y < Top || point.Y > Bottom )
+				return ContainmentType.Disjoint;
+			
+			if( ( point.X == Left || point.X == Right ) && ( point.Y == Top || point.Y == Bottom ) )
+				return ContainmentType.Intersects;
+			
+			return ContainmentType.Contains;
+		}
+
+
 		/// <summary>Returns a hash code for this <see cref="Rect"/> structure.</summary>
 		/// <returns>Returns a hash code for this <see cref="Rect"/> structure.</returns>
 		public override int GetHashCode()
@@ -68,7 +83,7 @@ namespace ManagedX
 		/// <returns>Returns a string representing this <see cref="Rect"/> structure.</returns>
 		public override string ToString()
 		{
-			return "{" + string.Format( System.Globalization.CultureInfo.InvariantCulture, "Left: {0}, Top: {1}, Right: {2}, Bottom: {3}", this.Left, this.Top, this.Right, this.Bottom ) + "}";
+			return '{' + string.Format( System.Globalization.CultureInfo.InvariantCulture, "Left: {0}, Top: {1}, Right: {2}, Bottom: {3}", this.Left, this.Top, this.Right, this.Bottom ) + '}';
 		}
 
 
