@@ -7,8 +7,8 @@ namespace ManagedX
 {
 	
 	/// <summary>A 3D vector.</summary>
-	[StructLayout( LayoutKind.Sequential, Pack = 16, Size = 12 )]
-	public struct Vector3 : IEquatable<Vector3> // TODO: , IComparable<Vector3>
+	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 12 )]
+	public struct Vector3 : IEquatable<Vector3>
 	{
 
 		/// <summary>The X component of this <see cref="Vector3"/> structure; must be a finite number.</summary>
@@ -21,12 +21,13 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y" )]
 		public float Y;
 
-
 		/// <summary>The Z component of this <see cref="Vector3"/> structure; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Z" )]
 		public float Z;
 
+
+		#region Constructors
 
 		/// <summary>Initializes a new <see cref="Vector3"/>.</summary>
 		/// <param name="x">The X component; must be a finite number.</param>
@@ -45,7 +46,7 @@ namespace ManagedX
 		/// <summary>Initializes a new <see cref="Vector3"/>.</summary>
 		/// <param name="xy">The X and Y components of the vector.</param>
 		/// <param name="z">The Z component; must be a finite number.</param>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
 		public Vector3( Vector2 xy, float z )
 		{
 			X = xy.X;
@@ -61,11 +62,13 @@ namespace ManagedX
 			X = Y = Z = xyz;
 		}
 
+		#endregion
 
-		/// <summary></summary>
+
+		/// <summary>Normalizes this <see cref="Vector3"/> value.</summary>
 		public void Normalize()
 		{
-			float length = Length( this );
+			float length = this.Length;
 			
 			if( length == 0.0f )
 				return;
@@ -74,6 +77,24 @@ namespace ManagedX
 			Y /= length;
 			Z /= length;
 		}
+
+
+		/// <summary>Inverts the sign of all this <see cref="Vector3"/>'s components.</summary>
+		public void Negate()
+		{
+			X = -X;
+			Y = -Y;
+			Z = -Z;
+		}
+
+
+		/// <summary>Gets the square of the length of this <see cref="Vector3"/> value.
+		/// <para>Note: this property is faster than <see cref="Length"/>.</para>
+		/// </summary>
+		public float LengthSquared { get { return X * X + Y * Y + Z * Z; } }
+
+		/// <summary>Gets the length of this <see cref="Vector3"/> value.</summary>
+		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z ) ); } }
 
 
 		/// <summary>Returns a hash code for this <see cref="Vector2"/> structure.</summary>
@@ -107,15 +128,6 @@ namespace ManagedX
 		public override string ToString()
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2})", X, Y, Z );
-		}
-
-
-		/// <summary></summary>
-		public void Negate()
-		{
-			X = -X;
-			Y = -Y;
-			Z = -Z;
 		}
 
 
@@ -203,31 +215,11 @@ namespace ManagedX
 	
 		/// <summary></summary>
 		/// <param name="vector3"></param>
-		/// <returns></returns>
-		public static float LengthSquared( Vector3 vector3 )
-		{
-			return vector3.X * vector3.X + vector3.Y * vector3.Y + vector3.Z * vector3.Z;
-		}
-
-		/// <summary></summary>
-		/// <param name="vector3"></param>
-		/// <returns></returns>
-		public static float Length( Vector3 vector3 )
-		{
-			return (float)Math.Sqrt( (double)( vector3.X * vector3.X + vector3.Y * vector3.Y + vector3.Z * vector3.Z ) );
-		}
-
-
-		/// <summary></summary>
-		/// <param name="vector3"></param>
 		/// <param name="other"></param>
 		/// <returns></returns>
 		public static Vector3 Min( Vector3 vector3, Vector3 other )
 		{
-			float x = Math.Min( vector3.X, other.X );
-			float y = Math.Min( vector3.Y, other.Y );
-			float z = Math.Min( vector3.Z, other.Z );
-			return new Vector3( x, y, z );
+			return new Vector3( Math.Min( vector3.X, other.X ), Math.Min( vector3.Y, other.Y ), Math.Min( vector3.Z, other.Z ) );
 		}
 
 
@@ -237,10 +229,7 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 Max( Vector3 vector3, Vector3 other )
 		{
-			float x = Math.Max( vector3.X, other.X );
-			float y = Math.Max( vector3.Y, other.Y );
-			float z = Math.Max( vector3.Z, other.Z );
-			return new Vector3( x, y, z );
+			return new Vector3( Math.Max( vector3.X, other.X ), Math.Max( vector3.Y, other.Y ), Math.Max( vector3.Z, other.Z ) );
 		}
 
 	
@@ -253,7 +242,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
 		public static void Distance( ref Vector3 vector3, ref Vector3 other, out float dist )
 		{
-			dist = Length( other - vector3 );
+			dist = ( other - vector3 ).Length;
 		}
 
 		/// <summary></summary>
@@ -262,7 +251,7 @@ namespace ManagedX
 		/// <returns></returns>
 		public static float Distance( Vector3 vector3, Vector3 other )
 		{
-			return Length( other - vector3 );
+			return ( other - vector3 ).Length;
 		}
 
 
@@ -274,14 +263,14 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
 		public static float DistanceSquared( ref Vector3 vector3, ref Vector3 other )
 		{
-			return LengthSquared( other - vector3 );
+			return ( other - vector3 ).LengthSquared;
 		}
 
 
-		/// <summary></summary>
-		/// <param name="vector3"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Returns the dot product of two <see cref="Vector3"/> values.</summary>
+		/// <param name="vector3">A valid <see cref="Vector3"/> value.</param>
+		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
+		/// <returns>Returns the dot product of the two specified <see cref="Vector3"/> values.</returns>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
 		public static float Dot( ref Vector3 vector3, ref Vector3 other )
@@ -296,7 +285,7 @@ namespace ManagedX
 		/// <summary>Equality comparer.</summary>
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
-		/// <returns></returns>
+		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public static bool operator ==( Vector3 vector3, Vector3 other )
 		{
 			return vector3.Equals( other );
@@ -306,7 +295,7 @@ namespace ManagedX
 		/// <summary>Inequality comparer.</summary>
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
-		/// <returns></returns>
+		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Vector3 vector3, Vector3 other )
 		{
 			return !vector3.Equals( other );
@@ -320,11 +309,10 @@ namespace ManagedX
 		{
 			vector3.Negate();
 			return vector3;
-			//return new Vector2( -vector2.x, -vector2.y );
 		}
 
 
-		/// <summary></summary>
+		/// <summary>Inferiority comparer.</summary>
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
@@ -334,7 +322,7 @@ namespace ManagedX
 			return ( vector3.X < other.X ) && ( vector3.Y < other.Y ) && ( vector3.Z < other.Z );
 		}
 
-		/// <summary></summary>
+		/// <summary>Inferiority or equality comparer.</summary>
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
@@ -345,7 +333,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
+		/// <summary>Superiority comparer.</summary>
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
@@ -355,7 +343,7 @@ namespace ManagedX
 			return ( vector3.X > other.X ) && ( vector3.Y > other.Y ) && ( vector3.Z > other.Z );
 		}
 
-		/// <summary></summary>
+		/// <summary>Superiority or equality comparer.</summary>
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
@@ -366,18 +354,19 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
+		/// <summary>Addition operator.</summary>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		public static Vector3 operator +( Vector3 vector3, Vector3 other )
 		{
 			return new Vector3( vector3.X + other.X, vector3.Y + other.Y, vector3.Z + other.Z );
 		}
 
-		/// <summary></summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		public static Vector3 operator -( Vector3 vector3, Vector3 other )
 		{
@@ -385,27 +374,27 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		public static Vector3 operator *( Vector3 vector3, Vector3 other )
 		{
 			return new Vector3( vector3.X * other.X, vector3.Y * other.Y, vector3.Z * other.Z );
 		}
 
-		/// <summary></summary>
-		/// <param name="vector3"></param>
-		/// <param name="value"></param>
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <returns></returns>
 		public static Vector3 operator *( Vector3 vector3, float value )
 		{
 			return new Vector3( vector3.X * value, vector3.Y * value, vector3.Z * value );
 		}
 
-		/// <summary></summary>
-		/// <param name="value"></param>
-		/// <param name="vector3"></param>
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		public static Vector3 operator *( float value, Vector3 vector3 )
 		{
@@ -413,47 +402,34 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
+		/// <summary>Division operator.</summary>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		public static Vector3 operator /( Vector3 vector3, Vector3 other )
 		{
 			return new Vector3( vector3.X / other.X, vector3.Y / other.Y, vector3.Z / other.Z );
 		}
 
-		/// <summary></summary>
-		/// <param name="vector3"></param>
-		/// <param name="value"></param>
+		/// <summary>Division operator.</summary>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
 		/// <returns></returns>
 		public static Vector3 operator /( Vector3 vector3, float value )
 		{
 			return new Vector3( vector3.X / value, vector3.Y / value, vector3.Z / value );
 		}
 
-		/// <summary></summary>
-		/// <param name="value"></param>
-		/// <param name="vector3"></param>
+		/// <summary>Division operator.</summary>
+		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
+		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		public static Vector3 operator /( float value, Vector3 vector3 )
 		{
 			return new Vector3( value / vector3.X, value / vector3.Y, value / vector3.Z );
 		}
-
 		
-		///// <summary></summary>
-		///// <param name="vector2"></param>
-		///// <param name="other"></param>
-		///// <returns></returns>
-		//public static float operator .( Vector3 vector2, Vector3 other )
-		//{
-		//	float dotProduct;
-		//	Dot( ref vector2, ref other, out dotProduct );
-		//	return dotProduct;
-		//}
-
 		#endregion
-
 
 	}
 

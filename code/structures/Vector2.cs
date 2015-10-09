@@ -48,42 +48,6 @@ namespace ManagedX
 		#endregion
 
 
-		/// <summary>Returns a hash code for this <see cref="Vector2"/> structure.</summary>
-		/// <returns>Returns a hash code for this <see cref="Vector2"/> structure.</returns>
-		public override int GetHashCode()
-		{
-			return X.GetHashCode() ^ Y.GetHashCode();
-		}
-
-		
-		/// <summary>Returns a value indicating whether this <see cref="Vector2"/> structure equals another structure of the same type.</summary>
-		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
-		public bool Equals( Vector2 other )
-		{
-			return ( X == other.X ) && ( Y == other.Y );
-		}
-
-
-		/// <summary>Returns a value indicating whether this <see cref="Vector2"/> structure is equivalent to an object.</summary>
-		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Vector2"/> structure which equals this structure, otherwise returns false.</returns>
-		public override bool Equals( object obj )
-		{
-			return ( obj is Vector2 ) && this.Equals( (Vector2)obj );
-		}
-
-		
-		/// <summary>Returns a string representing this <see cref="Vector2"/> structure, in the form:
-		/// <para>(<see cref="X"/>,<see cref="Y"/>)</para>
-		/// </summary>
-		/// <returns>Returns a string representing this <see cref="Vector2"/> structure.</returns>
-		public override string ToString()
-		{
-			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1})", X, Y );
-		}
-
-
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
 		public void Normalize()
 		{
@@ -127,7 +91,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Gets the length squared of this <see cref="Vector2"/>.
+		/// <summary>Gets the square of the length squared of this <see cref="Vector2"/>.
 		/// <para>Note: this property is faster than <see cref="Length"/>.</para>
 		/// </summary>
 		public float LengthSquared { get { return X * X + Y * Y; } }
@@ -137,6 +101,42 @@ namespace ManagedX
 		
 
 		// TODO - Transform, TransformNormal
+
+
+		/// <summary>Returns a hash code for this <see cref="Vector2"/> structure.</summary>
+		/// <returns>Returns a hash code for this <see cref="Vector2"/> structure.</returns>
+		public override int GetHashCode()
+		{
+			return X.GetHashCode() ^ Y.GetHashCode();
+		}
+
+		
+		/// <summary>Returns a value indicating whether this <see cref="Vector2"/> structure equals another structure of the same type.</summary>
+		/// <param name="other">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		public bool Equals( Vector2 other )
+		{
+			return ( X == other.X ) && ( Y == other.Y );
+		}
+
+
+		/// <summary>Returns a value indicating whether this <see cref="Vector2"/> structure is equivalent to an object.</summary>
+		/// <param name="obj">An object.</param>
+		/// <returns>Returns true if the specified object is a <see cref="Vector2"/> structure which equals this structure, otherwise returns false.</returns>
+		public override bool Equals( object obj )
+		{
+			return ( obj is Vector2 ) && this.Equals( (Vector2)obj );
+		}
+
+		
+		/// <summary>Returns a string representing this <see cref="Vector2"/> structure, in the form:
+		/// <para>(<see cref="X"/>,<see cref="Y"/>)</para>
+		/// </summary>
+		/// <returns>Returns a string representing this <see cref="Vector2"/> structure.</returns>
+		public override string ToString()
+		{
+			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1})", X, Y );
+		}
 
 
 		/// <summary>The zero <see cref="Vector2"/>.</summary>
