@@ -127,40 +127,6 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Multiplies the components of this <see cref="Vector2"/> by a value.</summary>
-		/// <param name="value">A finite single-precision floating-point number.</param>
-		public void Multiply( float value )
-		{
-			X *= value;
-			Y *= value;
-		}
-
-		/// <summary>Multiplies the components of this <see cref="Vector2"/> by another <see cref="Vector2"/>.</summary>
-		/// <param name="value">A valid <see cref="Vector2"/>.</param>
-		public void Multiply( Vector2 value )
-		{
-			X *= value.X;
-			Y *= value.Y;
-		}
-
-
-		/// <summary>Divides the components of this <see cref="Vector2"/> by a value.</summary>
-		/// <param name="value">A finite single-precision floating-point number.</param>
-		public void Divide( float value )
-		{
-			X /= value;
-			Y /= value;
-		}
-
-		/// <summary>Divides the components of this <see cref="Vector2"/> by another <see cref="Vector2"/> value.</summary>
-		/// <param name="value">A valid <see cref="Vector2"/> value.</param>
-		public void Divide( Vector2 value )
-		{
-			X /= value.X;
-			Y /= value.Y;
-		}
-
-
 		/// <summary>Gets the length squared of this <see cref="Vector2"/>.
 		/// <para>Note: this property is faster than <see cref="Length"/>.</para>
 		/// </summary>
@@ -207,6 +173,43 @@ namespace ManagedX
 			return new Vector2( vector2.X - other.X, vector2.Y - other.Y );
 		}
 
+
+		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the product of <paramref name="vector2"/> by <paramref name="other"/>.</returns>
+		public static Vector2 Multiply( Vector2 vector2, Vector2 other )
+		{
+			return new Vector2( vector2.X * other.X, vector2.Y * other.Y );
+		}
+
+		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">The multiplier; must be a finite value.</param>
+		/// <returns>Returns the product of <paramref name="vector2"/> by <paramref name="value"/>.</returns>
+		public static Vector2 Multiply( Vector2 vector2, float value )
+		{
+			return new Vector2( vector2.X * value, vector2.Y * value );
+		}
+
+
+		/// <summary>Returns the result of the division of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the result of the division of <paramref name="vector2"/> by <paramref name="other"/>.</returns>
+		public static Vector2 Divide( Vector2 vector2, Vector2 other )
+		{
+			return new Vector2( vector2.X / other.X, vector2.Y / other.Y );
+		}
+
+		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
+		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="value">The divider; must be a finite value.</param>
+		/// <returns>Returns the result of the division of <paramref name="vector2"/> by <paramref name="value"/>.</returns>
+		public static Vector2 Divide( Vector2 vector2, float value )
+		{
+			return new Vector2( vector2.X / value, vector2.Y / value );
+		}
 
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between two <see cref="Vector2"/> values.</summary>
