@@ -328,6 +328,7 @@ namespace ManagedX
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
 		public static bool operator <( Vector3 vector3, Vector3 other )
 		{
 			return ( vector3.X < other.X ) && ( vector3.Y < other.Y ) && ( vector3.Z < other.Z );
@@ -337,6 +338,7 @@ namespace ManagedX
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
 		public static bool operator <=( Vector3 vector3, Vector3 other )
 		{
 			return ( vector3.X <= other.X ) && ( vector3.Y <= other.Y ) && ( vector3.Z <= other.Z );
@@ -347,6 +349,7 @@ namespace ManagedX
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
 		public static bool operator >( Vector3 vector3, Vector3 other )
 		{
 			return ( vector3.X > other.X ) && ( vector3.Y > other.Y ) && ( vector3.Z > other.Z );
@@ -356,6 +359,7 @@ namespace ManagedX
 		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
 		public static bool operator >=( Vector3 vector3, Vector3 other )
 		{
 			return ( vector3.X >= other.X ) && ( vector3.Y >= other.Y ) && ( vector3.Z >= other.Z );
