@@ -62,7 +62,6 @@
     <Compile Include="code\structures\Vector3.cs" />
     <Compile Include="code\structures\Vector2.cs" />
     <Compile Include="code\XMath.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="README.md" />
   </ItemGroup>
