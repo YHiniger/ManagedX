@@ -7,7 +7,7 @@ namespace ManagedX
 {
 	
 	/// <summary>A 2D vector.</summary>
-	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )] // TODO - might require to be 16-bytes aligned
+	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Vector2 : IEquatable<Vector2>
 	{
 		
@@ -46,6 +46,25 @@ namespace ManagedX
 
 		
 		#endregion
+
+
+		/// <summary>Gets or sets a component of this <see cref="Vector2"/> structure, given its index.</summary>
+		/// <param name="index">The index of the concerned component: 0 for <see cref="X"/>, 1 for <see cref="Y"/>.</param>
+		/// <returns>Returns the component associated with the specified <paramref name="index"/>.</returns>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public float this[ int index ]
+		{
+			get { return ( index == 0 ) ? X : ( index == 1 ) ? Y : 0.0f; }
+			set
+			{
+				if( index == 0 )
+					X = value;
+				else if( index == 1 )
+					Y = value;
+				else
+					throw new ArgumentOutOfRangeException( "index" );
+			}
+		}
 
 
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
@@ -137,6 +156,16 @@ namespace ManagedX
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1})", X, Y );
 		}
+
+		
+		/// <summary>Returns an array containing the <see cref="X"/> and <see cref="Y"/> components of this <see cref="Vector2"/> structure.</summary>
+		/// <returns>Returns an array containing the <see cref="X"/> and <see cref="Y"/> components of this <see cref="Vector2"/> structure.</returns>
+		public float[] ToArray()
+		{
+			return new float[] { X, Y };
+		}
+
+
 
 
 		/// <summary>The zero <see cref="Vector2"/>.</summary>
@@ -233,27 +262,29 @@ namespace ManagedX
 
 	
 
-		/// <summary>Returns the distance between two <see cref="Vector2"/> positions.</summary>
+		/// <summary>Calculates the distance between two <see cref="Vector2"/> positions.</summary>
 		/// <param name="vector2">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
-		/// <returns>Returns the distance between the two specified <see cref="Vector2"/> positions.</returns>
+		/// <param name="result">Receives the distance between the two specified <see cref="Vector2"/> positions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		public static float Distance( ref Vector2 vector2, ref Vector2 other )
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Distance( ref Vector2 vector2, ref Vector2 other, out float result )
 		{
-			return vector2.DistanceTo( other );
+			result = vector2.DistanceTo( other );
 		}
 
 
 		/// <summary>Returns the square of the distance (=distance²) between two <see cref="Vector2"/> positions.</summary>
 		/// <param name="vector2">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
-		/// <returns>Returns the distance squared between the two specified <see cref="Vector2"/> positions.</returns>
+		/// <param name="result">Receives the square of the distance between the two specified <see cref="Vector2"/> positions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		public static float DistanceSquared( ref Vector2 vector2, ref Vector2 other )
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void DistanceSquared( ref Vector2 vector2, ref Vector2 other, out float result )
 		{
-			return ( other - vector2 ).LengthSquared;
+			result = ( other - vector2 ).LengthSquared;
 		}
 
 
@@ -261,24 +292,27 @@ namespace ManagedX
 		/// <summary>Returns the dot product of two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
-		/// <returns>Returns the dot product of two <see cref="Vector2"/> values.</returns>
+		/// <param name="result">Receives the dot product of two <see cref="Vector2"/> values.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		public static float Dot( ref Vector2 vector2, ref Vector2 other )
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Dot( ref Vector2 vector2, ref Vector2 other, out float result )
 		{
-			return vector2.X * other.X + vector2.Y * other.Y;
+			result = vector2.X * other.X + vector2.Y * other.Y;
 		}
 
 
 		/// <summary>Determines the reflect vector of the given vector and normal.</summary>
 		/// <param name="vector">Source vector.</param>
 		/// <param name="normal">Normal of vector.</param>
+		/// <param name="result">Receives the reflected vector.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		public static Vector2 Reflect( ref Vector2 vector, ref Vector2 normal )
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Reflect( ref Vector2 vector, ref Vector2 normal, out Vector2 result )
 		{
 			float dot = vector.X * normal.X + vector.Y * normal.Y;
-			return new Vector2(
+			result = new Vector2(
 				vector.X - 2.0f * dot * normal.X,
 				vector.Y - 2.0f * dot * normal.Y
 			);

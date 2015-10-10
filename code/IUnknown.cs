@@ -18,8 +18,8 @@ namespace System.ComponentModel
 		/// <param name="guid">The guid of the interface.</param>
 		/// <param name="comObject">The output COM object reference.</param>
 		/// <returns>Returns an HRESULT.</returns>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Required by implementation." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Required by implementation." )]
 		[PreserveSig]
 		int QueryInterface(
 			[In] ref Guid guid,

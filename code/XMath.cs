@@ -184,6 +184,26 @@ namespace ManagedX
 
 		#endregion
 
+
+		/// <summary>Returns the square root of a value.</summary>
+		/// <param name="value">A finite single-precision (32bit) floating-point value.</param>
+		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Sqrt( float value )
+		{
+			return (float)Math.Sqrt( (double)value );
+		}
+
+
+		/// <summary>Returns the square root of a value.</summary>
+		/// <param name="value">A finite double-precision (64bit) floating-point value.</param>
+		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double Sqrt( double value )
+		{
+			return Math.Sqrt( value );
+		}
+
 	}
 
 }

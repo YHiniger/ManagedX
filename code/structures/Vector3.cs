@@ -69,13 +69,12 @@ namespace ManagedX
 		public void Normalize()
 		{
 			float length = this.Length;
-			
-			if( length == 0.0f )
-				return;
-			
-			X /= length;
-			Y /= length;
-			Z /= length;
+			if( length != 0.0f )
+			{
+				X /= length;
+				Y /= length;
+				Z /= length;
+			}
 		}
 
 
@@ -105,71 +104,36 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Returns a value indicating whether this <see cref="Vector3"/> structure equals another structure of the same type.</summary>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public bool Equals( Vector3 other )
 		{
 			return ( X == other.X ) && ( Y == other.Y ) && ( Z == other.Z );
 		}
 
 
-		/// <summary></summary>
-		/// <param name="obj"></param>
-		/// <returns></returns>
+		/// <summary>Returns a value indicating whether this <see cref="Vector3"/> structure is equivalent to an object.</summary>
+		/// <param name="obj">An object.</param>
+		/// <returns>Returns true if the specified object is a <see cref="Vector3"/> structure which equals this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Vector3 ) && this.Equals( (Vector3)obj );
 		}
 
-		
-		/// <summary></summary>
-		/// <returns></returns>
+
+		/// <summary>Returns a string representing this <see cref="Vector2"/> structure, in the form:
+		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>)</para>
+		/// </summary>
+		/// <returns>Returns a string representing this <see cref="Vector2"/> structure.</returns>
 		public override string ToString()
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2})", X, Y, Z );
 		}
 
 
-		/// <summary></summary>
-		/// <param name="value"></param>
-		public void Multiply( float value )
-		{
-			X *= value;
-			Y *= value;
-			Z *= value;
-		}
-
-		/// <summary></summary>
-		/// <param name="value"></param>
-		public void Multiply( Vector3 value )
-		{
-			X *= value.X;
-			Y *= value.Y;
-			Z *= value.Z;
-		}
-
-
-		/// <summary></summary>
-		/// <param name="value"></param>
-		public void Divide( float value )
-		{
-			X /= value;
-			Y /= value;
-			Z /= value;
-		}
-
-		/// <summary></summary>
-		/// <param name="value"></param>
-		public void Divide( Vector3 value )
-		{
-			X /= value.X;
-			Y /= value.Y;
-			Z /= value.Z;
-		}
-
-
 		// TODO - Transform, TransformNormal, Reflect, SmoothStep, Lerp, Hermite, Barycentric, CatmullRom, Clamp
+
 
 		/// <summary>The zero <see cref="Vector3"/> structure.</summary>
 		public static readonly Vector3 Zero = new Vector3();
@@ -211,6 +175,52 @@ namespace ManagedX
 		{
 			return new Vector3( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z );
 		}
+
+
+		/// <summary>Multiplies two <see cref="Vector3"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Multiply( ref Vector3 vector, ref Vector3 other, out Vector3 result )
+		{
+			result = new Vector3( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z );
+		}
+
+		/// <summary>Multiplies two <see cref="Vector3"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
+		public static Vector3 Multiply( Vector3 vector, Vector3 other )
+		{
+			return new Vector3( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z );
+		}
+
+
+		/// <summary>Divides a <see cref="Vector3"/> by another <see cref="Vector3"/>.</summary>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
+		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Divide( ref Vector3 vector, ref Vector3 other, out Vector3 result )
+		{
+			result = new Vector3( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z );
+		}
+
+		
+		/// <summary>Divides a <see cref="Vector3"/> by another <see cref="Vector3"/>.</summary>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
+		public static Vector3 Divide( Vector3 vector, Vector3 other )
+		{
+			return new Vector3( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z );
+		}
+
 
 	
 		/// <summary></summary>
