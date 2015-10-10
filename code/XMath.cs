@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace ManagedX
 {
 
-	/// <summary>Provides access to common math constants and functions, as well as extension methods to <see cref="float"/> and <see cref="double"/>.</summary>
+	/// <summary>Provides common math constants and functions, as well as extension methods to <see cref="float"/> and <see cref="double"/>.</summary>
 	public static class XMath
 	{
 
@@ -28,37 +28,7 @@ namespace ManagedX
 
 		
 		/// <summary>Defines the value of the golden number.</summary>
-		public const float GoldenRatio = 1.61803398875f; // (float)( 1.0 + Math.Sqrt( 5.0 ) ) / 2.0 )
-
-		#endregion
-
-
-		#region Lerp
-
-		/// <summary>Performs a linear interpolation between two single-precision floating-point values.</summary>
-		/// <param name="from">The source value.</param>
-		/// <param name="to">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
-		/// <returns></returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Lerp( float from, float to, float amount )
-		{
-			return from + ( to - from ) * amount;
-			//return from * ( 1.0f - amount ) + to * amount;
-		}
-
-
-		/// <summary>Performs a linear interpolation between two double-precision floating-point values.</summary>
-		/// <param name="from">The source value.</param>
-		/// <param name="to">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
-		/// <returns></returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double Lerp( double from, double to, double amount )
-		{
-			return from + ( to - from ) * amount;
-			//return from * ( 1.0 - amount ) + to * amount;
-		}
+		public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
 		#endregion
 
@@ -92,6 +62,60 @@ namespace ManagedX
 			radians %= TwoPi; // TODO - use Math.IEEERemainder ?
 			return ( radians <= -Pi ) ? radians + TwoPi : ( radians >= Pi ) ? radians - TwoPi : radians;
 		}
+
+
+		#region Lerp
+
+		/// <summary>Performs a linear interpolation between two single-precision floating-point values.</summary>
+		/// <param name="from">The source value.</param>
+		/// <param name="to">The target value.</param>
+		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
+		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Lerp( float from, float to, float amount )
+		{
+			return from + ( to - from ) * amount;
+			//return from * ( 1.0f - amount ) + to * amount;
+		}
+
+
+		/// <summary>Performs a linear interpolation between two double-precision floating-point values.</summary>
+		/// <param name="from">The source value.</param>
+		/// <param name="to">The target value.</param>
+		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
+		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double Lerp( double from, double to, double amount )
+		{
+			return from + ( to - from ) * amount;
+			//return from * ( 1.0 - amount ) + to * amount;
+		}
+
+		#endregion
+
+
+		#region Sqrt
+
+		/// <summary>Returns the square root of a value.</summary>
+		/// <param name="value">A finite single-precision (32bit) floating-point value.</param>
+		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Sqrt( float value )
+		{
+			return (float)Math.Sqrt( (double)value );
+		}
+
+
+		/// <summary>Returns the square root of a value.</summary>
+		/// <param name="value">A finite double-precision (64bit) floating-point value.</param>
+		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double Sqrt( double value )
+		{
+			return Math.Sqrt( value );
+		}
+
+		#endregion
 
 
 		#region Extension methods (MakeFinite, Clamp, Saturate)
@@ -183,26 +207,6 @@ namespace ManagedX
 		}
 
 		#endregion
-
-
-		/// <summary>Returns the square root of a value.</summary>
-		/// <param name="value">A finite single-precision (32bit) floating-point value.</param>
-		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Sqrt( float value )
-		{
-			return (float)Math.Sqrt( (double)value );
-		}
-
-
-		/// <summary>Returns the square root of a value.</summary>
-		/// <param name="value">A finite double-precision (64bit) floating-point value.</param>
-		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double Sqrt( double value )
-		{
-			return Math.Sqrt( value );
-		}
 
 	}
 

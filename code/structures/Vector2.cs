@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace ManagedX
 {
 	
-	/// <summary>A 2D vector.</summary>
+	/// <summary>A 2D vector, also used to represent coordinates.</summary>
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Vector2 : IEquatable<Vector2>
 	{
@@ -25,7 +25,7 @@ namespace ManagedX
 		#region Constructors
 
 
-		/// <summary>Initializes a new <see cref="Vector2"/>.</summary>
+		/// <summary>Initializes a new <see cref="Vector2"/> structure.</summary>
 		/// <param name="x">The x component.</param>
 		/// <param name="y">The y component.</param>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
@@ -37,7 +37,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Initializes a new <see cref="Vector2"/>.</summary>
+		/// <summary>Initializes a new <see cref="Vector2"/> structure.</summary>
 		/// <param name="xy">The value used for both <see cref="X"/> and <see cref="Y"/> components.</param>
 		public Vector2( float xy )
 		{
@@ -48,23 +48,23 @@ namespace ManagedX
 		#endregion
 
 
-		/// <summary>Gets or sets a component of this <see cref="Vector2"/> structure, given its index.</summary>
-		/// <param name="index">The index of the concerned component: 0 for <see cref="X"/>, 1 for <see cref="Y"/>.</param>
-		/// <returns>Returns the component associated with the specified <paramref name="index"/>.</returns>
-		/// <exception cref="ArgumentOutOfRangeException"/>
-		public float this[ int index ]
-		{
-			get { return ( index == 0 ) ? X : ( index == 1 ) ? Y : 0.0f; }
-			set
-			{
-				if( index == 0 )
-					X = value;
-				else if( index == 1 )
-					Y = value;
-				else
-					throw new ArgumentOutOfRangeException( "index" );
-			}
-		}
+		///// <summary>Gets or sets a component of this <see cref="Vector2"/> structure, given its index.</summary>
+		///// <param name="index">The index of the concerned component: 0 for <see cref="X"/>, 1 for <see cref="Y"/>.</param>
+		///// <returns>Returns the component associated with the specified <paramref name="index"/>.</returns>
+		///// <exception cref="ArgumentOutOfRangeException"/>
+		//public float this[ int index ]
+		//{
+		//	get { return ( index == 0 ) ? X : ( index == 1 ) ? Y : 0.0f; }
+		//	set
+		//	{
+		//		if( index == 0 )
+		//			X = value;
+		//		else if( index == 1 )
+		//			Y = value;
+		//		else
+		//			throw new ArgumentOutOfRangeException( "index" );
+		//	}
+		//}
 
 
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
@@ -92,9 +92,9 @@ namespace ManagedX
 		/// <returns>Returns the distance between this <see cref="Vector2"/> and the <paramref name="other"/> <see cref="Vector2"/>.</returns>
 		public float DistanceTo( Vector2 other )
 		{
-			var x = X - other.X;
-			var y = Y - other.Y;
-			return (float)Math.Sqrt( (double)( x * x + y * y ) );
+			var x = other.X - X;
+			var y = other.Y - Y;
+			return XMath.Sqrt( x * x + y * y );
 		}
 
 
@@ -110,13 +110,13 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Gets the square of the length squared of this <see cref="Vector2"/>.
+		/// <summary>Gets the square of the length of this <see cref="Vector2"/>.
 		/// <para>Note: this property is faster than <see cref="Length"/>.</para>
 		/// </summary>
 		public float LengthSquared { get { return X * X + Y * Y; } }
 
 		/// <summary>Gets the length of this <see cref="Vector2"/>.</summary>
-		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y ) ); } }
+		public float Length { get { return XMath.Sqrt( X * X + Y * Y ); } }
 		
 
 		// TODO - Transform, TransformNormal
@@ -184,121 +184,155 @@ namespace ManagedX
 
 
 		/// <summary>Adds two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
-		/// <returns>Returns the result of ( <paramref name="vector2"/> + <paramref name="other"/> ).</returns>
-		public static Vector2 Add( Vector2 vector2, Vector2 other )
+		/// <returns>Returns the result of ( <paramref name="vector"/> + <paramref name="other"/> ).</returns>
+		public static Vector2 Add( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X + other.X, vector2.Y + other.Y );
+			return new Vector2( vector.X + other.X, vector.Y + other.Y );
 		}
 
 
-		/// <summary>Subtracts a <see cref="Vector2"/> value (<paramref name="other"/>) from another <see cref="Vector2"/> value (<paramref name="vector2"/>).</summary>
-		/// <param name="vector2">The initial <see cref="Vector2"/> value.</param>
+		/// <summary>Subtracts a <see cref="Vector2"/> value (<paramref name="other"/>) from another <see cref="Vector2"/> value (<paramref name="vector"/>).</summary>
+		/// <param name="vector">The initial <see cref="Vector2"/> value.</param>
 		/// <param name="other">The subtracted <see cref="Vector2"/> value.</param>
-		/// <returns>Returns the result of ( <paramref name="vector2"/> - <paramref name="other"/> ).</returns>
-		public static Vector2 Subtract( Vector2 vector2, Vector2 other )
+		/// <returns>Returns the result of ( <paramref name="vector"/> - <paramref name="other"/> ).</returns>
+		public static Vector2 Subtract( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X - other.X, vector2.Y - other.Y );
+			return new Vector2( vector.X - other.X, vector.Y - other.Y );
 		}
 
 
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
-		/// <returns>Returns the product of <paramref name="vector2"/> by <paramref name="other"/>.</returns>
-		public static Vector2 Multiply( Vector2 vector2, Vector2 other )
+		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
+		public static Vector2 Multiply( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X * other.X, vector2.Y * other.Y );
+			return new Vector2( vector.X * other.X, vector.Y * other.Y );
 		}
 
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="value">The multiplier; must be a finite value.</param>
-		/// <returns>Returns the product of <paramref name="vector2"/> by <paramref name="value"/>.</returns>
-		public static Vector2 Multiply( Vector2 vector2, float value )
+		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</returns>
+		public static Vector2 Multiply( Vector2 vector, float value )
 		{
-			return new Vector2( vector2.X * value, vector2.Y * value );
+			return new Vector2( vector.X * value, vector.Y * value );
 		}
 
 
 		/// <summary>Returns the result of the division of two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
-		/// <returns>Returns the result of the division of <paramref name="vector2"/> by <paramref name="other"/>.</returns>
-		public static Vector2 Divide( Vector2 vector2, Vector2 other )
+		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
+		public static Vector2 Divide( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X / other.X, vector2.Y / other.Y );
+			return new Vector2( vector.X / other.X, vector.Y / other.Y );
 		}
 
 		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
-		/// <param name="value">The divider; must be a finite value.</param>
-		/// <returns>Returns the result of the division of <paramref name="vector2"/> by <paramref name="value"/>.</returns>
-		public static Vector2 Divide( Vector2 vector2, float value )
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="value">The divider; must be a finite, non-zero value.</param>
+		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
+		public static Vector2 Divide( Vector2 vector, float value )
 		{
-			return new Vector2( vector2.X / value, vector2.Y / value );
+			return new Vector2( vector.X / value, vector.Y / value );
 		}
 
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between the two <see cref="Vector2"/> values.</returns>
-		public static Vector2 Min( Vector2 vector2, Vector2 other )
+		public static Vector2 Min( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( Math.Min( vector2.X, other.X ), Math.Min( vector2.Y, other.Y ) );
+			return new Vector2( Math.Min( vector.X, other.X ), Math.Min( vector.Y, other.Y ) );
 		}
 
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</returns>
-		public static Vector2 Max( Vector2 vector2, Vector2 other )
+		public static Vector2 Max( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( Math.Max( vector2.X, other.X ), Math.Max( vector2.Y, other.Y ) );
+			return new Vector2( Math.Max( vector.X, other.X ), Math.Max( vector.Y, other.Y ) );
 		}
 
 	
 
 		/// <summary>Calculates the distance between two <see cref="Vector2"/> positions.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> position.</param>
+		/// <param name="position">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="result">Receives the distance between the two specified <see cref="Vector2"/> positions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		public static void Distance( ref Vector2 vector2, ref Vector2 other, out float result )
+		public static void Distance( ref Vector2 position, ref Vector2 other, out float result )
 		{
-			result = vector2.DistanceTo( other );
+			var x = other.X - position.X;
+			var y = other.Y - position.Y;
+			result = XMath.Sqrt( x * x + y * y );
+		}
+
+		/// <summary>Returns the distance between two <see cref="Vector2"/> positions.</summary>
+		/// <param name="position">A valid <see cref="Vector2"/> position.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
+		/// <returns>Returns the distance between the two specified <see cref="Vector2"/> positions.</returns>
+		public static float Distance( Vector2 position, Vector2 other )
+		{
+			var x = other.X - position.X;
+			var y = other.Y - position.Y;
+			return XMath.Sqrt( x * x + y * y );
 		}
 
 
-		/// <summary>Returns the square of the distance (=distance²) between two <see cref="Vector2"/> positions.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> position.</param>
+		/// <summary>Calculates the square of the distance (=distance²) between two <see cref="Vector2"/> positions.</summary>
+		/// <param name="position">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="result">Receives the square of the distance between the two specified <see cref="Vector2"/> positions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		public static void DistanceSquared( ref Vector2 vector2, ref Vector2 other, out float result )
+		public static void DistanceSquared( ref Vector2 position, ref Vector2 other, out float result )
 		{
-			result = ( other - vector2 ).LengthSquared;
+			var x = other.X - position.X;
+			var y = other.Y - position.Y;
+			result = x * x + y * y;
+		}
+
+		/// <summary>Returns the square of the distance between two <see cref="Vector2"/> positions.</summary>
+		/// <param name="position">A valid <see cref="Vector2"/> position.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
+		/// <returns>Returns the square of the distance between the two specified <see cref="Vector2"/> positions.</returns>
+		public static float DistanceSquared( Vector2 position, Vector2 other )
+		{
+			var x = other.X - position.X;
+			var y = other.Y - position.Y;
+			return x * x + y * y;
 		}
 
 
-
-		/// <summary>Returns the dot product of two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector2">A valid <see cref="Vector2"/> structure.</param>
+		/// <summary>Calculates the dot product of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="result">Receives the dot product of two <see cref="Vector2"/> values.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		public static void Dot( ref Vector2 vector2, ref Vector2 other, out float result )
+		public static void Dot( ref Vector2 vector, ref Vector2 other, out float result )
 		{
-			result = vector2.X * other.X + vector2.Y * other.Y;
+			result = vector.X * other.X + vector.Y * other.Y;
+		}
+
+		/// <summary>Returns the dot product of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the dot product of the two specified <see cref="Vector2"/>.</returns>
+		public static float Dot( Vector2 vector, Vector2 other )
+		{
+			return vector.X * other.X + vector.Y * other.Y;
 		}
 
 
@@ -311,24 +345,82 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Reflect( ref Vector2 vector, ref Vector2 normal, out Vector2 result )
 		{
-			float dot = vector.X * normal.X + vector.Y * normal.Y;
+			float dot2 = ( vector.X * normal.X + vector.Y * normal.Y ) * 2.0f;
 			result = new Vector2(
-				vector.X - 2.0f * dot * normal.X,
-				vector.Y - 2.0f * dot * normal.Y
+				vector.X - dot2 * normal.X,
+				vector.Y - dot2 * normal.Y
+			);
+		}
+
+		/// <summary>Determines the reflect vector of the given vector and normal.</summary>
+		/// <param name="vector">The source vector.</param>
+		/// <param name="normal">The normal of vector.</param>
+		/// <returns>Returns the reflected vector.</returns>
+		public static Vector2 Reflect( Vector2 vector, Vector2 normal )
+		{
+			float dot2 = ( vector.X * normal.X + vector.Y * normal.Y ) * 2.0f;
+			return new Vector2(
+				vector.X - dot2 * normal.X,
+				vector.Y - dot2 * normal.Y
 			);
 		}
 
 
 		/// <summary>Performs a linear interpolation between two vectors.</summary>
-		/// <param name="vector1">Source vector.</param>
-		/// <param name="vector2">Source vector.</param>
-		/// <param name="amount">Value between 0 and 1 indicating the weight of <paramref name="vector2"/>.</param>
-		public static Vector2 Lerp( Vector2 vector1, Vector2 vector2, float amount )
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
+		/// <param name="result">Receives the result of the linear interpolation.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		public static void Lerp( ref Vector2 source, ref Vector2 target, float amount, out Vector2 result )
+		{
+			result = new Vector2(
+				XMath.Lerp( source.X, target.X, amount ),
+				XMath.Lerp( source.Y, target.Y, amount )
+			);
+		}
+
+		/// <summary>Performs a linear interpolation between two vectors.</summary>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
+		/// <returns>Returns the result of the linear interpolation between the two specified <see cref="Vector2"/>.</returns>
+		public static Vector2 Lerp( Vector2 source, Vector2 target, float amount )
 		{
 			return new Vector2(
-				vector1.X + ( vector2.X - vector1.X ) * amount,
-				vector1.Y + ( vector2.Y - vector1.Y ) * amount
+				XMath.Lerp( source.X, target.X, amount ),
+				XMath.Lerp( source.Y, target.Y, amount )
 			);
+		}
+
+
+		/// <summary>Interpolates between two values using a cubic equation.</summary>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The weighting factor; will be saturated.</param>
+		/// <param name="result">Receives the result of the cubic interpolation.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		public static void SmoothStep( ref Vector2 source, ref Vector2 target, float amount, out Vector2 result )
+		{
+			amount = amount.Saturate();
+			Lerp( ref source, ref target, amount * amount * ( 3.0f - 2.0f * amount ), out result );
+		}
+
+		/// <summary>Interpolates between two values using a cubic equation.</summary>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The weighting factor; will be saturated.</param>
+		/// <returns>Returns the result of the cubic interpolation.</returns>
+		public static Vector2 SmoothStep( Vector2 source, Vector2 target, float amount )
+		{
+			amount = amount.Saturate();
+			Vector2 result;
+			Lerp( ref source, ref target, amount * amount * ( 3.0f - 2.0f * amount ), out result );
+			return result;
 		}
 
 
@@ -347,22 +439,6 @@ namespace ManagedX
 		}
 
 		
-		/// <summary>Interpolates between two values using a cubic equation.</summary>
-		/// <param name="value1">Source value.</param>
-		/// <param name="value2">Source value.</param>
-		/// <param name="amount">Weighting value.</param>
-		public static Vector2 SmoothStep( Vector2 value1, Vector2 value2, float amount )
-		{
-			amount = amount.Saturate();
-			amount = amount * amount * ( 3.0f - 2.0f * amount );
-			
-			return new Vector2(
-				value1.X + ( value2.X - value1.X ) * amount,
-				value1.Y + ( value2.Y - value1.Y ) * amount
-			);
-		}
-
-
 		/// <summary>Performs a Catmull-Rom interpolation.</summary>
 		/// <param name="value1">The first value in the interpolation.</param>
 		/// <param name="value2">The second value in the interpolation.</param>
@@ -388,13 +464,16 @@ namespace ManagedX
 		/// <param name="amount">Weighting factor.</param>
 		public static Vector2 Hermite( Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount )
 		{
-			float amount2 = amount * amount;
-			float amount3 = amount * amount2;
+			float amountSquared = amount * amount;
+			float amountCubed = amount * amountSquared;
 			
-			float a = 2.0f * amount3 - 3.0f * amount2 + 1.0f;
-			float b = -2.0f * amount3 + 3.0f * amount2;
-			float c = amount3 - 2.0f * amount2 + amount;
-			float d = amount3 - amount2;
+			float amountSquared3 = 3.0f * amountSquared;
+			float amountCubed2 = 2.0f * amountCubed;
+
+			float a = amountCubed2 - amountSquared3 + 1.0f;
+			float b = -amountCubed2 + amountSquared3;
+			float c = amountCubed - 2.0f * amountSquared + amount;
+			float d = amountCubed - amountSquared;
 			
 			return new Vector2(
 				value1.X * a + value2.X * b + tangent1.X * c + tangent2.X * d,
