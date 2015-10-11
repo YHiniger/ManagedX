@@ -14,11 +14,11 @@ namespace ManagedX
 	public struct Size : IEquatable<Size>
 	{
 
-		/// <summary>The width component of this <see cref="Size"/> structure.</summary>
+		/// <summary>The width component of this <see cref="Size"/> structure; should be greater than or equal to zero.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Width;
-		
-		/// <summary>The height component of this <see cref="Size"/> structure.</summary>
+
+		/// <summary>The height component of this <see cref="Size"/> structure; should be greater than or equal to zero.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Height;
 
@@ -91,16 +91,18 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Subtracts a <see cref="Size"/> (<paramref name="other"/>) from another <see cref="Size"/> (<paramref name="size"/>).
-		/// <para>Beware that the returned value is a <see cref="Point"/> structure. This happens because the result might contain negative values, which is invalid for a size.</para>
-		/// </summary>
+		/// <summary>Subtracts a <see cref="Size"/> (<paramref name="other"/>) from another <see cref="Size"/> (<paramref name="size"/>).</summary>
 		/// <param name="size">A <see cref="Size"/> structure.</param>
 		/// <param name="other">A <see cref="Size"/> structure.</param>
-		/// <returns>Returns a <see cref="Point"/> structure initialized with the result of ( <paramref name="size"/> - <paramref name="other"/> ).</returns>
+		/// <returns>Returns a <see cref="Size"/> structure initialized with the result of ( <paramref name="size"/> - <paramref name="other"/> ).</returns>
 		[ComVisible( false )]
-		public static Point Subtract( Size size, Size other )
+		public static Size Subtract( Size size, Size other )
 		{
-			return new Point( size.Width - other.Width, size.Height - other.Height );
+			return new Size()
+			{
+				Width = size.Width - other.Width,
+				Height = size.Height - other.Height
+			};
 		}
 
 
@@ -123,6 +125,50 @@ namespace ManagedX
 		public static bool operator !=( Size size, Size other )
 		{
 			return !size.Equals( other );
+		}
+
+
+		/// <summary>Inferiority comparer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator <( Size size, Size other )
+		{
+			return ( size.Width < other.Width ) && ( size.Height < other.Height );
+		}
+
+
+		/// <summary>Inferiority or equality comparer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator <=( Size size, Size other )
+		{
+			return ( size.Width <= other.Width ) && ( size.Height <= other.Height );
+		}
+
+
+		/// <summary>Superiority comparer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator >( Size size, Size other )
+		{
+			return ( size.Width > other.Width ) && ( size.Height > other.Height );
+		}
+
+
+		/// <summary>Superiority or equality comparer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator >=( Size size, Size other )
+		{
+			return ( size.Width >= other.Width ) && ( size.Height >= other.Height );
 		}
 
 

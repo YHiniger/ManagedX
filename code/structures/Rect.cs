@@ -2,14 +2,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-// Comments checked (2015/09/23)
-
 
 namespace ManagedX
 {
 
 	/// <summary>Defines the coordinates of the upper-left and lower-right corners of a rectangle.</summary>
 	[System.Diagnostics.DebuggerStepThrough]
+	[Serializable]
+	[ComVisible( true )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct Rect : IEquatable<Rect>
 	{
@@ -32,24 +32,54 @@ namespace ManagedX
 
 
 		/// <summary>Gets the position of the upper left corner of the rectangle.</summary>
-		public Point Position { get { return new Point( this.Left, this.Top ); } }
+		public Point Location { get { return new Point( this.Left, this.Top ); } }
 
 		/// <summary>Gets the size of the rectangle.</summary>
 		public Size Size { get { return new Size( Math.Abs( this.Right - this.Left ), Math.Abs( this.Bottom - this.Top ) ); } }
 
 
-		/// <summary>Returns a value indicating whether the rectangle contains or intersects a point.</summary>
+		/// <summary>Returns a value indicating whether this rectangle contains or intersects a point.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <returns></returns>
+		/// <returns>Returns a value indicating whether this rectangle contains or intersects a point.</returns>
 		public ContainmentType Contains( Point point )
 		{
-			if( point.X < Left || point.X > Right || point.Y < Top || point.Y > Bottom )
-				return ContainmentType.Disjoint;
-			
-			if( ( point.X == Left || point.X == Right ) && ( point.Y == Top || point.Y == Bottom ) )
+			if( point.X > this.Left || point.X < this.Right || point.Y > this.Top || point.Y < this.Bottom )
+				return ContainmentType.Contains;
+
+			if( ( point.X == this.Left || point.X == this.Right ) && ( point.Y == this.Top || point.Y == this.Bottom ) )
 				return ContainmentType.Intersects;
 			
-			return ContainmentType.Contains;
+			return ContainmentType.Disjoint;
+		}
+
+
+		/// <summary>Returns a value indicating whether this rectangle contains or intersects a rectangle.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns a value indicating whether this rectangle contains or intersects another rectangle.</returns>
+		public ContainmentType Contains( Rect rect )
+		{
+			var points = new Point[]
+			{
+				new Point( rect.Left, rect.Top ),
+				new Point( rect.Left, rect.Bottom ),
+				new Point( rect.Right, rect.Bottom ),
+				new Point( rect.Right, rect.Top )
+			};
+			
+			int contained = 0;
+			for( int p = 0; p < 4; p++ )
+				if( this.Contains( points[ p ] ) != ContainmentType.Disjoint )
+					contained++;
+
+			if( contained == 0 )
+				return ContainmentType.Disjoint;
+
+			if( contained == 4 )
+				if( !this.Equals( rect ) )
+					return ContainmentType.Contains;
+			// rectangles might be the same, in which case they're intersecting each other (because they can't contain each other...)
+
+			return ContainmentType.Intersects;
 		}
 
 
@@ -83,7 +113,7 @@ namespace ManagedX
 		/// <returns>Returns a string representing this <see cref="Rect"/> structure.</returns>
 		public override string ToString()
 		{
-			return '{' + string.Format( System.Globalization.CultureInfo.InvariantCulture, "Left: {0}, Top: {1}, Right: {2}, Bottom: {3}", this.Left, this.Top, this.Right, this.Bottom ) + '}';
+			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{{Left: {0}, Top: {1}, Right: {2}, Bottom: {3}}}", this.Left, this.Top, this.Right, this.Bottom );
 		}
 
 

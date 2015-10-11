@@ -91,20 +91,22 @@ namespace ManagedX
 		public static readonly Point Zero = new Point();
 
 
-		/// <summary></summary>
-		/// <param name="point"></param>
-		/// <returns></returns>
+		/// <summary>Returns a <see cref="Point"/> initialized with coordinates opposite to the specified <see cref="Point"/>.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns a <see cref="Point"/> initialized with coordinates opposite to the specified <see cref="Point"/>.</returns>
 		[ComVisible( false )]
 		public static Point Negate( Point point )
 		{
-			return -point;
+			point.X = -point.X;
+			point.Y = -point.Y;
+			return point;
 		}
 
 
-		/// <summary></summary>
-		/// <param name="point"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Adds two <see cref="Point"/> values.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of ( <paramref name="point"/> + <paramref name="other"/> ).</returns>
 		[ComVisible( false )]
 		public static Point Add( Point point, Point other )
 		{
@@ -113,14 +115,14 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="point"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Subtracts a <see cref="Point"/> value (<paramref name="other"/>) from another <see cref="Point"/> (<paramref name="point"/>).</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of ( <paramref name="point"/> - <paramref name="other"/> ).</returns>
 		[ComVisible( false )]
 		public static Point Subtract( Point point, Point other )
 		{
-			point.Offset( -other );
+			point.Offset( Negate( other ) );
 			return point;
 		}
 
@@ -147,6 +149,50 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Inferiority comparer.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator <( Point point, Point other )
+		{
+			return ( point.X < other.X ) && ( point.Y < other.Y );
+		}
+
+
+		/// <summary>Inferiority or equality comparer.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator <=( Point point, Point other )
+		{
+			return ( point.X <= other.X ) && ( point.Y <= other.Y );
+		}
+
+
+		/// <summary>Superiority comparer.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator >( Point point, Point other )
+		{
+			return ( point.X > other.X ) && ( point.Y > other.Y );
+		}
+
+
+		/// <summary>Superiority or equality comparer.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		public static bool operator >=( Point point, Point other )
+		{
+			return ( point.X >= other.X ) && ( point.Y >= other.Y );
+		}
+
+	
 		/// <summary>Negation operator.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <returns>Returns a <see cref="Point"/> structure initialized with values opposite to the specified <paramref name="point"/>.</returns>
@@ -175,7 +221,7 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="point"/> - <paramref name="other"/> ).</returns>
 		public static Point operator -( Point point, Point other )
 		{
-			point.Offset( -other );
+			point.Offset( Negate( other ) );
 			return point;
 		}
 
