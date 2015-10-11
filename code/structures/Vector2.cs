@@ -7,6 +7,7 @@ namespace ManagedX
 {
 	
 	/// <summary>A 2D vector, also used to represent coordinates.</summary>
+	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Vector2 : IEquatable<Vector2>
 	{
@@ -46,25 +47,6 @@ namespace ManagedX
 
 		
 		#endregion
-
-
-		///// <summary>Gets or sets a component of this <see cref="Vector2"/> structure, given its index.</summary>
-		///// <param name="index">The index of the concerned component: 0 for <see cref="X"/>, 1 for <see cref="Y"/>.</param>
-		///// <returns>Returns the component associated with the specified <paramref name="index"/>.</returns>
-		///// <exception cref="ArgumentOutOfRangeException"/>
-		//public float this[ int index ]
-		//{
-		//	get { return ( index == 0 ) ? X : ( index == 1 ) ? Y : 0.0f; }
-		//	set
-		//	{
-		//		if( index == 0 )
-		//			X = value;
-		//		else if( index == 1 )
-		//			Y = value;
-		//		else
-		//			throw new ArgumentOutOfRangeException( "index" );
-		//	}
-		//}
 
 
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
@@ -181,7 +163,17 @@ namespace ManagedX
 		public static readonly Vector2 UnitY = new Vector2( 0.0f, 1.0f );
 
 
-
+		/// <summary>Adds two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives the sum of the two specified <see cref="Vector2"/> values.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Add( ref Vector2 vector, ref Vector2 other, out Vector2 result )
+		{
+			result = new Vector2( vector.X + other.X, vector.Y + other.Y );
+		}
 
 		/// <summary>Adds two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
@@ -196,6 +188,18 @@ namespace ManagedX
 		/// <summary>Subtracts a <see cref="Vector2"/> value (<paramref name="other"/>) from another <see cref="Vector2"/> value (<paramref name="vector"/>).</summary>
 		/// <param name="vector">The initial <see cref="Vector2"/> value.</param>
 		/// <param name="other">The subtracted <see cref="Vector2"/> value.</param>
+		/// <param name="result">Receives the result of ( <paramref name="vector"/> - <paramref name="other"/> ).</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Subtract( ref Vector2 vector, ref Vector2 other, out Vector2 result )
+		{
+			result = new Vector2( vector.X - other.X, vector.Y - other.Y );
+		}
+
+		/// <summary>Subtracts a <see cref="Vector2"/> value (<paramref name="other"/>) from another <see cref="Vector2"/> value (<paramref name="vector"/>).</summary>
+		/// <param name="vector">The initial <see cref="Vector2"/> value.</param>
+		/// <param name="other">The subtracted <see cref="Vector2"/> value.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> - <paramref name="other"/> ).</returns>
 		public static Vector2 Subtract( Vector2 vector, Vector2 other )
 		{
@@ -206,10 +210,34 @@ namespace ManagedX
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Multiply( ref Vector2 vector, ref Vector2 other, out Vector2 result )
+		{
+			result = new Vector2( vector.X * other.X, vector.Y * other.Y );
+		}
+
+		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
 		public static Vector2 Multiply( Vector2 vector, Vector2 other )
 		{
 			return new Vector2( vector.X * other.X, vector.Y * other.Y );
+		}
+
+
+		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">The multiplier; must be a finite value.</param>
+		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Multiply( ref Vector2 vector, float value, out Vector2 result )
+		{
+			result = new Vector2( vector.X * value, vector.Y * value );
 		}
 
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
@@ -224,11 +252,35 @@ namespace ManagedX
 
 		/// <summary>Returns the result of the division of two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid, non-zero <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Divide( ref Vector2 vector, ref Vector2 other, out Vector2 result )
+		{
+			result = new Vector2( vector.X / other.X, vector.Y / other.Y );
+		}
+
+		/// <summary>Returns the result of the division of two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid, non-zero <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
 		public static Vector2 Divide( Vector2 vector, Vector2 other )
 		{
 			return new Vector2( vector.X / other.X, vector.Y / other.Y );
+		}
+
+
+		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="value">The divider; must be a finite, non-zero value.</param>
+		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Divide( ref Vector2 vector, float value, out Vector2 result )
+		{
+			result = new Vector2( vector.X / value, vector.Y / value );
 		}
 
 		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
@@ -241,6 +293,18 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Min( ref Vector2 vector, ref Vector2 other, out Vector2 result )
+		{
+			result = new Vector2( Math.Min( vector.X, other.X ), Math.Min( vector.Y, other.Y ) );
+		}
+
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
@@ -250,6 +314,18 @@ namespace ManagedX
 			return new Vector2( Math.Min( vector.X, other.X ), Math.Min( vector.Y, other.Y ) );
 		}
 
+
+		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between two <see cref="Vector2"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Max( ref Vector2 vector, ref Vector2 other, out Vector2 result )
+		{
+			result = new Vector2( Math.Max( vector.X, other.X ), Math.Max( vector.Y, other.Y ) );
+		}
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
@@ -386,7 +462,7 @@ namespace ManagedX
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
-		/// <returns>Returns the result of the linear interpolation between the two specified <see cref="Vector2"/>.</returns>
+		/// <returns>Returns the result of the linear interpolation.</returns>
 		public static Vector2 Lerp( Vector2 source, Vector2 target, float amount )
 		{
 			return new Vector2(
@@ -430,6 +506,26 @@ namespace ManagedX
 		/// <param name="value3">A Vector2 containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
 		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
 		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+		/// <param name="result">Receives a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		public static void Barycentric( ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, float amount1, float amount2, out Vector2 result )
+		{
+			result = new Vector2(
+				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
+				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y )
+			);
+		}
+
+		/// <summary>Returns a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
+		/// <param name="value1">A Vector2 containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
+		/// <param name="value2">A Vector2 containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
+		/// <param name="value3">A Vector2 containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
+		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
+		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+		/// <returns>Returns a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</returns>
 		public static Vector2 Barycentric( Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2 )
 		{
 			return new Vector2(
@@ -438,13 +534,36 @@ namespace ManagedX
 			);
 		}
 
-		
+
 		/// <summary>Performs a Catmull-Rom interpolation.</summary>
 		/// <param name="value1">The first value in the interpolation.</param>
 		/// <param name="value2">The second value in the interpolation.</param>
 		/// <param name="value3">The third value in the interpolation.</param>
 		/// <param name="value4">The fourth value in the interpolation.</param>
 		/// <param name="amount">The weighting factor.</param>
+		/// <param name="result">Receives the result of the Catmull-Rom interpolation.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		public static void CatmullRom( ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, float amount, out Vector2 result )
+		{
+			var amount2 = amount * amount;
+			var amount3 = amount * amount2;
+			result = new Vector2(
+				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amount2 + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amount3 ),
+				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amount2 + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amount3 )
+			);
+		}
+
+		/// <summary>Performs a Catmull-Rom interpolation.</summary>
+		/// <param name="value1">The first value in the interpolation.</param>
+		/// <param name="value2">The second value in the interpolation.</param>
+		/// <param name="value3">The third value in the interpolation.</param>
+		/// <param name="value4">The fourth value in the interpolation.</param>
+		/// <param name="amount">The weighting factor.</param>
+		/// <returns>Returns the result of the Catmull-Rom interpolation.</returns>
 		public static Vector2 CatmullRom( Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount )
 		{
 			var amount2 = amount * amount;
@@ -457,12 +576,44 @@ namespace ManagedX
 
 
 		/// <summary>Performs a Hermite spline interpolation.</summary>
-		/// <param name="value1">Source position vector.</param>
-		/// <param name="tangent1">Source tangent vector.</param>
-		/// <param name="value2">Source position vector.</param>
-		/// <param name="tangent2">Source tangent vector.</param>
-		/// <param name="amount">Weighting factor.</param>
-		public static Vector2 Hermite( Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount )
+		/// <param name="position1">A source position.</param>
+		/// <param name="tangent1">The tangent associated with the source position.</param>
+		/// <param name="position2">Another source position.</param>
+		/// <param name="tangent2">The tangent associated with the other source position.</param>
+		/// <param name="amount">The weighting factor.</param>
+		/// <param name="result">Receives the result of the Hermite spline interpolation.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		public static void Hermite( ref Vector2 position1, ref Vector2 tangent1, ref Vector2 position2, ref Vector2 tangent2, float amount, out Vector2 result )
+		{
+			float amountSquared = amount * amount;
+			float amountCubed = amount * amountSquared;
+
+			float amountSquared3 = 3.0f * amountSquared;
+			float amountCubed2 = 2.0f * amountCubed;
+
+			float a = amountCubed2 - amountSquared3 + 1.0f;
+			float b = -amountCubed2 + amountSquared3;
+			float c = amountCubed - 2.0f * amountSquared + amount;
+			float d = amountCubed - amountSquared;
+
+			result = new Vector2(
+				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
+				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d
+			);
+		}
+
+		/// <summary>Performs a Hermite spline interpolation.</summary>
+		/// <param name="position1">A source position.</param>
+		/// <param name="tangent1">The tangent associated with the source position.</param>
+		/// <param name="position2">Another source position.</param>
+		/// <param name="tangent2">The tangent associated with the other source position.</param>
+		/// <param name="amount">The weighting factor.</param>
+		/// <returns>Returns the result of the Hermite spline interpolation.</returns>
+		public static Vector2 Hermite( Vector2 position1, Vector2 tangent1, Vector2 position2, Vector2 tangent2, float amount )
 		{
 			float amountSquared = amount * amount;
 			float amountCubed = amount * amountSquared;
@@ -476,8 +627,8 @@ namespace ManagedX
 			float d = amountCubed - amountSquared;
 			
 			return new Vector2(
-				value1.X * a + value2.X * b + tangent1.X * c + tangent2.X * d,
-				value1.Y * a + value2.Y * b + tangent1.Y * c + tangent2.Y * d
+				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
+				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d
 			);
 		}
 
