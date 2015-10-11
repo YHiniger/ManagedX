@@ -1,49 +1,50 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-
-// Comments checked (2015/09/23)
 
 
 namespace ManagedX
 {
 	
-	/// <summary>Contains a width and a height.</summary>
+	/// <summary>Represents a size (integer) in 2D space.</summary>
 	[System.Diagnostics.DebuggerStepThrough]
+	[Serializable]
+	[ComVisible( true )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Size : IEquatable<Size>
 	{
 
-		private int width;
-		private int height;
+		/// <summary>The width component of this <see cref="Size"/> structure.</summary>
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		public int Width;
+		
+		/// <summary>The height component of this <see cref="Size"/> structure.</summary>
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		public int Height;
 
 
 		/// <summary>Initializes a new <see cref="Size"/> structure.</summary>
-		/// <param name="width">The width component of the size.</param>
-		/// <param name="height">The height component of the size.</param>
+		/// <param name="width">The width component of the size; must be greater than or equal to zero.</param>
+		/// <param name="height">The height component of the size; must be greater than or equal to zero.</param>
+		/// <exception cref="ArgumentOutOfRangeException"></exception>
 		public Size( int width, int height )
 		{
 			if( width < 0 )
 				throw new ArgumentOutOfRangeException( "width" );
+			
 			if( height < 0 )
 				throw new ArgumentOutOfRangeException( "height" );
 			
-			this.width = width;
-			this.height = height;
+			this.Width = width;
+			this.Height = height;
 		}
-
-
-		/// <summary>Gets the width component of this <see cref="Size"/> structure.</summary>
-		public int Width { get { return width; } }
-
-		/// <summary>Gets the height component of this <see cref="Size"/> structure.</summary>
-		public int Height { get { return height; } }
 
 
 		/// <summary>Returns a hash code for this <see cref="Size"/> structure.</summary>
 		/// <returns>Returns a hash code for this <see cref="Size"/> structure.</returns>
 		public override int GetHashCode()
 		{
-			return width ^ height;
+			return Width ^ Height;
 		}
 
 
@@ -52,7 +53,7 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public bool Equals( Size other )
 		{
-			return ( width == other.width ) && ( height == other.height );
+			return ( Width == other.Width ) && ( Height == other.Height );
 		}
 
 		/// <summary>Returns a value indicating whether this <see cref="Size"/> structure is equivalent to an object.</summary>
@@ -70,13 +71,37 @@ namespace ManagedX
 		/// <returns>Returns a string representing this <see cref="Size"/> structure.</returns>
 		public override string ToString()
 		{
-			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{0}×{1}", width, height );
+			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{0}×{1}", Width, Height );
 		}
 		
 
 
 		/// <summary>The empty (or zero) <see cref="Size"/> structure.</summary>
 		public static readonly Size Empty = new Size();
+
+
+		/// <summary>Adds two <see cref="Size"/> values.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns></returns>
+		[ComVisible( false )]
+		public static Size Add( Size size, Size other )
+		{
+			return new Size( size.Width + other.Width, size.Height + other.Height );
+		}
+
+
+		/// <summary>Subtracts a <see cref="Size"/> (<paramref name="other"/>) from another <see cref="Size"/> (<paramref name="size"/>).
+		/// <para>Beware that the returned value is a <see cref="Point"/> structure. This happens because the result might contain negative values, which is invalid for a size.</para>
+		/// </summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns a <see cref="Point"/> structure initialized with the result of ( <paramref name="size"/> - <paramref name="other"/> ).</returns>
+		[ComVisible( false )]
+		public static Point Subtract( Size size, Size other )
+		{
+			return new Point( size.Width - other.Width, size.Height - other.Height );
+		}
 
 
 		#region Operators
@@ -98,6 +123,27 @@ namespace ManagedX
 		public static bool operator !=( Size size, Size other )
 		{
 			return !size.Equals( other );
+		}
+
+
+
+		/// <summary>Addition operator.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the sum of the two specified <see cref="Size"/> values.</returns>
+		public static Size operator +( Size size, Size other )
+		{
+			return new Size( size.Width + other.Width, size.Height + other.Height );
+		}
+
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the difference between the two specified <see cref="Size"/> values.</returns>
+		public static Point operator -( Size size, Size other )
+		{
+			return new Point( size.Width - other.Width, size.Height - other.Height );
 		}
 
 		#endregion
