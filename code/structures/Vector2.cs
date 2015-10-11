@@ -87,8 +87,8 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		public void Clamp( ref Vector2 min, ref Vector2 max )
 		{
-			X = X.Clamp( min.X, max.X );
-			Y = Y.Clamp( min.Y, max.Y );
+			this.X = this.X.Clamp( min.X, max.X );
+			this.Y = this.Y.Clamp( min.Y, max.Y );
 		}
 
 
