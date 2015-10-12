@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace ManagedX
 {
 	
-	/// <summary>A 2D vector, also used to represent coordinates.</summary>
+	/// <summary>A 2D vector.</summary>
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Vector2 : IEquatable<Vector2>

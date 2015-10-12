@@ -51,6 +51,7 @@
     <Compile Include="code\structures\Point.cs" />
     <Compile Include="code\structures\Rect.cs" />
     <Compile Include="code\structures\Size.cs" />
+    <Compile Include="code\structures\Vector4.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
