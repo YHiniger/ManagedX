@@ -15,7 +15,7 @@ namespace ManagedX
 		public const float Pi = 3.141592654f;
 
 		/// <summary>Defines the value of two times Pi.</summary>
-		public const float TwoPi = 6.283185307f;
+		public const float TwoPi = Pi * 2.0f;
 
 		/// <summary>Defines Pi / 2.</summary>
 		public const float PiOver2 = Pi / 2.0f;
@@ -61,6 +61,37 @@ namespace ManagedX
 		{
 			radians %= TwoPi; // TODO - use Math.IEEERemainder ?
 			return ( radians <= -Pi ) ? radians + TwoPi : ( radians >= Pi ) ? radians - TwoPi : radians;
+		}
+
+
+		/// <summary>Returns the smallest value between two values.</summary>
+		/// <param name="value1">A finite single-precision floating-point value.</param>
+		/// <param name="value2">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the smallest value between the two specified values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Min( float value1, float value2 )
+		{
+			return ( value1 < value2 ) ? value1 : value2;
+		}
+
+		/// <summary>Returns the largest value between two values.</summary>
+		/// <param name="value1">A finite single-precision floating-point value.</param>
+		/// <param name="value2">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the largest value between the two specified values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Max( float value1, float value2 )
+		{
+			return ( value1 > value2 ) ? value1 : value2;
+		}
+
+		
+		/// <summary>Returns <code>e</code> to the specified power.</summary>
+		/// <param name="power">A finite single-precision floating-point value specifying the power.</param>
+		/// <returns>Returns <code>e</code> to the specified power.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Exp( float power )
+		{
+			return (float)Math.Exp( (double)power );
 		}
 
 
