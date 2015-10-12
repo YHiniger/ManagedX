@@ -192,12 +192,31 @@ namespace ManagedX
 			return new float[] { this.X, this.Y, this.Z, this.W };
 		}
 
+
+		/// <summary>Returns a <see cref="Vector2"/> structure initialized with the <see cref="X"/> and <see cref="Y"/> components of this <see cref="Vector4"/>.</summary>
+		/// <returns>Returns a <see cref="Vector2"/> structure initialized with the <see cref="X"/> and <see cref="Y"/> components of this <see cref="Vector4"/>.</returns>
+		public Vector2 ToVector2()
+		{
+			return new Vector2( this.X, this.Y );
+		}
+
+
+		/// <summary>Returns a <see cref="Vector3"/> structure initialized with the <see cref="X"/>, <see cref="Y"/> and <see cref="Z"/> components of this <see cref="Vector4"/>.</summary>
+		/// <returns>Returns a <see cref="Vector3"/> structure initialized with the <see cref="X"/>, <see cref="Y"/> and <see cref="Z"/> components of this <see cref="Vector4"/>.</returns>
+		public Vector3 ToVector3()
+		{
+			return new Vector3( this.X, this.Y, this.Z );
+		}
+		
 		
 		// TODO - Transform, TransformNormal
 
 
 		/// <summary>The zero <see cref="Vector4"/> structure.</summary>
 		public static readonly Vector4 Zero = new Vector4();
+
+		/// <summary>A <see cref="Vector4"/> whose components are set to 1.</summary>
+		public static readonly Vector4 One = new Vector4( 1.0f, 1.0f, 1.0f, 1.0f );
 
 		/// <summary>Unit vector: (1,0,0,0).</summary>
 		public static readonly Vector4 UnitX = new Vector4( 1.0f, 0.0f, 0.0f, 0.0f );
@@ -211,33 +230,54 @@ namespace ManagedX
 		/// <summary>Unit vector: (0,0,0,1).</summary>
 		public static readonly Vector4 UnitW = new Vector4( 0.0f, 0.0f, 0.0f, 1.0f );
 
-		/// <summary>A <see cref="Vector4"/> structure with all components set to 1.</summary>
-		public static readonly Vector4 One = new Vector4( 1.0f, 1.0f, 1.0f, 1.0f );
 
+		/// <summary>Returns the sum of two <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/>.</param>
+		/// <param name="other">A valid <see cref="Vector4"/>.</param>
+		/// <param name="result">Receives the sum of the two specified <see cref="Vector4"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Add( ref Vector4 vector, ref Vector4 other, out Vector4 result )
+		{
+			result = new Vector4( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z, vector.W + other.W );
+		}
 
-		/// <summary></summary>
-		/// <param name="vector"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Returns the sum of two <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/>.</param>
+		/// <param name="other">A valid <see cref="Vector4"/>.</param>
+		/// <returns>Returns the sum of the two specified <see cref="Vector4"/>.</returns>
 		public static Vector4 Add( Vector4 vector, Vector4 other )
 		{
 			return new Vector4( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z, vector.W + other.W );
 		}
 
 
-		/// <summary></summary>
-		/// <param name="vector"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/>.</param>
+		/// <param name="other">A valid <see cref="Vector4"/>.</param>
+		/// <param name="result">Receives the difference between <paramref name="vector"/> and <paramref name="other"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Subtract( ref Vector4 vector, ref Vector4 other, out Vector4 result )
+		{
+			result = new Vector4( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z, vector.W - other.W );
+		}
+
+		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/>.</param>
+		/// <param name="other">A valid <see cref="Vector4"/>.</param>
+		/// <returns>Returns the difference between <paramref name="vector"/> and <paramref name="other"/>.</returns>
 		public static Vector4 Subtract( Vector4 vector, Vector4 other )
 		{
 			return new Vector4( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z, vector.W - other.W );
 		}
 
 
-		/// <summary>Multiplies two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <summary>Multiplies two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -247,9 +287,9 @@ namespace ManagedX
 			result = new Vector4( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z, vector.W * other.W );
 		}
 
-		/// <summary>Multiplies two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <summary>Multiplies two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
 		public static Vector4 Multiply( Vector4 vector, Vector4 other )
 		{
@@ -257,9 +297,9 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Divides a <see cref="Vector3"/> by another <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
+		/// <summary>Divides a <see cref="Vector4"/> by another <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid, non-zero, <see cref="Vector4"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -268,10 +308,10 @@ namespace ManagedX
 		{
 			result = new Vector4( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z, vector.W / other.W );
 		}
-		
-		/// <summary>Divides a <see cref="Vector3"/> by another <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
+
+		/// <summary>Divides a <see cref="Vector4"/> by another <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid, non-zero, <see cref="Vector4"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
 		public static Vector4 Divide( Vector4 vector, Vector4 other )
 		{
@@ -280,10 +320,10 @@ namespace ManagedX
 
 
 
-		/// <summary>Retrieves a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="result">Receives a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</param>
+		/// <summary>Retrieves a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -292,20 +332,20 @@ namespace ManagedX
 			result = new Vector4( XMath.Min( vector.X, other.X ), XMath.Min( vector.Y, other.Y ), XMath.Min( vector.Z, other.Z ), XMath.Min( vector.W, other.W ) );
 		}
 
-		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
-		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</returns>
+		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Min( Vector4 vector, Vector4 other )
 		{
 			return new Vector4( XMath.Min( vector.X, other.X ), XMath.Min( vector.Y, other.Y ), XMath.Min( vector.Z, other.Z ), XMath.Min( vector.W, other.W ) );
 		}
 
 
-		/// <summary>Retrieves a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="result">Receives a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</param>
+		/// <summary>Retrieves a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -314,19 +354,19 @@ namespace ManagedX
 			result = new Vector4( XMath.Max( vector.X, other.X ), XMath.Max( vector.Y, other.Y ), XMath.Max( vector.Z, other.Z ), XMath.Max( vector.W, other.W ) );
 		}
 
-		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
-		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</returns>
+		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Max( Vector4 vector, Vector4 other )
 		{
 			return new Vector4( XMath.Max( vector.X, other.X ), XMath.Max( vector.Y, other.Y ), XMath.Max( vector.Z, other.Z ), XMath.Max( vector.W, other.W ) );
 		}
 
-	
-		/// <summary>Calculates the distance between two <see cref="Vector3"/> positions.</summary>
-		/// <param name="position">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+
+		/// <summary>Calculates the distance between two <see cref="Vector4"/> positions.</summary>
+		/// <param name="position">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="result">Receives the distance between the two specified positions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -336,19 +376,19 @@ namespace ManagedX
 			result = ( other - position ).Length;
 		}
 
-		/// <summary>Returns the distance between two <see cref="Vector3"/> positions.</summary>
-		/// <param name="position">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
-		/// <returns>Returns the distance between two <see cref="Vector3"/> positions.</returns>
+		/// <summary>Returns the distance between two <see cref="Vector4"/> positions.</summary>
+		/// <param name="position">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns the distance between two <see cref="Vector4"/> positions.</returns>
 		public static float Distance( Vector4 position, Vector4 other )
 		{
 			return ( other - position ).Length;
 		}
 
 
-		/// <summary>Calculates the square of the distance between two <see cref="Vector3"/> positions.</summary>
-		/// <param name="position">A valid <see cref="Vector3"/> value.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
+		/// <summary>Calculates the square of the distance between two <see cref="Vector4"/> positions.</summary>
+		/// <param name="position">A valid <see cref="Vector4"/> value.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> value.</param>
 		/// <param name="result">Receives the square of the distance between the two specified positions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -358,9 +398,9 @@ namespace ManagedX
 			result = ( other - position ).LengthSquared;
 		}
 
-		/// <summary>Returns the square of the distance between two <see cref="Vector3"/> positions.</summary>
-		/// <param name="position">A valid <see cref="Vector3"/> value.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
+		/// <summary>Returns the square of the distance between two <see cref="Vector4"/> positions.</summary>
+		/// <param name="position">A valid <see cref="Vector4"/> value.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> value.</param>
 		/// <returns>Returns the square of the distance between the two specified positions.</returns>
 		public static float DistanceSquared( Vector4 position, Vector4 other )
 		{
@@ -368,10 +408,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Calculates the dot product of two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> value.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
-		/// <param name="result">Receives the dot product of the two specified <see cref="Vector3"/> values.</param>
+		/// <summary>Calculates the dot product of two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> value.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> value.</param>
+		/// <param name="result">Receives the dot product of the two specified <see cref="Vector4"/> values.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -380,10 +420,10 @@ namespace ManagedX
 			result = vector.X * other.X + vector.Y * other.Y + vector.Z * other.Z + vector.W * other.W;
 		}
 
-		/// <summary>Calculates the dot product of two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> value.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
-		/// <returns>Returns the dot product of the two specified <see cref="Vector3"/> values.</returns>
+		/// <summary>Calculates the dot product of two <see cref="Vector4"/> values.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> value.</param>
+		/// <param name="other">A valid <see cref="Vector4"/> value.</param>
+		/// <returns>Returns the dot product of the two specified <see cref="Vector4"/> values.</returns>
 		public static float Dot( Vector4 vector, Vector4 other )
 		{
 			return vector.X * other.X + vector.Y * other.Y + vector.Z * other.Z + vector.W * other.W;
@@ -452,13 +492,13 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
-		/// <param name="value1">A Vector3 containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A Vector3 containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A Vector3 containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
+		/// <summary>Returns a <see cref="Vector4"/> containing the 4D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 4D triangle.</summary>
+		/// <param name="value1">A <see cref="Vector4"/> containing the 4D Cartesian coordinates of vertex 1 of the triangle.</param>
+		/// <param name="value2">A <see cref="Vector4"/> containing the 4D Cartesian coordinates of vertex 2 of the triangle.</param>
+		/// <param name="value3">A <see cref="Vector4"/> containing the 4D Cartesian coordinates of vertex 3 of the triangle.</param>
 		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
 		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <param name="result">Receives a Vector3 containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</param>
+		/// <param name="result">Receives a <see cref="Vector4"/> containing the 4D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 4D triangle.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
@@ -473,13 +513,13 @@ namespace ManagedX
 			);
 		}
 
-		/// <summary>Returns a Vector3 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</summary>
-		/// <param name="value1">A Vector3 containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A Vector3 containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A Vector3 containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
+		/// <summary>Returns a Vector4 containing the 4D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 4D triangle.</summary>
+		/// <param name="value1">A <see cref="Vector4"/> containing the 4D Cartesian coordinates of vertex 1 of the triangle.</param>
+		/// <param name="value2">A <see cref="Vector4"/> containing the 4D Cartesian coordinates of vertex 2 of the triangle.</param>
+		/// <param name="value3">A <see cref="Vector4"/> containing the 4D Cartesian coordinates of vertex 3 of the triangle.</param>
 		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
 		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <returns>Returns a Vector3 containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</returns>
+		/// <returns>Returns a <see cref="Vector4"/> containing the 4D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 4D triangle.</returns>
 		public static Vector4 Barycentric( Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2 )
 		{
 			return new Vector4(
@@ -599,6 +639,23 @@ namespace ManagedX
 
 
 		#region Operators
+
+		/// <summary><see cref="Vector2"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns a <see cref="Vector2"/> structure initializes with the X and Y components of the specified <see cref="Vector4"/>.</returns>
+		public static explicit operator Vector2( Vector4 vector )
+		{
+			return vector.ToVector2();
+		}
+
+
+		/// <summary><see cref="Vector3"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns a <see cref="Vector3"/> structure initializes with the X, Y and Z components of the specified <see cref="Vector4"/>.</returns>
+		public static explicit operator Vector3( Vector4 vector )
+		{
+			return vector.ToVector3();
+		}
 
 
 		/// <summary>Equality comparer.</summary>

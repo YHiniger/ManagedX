@@ -61,7 +61,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Inverts the sign of both <see cref="X"/> and <see cref="Y"/>.</summary>
+		/// <summary>Inverts the sign of this <see cref="Vector2"/>'s components.</summary>
 		public void Negate()
 		{
 			X = -X;
@@ -272,7 +272,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
+		/// <summary>Divides a <see cref="Vector2"/> by a value.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="value">The divider; must be a finite, non-zero value.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</param>
