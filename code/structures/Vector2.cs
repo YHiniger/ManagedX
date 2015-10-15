@@ -184,13 +184,11 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> + <paramref name="other"/> ).</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Add( Vector2 vector, Vector2 other )
 		{
-			return new Vector2(
-				vector.X + other.X,
-				vector.Y + other.Y
-			);
+			vector.X += other.X;
+			vector.Y += other.Y;
+			return vector;
 		}
 
 
@@ -212,13 +210,11 @@ namespace ManagedX
 		/// <param name="vector">The initial <see cref="Vector2"/> value.</param>
 		/// <param name="other">The subtracted <see cref="Vector2"/> value.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> - <paramref name="other"/> ).</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Subtract( Vector2 vector, Vector2 other )
 		{
-			return new Vector2(
-				vector.X - other.X,
-				vector.Y - other.Y
-			);
+			vector.X -= other.X;
+			vector.Y -= other.Y;
+			return vector;
 		}
 
 
@@ -240,13 +236,11 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Multiply( Vector2 vector, Vector2 other )
 		{
-			return new Vector2(
-				vector.X * other.X,
-				vector.Y * other.Y
-			);
+			vector.X *= other.X;
+			vector.Y *= other.Y;
+			return vector;
 		}
 
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
@@ -266,13 +260,11 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="value">The multiplier; must be a finite value.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Multiply( Vector2 vector, float value )
 		{
-			return new Vector2(
-				vector.X * value,
-				vector.Y * value
-			);
+			vector.X *= value;
+			vector.Y *= value;
+			return vector;
 		}
 
 
@@ -296,10 +288,9 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
 		public static Vector2 Divide( Vector2 vector, Vector2 other )
 		{
-			return new Vector2(
-				vector.X / other.X,
-				vector.Y / other.Y
-			);
+			vector.X /= other.X;
+			vector.Y /= other.Y;
+			return vector;
 		}
 
 		/// <summary>Divides a <see cref="Vector2"/> by a value.</summary>
@@ -323,10 +314,9 @@ namespace ManagedX
 		public static Vector2 Divide( Vector2 vector, float value )
 		{
 			var inv = 1.0f / value;
-			return new Vector2(
-				vector.X * inv,
-				vector.Y * inv
-			);
+			vector.X *= inv;
+			vector.Y *= inv;
+			return vector;
 		}
 
 
@@ -348,13 +338,11 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between the two <see cref="Vector2"/> values.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Min( Vector2 vector, Vector2 other )
 		{
-			return new Vector2(
-				XMath.Min( vector.X, other.X ),
-				XMath.Min( vector.Y, other.Y )
-			);
+			vector.X = XMath.Min( vector.X, other.X );
+			vector.Y = XMath.Min( vector.Y, other.Y );
+			return vector;
 		}
 
 
@@ -376,13 +364,11 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Max( Vector2 vector, Vector2 other )
 		{
-			return new Vector2(
-				XMath.Max( vector.X, other.X ),
-				XMath.Max( vector.Y, other.Y )
-			);
+			vector.X = XMath.Max( vector.X, other.X );
+			vector.Y = XMath.Max( vector.Y, other.Y );
+			return vector;
 		}
 
 	
