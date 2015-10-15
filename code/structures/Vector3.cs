@@ -204,6 +204,7 @@ namespace ManagedX
 		public static readonly Vector3 Forward = new Vector3( 0.0f, 0.0f, -1.0f );
 
 
+		#region Static functions
 
 		/// <summary>Returns the sum of two <see cref="Vector3"/>.</summary>
 		/// <param name="vector">A valid <see cref="Vector3"/>.</param>
@@ -236,7 +237,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Subtract( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result = new Vector3( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z );
+			result.X = vector.X - other.X;
+			result.Y = vector.Y - other.Y;
+			result.Z = vector.Z - other.Z;
 		}
 
 		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
@@ -245,7 +248,10 @@ namespace ManagedX
 		/// <returns>Returns the difference between <paramref name="vector"/> and <paramref name="other"/>.</returns>
 		public static Vector3 Subtract( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z );
+			vector.X -= other.X;
+			vector.Y -= other.Y;
+			vector.Z -= other.Z;
+			return vector;
 		}
 
 
@@ -258,7 +264,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Multiply( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result = new Vector3( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z );
+			result.X = vector.X * other.X;
+			result.Y = vector.Y * other.Y;
+			result.Z = vector.Z * other.Z;
 		}
 
 		/// <summary>Multiplies two <see cref="Vector3"/> values.</summary>
@@ -267,7 +275,10 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
 		public static Vector3 Multiply( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z );
+			vector.X *= other.X;
+			vector.Y *= other.Y;
+			vector.Z *= other.Z;
+			return vector;
 		}
 
 
@@ -280,7 +291,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result = new Vector3( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z );
+			result.X = vector.X / other.X;
+			result.Y = vector.Y / other.Y;
+			result.Z = vector.Z / other.Z;
 		}
 		
 		/// <summary>Divides a <see cref="Vector3"/> by another <see cref="Vector3"/>.</summary>
@@ -289,7 +302,10 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
 		public static Vector3 Divide( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z );
+			vector.X /= other.X;
+			vector.Y /= other.Y;
+			vector.Z /= other.Z;
+			return vector;
 		}
 
 
@@ -303,7 +319,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Min( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result = new Vector3( Math.Min( vector.X, other.X ), Math.Min( vector.Y, other.Y ), Math.Min( vector.Z, other.Z ) );
+			result.X = XMath.Min( vector.X, other.X );
+			result.Y = XMath.Min( vector.Y, other.Y );
+			result.Z = XMath.Min( vector.Z, other.Z );
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</summary>
@@ -312,7 +330,11 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</returns>
 		public static Vector3 Min( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( Math.Min( vector.X, other.X ), Math.Min( vector.Y, other.Y ), Math.Min( vector.Z, other.Z ) );
+			return new Vector3(
+				XMath.Min( vector.X, other.X ),
+				XMath.Min( vector.Y, other.Y ),
+				XMath.Min( vector.Z, other.Z )
+			);
 		}
 
 
@@ -325,7 +347,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Max( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result = new Vector3( Math.Max( vector.X, other.X ), Math.Max( vector.Y, other.Y ), Math.Max( vector.Z, other.Z ) );
+			result.X = XMath.Max( vector.X, other.X );
+			result.Y = XMath.Max( vector.Y, other.Y );
+			result.Z = XMath.Max( vector.Z, other.Z );
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</summary>
@@ -334,7 +358,11 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</returns>
 		public static Vector3 Max( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( Math.Max( vector.X, other.X ), Math.Max( vector.Y, other.Y ), Math.Max( vector.Z, other.Z ) );
+			return new Vector3(
+				XMath.Max( vector.X, other.X ),
+				XMath.Max( vector.Y, other.Y ),
+				XMath.Max( vector.Z, other.Z )
+			);
 		}
 
 	
@@ -347,7 +375,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Distance( ref Vector3 position, ref Vector3 other, out float result )
 		{
-			result = ( other - position ).Length;
+			Vector3 diff;
+			Subtract( ref position, ref other, out diff );
+			result = diff.Length;
 		}
 
 		/// <summary>Returns the distance between two <see cref="Vector3"/> positions.</summary>
@@ -356,7 +386,9 @@ namespace ManagedX
 		/// <returns>Returns the distance between two <see cref="Vector3"/> positions.</returns>
 		public static float Distance( Vector3 position, Vector3 other )
 		{
-			return ( other - position ).Length;
+			Vector3 diff;
+			Subtract( ref position, ref other, out diff );
+			return diff.Length;
 		}
 
 
@@ -369,7 +401,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void DistanceSquared( ref Vector3 position, ref Vector3 other, out float result )
 		{
-			result = ( other - position ).LengthSquared;
+			Vector3 diff;
+			Subtract( ref position, ref other, out diff );
+			result = diff.LengthSquared;
 		}
 
 		/// <summary>Returns the square of the distance between two <see cref="Vector3"/> positions.</summary>
@@ -378,7 +412,9 @@ namespace ManagedX
 		/// <returns>Returns the square of the distance between the two specified positions.</returns>
 		public static float DistanceSquared( Vector3 position, Vector3 other )
 		{
-			return ( other - position ).LengthSquared;
+			Vector3 diff;
+			Subtract( ref position, ref other, out diff );
+			return diff.LengthSquared;
 		}
 
 
@@ -413,12 +449,11 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Reflect( ref Vector3 vector, ref Vector3 normal, out Vector3 result )
 		{
-			float dot2 = ( vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z ) * 2.0f;
-			result = new Vector3(
-				vector.X - dot2 * normal.X,
-				vector.Y - dot2 * normal.Y,
-				vector.Z - dot2 * normal.Z
-			);
+			var dot2 = ( vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z ) * 2.0f;
+			
+			result.X = vector.X - dot2 * normal.X;
+			result.Y = vector.Y - dot2 * normal.Y;
+			result.Z = vector.Z - dot2 * normal.Z;
 		}
 
 		/// <summary>Determines the reflect vector of the given vector and normal.</summary>
@@ -427,12 +462,9 @@ namespace ManagedX
 		/// <returns>Returns the reflected vector.</returns>
 		public static Vector3 Reflect( Vector3 vector, Vector3 normal )
 		{
-			float dot2 = ( vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z ) * 2.0f;
-			return new Vector3(
-				vector.X - dot2 * normal.X,
-				vector.Y - dot2 * normal.Y,
-				vector.Z - dot2 * normal.Z
-			);
+			Vector3 result;
+			Reflect( ref vector, ref normal, out result );
+			return result;
 		}
 
 
@@ -446,11 +478,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
 		public static void Lerp( ref Vector3 source, ref Vector3 target, float amount, out Vector3 result )
 		{
-			result = new Vector3(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount ),
-				XMath.Lerp( source.Z, target.Z, amount )
-			);
+			result.X = XMath.Lerp( source.X, target.X, amount );
+			result.Y = XMath.Lerp( source.Y, target.Y, amount );
+			result.Z = XMath.Lerp( source.Z, target.Z, amount );
 		}
 
 		/// <summary>Performs a linear interpolation between two vectors.</summary>
@@ -496,43 +526,6 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</summary>
-		/// <param name="value1">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 3 of the triangle.</param>
-		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
-		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <param name="result">Receives a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
-		public static void Barycentric( ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, float amount1, float amount2, out Vector3 result )
-		{
-			result = new Vector3(
-				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
-				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y ),
-				value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z )
-			);
-		}
-
-		/// <summary>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</summary>
-		/// <param name="value1">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 3 of the triangle.</param>
-		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
-		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <returns>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</returns>
-		public static Vector3 Barycentric( Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2 )
-		{
-			return new Vector3(
-				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
-				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y ),
-				value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z )
-			);
-		}
-
-
 		/// <summary>Performs a Catmull-Rom interpolation between the specified values.</summary>
 		/// <param name="value1">The first value in the interpolation.</param>
 		/// <param name="value2">The second value in the interpolation.</param>
@@ -549,11 +542,10 @@ namespace ManagedX
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
-			result = new Vector3(
-				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed )
-			);
+			
+			result.X = 0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed );
+			result.Y = 0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed );
+			result.Z = 0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed );
 		}
 
 		/// <summary>Performs a Catmull-Rom interpolation.</summary>
@@ -565,13 +557,9 @@ namespace ManagedX
 		/// <returns>Returns the result of the Catmull-Rom interpolation.</returns>
 		public static Vector3 CatmullRom( Vector3 value1, Vector3 value2, Vector3 value3, Vector3 value4, float amount )
 		{
-			var amountSquared = amount * amount;
-			var amountCubed = amount * amountSquared;
-			return new Vector3(
-				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed )
-			);
+			Vector3 result;
+			CatmullRom( ref value1, ref value2, ref value3, ref value4, amount, out result );
+			return result;
 		}
 
 
@@ -589,22 +577,20 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
 		public static void Hermite( ref Vector3 position1, ref Vector3 tangent1, ref Vector3 position2, ref Vector3 tangent2, float amount, out Vector3 result )
 		{
-			float amountSquared = amount * amount;
-			float amountCubed = amount * amountSquared;
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
 
-			float amountSquared3 = 3.0f * amountSquared;
-			float amountCubed2 = 2.0f * amountCubed;
+			var amountSquared3 = 3.0f * amountSquared;
+			var amountCubed2 = 2.0f * amountCubed;
 
-			float a = amountCubed2 - amountSquared3 + 1.0f;
-			float b = -amountCubed2 + amountSquared3;
-			float c = amountCubed - 2.0f * amountSquared + amount;
-			float d = amountCubed - amountSquared;
+			var a = amountCubed2 - amountSquared3 + 1.0f;
+			var b = -amountCubed2 + amountSquared3;
+			var c = amountCubed - 2.0f * amountSquared + amount;
+			var d = amountCubed - amountSquared;
 
-			result = new Vector3(
-				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
-				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d,
-				position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d
-			);
+			result.X = position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d;
+			result.Y = position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d;
+			result.Z = position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d;
 		}
 
 		/// <summary>Performs a Hermite spline interpolation.</summary>
@@ -616,22 +602,42 @@ namespace ManagedX
 		/// <returns>Returns the result of the Hermite spline interpolation.</returns>
 		public static Vector3 Hermite( Vector3 position1, Vector3 tangent1, Vector3 position2, Vector3 tangent2, float amount )
 		{
-			float amountSquared = amount * amount;
-			float amountCubed = amount * amountSquared;
+			Vector3 result;
+			Hermite( ref position1, ref tangent1, ref position2, ref tangent2, amount, out result );
+			return result;
+		}
 
-			float amountSquared3 = 3.0f * amountSquared;
-			float amountCubed2 = 2.0f * amountCubed;
 
-			float a = amountCubed2 - amountSquared3 + 1.0f;
-			float b = -amountCubed2 + amountSquared3;
-			float c = amountCubed - 2.0f * amountSquared + amount;
-			float d = amountCubed - amountSquared;
+		/// <summary>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</summary>
+		/// <param name="value1">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 1 of the triangle.</param>
+		/// <param name="value2">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 2 of the triangle.</param>
+		/// <param name="value3">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 3 of the triangle.</param>
+		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
+		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+		/// <param name="result">Receives a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		public static void Barycentric( ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, float amount1, float amount2, out Vector3 result )
+		{
+			result.X = value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X );
+			result.Y = value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y );
+			result.Z = value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z );
+		}
 
-			return new Vector3(
-				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
-				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d,
-				position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d
-			);
+		/// <summary>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</summary>
+		/// <param name="value1">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 1 of the triangle.</param>
+		/// <param name="value2">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 2 of the triangle.</param>
+		/// <param name="value3">A <see cref="Vector3"/> containing the 3D Cartesian coordinates of vertex 3 of the triangle.</param>
+		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
+		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+		/// <returns>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</returns>
+		public static Vector3 Barycentric( Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2 )
+		{
+			Vector3 result;
+			Barycentric( ref value1, ref value2, ref value3, amount1, amount2, out result );
+			return result;
 		}
 
 
@@ -644,11 +650,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Cross( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result = new Vector3(
-				vector.Y * other.Z - vector.Z * other.Y,
-				vector.Z * other.X - vector.X * other.Z,
-				vector.X * other.Y - vector.Y * other.X
-			);
+			result.X = vector.Y * other.Z - vector.Z * other.Y;
+			result.Y = vector.Z * other.X - vector.X * other.Z;
+			result.Z = vector.X * other.Y - vector.Y * other.X;
 		}
 
 		/// <summary>Returns the cross product of two <see cref="Vector3"/> values.</summary>
@@ -664,9 +668,11 @@ namespace ManagedX
 			);
 		}
 
+		#endregion
+
 
 		#region Operators
-		
+
 		/// <summary><see cref="Vector2"/> conversion operator.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure initialized with the X and Y components of the specified <see cref="Vector3"/>.</returns>
@@ -677,149 +683,150 @@ namespace ManagedX
 
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
-		public static bool operator ==( Vector3 vector3, Vector3 other )
+		public static bool operator ==( Vector3 vector, Vector3 other )
 		{
-			return vector3.Equals( other );
+			return vector.Equals( other );
 		}
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
-		public static bool operator !=( Vector3 vector3, Vector3 other )
+		public static bool operator !=( Vector3 vector, Vector3 other )
 		{
-			return !vector3.Equals( other );
+			return !vector.Equals( other );
 		}
 
 
 		/// <summary>Inferiority comparer.</summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Vector3 vector3, Vector3 other )
+		public static bool operator <( Vector3 vector, Vector3 other )
 		{
-			return ( vector3.X < other.X ) && ( vector3.Y < other.Y ) && ( vector3.Z < other.Z );
+			return ( vector.X < other.X ) && ( vector.Y < other.Y ) && ( vector.Z < other.Z );
 		}
 
 		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Vector3 vector3, Vector3 other )
+		public static bool operator <=( Vector3 vector, Vector3 other )
 		{
-			return ( vector3.X <= other.X ) && ( vector3.Y <= other.Y ) && ( vector3.Z <= other.Z );
+			return ( vector.X <= other.X ) && ( vector.Y <= other.Y ) && ( vector.Z <= other.Z );
 		}
 
 		/// <summary>Superiority comparer.</summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Vector3 vector3, Vector3 other )
+		public static bool operator >( Vector3 vector, Vector3 other )
 		{
-			return ( vector3.X > other.X ) && ( vector3.Y > other.Y ) && ( vector3.Z > other.Z );
+			return ( vector.X > other.X ) && ( vector.Y > other.Y ) && ( vector.Z > other.Z );
 		}
 
 		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Vector3 vector3, Vector3 other )
+		public static bool operator >=( Vector3 vector, Vector3 other )
 		{
-			return ( vector3.X >= other.X ) && ( vector3.Y >= other.Y ) && ( vector3.Z >= other.Z );
+			return ( vector.X >= other.X ) && ( vector.Y >= other.Y ) && ( vector.Z >= other.Z );
 		}
 
 
 		/// <summary>Unary negation operator.</summary>
-		/// <param name="vector3">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator -( Vector3 vector3 )
+		public static Vector3 operator -( Vector3 vector )
 		{
-			vector3.Negate();
-			return vector3;
+			vector.Negate();
+			return vector;
 		}
 
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator +( Vector3 vector3, Vector3 other )
+		public static Vector3 operator +( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( vector3.X + other.X, vector3.Y + other.Y, vector3.Z + other.Z );
+			return new Vector3( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z );
 		}
 
 
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator -( Vector3 vector3, Vector3 other )
+		public static Vector3 operator -( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( vector3.X - other.X, vector3.Y - other.Y, vector3.Z - other.Z );
+			return new Vector3( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z );
 		}
 
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator *( Vector3 vector3, Vector3 other )
+		public static Vector3 operator *( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( vector3.X * other.X, vector3.Y * other.Y, vector3.Z * other.Z );
+			return new Vector3( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z );
 		}
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <returns></returns>
-		public static Vector3 operator *( Vector3 vector3, float value )
+		public static Vector3 operator *( Vector3 vector, float value )
 		{
-			return new Vector3( vector3.X * value, vector3.Y * value, vector3.Z * value );
+			return new Vector3( vector.X * value, vector.Y * value, vector.Z * value );
 		}
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="value">A finite single-precision floating-point value.</param>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator *( float value, Vector3 vector3 )
+		public static Vector3 operator *( float value, Vector3 vector )
 		{
-			return new Vector3( vector3.X * value, vector3.Y * value, vector3.Z * value );
+			return new Vector3( vector.X * value, vector.Y * value, vector.Z * value );
 		}
 
 
 		/// <summary>Division operator.</summary>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator /( Vector3 vector3, Vector3 other )
+		public static Vector3 operator /( Vector3 vector, Vector3 other )
 		{
-			return new Vector3( vector3.X / other.X, vector3.Y / other.Y, vector3.Z / other.Z );
+			return new Vector3( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z );
 		}
 
 		/// <summary>Division operator.</summary>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
 		/// <returns></returns>
-		public static Vector3 operator /( Vector3 vector3, float value )
+		public static Vector3 operator /( Vector3 vector, float value )
 		{
-			return new Vector3( vector3.X / value, vector3.Y / value, vector3.Z / value );
+			var inv = 1.0f / value;
+			return new Vector3( vector.X * inv, vector.Y * inv, vector.Z * inv );
 		}
 
 		/// <summary>Division operator.</summary>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
-		/// <param name="vector3">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator /( float value, Vector3 vector3 )
+		public static Vector3 operator /( float value, Vector3 vector )
 		{
-			return new Vector3( value / vector3.X, value / vector3.Y, value / vector3.Z );
+			return new Vector3( value / vector.X, value / vector.Y, value / vector.Z );
 		}
 		
 		#endregion

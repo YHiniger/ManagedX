@@ -23,9 +23,6 @@ namespace ManagedX
 		/// <summary>Defines Pi / 4.</summary>
 		public const float PiOver4 = Pi / 4.0f;
 
-		private const float Deg2Rad = 180.0f / Pi;
-		private const float Rad2Deg = Pi / 180.0f;
-
 		///// <summary>Defines the value of the golden number.</summary>
 		//public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
@@ -80,7 +77,7 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToDegrees( float radians )
 		{
-			return radians * Rad2Deg;
+			return radians * Pi / 180.0f;
 		}
 
 
@@ -90,17 +87,17 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToRadians( float degrees )
 		{
-			return degrees * Deg2Rad;
+			return degrees * 180.0f / Pi;
 		}
 
 
 		/// <summary>Reduces an angle to a value within the range [-π,+π].</summary>
-		/// <param name="radians">An angle, in radians; must be a valid, finite number.</param>
+		/// <param name="radians">An angle, in radians.</param>
 		/// <returns></returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float WrapAngle( float radians )
 		{
-			radians %= TwoPi; // TODO - use Math.IEEERemainder ?
+			radians %= TwoPi;
 			return ( radians <= -Pi ) ? radians + TwoPi : ( radians >= Pi ) ? radians - TwoPi : radians;
 		}
 
@@ -157,6 +154,7 @@ namespace ManagedX
 		/// <param name="value4"></param>
 		/// <param name="amount"></param>
 		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
 		{
 			var amountSquared = amount * amount;
@@ -202,6 +200,7 @@ namespace ManagedX
 		/// <param name="target">A finite single-precision floating-point value.</param>
 		/// <param name="amount">A finite single-precision floating-point value; will be saturated (=forced into the the range [0,1]).</param>
 		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float SmoothStep( float source, float target, float amount )
 		{
 			amount = amount.Saturate();
@@ -213,6 +212,7 @@ namespace ManagedX
 		/// <param name="target">A finite double-precision floating-point value.</param>
 		/// <param name="amount">A finite double-precision floating-point value; will be saturated (=forced into the the range [0,1]).</param>
 		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double SmoothStep( double source, double target, double amount )
 		{
 			amount = amount.Saturate();

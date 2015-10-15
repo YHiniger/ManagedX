@@ -49,6 +49,7 @@
     <Compile Include="code\Design\I3DObject.cs" />
     <Compile Include="code\NoAudioHardwareException.cs" />
     <Compile Include="code\structures\Point.cs" />
+    <Compile Include="code\structures\Quaternion.cs" />
     <Compile Include="code\structures\Rect.cs" />
     <Compile Include="code\structures\Size.cs" />
     <Compile Include="code\structures\Vector4.cs" />

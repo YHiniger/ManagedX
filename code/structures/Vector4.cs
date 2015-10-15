@@ -231,26 +231,36 @@ namespace ManagedX
 		public static readonly Vector4 UnitW = new Vector4( 0.0f, 0.0f, 0.0f, 1.0f );
 
 
-		/// <summary>Returns the sum of two <see cref="Vector4"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/>.</param>
-		/// <param name="other">A valid <see cref="Vector4"/>.</param>
+		/// <summary>Calculates the sum of two <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A <see cref="Vector4"/> structure.</param>
 		/// <param name="result">Receives the sum of the two specified <see cref="Vector4"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Add( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result = new Vector4( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z, vector.W + other.W );
+			result.X = vector.X + other.X;
+			result.Y = vector.Y + other.Y;
+			result.Z = vector.Z + other.Z;
+			result.W = vector.W + other.W;
 		}
 
 		/// <summary>Returns the sum of two <see cref="Vector4"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/>.</param>
-		/// <param name="other">A valid <see cref="Vector4"/>.</param>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="other">A <see cref="Vector4"/> structure.</param>
 		/// <returns>Returns the sum of the two specified <see cref="Vector4"/>.</returns>
 		public static Vector4 Add( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z, vector.W + other.W );
+			return new Vector4(
+				vector.X + other.X,
+				vector.Y + other.Y,
+				vector.Z + other.Z,
+				vector.W + other.W
+			);
 		}
+
+		// TODO - Add( Vector4 vector, float value ), Subtract, Divide
 
 
 		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
@@ -262,7 +272,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Subtract( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result = new Vector4( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z, vector.W - other.W );
+			result.X = vector.X - other.X;
+			result.Y = vector.Y - other.Y;
+			result.Z = vector.Z - other.Z;
+			result.W = vector.W - other.W;
 		}
 
 		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
@@ -271,7 +284,12 @@ namespace ManagedX
 		/// <returns>Returns the difference between <paramref name="vector"/> and <paramref name="other"/>.</returns>
 		public static Vector4 Subtract( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z, vector.W - other.W );
+			return new Vector4(
+				vector.X - other.X,
+				vector.Y - other.Y,
+				vector.Z - other.Z,
+				vector.W - other.W
+			);
 		}
 
 
@@ -284,7 +302,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Multiply( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result = new Vector4( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z, vector.W * other.W );
+			result.X = vector.X * other.X;
+			result.Y = vector.Y * other.Y;
+			result.Z = vector.Z * other.Z;
+			result.W = vector.W * other.W;
 		}
 
 		/// <summary>Multiplies two <see cref="Vector4"/> values.</summary>
@@ -293,7 +314,42 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
 		public static Vector4 Multiply( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z, vector.W * other.W );
+			return new Vector4(
+				vector.X * other.X,
+				vector.Y * other.Y,
+				vector.Z * other.Z,
+				vector.W * other.W
+			);
+		}
+
+		/// <summary>Multiplies a <see cref="Vector4"/> by a value.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="result">Receives the multiplied <see cref="Vector4"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Multiply( ref Vector4 vector, float value, out Vector4 result )
+		{
+			result.X = vector.X * value;
+			result.Y = vector.Y * value;
+			result.Z = vector.Z * value;
+			result.W = vector.W * value;
+		}
+
+		/// <summary>Multiplies a <see cref="Vector4"/> by a value.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <returns>Returns the multiplied <see cref="Vector4"/>.</returns>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static Vector4 Multiply( Vector4 vector, float value )
+		{
+			return new Vector4(
+				vector.X * value,
+				vector.Y * value,
+				vector.Z * value,
+				vector.W * value
+			);
 		}
 
 
@@ -306,7 +362,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result = new Vector4( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z, vector.W / other.W );
+			result.X = vector.X / other.X;
+			result.Y = vector.Y / other.Y;
+			result.Z = vector.Z / other.Z;
+			result.W = vector.W / other.W;
 		}
 
 		/// <summary>Divides a <see cref="Vector4"/> by another <see cref="Vector4"/>.</summary>
@@ -315,7 +374,12 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
 		public static Vector4 Divide( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z, vector.W / other.W );
+			return new Vector4(
+				vector.X / other.X,
+				vector.Y / other.Y,
+				vector.Z / other.Z,
+				vector.W / other.W
+			);
 		}
 
 
@@ -329,7 +393,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Min( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result = new Vector4( XMath.Min( vector.X, other.X ), XMath.Min( vector.Y, other.Y ), XMath.Min( vector.Z, other.Z ), XMath.Min( vector.W, other.W ) );
+			result.X = XMath.Min( vector.X, other.X );
+			result.Y = XMath.Min( vector.Y, other.Y );
+			result.Z = XMath.Min( vector.Z, other.Z );
+			result.W = XMath.Min( vector.W, other.W );
 		}
 
 		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</summary>
@@ -338,7 +405,12 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Min( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( XMath.Min( vector.X, other.X ), XMath.Min( vector.Y, other.Y ), XMath.Min( vector.Z, other.Z ), XMath.Min( vector.W, other.W ) );
+			return new Vector4(
+				XMath.Min( vector.X, other.X ),
+				XMath.Min( vector.Y, other.Y ),
+				XMath.Min( vector.Z, other.Z ),
+				XMath.Min( vector.W, other.W )
+			);
 		}
 
 
@@ -351,7 +423,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Max( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result = new Vector4( XMath.Max( vector.X, other.X ), XMath.Max( vector.Y, other.Y ), XMath.Max( vector.Z, other.Z ), XMath.Max( vector.W, other.W ) );
+			result.X = XMath.Max( vector.X, other.X );
+			result.Y = XMath.Max( vector.Y, other.Y );
+			result.Z = XMath.Max( vector.Z, other.Z );
+			result.W = XMath.Max( vector.W, other.W );
 		}
 
 		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</summary>
@@ -360,7 +435,12 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Max( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( XMath.Max( vector.X, other.X ), XMath.Max( vector.Y, other.Y ), XMath.Max( vector.Z, other.Z ), XMath.Max( vector.W, other.W ) );
+			return new Vector4(
+				XMath.Max( vector.X, other.X ),
+				XMath.Max( vector.Y, other.Y ),
+				XMath.Max( vector.Z, other.Z ),
+				XMath.Max( vector.W, other.W )
+			);
 		}
 
 
@@ -373,7 +453,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Distance( ref Vector4 position, ref Vector4 other, out float result )
 		{
-			result = ( other - position ).Length;
+			Vector4 diff;
+			Subtract( ref position, ref other, out diff );
+			result = diff.Length;
 		}
 
 		/// <summary>Returns the distance between two <see cref="Vector4"/> positions.</summary>
@@ -382,7 +464,9 @@ namespace ManagedX
 		/// <returns>Returns the distance between two <see cref="Vector4"/> positions.</returns>
 		public static float Distance( Vector4 position, Vector4 other )
 		{
-			return ( other - position ).Length;
+			Vector4 diff;
+			Subtract( ref position, ref other, out diff );
+			return diff.Length;
 		}
 
 
@@ -395,7 +479,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void DistanceSquared( ref Vector4 position, ref Vector4 other, out float result )
 		{
-			result = ( other - position ).LengthSquared;
+			Vector4 diff;
+			Subtract( ref position, ref other, out diff );
+			result = diff.LengthSquared;
 		}
 
 		/// <summary>Returns the square of the distance between two <see cref="Vector4"/> positions.</summary>
@@ -404,7 +490,9 @@ namespace ManagedX
 		/// <returns>Returns the square of the distance between the two specified positions.</returns>
 		public static float DistanceSquared( Vector4 position, Vector4 other )
 		{
-			return ( other - position ).LengthSquared;
+			Vector4 diff;
+			Subtract( ref position, ref other, out diff );
+			return diff.LengthSquared;
 		}
 
 
@@ -440,12 +528,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
 		public static void Lerp( ref Vector4 source, ref Vector4 target, float amount, out Vector4 result )
 		{
-			result = new Vector4(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount ),
-				XMath.Lerp( source.Z, target.Z, amount ),
-				XMath.Lerp( source.W, target.W, amount )
-			);
+			result.X = XMath.Lerp( source.X, target.X, amount );
+			result.Y = XMath.Lerp( source.Y, target.Y, amount );
+			result.Z = XMath.Lerp( source.Z, target.Z, amount );
+			result.W = XMath.Lerp( source.W, target.W, amount );
 		}
 
 		/// <summary>Performs a linear interpolation between two vectors.</summary>
@@ -485,9 +571,8 @@ namespace ManagedX
 		/// <returns>Returns the result of the cubic interpolation.</returns>
 		public static Vector4 SmoothStep( Vector4 source, Vector4 target, float amount )
 		{
-			amount = amount.Saturate();
 			Vector4 result;
-			Lerp( ref source, ref target, amount * amount * ( 3.0f - 2.0f * amount ), out result );
+			SmoothStep( ref source, ref target, amount, out result );
 			return result;
 		}
 
@@ -505,12 +590,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
 		public static void Barycentric( ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, float amount1, float amount2, out Vector4 result )
 		{
-			result = new Vector4(
-				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
-				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y ),
-				value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z ),
-				value1.W + amount1 * ( value2.W - value1.W ) + amount2 * ( value3.W - value1.W )
-			);
+			result.X = value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X );
+			result.Y = value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y );
+			result.Z = value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z );
+			result.W = value1.W + amount1 * ( value2.W - value1.W ) + amount2 * ( value3.W - value1.W );
 		}
 
 		/// <summary>Returns a Vector4 containing the 4D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 4D triangle.</summary>
@@ -522,12 +605,9 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector4"/> containing the 4D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 4D triangle.</returns>
 		public static Vector4 Barycentric( Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2 )
 		{
-			return new Vector4(
-				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
-				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y ),
-				value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z ),
-				value1.W + amount1 * ( value2.W - value1.W ) + amount2 * ( value3.W - value1.W )
-			);
+			Vector4 result;
+			Barycentric( ref value1, ref value2, ref value3, amount1, amount2, out result );
+			return result;
 		}
 
 
@@ -547,12 +627,10 @@ namespace ManagedX
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
-			result = new Vector4(
-				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed ),
-				0.5f * ( 2.0f * value2.W + ( -value1.W + value3.W ) * amount + ( 2.0f * value1.W - 5.0f * value2.W + 4.0f * value3.W - value4.W ) * amountSquared + ( -value1.W + 3.0f * value2.W - 3.0f * value3.W + value4.W ) * amountCubed )
-			);
+			result.X = 0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed );
+			result.Y = 0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed );
+			result.Z = 0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed );
+			result.W = 0.5f * ( 2.0f * value2.W + ( -value1.W + value3.W ) * amount + ( 2.0f * value1.W - 5.0f * value2.W + 4.0f * value3.W - value4.W ) * amountSquared + ( -value1.W + 3.0f * value2.W - 3.0f * value3.W + value4.W ) * amountCubed );
 		}
 
 		/// <summary>Performs a Catmull-Rom interpolation.</summary>
@@ -564,14 +642,9 @@ namespace ManagedX
 		/// <returns>Returns the result of the Catmull-Rom interpolation.</returns>
 		public static Vector4 CatmullRom( Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount )
 		{
-			var amountSquared = amount * amount;
-			var amountCubed = amount * amountSquared;
-			return new Vector4(
-				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed ),
-				0.5f * ( 2.0f * value2.W + ( -value1.W + value3.W ) * amount + ( 2.0f * value1.W - 5.0f * value2.W + 4.0f * value3.W - value4.W ) * amountSquared + ( -value1.W + 3.0f * value2.W - 3.0f * value3.W + value4.W ) * amountCubed )
-			);
+			Vector4 result;
+			CatmullRom( ref value1, ref value2, ref value3, ref value4, amount, out result );
+			return result;
 		}
 
 
@@ -589,23 +662,21 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
 		public static void Hermite( ref Vector4 position1, ref Vector4 tangent1, ref Vector4 position2, ref Vector4 tangent2, float amount, out Vector4 result )
 		{
-			float amountSquared = amount * amount;
-			float amountCubed = amount * amountSquared;
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
 
-			float amountSquared3 = 3.0f * amountSquared;
-			float amountCubed2 = 2.0f * amountCubed;
+			var amountSquared3 = 3.0f * amountSquared;
+			var amountCubed2 = 2.0f * amountCubed;
 
-			float a = amountCubed2 - amountSquared3 + 1.0f;
-			float b = -amountCubed2 + amountSquared3;
-			float c = amountCubed - 2.0f * amountSquared + amount;
-			float d = amountCubed - amountSquared;
+			var a = amountCubed2 - amountSquared3 + 1.0f;
+			var b = -amountCubed2 + amountSquared3;
+			var c = amountCubed - 2.0f * amountSquared + amount;
+			var d = amountCubed - amountSquared;
 
-			result = new Vector4(
-				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
-				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d,
-				position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d,
-				position1.W * a + position2.W * b + tangent1.W * c + tangent2.W * d
-			);
+			result.X = position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d;
+			result.Y = position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d;
+			result.Z = position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d;
+			result.W = position1.W * a + position2.W * b + tangent1.W * c + tangent2.W * d;
 		}
 
 		/// <summary>Performs a Hermite spline interpolation.</summary>
@@ -617,23 +688,9 @@ namespace ManagedX
 		/// <returns>Returns the result of the Hermite spline interpolation.</returns>
 		public static Vector4 Hermite( Vector4 position1, Vector4 tangent1, Vector4 position2, Vector4 tangent2, float amount )
 		{
-			float amountSquared = amount * amount;
-			float amountCubed = amount * amountSquared;
-
-			float amountSquared3 = 3.0f * amountSquared;
-			float amountCubed2 = 2.0f * amountCubed;
-
-			float a = amountCubed2 - amountSquared3 + 1.0f;
-			float b = -amountCubed2 + amountSquared3;
-			float c = amountCubed - 2.0f * amountSquared + amount;
-			float d = amountCubed - amountSquared;
-
-			return new Vector4(
-				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
-				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d,
-				position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d,
-				position1.W * a + position2.W * b + tangent1.W * c + tangent2.W * d
-			);
+			Vector4 result;
+			Hermite( ref position1, ref tangent1, ref position2, ref tangent2, amount, out result );
+			return result;
 		}
 
 
@@ -734,9 +791,9 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator +( Vector4 vector, Vector4 other )
+		public static Vector4 operator +( Vector4 vector, Vector4 other )
 		{
-			return new Vector3( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z );
+			return new Vector4( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z, vector.W + other.W );
 		}
 
 
@@ -744,9 +801,9 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator -( Vector4 vector, Vector4 other )
+		public static Vector4 operator -( Vector4 vector, Vector4 other )
 		{
-			return new Vector3( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z );
+			return new Vector4( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z, vector.W - other.W );
 		}
 
 
@@ -754,27 +811,27 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator *( Vector4 vector, Vector4 other )
+		public static Vector4 operator *( Vector4 vector, Vector4 other )
 		{
-			return new Vector3( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z );
+			return new Vector4( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z, vector.W * other.W );
 		}
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <returns></returns>
-		public static Vector3 operator *( Vector4 vector, float value )
+		public static Vector4 operator *( Vector4 vector, float value )
 		{
-			return new Vector3( vector.X * value, vector.Y * value, vector.Z * value );
+			return new Vector4( vector.X * value, vector.Y * value, vector.Z * value, vector.W * value );
 		}
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator *( float value, Vector4 vector )
+		public static Vector4 operator *( float value, Vector4 vector )
 		{
-			return new Vector3( vector.X * value, vector.Y * value, vector.Z * value );
+			return new Vector4( vector.X * value, vector.Y * value, vector.Z * value, vector.W * value );
 		}
 
 
@@ -782,27 +839,28 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid, non-zero, <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator /( Vector4 vector, Vector4 other )
+		public static Vector4 operator /( Vector4 vector, Vector4 other )
 		{
-			return new Vector3( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z );
+			return new Vector4( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z, vector.W / other.W );
 		}
 
 		/// <summary>Division operator.</summary>
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
 		/// <returns></returns>
-		public static Vector3 operator /( Vector4 vector, float value )
+		public static Vector4 operator /( Vector4 vector, float value )
 		{
-			return new Vector3( vector.X / value, vector.Y / value, vector.Z / value );
+			var inv = 1.0f / value;
+			return new Vector4( vector.X * inv, vector.Y * inv, vector.Z * inv, vector.W * inv );
 		}
 
 		/// <summary>Division operator.</summary>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Vector3 operator /( float value, Vector4 vector )
+		public static Vector4 operator /( float value, Vector4 vector )
 		{
-			return new Vector3( value / vector.X, value / vector.Y, value / vector.Z );
+			return new Vector4( value / vector.X, value / vector.Y, value / vector.Z, value / vector.W );
 		}
 		
 		#endregion

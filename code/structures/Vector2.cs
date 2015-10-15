@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
@@ -162,6 +163,8 @@ namespace ManagedX
 		/// <summary>A unit <see cref="Vector2"/> pointing to the positive y-direction.</summary>
 		public static readonly Vector2 UnitY = new Vector2( 0.0f, 1.0f );
 
+		
+		#region Static functions
 
 		/// <summary>Adds two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
@@ -170,18 +173,24 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Add( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result = new Vector2( vector.X + other.X, vector.Y + other.Y );
+			result.X = vector.X + other.X;
+			result.Y = vector.Y + other.Y;
 		}
 
 		/// <summary>Adds two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> + <paramref name="other"/> ).</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Add( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X + other.X, vector.Y + other.Y );
+			return new Vector2(
+				vector.X + other.X,
+				vector.Y + other.Y
+			);
 		}
 
 
@@ -192,18 +201,24 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Subtract( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result = new Vector2( vector.X - other.X, vector.Y - other.Y );
+			result.X = vector.X - other.X;
+			result.Y = vector.Y - other.Y;
 		}
 
 		/// <summary>Subtracts a <see cref="Vector2"/> value (<paramref name="other"/>) from another <see cref="Vector2"/> value (<paramref name="vector"/>).</summary>
 		/// <param name="vector">The initial <see cref="Vector2"/> value.</param>
 		/// <param name="other">The subtracted <see cref="Vector2"/> value.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> - <paramref name="other"/> ).</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Subtract( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X - other.X, vector.Y - other.Y );
+			return new Vector2(
+				vector.X - other.X,
+				vector.Y - other.Y
+			);
 		}
 
 
@@ -214,20 +229,25 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Multiply( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result = new Vector2( vector.X * other.X, vector.Y * other.Y );
+			result.X = vector.X * other.X;
+			result.Y = vector.Y * other.Y;
 		}
 
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Multiply( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X * other.X, vector.Y * other.Y );
+			return new Vector2(
+				vector.X * other.X,
+				vector.Y * other.Y
+			);
 		}
-
 
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
@@ -235,18 +255,24 @@ namespace ManagedX
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Multiply( ref Vector2 vector, float value, out Vector2 result )
 		{
-			result = new Vector2( vector.X * value, vector.Y * value );
+			result.X = vector.X * value;
+			result.Y = vector.Y * value;
 		}
 
 		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="value">The multiplier; must be a finite value.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Multiply( Vector2 vector, float value )
 		{
-			return new Vector2( vector.X * value, vector.Y * value );
+			return new Vector2(
+				vector.X * value,
+				vector.Y * value
+			);
 		}
 
 
@@ -257,9 +283,11 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Divide( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result = new Vector2( vector.X / other.X, vector.Y / other.Y );
+			result.X = vector.X / other.X;
+			result.Y = vector.Y / other.Y;
 		}
 
 		/// <summary>Returns the result of the division of two <see cref="Vector2"/> values.</summary>
@@ -268,9 +296,11 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
 		public static Vector2 Divide( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X / other.X, vector.Y / other.Y );
+			return new Vector2(
+				vector.X / other.X,
+				vector.Y / other.Y
+			);
 		}
-
 
 		/// <summary>Divides a <see cref="Vector2"/> by a value.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
@@ -278,9 +308,12 @@ namespace ManagedX
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Divide( ref Vector2 vector, float value, out Vector2 result )
 		{
-			result = new Vector2( vector.X / value, vector.Y / value );
+			var inv = 1.0f / value;
+			result.X = vector.X * inv;
+			result.Y = vector.Y * inv;
 		}
 
 		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
@@ -289,7 +322,11 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
 		public static Vector2 Divide( Vector2 vector, float value )
 		{
-			return new Vector2( vector.X / value, vector.Y / value );
+			var inv = 1.0f / value;
+			return new Vector2(
+				vector.X * inv,
+				vector.Y * inv
+			);
 		}
 
 
@@ -300,18 +337,24 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Min( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result = new Vector2( Math.Min( vector.X, other.X ), Math.Min( vector.Y, other.Y ) );
+			result.X = XMath.Min( vector.X, other.X );
+			result.Y = XMath.Min( vector.Y, other.Y );
 		}
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between the two <see cref="Vector2"/> values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Min( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( Math.Min( vector.X, other.X ), Math.Min( vector.Y, other.Y ) );
+			return new Vector2(
+				XMath.Min( vector.X, other.X ),
+				XMath.Min( vector.Y, other.Y )
+			);
 		}
 
 
@@ -322,18 +365,24 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Max( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result = new Vector2( Math.Max( vector.X, other.X ), Math.Max( vector.Y, other.Y ) );
+			result.X = XMath.Max( vector.X, other.X );
+			result.Y = XMath.Max( vector.Y, other.Y );
 		}
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Max( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( Math.Max( vector.X, other.X ), Math.Max( vector.Y, other.Y ) );
+			return new Vector2(
+				XMath.Max( vector.X, other.X ),
+				XMath.Max( vector.Y, other.Y )
+			);
 		}
 
 	
@@ -345,6 +394,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Distance( ref Vector2 position, ref Vector2 other, out float result )
 		{
 			var x = other.X - position.X;
@@ -356,6 +406,7 @@ namespace ManagedX
 		/// <param name="position">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
 		/// <returns>Returns the distance between the two specified <see cref="Vector2"/> positions.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Distance( Vector2 position, Vector2 other )
 		{
 			var x = other.X - position.X;
@@ -371,6 +422,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void DistanceSquared( ref Vector2 position, ref Vector2 other, out float result )
 		{
 			var x = other.X - position.X;
@@ -382,6 +434,7 @@ namespace ManagedX
 		/// <param name="position">A valid <see cref="Vector2"/> position.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> position.</param>
 		/// <returns>Returns the square of the distance between the two specified <see cref="Vector2"/> positions.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float DistanceSquared( Vector2 position, Vector2 other )
 		{
 			var x = other.X - position.X;
@@ -397,6 +450,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Dot( ref Vector2 vector, ref Vector2 other, out float result )
 		{
 			result = vector.X * other.X + vector.Y * other.Y;
@@ -406,6 +460,7 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the dot product of the two specified <see cref="Vector2"/>.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Dot( Vector2 vector, Vector2 other )
 		{
 			return vector.X * other.X + vector.Y * other.Y;
@@ -419,26 +474,25 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Reflect( ref Vector2 vector, ref Vector2 normal, out Vector2 result )
 		{
-			float dot2 = ( vector.X * normal.X + vector.Y * normal.Y ) * 2.0f;
-			result = new Vector2(
-				vector.X - dot2 * normal.X,
-				vector.Y - dot2 * normal.Y
-			);
+			var dot2 = ( vector.X * normal.X + vector.Y * normal.Y ) * 2.0f;
+			
+			result.X = vector.X - dot2 * normal.X;
+			result.Y = vector.Y - dot2 * normal.Y;
 		}
 
 		/// <summary>Determines the reflect vector of the given vector and normal.</summary>
 		/// <param name="vector">The source vector.</param>
 		/// <param name="normal">The normal of vector.</param>
 		/// <returns>Returns the reflected vector.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Reflect( Vector2 vector, Vector2 normal )
 		{
-			float dot2 = ( vector.X * normal.X + vector.Y * normal.Y ) * 2.0f;
-			return new Vector2(
-				vector.X - dot2 * normal.X,
-				vector.Y - dot2 * normal.Y
-			);
+			Vector2 result;
+			Reflect( ref vector, ref normal, out result );
+			return result;
 		}
 
 
@@ -450,12 +504,11 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Lerp( ref Vector2 source, ref Vector2 target, float amount, out Vector2 result )
 		{
-			result = new Vector2(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount )
-			);
+			result.X = XMath.Lerp( source.X, target.X, amount );
+			result.Y = XMath.Lerp( source.Y, target.Y, amount );
 		}
 
 		/// <summary>Performs a linear interpolation between two vectors.</summary>
@@ -463,6 +516,7 @@ namespace ManagedX
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
 		/// <returns>Returns the result of the linear interpolation.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Lerp( Vector2 source, Vector2 target, float amount )
 		{
 			return new Vector2(
@@ -480,6 +534,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void SmoothStep( ref Vector2 source, ref Vector2 target, float amount, out Vector2 result )
 		{
 			amount = amount.Saturate();
@@ -491,47 +546,12 @@ namespace ManagedX
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; will be saturated.</param>
 		/// <returns>Returns the result of the cubic interpolation.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 SmoothStep( Vector2 source, Vector2 target, float amount )
 		{
-			amount = amount.Saturate();
 			Vector2 result;
-			Lerp( ref source, ref target, amount * amount * ( 3.0f - 2.0f * amount ), out result );
+			SmoothStep( ref source, ref target, amount, out result );
 			return result;
-		}
-
-
-		/// <summary>Returns a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
-		/// <param name="value1">A Vector2 containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A Vector2 containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A Vector2 containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
-		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
-		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <param name="result">Receives a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
-		public static void Barycentric( ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, float amount1, float amount2, out Vector2 result )
-		{
-			result = new Vector2(
-				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
-				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y )
-			);
-		}
-
-		/// <summary>Returns a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
-		/// <param name="value1">A Vector2 containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A Vector2 containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A Vector2 containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
-		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
-		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <returns>Returns a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</returns>
-		public static Vector2 Barycentric( Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2 )
-		{
-			return new Vector2(
-				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
-				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y )
-			);
 		}
 
 
@@ -547,14 +567,14 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void CatmullRom( ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, float amount, out Vector2 result )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
-			result = new Vector2(
-				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed )
-			);
+			
+			result.X = 0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed );
+			result.Y = 0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed );
 		}
 
 		/// <summary>Performs a Catmull-Rom interpolation.</summary>
@@ -564,14 +584,12 @@ namespace ManagedX
 		/// <param name="value4">The fourth value in the interpolation.</param>
 		/// <param name="amount">The weighting factor.</param>
 		/// <returns>Returns the result of the Catmull-Rom interpolation.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 CatmullRom( Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount )
 		{
-			var amountSquared = amount * amount;
-			var amountCubed = amount * amountSquared;
-			return new Vector2(
-				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed )
-			);
+			Vector2 result;
+			CatmullRom( ref value1, ref value2, ref value3, ref value4, amount, out result );
+			return result;
 		}
 
 
@@ -587,23 +605,22 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Hermite( ref Vector2 position1, ref Vector2 tangent1, ref Vector2 position2, ref Vector2 tangent2, float amount, out Vector2 result )
 		{
-			float amountSquared = amount * amount;
-			float amountCubed = amount * amountSquared;
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
 
-			float amountSquared3 = 3.0f * amountSquared;
-			float amountCubed2 = 2.0f * amountCubed;
+			var amountSquared3 = 3.0f * amountSquared;
+			var amountCubed2 = 2.0f * amountCubed;
 
-			float a = amountCubed2 - amountSquared3 + 1.0f;
-			float b = -amountCubed2 + amountSquared3;
-			float c = amountCubed - 2.0f * amountSquared + amount;
-			float d = amountCubed - amountSquared;
+			var a = amountCubed2 - amountSquared3 + 1.0f;
+			var b = -amountCubed2 + amountSquared3;
+			var c = amountCubed - 2.0f * amountSquared + amount;
+			var d = amountCubed - amountSquared;
 
-			result = new Vector2(
-				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
-				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d
-			);
+			result.X = position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d;
+			result.Y = position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d;
 		}
 
 		/// <summary>Performs a Hermite spline interpolation.</summary>
@@ -613,174 +630,197 @@ namespace ManagedX
 		/// <param name="tangent2">The tangent associated with the other source position.</param>
 		/// <param name="amount">The weighting factor.</param>
 		/// <returns>Returns the result of the Hermite spline interpolation.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Hermite( Vector2 position1, Vector2 tangent1, Vector2 position2, Vector2 tangent2, float amount )
 		{
-			float amountSquared = amount * amount;
-			float amountCubed = amount * amountSquared;
-			
-			float amountSquared3 = 3.0f * amountSquared;
-			float amountCubed2 = 2.0f * amountCubed;
-
-			float a = amountCubed2 - amountSquared3 + 1.0f;
-			float b = -amountCubed2 + amountSquared3;
-			float c = amountCubed - 2.0f * amountSquared + amount;
-			float d = amountCubed - amountSquared;
-			
-			return new Vector2(
-				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
-				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d
-			);
+			Vector2 result;
+			Hermite( ref position1, ref tangent1, ref position2, ref tangent2, amount, out result );
+			return result;
 		}
+
+
+		/// <summary>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
+		/// <param name="value1">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
+		/// <param name="value2">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
+		/// <param name="value3">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
+		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
+		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+		/// <param name="result">Receives a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void Barycentric( ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, float amount1, float amount2, out Vector2 result )
+		{
+			result.X = value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X );
+			result.Y = value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y );
+		}
+
+		/// <summary>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
+		/// <param name="value1">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
+		/// <param name="value2">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
+		/// <param name="value3">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
+		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
+		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+		/// <returns>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static Vector2 Barycentric( Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2 )
+		{
+			Vector2 result;
+			Barycentric( ref value1, ref value2, ref value3, amount1, amount2, out result );
+			return result;
+		}
+
+		#endregion
 
 
 		#region Operators
 
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
-		public static bool operator ==( Vector2 vector2, Vector2 other )
+		public static bool operator ==( Vector2 vector, Vector2 other )
 		{
-			return vector2.Equals( other );
+			return vector.Equals( other );
 		}
-
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
-		public static bool operator !=( Vector2 vector2, Vector2 other )
+		public static bool operator !=( Vector2 vector, Vector2 other )
 		{
-			return !vector2.Equals( other );
-		}
-
-
-		/// <summary>Unary negation operator.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		public static Vector2 operator -( Vector2 vector2 )
-		{
-			vector2.Negate();
-			return vector2;
-			//return new Vector2( -vector2.x, -vector2.y );
+			return !vector.Equals( other );
 		}
 
 
 		/// <summary>Inferiority comparer.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Vector2 vector2, Vector2 other )
+		public static bool operator <( Vector2 vector, Vector2 other )
 		{
-			return ( vector2.X < other.X ) && ( vector2.Y < other.Y );
+			return ( vector.X < other.X ) && ( vector.Y < other.Y );
 		}
 
 		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Vector2 vector2, Vector2 other )
+		public static bool operator <=( Vector2 vector, Vector2 other )
 		{
-			return ( vector2.X <= other.X ) && ( vector2.Y <= other.Y );
+			return ( vector.X <= other.X ) && ( vector.Y <= other.Y );
 		}
 
-
 		/// <summary>Superiority comparer.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Vector2 vector2, Vector2 other )
+		public static bool operator >( Vector2 vector, Vector2 other )
 		{
-			return ( vector2.X > other.X ) && ( vector2.Y > other.Y );
+			return ( vector.X > other.X ) && ( vector.Y > other.Y );
 		}
 
 		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <returns></returns>
 		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Vector2 vector2, Vector2 other )
+		public static bool operator >=( Vector2 vector, Vector2 other )
 		{
-			return ( vector2.X >= other.X ) && ( vector2.Y >= other.Y );
+			return ( vector.X >= other.X ) && ( vector.Y >= other.Y );
+		}
+
+
+		/// <summary>Unary negation operator.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns a <see cref="Vector2"/> whose components are set to the opposite of the specified value.</returns>
+		public static Vector2 operator -( Vector2 vector )
+		{
+			vector.Negate();
+			return vector;
 		}
 
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		public static Vector2 operator +( Vector2 vector2, Vector2 other )
+		/// <returns>Returns the sum of the specified <see cref="Vector2"/> values.</returns>
+		public static Vector2 operator +( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X + other.X, vector2.Y + other.Y );
+			return new Vector2( vector.X + other.X, vector.Y + other.Y );
 		}
+
 
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		public static Vector2 operator -( Vector2 vector2, Vector2 other )
+		/// <returns>Returns the difference between <paramref name="vector"/> and <paramref name="other"/>.</returns>
+		public static Vector2 operator -( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X - other.X, vector2.Y - other.Y );
+			return new Vector2( vector.X - other.X, vector.Y - other.Y );
 		}
 
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		public static Vector2 operator *( Vector2 vector2, Vector2 other )
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Vector2 operator *( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X * other.X, vector2.Y * other.Y );
+			return new Vector2( vector.X * other.X, vector.Y * other.Y );
 		}
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="value">A single-precision floating-point number.</param>
-		/// <returns></returns>
-		public static Vector2 operator *( Vector2 vector2, float value )
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Vector2 operator *( Vector2 vector, float value )
 		{
-			return new Vector2( vector2.X * value, vector2.Y * value );
+			return new Vector2( vector.X * value, vector.Y * value );
 		}
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="value">A single-precision floating-point number.</param>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		public static Vector2 operator *( float value, Vector2 vector2 )
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Vector2 operator *( float value, Vector2 vector )
 		{
-			return new Vector2( vector2.X * value, vector2.Y * value );
+			return new Vector2( vector.X * value, vector.Y * value );
 		}
 
 
 		/// <summary>Division operator.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <returns></returns>
-		public static Vector2 operator /( Vector2 vector2, Vector2 other )
+		public static Vector2 operator /( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector2.X / other.X, vector2.Y / other.Y );
+			return new Vector2( vector.X / other.X, vector.Y / other.Y );
 		}
 
 		/// <summary>Division operator.</summary>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <param name="value">A single-precision floating-point number.</param>
 		/// <returns></returns>
-		public static Vector2 operator /( Vector2 vector2, float value )
+		public static Vector2 operator /( Vector2 vector, float value )
 		{
-			return new Vector2( vector2.X / value, vector2.Y / value );
+			return new Vector2( vector.X / value, vector.Y / value );
 		}
 
 		/// <summary>Division operator.</summary>
 		/// <param name="value">A single-precision floating-point number.</param>
-		/// <param name="vector2">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
 		/// <returns></returns>
-		public static Vector2 operator /( float value, Vector2 vector2 )
+		public static Vector2 operator /( float value, Vector2 vector )
 		{
-			return new Vector2( value / vector2.X, value / vector2.Y );
+			return new Vector2( value / vector.X, value / vector.Y );
 		}
 		
 		#endregion
