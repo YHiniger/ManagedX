@@ -32,7 +32,7 @@ namespace ManagedX
 
 		#region Temperature conversion functions
 
-		// TODO - move this into a XScience static class (E-mulation, C-mulation, X-mulation...)
+		// TODO - move this into a XScience static class
 
 		///// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
 		///// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
