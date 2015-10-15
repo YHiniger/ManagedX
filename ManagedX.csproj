@@ -46,7 +46,7 @@
     <Compile Include="code\enumerations\ContainmentType.cs" />
     <Compile Include="code\enumerations\ErrorCode.cs" />
     <Compile Include="code\enumerations\PlaneIntersectionType.cs" />
-    <Compile Include="code\design\I3DObject.cs" />
+    <Compile Include="code\Design\I3DObject.cs" />
     <Compile Include="code\NoAudioHardwareException.cs" />
     <Compile Include="code\structures\Point.cs" />
     <Compile Include="code\structures\Rect.cs" />

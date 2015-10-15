@@ -26,11 +26,52 @@ namespace ManagedX
 		private const float Deg2Rad = 180.0f / Pi;
 		private const float Rad2Deg = Pi / 180.0f;
 
-		
-		/// <summary>Defines the value of the golden number.</summary>
-		public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
+		///// <summary>Defines the value of the golden number.</summary>
+		//public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
 		#endregion
+
+
+
+		#region Temperature conversion functions
+
+		// TODO - move this into a XScience static class (E-mulation, C-mulation, X-mulation...)
+
+		///// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
+		///// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
+		///// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+		//public static float ToFahrenheit( float temperatureInDegreesCelcius )
+		//{
+		//	return temperatureInDegreesCelcius * 1.8f + 32.0f;
+		//}
+
+		///// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
+		///// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
+		///// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+		//public static double ToFahrenheit( double temperatureInDegreesCelcius )
+		//{
+		//	return temperatureInDegreesCelcius * 1.8 + 32.0;
+		//}
+
+
+		///// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
+		///// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
+		///// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+		//public static float ToCelcius( float temperatureInDegreesFahrenheit )
+		//{
+		//	return temperatureInDegreesFahrenheit / 1.8f - 32.0f;
+		//}
+
+		///// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
+		///// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
+		///// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+		//public static double ToCelcius( double temperatureInDegreesFahrenheit )
+		//{
+		//	return temperatureInDegreesFahrenheit / 1.8 - 32.0;
+		//}
+
+		#endregion
+
 
 
 		/// <summary>Converts an angle in radians to degrees.</summary>
@@ -95,31 +136,87 @@ namespace ManagedX
 		}
 
 
+		/// <summary></summary>
+		/// <param name="value1"></param>
+		/// <param name="value2"></param>
+		/// <param name="value3"></param>
+		/// <param name="amount1"></param>
+		/// <param name="amount2"></param>
+		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Barycentric( float value1, float value2, float value3, float amount1, float amount2 )
+		{
+			return value1 + amount1 * ( value2 - value1 ) + amount2 * ( value3 - value1 );
+		}
+
+
+		/// <summary></summary>
+		/// <param name="value1"></param>
+		/// <param name="value2"></param>
+		/// <param name="value3"></param>
+		/// <param name="value4"></param>
+		/// <param name="amount"></param>
+		/// <returns></returns>
+		public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
+		{
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+			return 0.5f * ( 2.0f * value2 + ( -value1 + value3 ) * amount + ( 2.0f * value1 - 5.0f * value2 + 4.0f * value3 - value4 ) * amountSquared + ( -value1 + 3.0f * value2 - 3.0f * value3 + value4 ) * amountCubed );
+		}
+
+
 		#region Lerp
 
 		/// <summary>Performs a linear interpolation between two single-precision floating-point values.</summary>
-		/// <param name="from">The source value.</param>
-		/// <param name="to">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The amount of <paramref name="target"/> in the final blend; should be within the range [0,1].</param>
 		/// <returns></returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Lerp( float from, float to, float amount )
+		public static float Lerp( float source, float target, float amount )
 		{
-			return from + ( to - from ) * amount;
+			return source + ( target - source ) * amount;
 			//return from * ( 1.0f - amount ) + to * amount;
 		}
 
 
 		/// <summary>Performs a linear interpolation between two double-precision floating-point values.</summary>
-		/// <param name="from">The source value.</param>
-		/// <param name="to">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="to"/> in the final blend; should be within the range [0,1].</param>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The amount of <paramref name="target"/> in the final blend; should be within the range [0,1].</param>
 		/// <returns></returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double Lerp( double from, double to, double amount )
+		public static double Lerp( double source, double target, double amount )
 		{
-			return from + ( to - from ) * amount;
+			return source + ( target - source ) * amount;
 			//return from * ( 1.0 - amount ) + to * amount;
+		}
+
+		#endregion
+
+
+		#region SmoothStep
+
+		/// <summary>Returns the cubic interpolation between two values.</summary>
+		/// <param name="source">A finite single-precision floating-point value.</param>
+		/// <param name="target">A finite single-precision floating-point value.</param>
+		/// <param name="amount">A finite single-precision floating-point value; will be saturated (=forced into the the range [0,1]).</param>
+		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		public static float SmoothStep( float source, float target, float amount )
+		{
+			amount = amount.Saturate();
+			return Lerp( source, target, amount * amount * ( 3.0f - 2.0f * amount ) );
+		}
+
+		/// <summary>Returns the cubic interpolation between two values.</summary>
+		/// <param name="source">A finite double-precision floating-point value.</param>
+		/// <param name="target">A finite double-precision floating-point value.</param>
+		/// <param name="amount">A finite double-precision floating-point value; will be saturated (=forced into the the range [0,1]).</param>
+		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		public static double SmoothStep( double source, double target, double amount )
+		{
+			amount = amount.Saturate();
+			return Lerp( source, target, amount * amount * ( 3.0 - 2.0 * amount ) );
 		}
 
 		#endregion
