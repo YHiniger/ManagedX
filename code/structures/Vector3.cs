@@ -831,11 +831,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator +( Vector3 vector, Vector3 other )
 		{
-			return new Vector3(
-				vector.X + other.X,
-				vector.Y + other.Y,
-				vector.Z + other.Z
-			);
+			vector.X += other.X;
+			vector.Y += other.Y;
+			vector.Z += other.Z;
+			return vector;
 		}
 
 
@@ -845,11 +844,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator -( Vector3 vector, Vector3 other )
 		{
-			return new Vector3(
-				vector.X - other.X,
-				vector.Y - other.Y,
-				vector.Z - other.Z
-			);
+			vector.X -= other.X;
+			vector.Y -= other.Y;
+			vector.Z -= other.Z;
+			return vector;
 		}
 
 
@@ -859,11 +857,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator *( Vector3 vector, Vector3 other )
 		{
-			return new Vector3(
-				vector.X * other.X,
-				vector.Y * other.Y,
-				vector.Z * other.Z
-			);
+			vector.X *= other.X;
+			vector.Y *= other.Y;
+			vector.Z *= other.Z;
+			return vector;
 		}
 
 		/// <summary>Multiplication operator.</summary>
@@ -872,11 +869,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator *( Vector3 vector, float value )
 		{
-			return new Vector3(
-				vector.X * value,
-				vector.Y * value,
-				vector.Z * value
-			);
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
+			return vector;
 		}
 
 		/// <summary>Multiplication operator.</summary>
@@ -885,11 +881,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator *( float value, Vector3 vector )
 		{
-			return new Vector3(
-				vector.X * value,
-				vector.Y * value,
-				vector.Z * value
-			);
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
+			return vector;
 		}
 
 
@@ -899,11 +894,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator /( Vector3 vector, Vector3 other )
 		{
-			return new Vector3(
-				vector.X / other.X,
-				vector.Y / other.Y,
-				vector.Z / other.Z
-			);
+			vector.X /= other.X;
+			vector.Y /= other.Y;
+			vector.Z /= other.Z;
+			return vector;
 		}
 
 		/// <summary>Division operator.</summary>
@@ -913,11 +907,10 @@ namespace ManagedX
 		public static Vector3 operator /( Vector3 vector, float value )
 		{
 			var inv = 1.0f / value;
-			return new Vector3(
-				vector.X * inv,
-				vector.Y * inv,
-				vector.Z * inv
-			);
+			vector.X *= inv;
+			vector.Y *= inv;
+			vector.Z *= inv;
+			return vector;
 		}
 
 		/// <summary>Division operator.</summary>
@@ -926,11 +919,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator /( float value, Vector3 vector )
 		{
-			return new Vector3(
-				value / vector.X,
-				value / vector.Y,
-				value / vector.Z
-			);
+			vector.X = value / vector.X;
+			vector.Y = value / vector.Y;
+			vector.Z = value / vector.Z;
+			return vector;
 		}
 		
 		#endregion

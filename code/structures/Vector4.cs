@@ -835,7 +835,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator +( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z, vector.W + other.W );
+			vector.X += other.X;
+			vector.Y += other.Y;
+			vector.Z += other.Z;
+			vector.W += other.W;
+			return vector;
 		}
 
 
@@ -845,7 +849,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator -( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z, vector.W - other.W );
+			vector.X -= other.X;
+			vector.Y -= other.Y;
+			vector.Z -= other.Z;
+			vector.W -= other.W;
+			return vector;
 		}
 
 
@@ -855,7 +863,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator *( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z, vector.W * other.W );
+			vector.X *= other.X;
+			vector.Y *= other.Y;
+			vector.Z *= other.Z;
+			vector.W *= other.W;
+			return vector;
 		}
 
 		/// <summary>Multiplication operator.</summary>
@@ -864,7 +876,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator *( Vector4 vector, float value )
 		{
-			return new Vector4( vector.X * value, vector.Y * value, vector.Z * value, vector.W * value );
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
+			vector.W *= value;
+			return vector;
 		}
 
 		/// <summary>Multiplication operator.</summary>
@@ -873,7 +889,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator *( float value, Vector4 vector )
 		{
-			return new Vector4( vector.X * value, vector.Y * value, vector.Z * value, vector.W * value );
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
+			vector.W *= value;
+			return vector;
 		}
 
 
@@ -883,7 +903,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator /( Vector4 vector, Vector4 other )
 		{
-			return new Vector4( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z, vector.W / other.W );
+			vector.X /= other.X;
+			vector.Y /= other.Y;
+			vector.Z /= other.Z;
+			vector.W /= other.W;
+			return vector;
 		}
 
 		/// <summary>Division operator.</summary>
@@ -893,7 +917,11 @@ namespace ManagedX
 		public static Vector4 operator /( Vector4 vector, float value )
 		{
 			var inv = 1.0f / value;
-			return new Vector4( vector.X * inv, vector.Y * inv, vector.Z * inv, vector.W * inv );
+			vector.X *= inv;
+			vector.Y *= inv;
+			vector.Z *= inv;
+			vector.W *= inv;
+			return vector;
 		}
 
 		/// <summary>Division operator.</summary>
@@ -902,7 +930,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator /( float value, Vector4 vector )
 		{
-			return new Vector4( value / vector.X, value / vector.Y, value / vector.Z, value / vector.W );
+			vector.X = value / vector.X;
+			vector.Y = value / vector.Y;
+			vector.Z = value / vector.Z;
+			vector.W = value / vector.W;
+			return vector;
 		}
 		
 		#endregion

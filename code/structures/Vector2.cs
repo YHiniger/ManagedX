@@ -740,7 +740,9 @@ namespace ManagedX
 		/// <returns>Returns the sum of the specified <see cref="Vector2"/> values.</returns>
 		public static Vector2 operator +( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X + other.X, vector.Y + other.Y );
+			vector.X += other.X;
+			vector.Y += other.Y;
+			return vector;
 		}
 
 
@@ -750,7 +752,9 @@ namespace ManagedX
 		/// <returns>Returns the difference between <paramref name="vector"/> and <paramref name="other"/>.</returns>
 		public static Vector2 operator -( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X - other.X, vector.Y - other.Y );
+			vector.X -= other.X;
+			vector.Y -= other.Y;
+			return vector;
 		}
 
 
@@ -760,7 +764,9 @@ namespace ManagedX
 		/// <returns>Returns the result of the multiplication.</returns>
 		public static Vector2 operator *( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X * other.X, vector.Y * other.Y );
+			vector.X *= other.X;
+			vector.Y *= other.Y;
+			return vector;
 		}
 
 		/// <summary>Multiplication operator.</summary>
@@ -769,7 +775,9 @@ namespace ManagedX
 		/// <returns>Returns the result of the multiplication.</returns>
 		public static Vector2 operator *( Vector2 vector, float value )
 		{
-			return new Vector2( vector.X * value, vector.Y * value );
+			vector.X *= value;
+			vector.Y *= value;
+			return vector;
 		}
 
 		/// <summary>Multiplication operator.</summary>
@@ -778,7 +786,9 @@ namespace ManagedX
 		/// <returns>Returns the result of the multiplication.</returns>
 		public static Vector2 operator *( float value, Vector2 vector )
 		{
-			return new Vector2( vector.X * value, vector.Y * value );
+			vector.X *= value;
+			vector.Y *= value;
+			return vector;
 		}
 
 
@@ -788,7 +798,9 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector2 operator /( Vector2 vector, Vector2 other )
 		{
-			return new Vector2( vector.X / other.X, vector.Y / other.Y );
+			vector.X /= other.X;
+			vector.Y /= other.Y;
+			return vector;
 		}
 
 		/// <summary>Division operator.</summary>
@@ -797,7 +809,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector2 operator /( Vector2 vector, float value )
 		{
-			return new Vector2( vector.X / value, vector.Y / value );
+			var inv = 1.0f / value;
+			vector.X *= inv;
+			vector.Y *= inv;
+			return vector;
 		}
 
 		/// <summary>Division operator.</summary>
@@ -806,7 +821,9 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector2 operator /( float value, Vector2 vector )
 		{
-			return new Vector2( value / vector.X, value / vector.Y );
+			vector.X = value / vector.X;
+			vector.Y = value / vector.Y;
+			return vector;
 		}
 		
 		#endregion
