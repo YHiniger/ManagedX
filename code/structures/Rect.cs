@@ -34,6 +34,7 @@ namespace ManagedX
 		/// <summary>Gets the position of the upper left corner of the rectangle.</summary>
 		public Point Location { get { return new Point( this.Left, this.Top ); } }
 
+
 		/// <summary>Gets the size of the rectangle.</summary>
 		public Size Size { get { return new Size( Math.Abs( this.Right - this.Left ), Math.Abs( this.Bottom - this.Top ) ); } }
 
@@ -121,6 +122,38 @@ namespace ManagedX
 		public static readonly Rect Empty = new Rect();
 
 
+		/// <summary>Creates a rectangle containing the two specified rectangles.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <param name="result">Receives the rectangle containing the two specified rectangles.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[ComVisible( false )]
+		public static void Union( ref Rect rect, ref Rect other, out Rect result )
+		{
+			result.Left = rect.Left < other.Left ? rect.Left : other.Left;
+			result.Top = rect.Top < other.Top ? rect.Top : other.Top;
+			result.Right = rect.Right > other.Right ? rect.Right : other.Right;
+			result.Bottom = rect.Bottom > other.Bottom ? rect.Bottom : other.Bottom;
+		}
+
+		/// <summary>Returns a rectangle containing the two specified rectangles.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns a rectangle containing the two specified rectangles.</returns>
+		[ComVisible( false )]
+		public static Rect Union( Rect rect, Rect other )
+		{
+			Rect result;
+			result.Left = rect.Left < other.Left ? rect.Left : other.Left;
+			result.Top = rect.Top < other.Top ? rect.Top : other.Top;
+			result.Right = rect.Right > other.Right ? rect.Right : other.Right;
+			result.Bottom = rect.Bottom > other.Bottom ? rect.Bottom : other.Bottom;
+			return result;
+		}
+
+
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
@@ -141,6 +174,8 @@ namespace ManagedX
 		{
 			return !rect.Equals( other );
 		}
+
+		// TODO - comparison by surface, and when equal: by width, then by height.
 
 		#endregion
 
