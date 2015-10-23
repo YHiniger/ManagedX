@@ -311,8 +311,6 @@ namespace ManagedX
 		}
 
 
-		// TODO - Transform, TransformNormal
-
 		/// <summary>A <see cref="Quaternion"/> representing no rotation.</summary>
 		public static readonly Quaternion Identity = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f );
 
@@ -469,10 +467,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Retrieves a <see cref="Quaternion"/> structure whose components are set to the maximum components between two <see cref="Quaternion"/> values.</summary>
+		/// <summary>Retrieves a <see cref="Quaternion"/> structure whose components are set to the maximum components between two quaternions.</summary>
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
-		/// <param name="result">Receives a <see cref="Quaternion"/> structure whose components are set to the maximum components between two <see cref="Quaternion"/> values.</param>
+		/// <param name="result">Receives a <see cref="Quaternion"/> structure whose components are set to the maximum components between the two specified quaternions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -485,10 +483,10 @@ namespace ManagedX
 			result.W = XMath.Max( quaternion.W, other.W );
 		}
 
-		/// <summary>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between two <see cref="Quaternion"/> values.</summary>
+		/// <summary>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between two quaternions.</summary>
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
-		/// <returns>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between two <see cref="Quaternion"/> values.</returns>
+		/// <returns>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between the two specified quaternions.</returns>
 		public static Quaternion Max( Quaternion quaternion, Quaternion other )
 		{
 			return new Quaternion(
@@ -500,10 +498,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Calculates the dot product of two <see cref="Quaternion"/> values.</summary>
+		/// <summary>Calculates the dot product of two quaternions.</summary>
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> value.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> value.</param>
-		/// <param name="result">Receives the dot product of the two specified <see cref="Quaternion"/> values.</param>
+		/// <param name="result">Receives the dot product of the two specified quaternions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -513,7 +511,7 @@ namespace ManagedX
 			result = quaternion.X * other.X + quaternion.Y * other.Y + quaternion.Z * other.Z + quaternion.W * other.W;
 		}
 
-		/// <summary>Calculates the dot product of two <see cref="Quaternion"/> values.</summary>
+		/// <summary>Returns the dot product of two quaternions.</summary>
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> value.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> value.</param>
 		/// <returns>Returns the dot product of the two specified <see cref="Quaternion"/> values.</returns>
@@ -523,7 +521,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Performs a linear interpolation between two vectors.</summary>
+		/// <summary>Performs a linear interpolation between two quaternions.</summary>
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
@@ -540,7 +538,7 @@ namespace ManagedX
 			result.W = XMath.Lerp( source.W, target.W, amount );
 		}
 
-		/// <summary>Performs a linear interpolation between two vectors.</summary>
+		/// <summary>Performs a linear interpolation between two quaternions.</summary>
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
@@ -556,11 +554,11 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="source"></param>
-		/// <param name="target"></param>
-		/// <param name="amount"></param>
-		/// <param name="result"></param>
+		/// <summary>Performs a spherical interpolation between two quaternions.</summary>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
+		/// <param name="result">Receives the result of the interpolation.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
@@ -568,7 +566,7 @@ namespace ManagedX
 		public static void SLerp( ref Quaternion source, ref Quaternion target, float amount, out Quaternion result )
 		{
 			var dotProduct = source.X * target.X + source.Y * target.Y + source.Z * target.Z + source.W * target.W;
-			
+
 			var signInverted = false;
 			if( dotProduct < 0f )
 			{
@@ -599,11 +597,11 @@ namespace ManagedX
 			result.W = srcFactor * source.W + tgtFactor * target.W;
 		}
 
-		/// <summary></summary>
-		/// <param name="source"></param>
-		/// <param name="target"></param>
-		/// <param name="amount"></param>
-		/// <returns></returns>
+		/// <summary>Returns the spherical interpolation between two quaternions.</summary>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
+		/// <returns>Returns the result of the interpolation.</returns>
 		public static Quaternion SLerp( Quaternion source, Quaternion target, float amount )
 		{
 			Quaternion result;
@@ -612,10 +610,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="quaternion"></param>
-		/// <param name="other"></param>
-		/// <param name="result"></param>
+		/// <summary>Concatenates two quaternions.</summary>
+		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
+		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
+		/// <param name="result">Receives the result of the concatenation.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -633,10 +631,10 @@ namespace ManagedX
 			result.W = other.W * quaternion.W - w;
 		}
 
-		/// <summary></summary>
-		/// <param name="quaternion"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Concatenates two quaternions.</summary>
+		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
+		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
+		/// <returns>Returns the result of the concatenation.</returns>
 		public static Quaternion Concatenate( Quaternion quaternion, Quaternion other )
 		{
 			Quaternion result;
@@ -645,9 +643,9 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="quaternion"></param>
-		/// <param name="result"></param>
+		/// <summary>Calculates the conjugate of a <see cref="Quaternion"/>.</summary>
+		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
+		/// <param name="result">Receives the conjugate of the specified <paramref name="quaternion"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
@@ -659,25 +657,19 @@ namespace ManagedX
 			result.W = quaternion.W;
 		}
 
-		/// <summary></summary>
-		/// <param name="quaternion"></param>
-		/// <returns></returns>
+		/// <summary>Returns the conjugate of a <see cref="Quaternion"/>.</summary>
+		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
+		/// <returns>Returns the conjugate of the specified <paramref name="quaternion"/>.</returns>
 		public static Quaternion Conjugate( Quaternion quaternion )
 		{
 			Conjugate( ref quaternion, out quaternion );
 			return quaternion;
-			//return new Quaternion(
-			//	-quaternion.X,
-			//	-quaternion.Y,
-			//	-quaternion.Z,
-			//	quaternion.W
-			//);
 		}
 
 
-		/// <summary></summary>
-		/// <param name="quaternion"></param>
-		/// <param name="result"></param>
+		/// <summary>Calculates the inverse of a <see cref="Quaternion"/>.</summary>
+		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
+		/// <param name="result">Receives the inverse of the specified <paramref name="quaternion"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
@@ -697,9 +689,9 @@ namespace ManagedX
 			//}
 		}
 
-		/// <summary></summary>
-		/// <param name="quaternion"></param>
-		/// <returns></returns>
+		/// <summary>Returns the inverse of a <see cref="Quaternion"/>.</summary>
+		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
+		/// <returns>Returns the inverse of the specified <paramref name="quaternion"/>.</returns>
 		public static Quaternion Inverse( Quaternion quaternion )
 		{
 			quaternion.Invert();
