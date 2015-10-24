@@ -120,7 +120,7 @@ namespace ManagedX
 				X *= scale;
 				Y *= scale;
 				Z *= scale;
-				W *= scale; // really ?
+				W *= scale;
 			}
 		}
 
@@ -568,7 +568,7 @@ namespace ManagedX
 			var dotProduct = source.X * target.X + source.Y * target.Y + source.Z * target.Z + source.W * target.W;
 
 			var signInverted = false;
-			if( dotProduct < 0f )
+			if( dotProduct < 0.0f )
 			{
 				signInverted = true;
 				dotProduct = -dotProduct;
@@ -583,9 +583,10 @@ namespace ManagedX
 			else
 			{
 				var angle = (float)Math.Acos( (double)dotProduct );
-				var invSinAngle = (float)( 1.0 / Math.Sin( (double)angle ) );
-				srcFactor = (float)Math.Sin( (double)( ( 1.0f - amount ) * angle ) ) * invSinAngle;
-				tgtFactor = (float)Math.Sin( (double)( amount * angle ) ) * invSinAngle;
+				var invSinAngle = 1.0f / XMath.Sin( angle );
+				//var invSinAngle = (float)( 1.0 / Math.Sin( (double)angle ) );
+				srcFactor = XMath.Sin( ( 1.0f - amount ) * angle ) * invSinAngle;
+				tgtFactor = XMath.Sin( amount * angle ) * invSinAngle;
 			}
 
 			if( signInverted )

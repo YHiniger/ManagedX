@@ -9,7 +9,6 @@ namespace ManagedX
 	/// <summary>Represents a size (integer) in 2D space.</summary>
 	[System.Diagnostics.DebuggerStepThrough]
 	[Serializable]
-	[ComVisible( true )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Size : IEquatable<Size>
 	{
@@ -56,6 +55,7 @@ namespace ManagedX
 			return ( Width == other.Width ) && ( Height == other.Height );
 		}
 
+
 		/// <summary>Returns a value indicating whether this <see cref="Size"/> structure is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
 		/// <returns>Returns true if the specified object is a <see cref="Size"/> structure which equals this structure, otherwise returns false.</returns>
@@ -80,32 +80,106 @@ namespace ManagedX
 		public static readonly Size Empty = new Size();
 
 
+		/// <summary>Adds two <see cref="Size"/> structures.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="result">Receives the sum of the specified sizes.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		public static void Add( ref Size size, ref Size other, out Size result )
+		{
+			result.Width = size.Width + other.Width;
+			result.Height = size.Height + other.Height;
+		}
+
 		/// <summary>Adds two <see cref="Size"/> values.</summary>
 		/// <param name="size">A <see cref="Size"/> structure.</param>
 		/// <param name="other">A <see cref="Size"/> structure.</param>
 		/// <returns></returns>
-		[ComVisible( false )]
 		public static Size Add( Size size, Size other )
 		{
-			return new Size( size.Width + other.Width, size.Height + other.Height );
+			size.Width += other.Width;
+			size.Height += other.Height;
+			return size;
 		}
 
 
 		/// <summary>Subtracts a <see cref="Size"/> (<paramref name="other"/>) from another <see cref="Size"/> (<paramref name="size"/>).</summary>
 		/// <param name="size">A <see cref="Size"/> structure.</param>
 		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="result">Receives the difference between the specified sizes.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		public static void Subtract( ref Size size, ref Size other, out Size result )
+		{
+			result.Width = size.Width - other.Width;
+			result.Height = size.Height - other.Height;
+		}
+
+		/// <summary>Subtracts a <see cref="Size"/> (<paramref name="other"/>) from another <see cref="Size"/> (<paramref name="size"/>).</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
 		/// <returns>Returns a <see cref="Size"/> structure initialized with the result of ( <paramref name="size"/> - <paramref name="other"/> ).</returns>
-		[ComVisible( false )]
 		public static Size Subtract( Size size, Size other )
 		{
-			return new Size()
-			{
-				Width = size.Width - other.Width,
-				Height = size.Height - other.Height
-			};
+			size.Width -= other.Width;
+			size.Height -= other.Height;
+			return size;
 		}
 
 
+		/// <summary>Multiplies two <see cref="Size"/> structures.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="result">Receives the result of the product.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		public static void Multiply( ref Size size, ref Size other, out Size result )
+		{
+			result.Width = size.Width * other.Width;
+			result.Height = size.Height * other.Height;
+		}
+
+		/// <summary>Returns the product of two <see cref="Size"/> structures.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the product of the two specified <see cref="Size"/> structures.</returns>
+		public static Size Multiply( Size size, Size other )
+		{
+			size.Width *= other.Width;
+			size.Height *= other.Height;
+			return size;
+		}
+
+
+		/// <summary>Multiplies a <see cref="Size"/> by an integer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <param name="result">Receives the result of the product.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		public static void Multiply( ref Size size, int value, out Size result )
+		{
+			result.Width = size.Width * value;
+			result.Height = size.Height * value;
+		}
+
+		/// <summary>Returns the product of a <see cref="Size"/> by an integer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the product of <paramref name="size"/> x <paramref name="value"/>.</returns>
+		public static Size Multiply( Size size, int value )
+		{
+			size.Width *= value;
+			size.Height *= value;
+			return size;
+		}
+
+	
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
@@ -179,7 +253,9 @@ namespace ManagedX
 		/// <returns>Returns the sum of the two specified <see cref="Size"/> values.</returns>
 		public static Size operator +( Size size, Size other )
 		{
-			return new Size( size.Width + other.Width, size.Height + other.Height );
+			size.Width += other.Width;
+			size.Height += other.Height;
+			return size;
 		}
 
 
@@ -187,9 +263,45 @@ namespace ManagedX
 		/// <param name="size">A <see cref="Size"/> structure.</param>
 		/// <param name="other">A <see cref="Size"/> structure.</param>
 		/// <returns>Returns the difference between the two specified <see cref="Size"/> values.</returns>
-		public static Point operator -( Size size, Size other )
+		public static Size operator -( Size size, Size other )
 		{
-			return new Point( size.Width - other.Width, size.Height - other.Height );
+			size.Width -= other.Width;
+			size.Height -= other.Height;
+			return size;
+		}
+
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the product of the specified values.</returns>
+		public static Size operator *( Size size, Size other )
+		{
+			size.Width *= other.Width;
+			size.Height *= other.Height;
+			return size;
+		}
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the product of the specified values.</returns>
+		public static Size operator *( Size size, int value )
+		{
+			size.Width *= value;
+			size.Height *= value;
+			return size;
+		}
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="value">An integer value.</param>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the product of the specified values.</returns>
+		public static Size operator *( int value, Size size )
+		{
+			size.Width *= value;
+			size.Height *= value;
+			return size;
 		}
 
 		#endregion

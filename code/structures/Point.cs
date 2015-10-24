@@ -9,7 +9,6 @@ namespace ManagedX
 	/// <summary>Represents a point in 2D space.</summary>
 	[System.Diagnostics.DebuggerStepThrough]
 	[Serializable]
-	[ComVisible( true )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Point : IEquatable<Point>
 	{
@@ -94,7 +93,6 @@ namespace ManagedX
 		/// <summary>Returns a <see cref="Point"/> initialized with coordinates opposite to the specified <see cref="Point"/>.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <returns>Returns a <see cref="Point"/> initialized with coordinates opposite to the specified <see cref="Point"/>.</returns>
-		[ComVisible( false )]
 		public static Point Negate( Point point )
 		{
 			point.X = -point.X;
@@ -107,7 +105,6 @@ namespace ManagedX
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <param name="other">A <see cref="Point"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="point"/> + <paramref name="other"/> ).</returns>
-		[ComVisible( false )]
 		public static Point Add( Point point, Point other )
 		{
 			point.Offset( other );
@@ -119,7 +116,6 @@ namespace ManagedX
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <param name="other">A <see cref="Point"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="point"/> - <paramref name="other"/> ).</returns>
-		[ComVisible( false )]
 		public static Point Subtract( Point point, Point other )
 		{
 			point.Offset( Negate( other ) );

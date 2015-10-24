@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace ManagedX
 {
 
-	/// <summary>An <see cref="Exception"/> to be thrown when a requirement is missing.</summary>
+	/// <summary>An <see cref="Exception"/> to be thrown when a requirement is missing (ie: no audio device, no suitable graphics device, etc).</summary>
 	[Serializable]
 	public class MissingRequirementException : Exception
 	{

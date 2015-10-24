@@ -258,6 +258,7 @@ namespace ManagedX
 			return (float)Math.Sin( (double)angle );
 		}
 
+
 		/// <summary>Returns the cosinus of an angle expressed in radians.</summary>
 		/// <param name="angle">An angle, in radians.</param>
 		/// <returns>Returns the cosinus of the specified <paramref name="angle"/>.</returns>

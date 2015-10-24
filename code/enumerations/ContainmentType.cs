@@ -1,8 +1,8 @@
 ﻿namespace ManagedX
 {
 
-	// DirectXCollision.h
 	// https://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.directxcollision.containmenttype%28v=vs.85%29.aspx
+	// DirectXCollision.h
 
 
 	/// <summary>Indicates whether an object contains another object.</summary>
