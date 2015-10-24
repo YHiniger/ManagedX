@@ -23,6 +23,7 @@ namespace ManagedX
 		/// <summary>Defines Pi / 4.</summary>
 		public const float PiOver4 = Pi / 4.0f;
 
+
 		///// <summary>Defines the value of the golden number.</summary>
 		//public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
@@ -246,6 +247,29 @@ namespace ManagedX
 		#endregion
 
 
+		#region Sin, Cos
+
+		/// <summary>Returns the sinus of an angle expressed in radians.</summary>
+		/// <param name="angle">An angle, in radians.</param>
+		/// <returns>Returns the sinus of the specified <paramref name="angle"/>.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Sin( float angle )
+		{
+			return (float)Math.Sin( (double)angle );
+		}
+
+		/// <summary>Returns the cosinus of an angle expressed in radians.</summary>
+		/// <param name="angle">An angle, in radians.</param>
+		/// <returns>Returns the cosinus of the specified <paramref name="angle"/>.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Cos( float angle )
+		{
+			return (float)Math.Cos( (double)angle );
+		}
+
+		#endregion // Sin, Cos
+
+
 		#region Extension methods (MakeFinite, Clamp, Saturate)
 
 		/// <summary>Converts <see cref="float.NaN"/> to 0, <see cref="float.PositiveInfinity"/> to <see cref="float.MaxValue"/> and <see cref="float.NegativeInfinity"/> to <see cref="float.MinValue"/>; otherwise, returns the specified value.</summary>
@@ -273,7 +297,7 @@ namespace ManagedX
 
 
 		/// <summary>Returns the nearest value within the specified range.</summary>
-		/// <typeparam name="TValue">A comparable value type.</typeparam>
+		/// <typeparam name="TValue">Comparable value type.</typeparam>
 		/// <param name="value">A value; must be a finite number.</param>
 		/// <param name="min">The minimum value; must be a finite number.</param>
 		/// <param name="max">The maximum value; must be a finite number.</param>
