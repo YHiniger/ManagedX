@@ -699,7 +699,74 @@ namespace ManagedX
 		}
 
 
-		// TODO - CreateFrom*
+
+		/// <summary>Creates a new <see cref="Quaternion"/> structure from the specified yaw, pitch, and roll angles.</summary>
+		/// <param name="yaw">The yaw angle, in radians, around the y-axis.</param>
+		/// <param name="pitch">The pitch angle, in radians, around the x-axis.</param>
+		/// <param name="roll">The roll angle, in radians, around the z-axis.</param>
+		/// <param name="result">Receives a <see cref="Quaternion"/> structure filled in to express the specified yaw, pitch, and roll angles.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void CreateFromYawPitchRoll( float yaw, float pitch, float roll, out Quaternion result )
+		{
+			var halfRoll = roll * 0.5f;
+			var sinHalfRoll = XMath.Sin( halfRoll );
+			var cosHalfRoll = XMath.Cos( halfRoll );
+
+			var halfPitch = pitch * 0.5f;
+			var sinHalfPitch = XMath.Sin( halfPitch );
+			var cosHalfPitch = XMath.Cos( halfPitch );
+			
+			var halfYaw = yaw * 0.5f;
+			var sinHalfYaw = XMath.Sin( halfYaw );
+			var cosHalfYaw = XMath.Cos( halfYaw );
+			
+			result.X = cosHalfYaw * sinHalfPitch * cosHalfRoll + sinHalfYaw * cosHalfPitch * sinHalfRoll;
+			result.Y = sinHalfYaw * cosHalfPitch * cosHalfRoll - cosHalfYaw * sinHalfPitch * sinHalfRoll;
+			result.Z = cosHalfYaw * cosHalfPitch * sinHalfRoll - sinHalfYaw * sinHalfPitch * cosHalfRoll;
+			result.W = cosHalfYaw * cosHalfPitch * cosHalfRoll + sinHalfYaw * sinHalfPitch * sinHalfRoll;
+		}
+
+		/// <summary>Returns a <see cref="Quaternion"/> structure from the specified yaw, pitch, and roll angles.</summary>
+		/// <param name="yaw">The yaw angle, in radians, around the y-axis.</param>
+		/// <param name="pitch">The pitch angle, in radians, around the x-axis.</param>
+		/// <param name="roll">The roll angle, in radians, around the z-axis.</param>
+		/// <returns>Returns a <see cref="Quaternion"/> structure filled in to express the specified yaw, pitch, and roll angles.</returns>
+		public static Quaternion CreateFromYawPitchRoll( float yaw, float pitch, float roll )
+		{
+			Quaternion result;
+			CreateFromYawPitchRoll( yaw, pitch, roll, out result );
+			return result;
+		}
+
+
+		/// <summary>Creates a <see cref="Quaternion"/> from a <see cref="Vector3"/> and an angle to rotate about the vector.</summary>
+		/// <param name="axis">The vector to rotate around.</param>
+		/// <param name="angle">The angle to rotate around the vector.</param>
+		/// <param name="result">Receives the <see cref="Quaternion"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void CreateFromAxisAngle( ref Vector3 axis, float angle, out Quaternion result )
+		{
+			var halfAngle = angle * 0.5f;
+			var sinHalfAngle = XMath.Sin( halfAngle );
+			result.X = axis.X * sinHalfAngle;
+			result.Y = axis.Y * sinHalfAngle;
+			result.Z = axis.Z * sinHalfAngle;
+			result.W = XMath.Cos( halfAngle );
+		}
+
+		/// <summary>Returns a <see cref="Quaternion"/> from a <see cref="Vector3"/> and an angle to rotate about the vector.</summary>
+		/// <param name="axis">The vector to rotate around.</param>
+		/// <param name="angle">The angle to rotate around the vector.</param>
+		/// <returns>Returns the <see cref="Quaternion"/>.</returns>
+		public static Quaternion CreateFromAxisAngle( Vector3 axis, float angle )
+		{
+			Quaternion result;
+			CreateFromAxisAngle( ref axis, angle, out result );
+			return result;
+		}
 
 
 		#region Operators
