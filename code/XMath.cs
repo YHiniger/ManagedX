@@ -11,23 +11,23 @@ namespace ManagedX
 
 		#region Constants
 
-		/// <summary>Defines the value of Pi.</summary>
+		/// <summary>Defines the value of π (Pi).</summary>
 		public const float Pi = 3.141592654f;
 
-		/// <summary>Defines the value of two times Pi.</summary>
+		/// <summary>Defines the value of two times π (Pi).</summary>
 		public const float TwoPi = Pi * 2.0f;
 
-		/// <summary>Defines Pi / 2.</summary>
-		public const float PiOver2 = Pi / 2.0f;
+		/// <summary>Defines π / 2.</summary>
+		public const float PiOver2 = Pi * 0.5f;
 
-		/// <summary>Defines Pi / 4.</summary>
-		public const float PiOver4 = Pi / 4.0f;
+		/// <summary>Defines π / 4.</summary>
+		public const float PiOver4 = Pi * 0.25f;
 
 
 		///// <summary>Defines the value of the golden number.</summary>
 		//public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
-		#endregion
+		#endregion // Constants
 
 
 
@@ -68,9 +68,10 @@ namespace ManagedX
 		//	return temperatureInDegreesFahrenheit / 1.8 - 32.0;
 		//}
 
-		#endregion
+		#endregion // Temperature conversion functions
 
 
+		#region Angle conversion functions
 
 		/// <summary>Converts an angle in radians to degrees.</summary>
 		/// <param name="radians">An angle in radians.</param>
@@ -91,10 +92,12 @@ namespace ManagedX
 			return degrees * 180.0f / Pi;
 		}
 
+		#endregion // Angle conversion functions
+
 
 		/// <summary>Reduces an angle to a value within the range [-π,+π].</summary>
 		/// <param name="radians">An angle, in radians.</param>
-		/// <returns></returns>
+		/// <returns>Returns the specified angle reduced to the range [-π,+π].</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float WrapAngle( float radians )
 		{
