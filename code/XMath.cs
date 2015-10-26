@@ -5,16 +5,22 @@ using System.Runtime.CompilerServices;
 namespace ManagedX
 {
 
+	// Rule #1: avoid divisions; use multiplications instead.
+
+
+	// TODO - try to make use of DirectXMath (https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833%28v=vs.85%29.aspx)
+
+	
 	/// <summary>Provides common math constants and functions, as well as extension methods to <see cref="float"/> and <see cref="double"/>.</summary>
 	public static class XMath
 	{
 
 		#region Constants
 
-		/// <summary>Defines the value of π (Pi).</summary>
+		/// <summary>Defines the value of π.</summary>
 		public const float Pi = 3.141592654f;
 
-		/// <summary>Defines the value of two times π (Pi).</summary>
+		/// <summary>Defines the value of 2π.</summary>
 		public const float TwoPi = Pi * 2.0f;
 
 		/// <summary>Defines π / 2.</summary>
@@ -38,6 +44,7 @@ namespace ManagedX
 		///// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
 		///// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
 		///// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		//public static float ToFahrenheit( float temperatureInDegreesCelcius )
 		//{
 		//	return temperatureInDegreesCelcius * 1.8f + 32.0f;
@@ -46,6 +53,7 @@ namespace ManagedX
 		///// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
 		///// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
 		///// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		//public static double ToFahrenheit( double temperatureInDegreesCelcius )
 		//{
 		//	return temperatureInDegreesCelcius * 1.8 + 32.0;
@@ -55,6 +63,7 @@ namespace ManagedX
 		///// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
 		///// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
 		///// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		//public static float ToCelcius( float temperatureInDegreesFahrenheit )
 		//{
 		//	return temperatureInDegreesFahrenheit / 1.8f - 32.0f;
@@ -63,6 +72,7 @@ namespace ManagedX
 		///// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
 		///// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
 		///// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		//public static double ToCelcius( double temperatureInDegreesFahrenheit )
 		//{
 		//	return temperatureInDegreesFahrenheit / 1.8 - 32.0;
@@ -79,7 +89,8 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToDegrees( float radians )
 		{
-			return radians * Pi / 180.0f;
+			const float conv = Pi / 180.0f;
+			return radians * conv;
 		}
 
 
@@ -89,7 +100,8 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToRadians( float degrees )
 		{
-			return degrees * 180.0f / Pi;
+			const float conv = 180.0f / Pi;
+			return degrees * conv;
 		}
 
 		#endregion // Angle conversion functions
@@ -102,7 +114,7 @@ namespace ManagedX
 		public static float WrapAngle( float radians )
 		{
 			radians %= TwoPi;
-			return ( radians <= -Pi ) ? radians + TwoPi : ( radians >= Pi ) ? radians - TwoPi : radians;
+			return ( radians < -Pi ) ? radians + TwoPi : ( radians > Pi ) ? radians - TwoPi : radians;
 		}
 
 
@@ -137,13 +149,13 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="value1"></param>
-		/// <param name="value2"></param>
-		/// <param name="value3"></param>
-		/// <param name="amount1"></param>
-		/// <param name="amount2"></param>
-		/// <returns></returns>
+		/// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
+		/// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
+		/// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
+		/// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
+		/// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
+		/// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
+		/// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Barycentric( float value1, float value2, float value3, float amount1, float amount2 )
 		{
@@ -151,13 +163,13 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="value1"></param>
-		/// <param name="value2"></param>
-		/// <param name="value3"></param>
-		/// <param name="value4"></param>
-		/// <param name="amount"></param>
-		/// <returns></returns>
+		/// <summary>Performs a Catmull-Rom interpolation using the specified positions.</summary>
+		/// <param name="value1">The first position in the interpolation.</param>
+		/// <param name="value2">The second position in the interpolation.</param>
+		/// <param name="value3">The third position in the interpolation.</param>
+		/// <param name="value4">The fourth position in the interpolation.</param>
+		/// <param name="amount">Weighting factor.</param>
+		/// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
 		{
@@ -279,6 +291,7 @@ namespace ManagedX
 		/// <summary>Converts <see cref="float.NaN"/> to 0, <see cref="float.PositiveInfinity"/> to <see cref="float.MaxValue"/> and <see cref="float.NegativeInfinity"/> to <see cref="float.MinValue"/>; otherwise, returns the specified value.</summary>
 		/// <param name="value">A single-precision floating-point value.</param>
 		/// <returns>Returns the nearest finite value.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float MakeFinite( this float value )
 		{
 			if( float.IsInfinity( value ) )
@@ -290,6 +303,7 @@ namespace ManagedX
 		/// <summary>Converts <see cref="double.NaN"/> to 0, <see cref="double.PositiveInfinity"/> to <see cref="double.MaxValue"/> and <see cref="double.NegativeInfinity"/> to <see cref="double.MinValue"/>; otherwise, returns the specified value.</summary>
 		/// <param name="value">A double-precision floating-point value.</param>
 		/// <returns>Returns the nearest finite value.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double MakeFinite( this double value )
 		{
 			if( double.IsInfinity( value ) )
