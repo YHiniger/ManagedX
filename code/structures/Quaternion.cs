@@ -96,7 +96,7 @@ namespace ManagedX
 			this.W = this.Z = this.Y = this.X = xyzw;
 		}
 
-		#endregion
+		#endregion // Constructors
 
 
 
@@ -310,6 +310,8 @@ namespace ManagedX
 			return new Vector4( X, Y, Z, W );
 		}
 
+
+		#region Static
 
 		/// <summary>A <see cref="Quaternion"/> representing no rotation.</summary>
 		public static readonly Quaternion Identity = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f );
@@ -769,6 +771,8 @@ namespace ManagedX
 			return result;
 		}
 
+		#endregion // Static
+
 
 		#region Operators
 
@@ -938,7 +942,7 @@ namespace ManagedX
 			return new Quaternion( value / vector.X, value / vector.Y, value / vector.Z, value / vector.W );
 		}
 
-		#endregion
+		#endregion // Operators
 
 	}
 

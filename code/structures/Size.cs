@@ -22,6 +22,7 @@ namespace ManagedX
 		public int Height;
 
 
+
 		/// <summary>Initializes a new <see cref="Size"/> structure.</summary>
 		/// <param name="width">The width component of the size; must be greater than or equal to zero.</param>
 		/// <param name="height">The height component of the size; must be greater than or equal to zero.</param>
@@ -37,6 +38,7 @@ namespace ManagedX
 			this.Width = width;
 			this.Height = height;
 		}
+
 
 
 		/// <summary>Returns a hash code for this <see cref="Size"/> structure.</summary>
@@ -73,8 +75,9 @@ namespace ManagedX
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{0}×{1}", Width, Height );
 		}
-		
 
+
+		#region Static
 
 		/// <summary>The empty (or zero) <see cref="Size"/> structure.</summary>
 		public static readonly Size Empty = new Size();
@@ -179,7 +182,9 @@ namespace ManagedX
 			return size;
 		}
 
-	
+		#endregion // Static
+
+
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
@@ -304,7 +309,7 @@ namespace ManagedX
 			return size;
 		}
 
-		#endregion
+		#endregion // Operators
 
 	}
 

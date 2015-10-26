@@ -121,6 +121,8 @@ namespace ManagedX
 		}
 
 
+		#region Static
+
 		/// <summary>The empty <see cref="Rect"/> structure.</summary>
 		public static readonly Rect Empty = new Rect();
 
@@ -154,6 +156,8 @@ namespace ManagedX
 			return result;
 		}
 
+		#endregion // Static
+
 
 		#region Operators
 
@@ -176,9 +180,9 @@ namespace ManagedX
 			return !rect.Equals( other );
 		}
 
-		// TODO - comparison by surface, and when equal: by width, then by height.
+		// THINKABOUTME - comparison by surface, and when equal: by width, then by height.
 
-		#endregion
+		#endregion // Operators
 
 	}
 

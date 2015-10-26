@@ -86,7 +86,7 @@ namespace ManagedX
 			this.W = this.Z = this.Y = this.X = xyzw;
 		}
 
-		#endregion
+		#endregion // Constructors
 
 
 
@@ -208,10 +208,11 @@ namespace ManagedX
 		{
 			return new Vector3( this.X, this.Y, this.Z );
 		}
-		
-		
+
+
 		// TODO - Transform, TransformNormal
 
+		#region Static
 
 		/// <summary>The zero <see cref="Vector4"/> structure.</summary>
 		public static readonly Vector4 Zero = new Vector4();
@@ -232,7 +233,6 @@ namespace ManagedX
 		public static readonly Vector4 UnitW = new Vector4( 0.0f, 0.0f, 0.0f, 1.0f );
 
 
-		#region Static functions
 
 		/// <summary>Calculates the sum of two <see cref="Vector4"/>.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
@@ -734,7 +734,7 @@ namespace ManagedX
 			return result;
 		}
 
-		#endregion
+		#endregion // Static
 
 
 		#region Operators
@@ -765,7 +765,6 @@ namespace ManagedX
 		{
 			return vector.Equals( other );
 		}
-
 
 		/// <summary>Inequality comparer.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
@@ -936,8 +935,8 @@ namespace ManagedX
 			vector.W = value / vector.W;
 			return vector;
 		}
-		
-		#endregion
+
+		#endregion // Operators
 
 	}
 

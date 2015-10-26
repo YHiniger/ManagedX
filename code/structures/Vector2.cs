@@ -26,7 +26,6 @@ namespace ManagedX
 
 		#region Constructors
 
-
 		/// <summary>Initializes a new <see cref="Vector2"/> structure.</summary>
 		/// <param name="x">The x component.</param>
 		/// <param name="y">The y component.</param>
@@ -46,8 +45,7 @@ namespace ManagedX
 			X = Y = xy;
 		}
 
-		
-		#endregion
+		#endregion // Constructors
 
 
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
@@ -150,6 +148,7 @@ namespace ManagedX
 
 
 
+		#region Static
 
 		/// <summary>The zero <see cref="Vector2"/>.</summary>
 		public static readonly Vector2 Zero = new Vector2();
@@ -164,7 +163,6 @@ namespace ManagedX
 		public static readonly Vector2 UnitY = new Vector2( 0.0f, 1.0f );
 
 		
-		#region Static functions
 
 		/// <summary>Adds two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
@@ -658,11 +656,10 @@ namespace ManagedX
 			return result;
 		}
 
-		#endregion
+		#endregion // Static
 
 
 		#region Operators
-
 
 		/// <summary>Equality comparer.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
@@ -825,8 +822,8 @@ namespace ManagedX
 			vector.Y = value / vector.Y;
 			return vector;
 		}
-		
-		#endregion
+
+		#endregion // Operators
 
 	}
 

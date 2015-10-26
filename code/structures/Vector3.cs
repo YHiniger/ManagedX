@@ -64,7 +64,7 @@ namespace ManagedX
 			X = Y = Z = xyz;
 		}
 
-		#endregion
+		#endregion // Constructors
 
 
 
@@ -180,6 +180,8 @@ namespace ManagedX
 		// TODO - Transform, TransformNormal
 
 
+		#region Static
+
 		/// <summary>A <see cref="Vector3"/> whose components are set to 0.</summary>
 		public static readonly Vector3 Zero = new Vector3();
 
@@ -203,9 +205,8 @@ namespace ManagedX
 
 		/// <summary>Unit vector pointing backward: (0,0,1).</summary>
 		public static readonly Vector3 Backward = new Vector3( 0.0f, 0.0f, 1.0f );
-		
 
-		#region Static functions
+		
 
 		/// <summary>Returns the sum of two <see cref="Vector3"/>.</summary>
 		/// <param name="vector">A valid <see cref="Vector3"/>.</param>
@@ -740,7 +741,7 @@ namespace ManagedX
 			);
 		}
 
-		#endregion
+		#endregion // Static
 
 
 		#region Operators
@@ -762,7 +763,6 @@ namespace ManagedX
 		{
 			return vector.Equals( other );
 		}
-
 
 		/// <summary>Inequality comparer.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
@@ -924,8 +924,8 @@ namespace ManagedX
 			vector.Z = value / vector.Z;
 			return vector;
 		}
-		
-		#endregion
+
+		#endregion // Operators
 
 	}
 
