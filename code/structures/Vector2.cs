@@ -75,7 +75,7 @@ namespace ManagedX
 		{
 			var x = other.X - X;
 			var y = other.Y - Y;
-			return XMath.Sqrt( x * x + y * y );
+			return (float)Math.Sqrt( x * x + y * y );
 		}
 
 
@@ -97,7 +97,7 @@ namespace ManagedX
 		public float LengthSquared { get { return X * X + Y * Y; } }
 
 		/// <summary>Gets the length of this <see cref="Vector2"/>.</summary>
-		public float Length { get { return XMath.Sqrt( X * X + Y * Y ); } }
+		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y ); } }
 		
 
 		// TODO - Transform, TransformNormal
@@ -328,8 +328,8 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Min( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result.X = XMath.Min( vector.X, other.X );
-			result.Y = XMath.Min( vector.Y, other.Y );
+			result.X = Math.Min( vector.X, other.X );
+			result.Y = Math.Min( vector.Y, other.Y );
 		}
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between two <see cref="Vector2"/> values.</summary>
@@ -338,8 +338,8 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between the two <see cref="Vector2"/> values.</returns>
 		public static Vector2 Min( Vector2 vector, Vector2 other )
 		{
-			vector.X = XMath.Min( vector.X, other.X );
-			vector.Y = XMath.Min( vector.Y, other.Y );
+			vector.X = Math.Min( vector.X, other.X );
+			vector.Y = Math.Min( vector.Y, other.Y );
 			return vector;
 		}
 
@@ -354,8 +354,8 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Max( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result.X = XMath.Max( vector.X, other.X );
-			result.Y = XMath.Max( vector.Y, other.Y );
+			result.X = Math.Max( vector.X, other.X );
+			result.Y = Math.Max( vector.Y, other.Y );
 		}
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between two <see cref="Vector2"/> values.</summary>
@@ -364,8 +364,8 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</returns>
 		public static Vector2 Max( Vector2 vector, Vector2 other )
 		{
-			vector.X = XMath.Max( vector.X, other.X );
-			vector.Y = XMath.Max( vector.Y, other.Y );
+			vector.X = Math.Max( vector.X, other.X );
+			vector.Y = Math.Max( vector.Y, other.Y );
 			return vector;
 		}
 
@@ -383,7 +383,7 @@ namespace ManagedX
 		{
 			var x = other.X - position.X;
 			var y = other.Y - position.Y;
-			result = XMath.Sqrt( x * x + y * y );
+			result = (float)Math.Sqrt( x * x + y * y );
 		}
 
 		/// <summary>Returns the distance between two <see cref="Vector2"/> positions.</summary>
@@ -395,7 +395,7 @@ namespace ManagedX
 		{
 			var x = other.X - position.X;
 			var y = other.Y - position.Y;
-			return XMath.Sqrt( x * x + y * y );
+			return (float)Math.Sqrt( x * x + y * y );
 		}
 
 

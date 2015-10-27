@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 
 namespace ManagedX
@@ -118,27 +119,6 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns the smallest value between two values.</summary>
-		/// <param name="value1">A finite single-precision floating-point value.</param>
-		/// <param name="value2">A finite single-precision floating-point value.</param>
-		/// <returns>Returns the smallest value between the two specified values.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Min( float value1, float value2 )
-		{
-			return ( value1 < value2 ) ? value1 : value2;
-		}
-
-		/// <summary>Returns the largest value between two values.</summary>
-		/// <param name="value1">A finite single-precision floating-point value.</param>
-		/// <param name="value2">A finite single-precision floating-point value.</param>
-		/// <returns>Returns the largest value between the two specified values.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Max( float value1, float value2 )
-		{
-			return ( value1 > value2 ) ? value1 : value2;
-		}
-
-		
 		/// <summary>Returns <code>e</code> to the specified power.</summary>
 		/// <param name="power">A finite single-precision floating-point value specifying the power.</param>
 		/// <returns>Returns <code>e</code> to the specified power.</returns>
@@ -236,54 +216,6 @@ namespace ManagedX
 		}
 
 		#endregion
-
-
-		#region Sqrt
-
-		/// <summary>Returns the square root of a value.</summary>
-		/// <param name="value">A finite single-precision (32bit) floating-point value.</param>
-		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Sqrt( float value )
-		{
-			return (float)Math.Sqrt( (double)value );
-		}
-
-
-		/// <summary>Returns the square root of a value.</summary>
-		/// <param name="value">A finite double-precision (64bit) floating-point value.</param>
-		/// <returns>Returns the square root of the specified <paramref name="value"/>.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double Sqrt( double value )
-		{
-			return Math.Sqrt( value );
-		}
-
-		#endregion
-
-
-		#region Sin, Cos
-
-		/// <summary>Returns the sinus of an angle expressed in radians.</summary>
-		/// <param name="angle">An angle, in radians.</param>
-		/// <returns>Returns the sinus of the specified <paramref name="angle"/>.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Sin( float angle )
-		{
-			return (float)Math.Sin( (double)angle );
-		}
-
-
-		/// <summary>Returns the cosinus of an angle expressed in radians.</summary>
-		/// <param name="angle">An angle, in radians.</param>
-		/// <returns>Returns the cosinus of the specified <paramref name="angle"/>.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Cos( float angle )
-		{
-			return (float)Math.Cos( (double)angle );
-		}
-
-		#endregion // Sin, Cos
 
 
 		#region Extension methods (MakeFinite, Clamp, Saturate)

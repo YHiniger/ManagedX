@@ -107,13 +107,13 @@ namespace ManagedX
 
 
 		/// <summary>Gets the length of this <see cref="Quaternion"/>.</summary>
-		public float Length { get { return XMath.Sqrt( X * X + Y * Y + Z * Z + W * W ); } }
+		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W ); } }
 
 
 		/// <summary>Normalizes this <see cref="Quaternion"/>.</summary>
 		public void Normalize()
 		{
-			var length = XMath.Sqrt( X * X + Y * Y + Z * Z + W * W );
+			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W );
 			if( length != 0.0f )
 			{
 				var scale = 1.0f / length;
@@ -448,10 +448,10 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Min( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
-			result.X = XMath.Min( quaternion.X, other.X );
-			result.Y = XMath.Min( quaternion.Y, other.Y );
-			result.Z = XMath.Min( quaternion.Z, other.Z );
-			result.W = XMath.Min( quaternion.W, other.W );
+			result.X = Math.Min( quaternion.X, other.X );
+			result.Y = Math.Min( quaternion.Y, other.Y );
+			result.Z = Math.Min( quaternion.Z, other.Z );
+			result.W = Math.Min( quaternion.W, other.W );
 		}
 
 		/// <summary>Returns a <see cref="Quaternion"/> structure whose components are set to the minimum components between two <see cref="Quaternion"/> values.</summary>
@@ -461,10 +461,10 @@ namespace ManagedX
 		public static Quaternion Min( Quaternion quaternion, Quaternion other )
 		{
 			return new Quaternion(
-				XMath.Min( quaternion.X, other.X ),
-				XMath.Min( quaternion.Y, other.Y ),
-				XMath.Min( quaternion.Z, other.Z ),
-				XMath.Min( quaternion.W, other.W )
+				Math.Min( quaternion.X, other.X ),
+				Math.Min( quaternion.Y, other.Y ),
+				Math.Min( quaternion.Z, other.Z ),
+				Math.Min( quaternion.W, other.W )
 			);
 		}
 
@@ -479,10 +479,10 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Max( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
-			result.X = XMath.Max( quaternion.X, other.X );
-			result.Y = XMath.Max( quaternion.Y, other.Y );
-			result.Z = XMath.Max( quaternion.Z, other.Z );
-			result.W = XMath.Max( quaternion.W, other.W );
+			result.X = Math.Max( quaternion.X, other.X );
+			result.Y = Math.Max( quaternion.Y, other.Y );
+			result.Z = Math.Max( quaternion.Z, other.Z );
+			result.W = Math.Max( quaternion.W, other.W );
 		}
 
 		/// <summary>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between two quaternions.</summary>
@@ -492,10 +492,10 @@ namespace ManagedX
 		public static Quaternion Max( Quaternion quaternion, Quaternion other )
 		{
 			return new Quaternion(
-				XMath.Max( quaternion.X, other.X ),
-				XMath.Max( quaternion.Y, other.Y ),
-				XMath.Max( quaternion.Z, other.Z ),
-				XMath.Max( quaternion.W, other.W )
+				Math.Max( quaternion.X, other.X ),
+				Math.Max( quaternion.Y, other.Y ),
+				Math.Max( quaternion.Z, other.Z ),
+				Math.Max( quaternion.W, other.W )
 			);
 		}
 
@@ -585,10 +585,10 @@ namespace ManagedX
 			else
 			{
 				var angle = (float)Math.Acos( (double)dotProduct );
-				var invSinAngle = 1.0f / XMath.Sin( angle );
+				var invSinAngle = 1.0f / (float)Math.Sin( angle );
 				//var invSinAngle = (float)( 1.0 / Math.Sin( (double)angle ) );
-				srcFactor = XMath.Sin( ( 1.0f - amount ) * angle ) * invSinAngle;
-				tgtFactor = XMath.Sin( amount * angle ) * invSinAngle;
+				srcFactor = (float)Math.Sin( ( 1.0f - amount ) * angle ) * invSinAngle;
+				tgtFactor = (float)Math.Sin( amount * angle ) * invSinAngle;
 			}
 
 			if( signInverted )
@@ -713,16 +713,16 @@ namespace ManagedX
 		public static void CreateFromYawPitchRoll( float yaw, float pitch, float roll, out Quaternion result )
 		{
 			var halfRoll = roll * 0.5f;
-			var sinHalfRoll = XMath.Sin( halfRoll );
-			var cosHalfRoll = XMath.Cos( halfRoll );
+			var sinHalfRoll = (float)Math.Sin( halfRoll );
+			var cosHalfRoll = (float)Math.Cos( halfRoll );
 
 			var halfPitch = pitch * 0.5f;
-			var sinHalfPitch = XMath.Sin( halfPitch );
-			var cosHalfPitch = XMath.Cos( halfPitch );
+			var sinHalfPitch = (float)Math.Sin( halfPitch );
+			var cosHalfPitch = (float)Math.Cos( halfPitch );
 			
 			var halfYaw = yaw * 0.5f;
-			var sinHalfYaw = XMath.Sin( halfYaw );
-			var cosHalfYaw = XMath.Cos( halfYaw );
+			var sinHalfYaw = (float)Math.Sin( halfYaw );
+			var cosHalfYaw = (float)Math.Cos( halfYaw );
 			
 			result.X = cosHalfYaw * sinHalfPitch * cosHalfRoll + sinHalfYaw * cosHalfPitch * sinHalfRoll;
 			result.Y = sinHalfYaw * cosHalfPitch * cosHalfRoll - cosHalfYaw * sinHalfPitch * sinHalfRoll;
@@ -753,11 +753,11 @@ namespace ManagedX
 		public static void CreateFromAxisAngle( ref Vector3 axis, float angle, out Quaternion result )
 		{
 			var halfAngle = angle * 0.5f;
-			var sinHalfAngle = XMath.Sin( halfAngle );
+			var sinHalfAngle = (float)Math.Sin( halfAngle );
 			result.X = axis.X * sinHalfAngle;
 			result.Y = axis.Y * sinHalfAngle;
 			result.Z = axis.Z * sinHalfAngle;
-			result.W = XMath.Cos( halfAngle );
+			result.W = (float)Math.Cos( halfAngle );
 		}
 
 		/// <summary>Returns a <see cref="Quaternion"/> from a <see cref="Vector3"/> and an angle to rotate about the vector.</summary>

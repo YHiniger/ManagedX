@@ -69,7 +69,7 @@ namespace ManagedX
 
 
 		/// <summary>Gets the length of this <see cref="Vector3"/>.</summary>
-		public float Length { get { return XMath.Sqrt( X * X + Y * Y + Z * Z ); } }
+		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y + Z * Z ); } }
 
 
 		/// <summary>Gets the square of the length of this <see cref="Vector3"/> value.
@@ -108,7 +108,7 @@ namespace ManagedX
 			var x = other.X - X;
 			var y = other.Y - Y;
 			var z = other.Z - Z;
-			return XMath.Sqrt( x * x + y * y + z * z );
+			return (float)Math.Sqrt( x * x + y * y + z * z );
 		}
 
 
@@ -385,9 +385,9 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Min( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result.X = XMath.Min( vector.X, other.X );
-			result.Y = XMath.Min( vector.Y, other.Y );
-			result.Z = XMath.Min( vector.Z, other.Z );
+			result.X = Math.Min( vector.X, other.X );
+			result.Y = Math.Min( vector.Y, other.Y );
+			result.Z = Math.Min( vector.Z, other.Z );
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</summary>
@@ -397,9 +397,9 @@ namespace ManagedX
 		public static Vector3 Min( Vector3 vector, Vector3 other )
 		{
 			return new Vector3(
-				XMath.Min( vector.X, other.X ),
-				XMath.Min( vector.Y, other.Y ),
-				XMath.Min( vector.Z, other.Z )
+				Math.Min( vector.X, other.X ),
+				Math.Min( vector.Y, other.Y ),
+				Math.Min( vector.Z, other.Z )
 			);
 		}
 
@@ -414,9 +414,9 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Max( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result.X = XMath.Max( vector.X, other.X );
-			result.Y = XMath.Max( vector.Y, other.Y );
-			result.Z = XMath.Max( vector.Z, other.Z );
+			result.X = Math.Max( vector.X, other.X );
+			result.Y = Math.Max( vector.Y, other.Y );
+			result.Z = Math.Max( vector.Z, other.Z );
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</summary>
@@ -426,9 +426,9 @@ namespace ManagedX
 		public static Vector3 Max( Vector3 vector, Vector3 other )
 		{
 			return new Vector3(
-				XMath.Max( vector.X, other.X ),
-				XMath.Max( vector.Y, other.Y ),
-				XMath.Max( vector.Z, other.Z )
+				Math.Max( vector.X, other.X ),
+				Math.Max( vector.Y, other.Y ),
+				Math.Max( vector.Z, other.Z )
 			);
 		}
 

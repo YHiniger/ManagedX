@@ -123,7 +123,7 @@ namespace ManagedX
 			var y = other.Y - this.Y;
 			var z = other.Z - this.Z;
 			var w = other.W - this.W;
-			return XMath.Sqrt( x * x + y * y + z * z + w * w );
+			return (float)Math.Sqrt( x * x + y * y + z * z + w * w );
 		}
 
 
@@ -133,7 +133,7 @@ namespace ManagedX
 		public float LengthSquared { get { return this.X * this.X + this.Y * this.Y + this.Z * this.Z + this.W * this.W; } }
 
 		/// <summary>Gets the length of this <see cref="Vector4"/>.</summary>
-		public float Length { get { return XMath.Sqrt( this.X * this.X + this.Y * this.Y + this.Z * this.Z + this.W * this.W ); } }
+		public float Length { get { return (float)Math.Sqrt( this.X * this.X + this.Y * this.Y + this.Z * this.Z + this.W * this.W ); } }
 
 
 		/// <summary>Forces the components of this <see cref="Vector4"/> to the range [<paramref name="min"/>,<paramref name="max"/>].</summary>
@@ -427,10 +427,10 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Min( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result.X = XMath.Min( vector.X, other.X );
-			result.Y = XMath.Min( vector.Y, other.Y );
-			result.Z = XMath.Min( vector.Z, other.Z );
-			result.W = XMath.Min( vector.W, other.W );
+			result.X = Math.Min( vector.X, other.X );
+			result.Y = Math.Min( vector.Y, other.Y );
+			result.Z = Math.Min( vector.Z, other.Z );
+			result.W = Math.Min( vector.W, other.W );
 		}
 
 		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</summary>
@@ -439,10 +439,10 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Min( Vector4 vector, Vector4 other )
 		{
-			vector.X = XMath.Min( vector.X, other.X );
-			vector.Y = XMath.Min( vector.Y, other.Y );
-			vector.Z = XMath.Min( vector.Z, other.Z );
-			vector.W = XMath.Min( vector.W, other.W );
+			vector.X = Math.Min( vector.X, other.X );
+			vector.Y = Math.Min( vector.Y, other.Y );
+			vector.Z = Math.Min( vector.Z, other.Z );
+			vector.W = Math.Min( vector.W, other.W );
 			return vector;
 		}
 
@@ -457,10 +457,10 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Max( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result.X = XMath.Max( vector.X, other.X );
-			result.Y = XMath.Max( vector.Y, other.Y );
-			result.Z = XMath.Max( vector.Z, other.Z );
-			result.W = XMath.Max( vector.W, other.W );
+			result.X = Math.Max( vector.X, other.X );
+			result.Y = Math.Max( vector.Y, other.Y );
+			result.Z = Math.Max( vector.Z, other.Z );
+			result.W = Math.Max( vector.W, other.W );
 		}
 
 		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</summary>
@@ -469,10 +469,10 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Max( Vector4 vector, Vector4 other )
 		{
-			vector.X = XMath.Max( vector.X, other.X );
-			vector.Y = XMath.Max( vector.Y, other.Y );
-			vector.Z = XMath.Max( vector.Z, other.Z );
-			vector.W = XMath.Max( vector.W, other.W );
+			vector.X = Math.Max( vector.X, other.X );
+			vector.Y = Math.Max( vector.Y, other.Y );
+			vector.Z = Math.Max( vector.Z, other.Z );
+			vector.W = Math.Max( vector.W, other.W );
 			return vector;
 		}
 
