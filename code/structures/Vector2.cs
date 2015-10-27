@@ -51,12 +51,13 @@ namespace ManagedX
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
 		public void Normalize()
 		{
-			float length = this.Length;
-			if( length == 0.0f )
-				return;
-			
-			X /= length;
-			Y /= length;
+			var length = (float)Math.Sqrt( X * X + Y * Y );
+			if( length > 0.0f )
+			{
+				var inv = 1.0f / length;
+				X *= inv;
+				Y *= inv;
+			}
 		}
 
 
@@ -336,6 +337,7 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between the two <see cref="Vector2"/> values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Min( Vector2 vector, Vector2 other )
 		{
 			vector.X = Math.Min( vector.X, other.X );
@@ -362,6 +364,7 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Max( Vector2 vector, Vector2 other )
 		{
 			vector.X = Math.Max( vector.X, other.X );
@@ -427,6 +430,45 @@ namespace ManagedX
 		}
 
 
+		/// <summary></summary>
+		/// <param name="vector"></param>
+		/// <param name="result"></param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void Normalize( ref Vector2 vector, out Vector2 result )
+		{
+			var length = (float)Math.Sqrt( vector.X * vector.X + vector.Y * vector.Y );
+			if( length == 0.0f )
+				result = vector;
+			else
+			{
+				var inv = 1.0f / length;
+				result.X = vector.X * inv;
+				result.Y = vector.Y * inv;
+			}
+		}
+
+		/// <summary></summary>
+		/// <param name="vector"></param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static Vector2 Normalize( Vector2 vector )
+		{
+			var length = (float)Math.Sqrt( vector.X * vector.X + vector.Y * vector.Y );
+			if( length == 0.0f )
+				return vector;
+			
+			var inv = 1.0f / length;
+			return new Vector2(
+				vector.X * inv,
+				vector.Y * inv
+			);
+		}
+
+
 		/// <summary>Calculates the dot product of two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
@@ -474,9 +516,12 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Reflect( Vector2 vector, Vector2 normal )
 		{
-			Vector2 result;
-			Reflect( ref vector, ref normal, out result );
-			return result;
+			var dot2 = ( vector.X * normal.X + vector.Y * normal.Y ) * 2.0f;
+
+			return new Vector2(
+				vector.X - dot2 * normal.X,
+				vector.Y - dot2 * normal.Y
+			);
 		}
 
 
@@ -522,7 +567,10 @@ namespace ManagedX
 		public static void SmoothStep( ref Vector2 source, ref Vector2 target, float amount, out Vector2 result )
 		{
 			amount = amount.Saturate();
-			Lerp( ref source, ref target, amount * amount * ( 3.0f - 2.0f * amount ), out result );
+			amount = amount * amount * ( 3.0f - 2.0f * amount );
+
+			result.X = XMath.Lerp( source.X, target.X, amount );
+			result.Y = XMath.Lerp( source.Y, target.Y, amount );
 		}
 
 		/// <summary>Interpolates between two values using a cubic equation.</summary>
@@ -533,9 +581,13 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 SmoothStep( Vector2 source, Vector2 target, float amount )
 		{
-			Vector2 result;
-			SmoothStep( ref source, ref target, amount, out result );
-			return result;
+			amount = amount.Saturate();
+			amount = amount * amount * ( 3.0f - 2.0f * amount );
+			
+			return new Vector2(
+				XMath.Lerp( source.X, target.X, amount ),
+				XMath.Lerp( source.Y, target.Y, amount )
+			);
 		}
 
 
@@ -571,9 +623,13 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 CatmullRom( Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount )
 		{
-			Vector2 result;
-			CatmullRom( ref value1, ref value2, ref value3, ref value4, amount, out result );
-			return result;
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+
+			return new Vector2(
+				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
+				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed )
+			);
 		}
 
 
@@ -617,9 +673,21 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Hermite( Vector2 position1, Vector2 tangent1, Vector2 position2, Vector2 tangent2, float amount )
 		{
-			Vector2 result;
-			Hermite( ref position1, ref tangent1, ref position2, ref tangent2, amount, out result );
-			return result;
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+
+			var amountSquared3 = 3.0f * amountSquared;
+			var amountCubed2 = 2.0f * amountCubed;
+
+			var a = amountCubed2 - amountSquared3 + 1.0f;
+			var b = -amountCubed2 + amountSquared3;
+			var c = amountCubed - 2.0f * amountSquared + amount;
+			var d = amountCubed - amountSquared;
+
+			return new Vector2(
+				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
+				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d
+			);
 		}
 
 
@@ -651,9 +719,10 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector2 Barycentric( Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2 )
 		{
-			Vector2 result;
-			Barycentric( ref value1, ref value2, ref value3, amount1, amount2, out result );
-			return result;
+			return new Vector2(
+				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
+				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y )
+			);
 		}
 
 		#endregion // Static
