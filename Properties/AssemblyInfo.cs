@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
 
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
@@ -15,8 +15,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright( "Copyright © Yvan J.W. HINIGER 2015" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
-
-[assembly: CLSCompliant( true )]
 
 // L'affectation de la valeur false à ComVisible rend les types invisibles dans cet assembly 
 // aux composants COM. Si vous devez accéder à un type dans cet assembly à partir de 
@@ -38,4 +36,9 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion( "0.4.0.0" )]
 [assembly: AssemblyFileVersion( "0.4.0.0" )]
+
+// L'anglais est la langue par défaut.
 [assembly: NeutralResourcesLanguageAttribute( "en" )]
+
+// Tous les types publiques sont conformes au Common Language System (CLS), on l'indique donc:
+[assembly: CLSCompliant( true )]
