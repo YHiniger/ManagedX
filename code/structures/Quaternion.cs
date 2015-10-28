@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace ManagedX
 {
 
-	/// <summary>A quaternion.</summary>
+	/// <summary>A quaternion, used for vector rotation.</summary>
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct Quaternion : IEquatable<Quaternion>
@@ -100,14 +100,14 @@ namespace ManagedX
 
 
 
+		/// <summary>Gets the length of this <see cref="Quaternion"/>.</summary>
+		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W ); } }
+
+
 		/// <summary>Gets the square of the length of this <see cref="Quaternion"/>.
 		/// <para>Note: this property is faster than <see cref="Length"/>, since it doesn't calculate the square root.</para>
 		/// </summary>
 		public float LengthSquared { get { return X * X + Y * Y + Z * Z + W * W; } }
-
-
-		/// <summary>Gets the length of this <see cref="Quaternion"/>.</summary>
-		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W ); } }
 
 
 		/// <summary>Normalizes this <see cref="Quaternion"/>.</summary>
@@ -116,11 +116,11 @@ namespace ManagedX
 			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W );
 			if( length != 0.0f )
 			{
-				var scale = 1.0f / length;
-				X *= scale;
-				Y *= scale;
-				Z *= scale;
-				W *= scale;
+				var inv = 1.0f / length;
+				X *= inv;
+				Y *= inv;
+				Z *= inv;
+				W *= inv;
 			}
 		}
 
@@ -128,14 +128,14 @@ namespace ManagedX
 		/// <summary>Inverts this <see cref="Quaternion"/>.</summary>
 		public void Invert()
 		{
-			var length = this.Length;
+			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W );
 			if( length != 0.0f )
 			{
-				var scale = 1.0f / length;
-				X *= -scale;
-				Y *= -scale;
-				Z *= -scale;
-				W *= scale;
+				var inv = 1.0f / length;
+				X *= -inv;
+				Y *= -inv;
+				Z *= -inv;
+				W *= inv;
 			}
 		}
 
@@ -272,7 +272,11 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public bool Equals( Quaternion other )
 		{
-			return ( this.X == other.X ) && ( this.Y == other.Y ) && ( this.Z == other.Z ) && ( this.W == other.W );
+			return
+				( X == other.X ) &&
+				( Y == other.Y ) &&
+				( Z == other.Z ) &&
+				( W == other.W );
 		}
 
 
@@ -288,10 +292,22 @@ namespace ManagedX
 		/// <summary>Returns a string representing this <see cref="Quaternion"/> structure, in the form:
 		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>,<see cref="W"/>)</para>
 		/// </summary>
+		/// <param name="formatProvider">The format provider.</param>
+		/// <returns>Returns a string representing this <see cref="Quaternion"/> structure.</returns>
+		public string ToString( IFormatProvider formatProvider )
+		{
+			return string.Format( formatProvider ?? System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2},{3})", X, Y, Z, W );
+			// FIXME - what's the "math syntax" for a quaternion ?
+		}
+
+
+		/// <summary>Returns a string representing this <see cref="Quaternion"/> structure, in the form:
+		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>,<see cref="W"/>)</para>
+		/// </summary>
 		/// <returns>Returns a string representing this <see cref="Quaternion"/> structure.</returns>
 		public override string ToString()
 		{
-			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2},{3})", this.X, this.Y, this.Z, this.W );
+			return this.ToString( System.Globalization.CultureInfo.InvariantCulture );
 		}
 
 
@@ -324,7 +340,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Add( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X + other.X;
@@ -354,7 +369,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Subtract( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X - other.X;
@@ -384,7 +398,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Multiply( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X * other.X;
@@ -414,7 +427,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Divide( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X / other.X;
@@ -445,7 +457,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Min( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = Math.Min( quaternion.X, other.X );
@@ -476,7 +487,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Max( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = Math.Max( quaternion.X, other.X );
@@ -507,7 +517,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Dot( ref Quaternion quaternion, ref Quaternion other, out float result )
 		{
 			result = quaternion.X * other.X + quaternion.Y * other.Y + quaternion.Z * other.Z + quaternion.W * other.W;
@@ -531,7 +540,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Lerp( ref Quaternion source, ref Quaternion target, float amount, out Quaternion result )
 		{
 			result.X = XMath.Lerp( source.X, target.X, amount );
@@ -564,7 +572,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void SLerp( ref Quaternion source, ref Quaternion target, float amount, out Quaternion result )
 		{
 			var dotProduct = source.X * target.X + source.Y * target.Y + source.Z * target.Z + source.W * target.W;
@@ -620,7 +627,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Concatenate( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			var x = other.Y * quaternion.Z - other.Z * quaternion.Y;
@@ -651,7 +657,6 @@ namespace ManagedX
 		/// <param name="result">Receives the conjugate of the specified <paramref name="quaternion"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Conjugate( ref Quaternion quaternion, out Quaternion result )
 		{
 			result.X = -quaternion.X;
@@ -675,7 +680,6 @@ namespace ManagedX
 		/// <param name="result">Receives the inverse of the specified <paramref name="quaternion"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Inverse( ref Quaternion quaternion, out Quaternion result )
 		{
 			result = quaternion;
@@ -702,14 +706,12 @@ namespace ManagedX
 		}
 
 
-
 		/// <summary>Creates a new <see cref="Quaternion"/> structure from the specified yaw, pitch, and roll angles.</summary>
 		/// <param name="yaw">The yaw angle, in radians, around the y-axis.</param>
 		/// <param name="pitch">The pitch angle, in radians, around the x-axis.</param>
 		/// <param name="roll">The roll angle, in radians, around the z-axis.</param>
 		/// <param name="result">Receives a <see cref="Quaternion"/> structure filled in to express the specified yaw, pitch, and roll angles.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#" )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
 		public static void CreateFromYawPitchRoll( float yaw, float pitch, float roll, out Quaternion result )
 		{
 			var halfRoll = roll * 0.5f;
@@ -747,9 +749,8 @@ namespace ManagedX
 		/// <param name="axis">The vector to rotate around.</param>
 		/// <param name="angle">The angle to rotate around the vector.</param>
 		/// <param name="result">Receives the <see cref="Quaternion"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void CreateFromAxisAngle( ref Vector3 axis, float angle, out Quaternion result )
 		{
 			var halfAngle = angle * 0.5f;

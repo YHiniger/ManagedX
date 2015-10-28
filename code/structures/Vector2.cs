@@ -29,8 +29,8 @@ namespace ManagedX
 		/// <summary>Initializes a new <see cref="Vector2"/> structure.</summary>
 		/// <param name="x">The x component.</param>
 		/// <param name="y">The y component.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x", Justification = "Seriously..." )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y", Justification = "Seriously..." )]
 		public Vector2( float x, float y )
 		{
 			this.X = x;
@@ -151,7 +151,7 @@ namespace ManagedX
 		/// <summary>Returns a string representing this <see cref="Vector2"/> structure, in the form:
 		/// <para>(<see cref="X"/>,<see cref="Y"/>)</para>
 		/// </summary>
-		/// <param name="formatProvider">The format.</param>
+		/// <param name="formatProvider">The format provider; defaults to <see cref="System.Globalization.CultureInfo.InvariantCulture"/>.</param>
 		/// <returns>Returns a string representing this <see cref="Vector2"/> structure.</returns>
 		public string ToString( IFormatProvider formatProvider )
 		{

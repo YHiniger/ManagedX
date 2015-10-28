@@ -72,21 +72,20 @@ namespace ManagedX
 		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y + Z * Z ); } }
 
 
-		/// <summary>Gets the square of the length of this <see cref="Vector3"/> value.
-		/// <para>Note: this property is faster than <see cref="Length"/>, since it doesn't calculate the square root.</para>
-		/// </summary>
+		/// <summary>Gets the square of the length of this <see cref="Vector3"/> value.</summary>
 		public float LengthSquared { get { return X * X + Y * Y + Z * Z; } }
 
 
 		/// <summary>Normalizes this <see cref="Vector3"/> value.</summary>
 		public void Normalize()
 		{
-			var length = this.Length;
+			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z ); ;
 			if( length != 0.0f )
 			{
-				X /= length;
-				Y /= length;
-				Z /= length;
+				var inv = 1.0f / length;
+				X *= inv;
+				Y *= inv;
+				Z *= inv;
 			}
 		}
 
@@ -154,10 +153,21 @@ namespace ManagedX
 		/// <summary>Returns a string representing this <see cref="Vector3"/> structure, in the form:
 		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>)</para>
 		/// </summary>
+		/// <param name="formatProvider">The format provider.</param>
+		/// <returns>Returns a string representing this <see cref="Vector3"/> structure.</returns>
+		public string ToString( IFormatProvider formatProvider )
+		{
+			return string.Format( formatProvider ?? System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2})", X, Y, Z );
+		}
+
+
+		/// <summary>Returns a string representing this <see cref="Vector3"/> structure, in the form:
+		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>)</para>
+		/// </summary>
 		/// <returns>Returns a string representing this <see cref="Vector3"/> structure.</returns>
 		public override string ToString()
 		{
-			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2})", X, Y, Z );
+			return this.ToString( System.Globalization.CultureInfo.InvariantCulture );
 		}
 
 		
@@ -177,9 +187,6 @@ namespace ManagedX
 		}
 
 		
-		// TODO - Transform, TransformNormal
-
-
 		#region Static
 
 		/// <summary>A <see cref="Vector3"/> whose components are set to 0.</summary>
@@ -215,7 +222,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Add( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X + other.X;
@@ -243,7 +249,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Subtract( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X - other.X;
@@ -271,7 +276,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Multiply( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X * other.X;
@@ -298,7 +302,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Multiply( ref Vector3 vector, float value, out Vector3 result )
 		{
 			result.X = vector.X * value;
@@ -326,7 +329,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Divide( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X / other.X;
@@ -352,7 +354,6 @@ namespace ManagedX
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Divide( ref Vector3 vector, float value, out Vector3 result )
 		{
 			var inv = 1.0f / value;
@@ -365,6 +366,7 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A single-precision floating-point value.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector3 Divide( Vector3 vector, float value )
 		{
 			var inv = 1.0f / value;
@@ -382,7 +384,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Min( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = Math.Min( vector.X, other.X );
@@ -411,7 +412,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Max( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = Math.Max( vector.X, other.X );
@@ -440,10 +440,12 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Distance( ref Vector3 position, ref Vector3 other, out float result )
 		{
-			result = position.DistanceTo( other );
+			var x = position.X - other.X;
+			var y = position.Y - other.Y;
+			var z = position.Z - other.Z;
+			result = (float)Math.Sqrt( x * x + y * y + z * z );
 		}
 
 		/// <summary>Returns the distance between two <see cref="Vector3"/> positions.</summary>
@@ -452,7 +454,10 @@ namespace ManagedX
 		/// <returns>Returns the distance between two <see cref="Vector3"/> positions.</returns>
 		public static float Distance( Vector3 position, Vector3 other )
 		{
-			return position.DistanceTo( other );
+			var x = position.X - other.X;
+			var y = position.Y - other.Y;
+			var z = position.Z - other.Z;
+			return (float)Math.Sqrt( x * x + y * y + z * z );
 		}
 
 
@@ -463,12 +468,12 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void DistanceSquared( ref Vector3 position, ref Vector3 other, out float result )
 		{
-			Vector3 diff;
-			Subtract( ref position, ref other, out diff );
-			result = diff.LengthSquared;
+			var x = position.X - other.X;
+			var y = position.Y - other.Y;
+			var z = position.Z - other.Z;
+			result = x * x + y * y + z * z;
 		}
 
 		/// <summary>Returns the square of the distance between two <see cref="Vector3"/> positions.</summary>
@@ -477,9 +482,10 @@ namespace ManagedX
 		/// <returns>Returns the square of the distance between the two specified positions.</returns>
 		public static float DistanceSquared( Vector3 position, Vector3 other )
 		{
-			Vector3 diff;
-			Subtract( ref position, ref other, out diff );
-			return diff.LengthSquared;
+			var x = position.X - other.X;
+			var y = position.Y - other.Y;
+			var z = position.Z - other.Z;
+			return x * x + y * y + z * z;
 		}
 
 
@@ -490,7 +496,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Dot( ref Vector3 vector, ref Vector3 other, out float result )
 		{
 			result = vector.X * other.X + vector.Y * other.Y + vector.Z * other.Z;
@@ -513,7 +518,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Reflect( ref Vector3 vector, ref Vector3 normal, out Vector3 result )
 		{
 			var dot2 = ( vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z ) * 2.0f;
@@ -529,9 +533,13 @@ namespace ManagedX
 		/// <returns>Returns the reflected vector.</returns>
 		public static Vector3 Reflect( Vector3 vector, Vector3 normal )
 		{
-			Vector3 result;
-			Reflect( ref vector, ref normal, out result );
-			return result;
+			var dot2 = ( vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z ) * 2.0f;
+
+			return new Vector3(
+				vector.X - dot2 * normal.X,
+				vector.Y - dot2 * normal.Y,
+				vector.Z - dot2 * normal.Z
+			);
 		}
 
 
@@ -543,7 +551,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Lerp( ref Vector3 source, ref Vector3 target, float amount, out Vector3 result )
 		{
 			result.X = XMath.Lerp( source.X, target.X, amount );
@@ -574,11 +581,13 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void SmoothStep( ref Vector3 source, ref Vector3 target, float amount, out Vector3 result )
 		{
 			amount = amount.Saturate();
-			Lerp( ref source, ref target, amount * amount * ( 3.0f - 2.0f * amount ), out result );
+			amount = amount * amount * ( 3.0f - 2.0f * amount );
+			result.X = XMath.Lerp( source.X, target.X, amount );
+			result.Y = XMath.Lerp( source.Y, target.Y, amount );
+			result.Z = XMath.Lerp( source.Z, target.Z, amount );
 		}
 
 		/// <summary>Interpolates between two values using a cubic equation.</summary>
@@ -589,9 +598,12 @@ namespace ManagedX
 		public static Vector3 SmoothStep( Vector3 source, Vector3 target, float amount )
 		{
 			amount = amount.Saturate();
-			Vector3 result;
-			Lerp( ref source, ref target, amount * amount * ( 3.0f - 2.0f * amount ), out result );
-			return result;
+			amount = amount * amount * ( 3.0f - 2.0f * amount );
+			return new Vector3(
+				XMath.Lerp( source.X, target.X, amount ),
+				XMath.Lerp( source.Y, target.Y, amount ),
+				XMath.Lerp( source.Z, target.Z, amount )
+			);
 		}
 
 
@@ -607,7 +619,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void CatmullRom( ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, float amount, out Vector3 result )
 		{
 			var amountSquared = amount * amount;
@@ -627,9 +638,14 @@ namespace ManagedX
 		/// <returns>Returns the result of the Catmull-Rom interpolation.</returns>
 		public static Vector3 CatmullRom( Vector3 value1, Vector3 value2, Vector3 value3, Vector3 value4, float amount )
 		{
-			Vector3 result;
-			CatmullRom( ref value1, ref value2, ref value3, ref value4, amount, out result );
-			return result;
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+
+			return new Vector3(
+				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
+				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed ),
+				0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed )
+			);
 		}
 
 
@@ -645,7 +661,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Hermite( ref Vector3 position1, ref Vector3 tangent1, ref Vector3 position2, ref Vector3 tangent2, float amount, out Vector3 result )
 		{
 			var amountSquared = amount * amount;
@@ -673,9 +688,22 @@ namespace ManagedX
 		/// <returns>Returns the result of the Hermite spline interpolation.</returns>
 		public static Vector3 Hermite( Vector3 position1, Vector3 tangent1, Vector3 position2, Vector3 tangent2, float amount )
 		{
-			Vector3 result;
-			Hermite( ref position1, ref tangent1, ref position2, ref tangent2, amount, out result );
-			return result;
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+
+			var amountSquared3 = 3.0f * amountSquared;
+			var amountCubed2 = 2.0f * amountCubed;
+
+			var a = amountCubed2 - amountSquared3 + 1.0f;
+			var b = -amountCubed2 + amountSquared3;
+			var c = amountCubed - 2.0f * amountSquared + amount;
+			var d = amountCubed - amountSquared;
+
+			return new Vector3(
+				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
+				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d,
+				position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d
+			);
 		}
 
 
@@ -690,7 +718,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Barycentric( ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, float amount1, float amount2, out Vector3 result )
 		{
 			result.X = value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X );
@@ -707,9 +734,11 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</returns>
 		public static Vector3 Barycentric( Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2 )
 		{
-			Vector3 result;
-			Barycentric( ref value1, ref value2, ref value3, amount1, amount2, out result );
-			return result;
+			return new Vector3(
+				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
+				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y ),
+				value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z )
+			);
 		}
 
 
@@ -720,7 +749,6 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void Cross( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.Y * other.Z - vector.Z * other.Y;
@@ -751,7 +779,10 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector2"/> structure initialized with the X and Y components of the specified <see cref="Vector3"/>.</returns>
 		public static explicit operator Vector2( Vector3 vector )
 		{
-			return vector.ToVector2();
+			return new Vector2(
+				vector.X,
+				vector.Y
+			);
 		}
 
 
