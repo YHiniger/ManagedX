@@ -170,7 +170,6 @@ namespace ManagedX
 		public static float Lerp( float source, float target, float amount )
 		{
 			return source + ( target - source ) * amount;
-			//return from * ( 1.0f - amount ) + to * amount;
 		}
 
 
@@ -183,7 +182,6 @@ namespace ManagedX
 		public static double Lerp( double source, double target, double amount )
 		{
 			return source + ( target - source ) * amount;
-			//return from * ( 1.0 - amount ) + to * amount;
 		}
 
 		#endregion
@@ -274,7 +272,7 @@ namespace ManagedX
 		/// </returns>
 		public static float Clamp( this float value, float min, float max )
 		{
-			return Clamp<float>( MakeFinite( value ), min, max );
+			return Clamp<float>( value, min, max );
 		}
 
 		/// <summary>Returns the nearest value within the specified range.</summary>
@@ -287,7 +285,7 @@ namespace ManagedX
 		/// </returns>
 		public static double Clamp( this double value, double min, double max )
 		{
-			return Clamp<double>( MakeFinite( value ), min, max );
+			return Clamp<double>( value, min, max );
 		}
 
 
@@ -297,7 +295,13 @@ namespace ManagedX
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static float Saturate( this float value )
 		{
-			return Clamp<float>( MakeFinite( value ), 0.0f, 1.0f );
+			if( value <= 0.0f )
+				return 0.0f;
+			
+			if( value >= 1.0f )
+				return 1.0f;
+			
+			return value;
 		}
 
 		/// <summary>Returns the nearest finite value within the range [0,1].</summary>
@@ -305,7 +309,13 @@ namespace ManagedX
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static double Saturate( this double value )
 		{
-			return Clamp<double>( MakeFinite( value ), 0.0, 1.0 );
+			if( value <= 0.0 )
+				return 0.0;
+
+			if( value >= 1.0 )
+				return 1.0;
+
+			return value;
 		}
 
 		#endregion
