@@ -31,6 +31,16 @@ namespace ManagedX
 		public const float PiOver4 = Pi * 0.25f;
 
 
+		///// <summary>Represents the mathematical constant e.</summary>
+		//public const float E = 2.71828175f;
+
+		///// <summary>Represents the log base ten of e (<see cref="E"/>).</summary>
+		//public const float Log10E = 0.4342945f;
+
+		///// <summary>Represents the log base two of e (see <see cref="E"/>).</summary>
+		//public const float Log2E = 1.442695f;
+
+
 		///// <summary>Defines the value of the golden number.</summary>
 		//public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
@@ -40,44 +50,42 @@ namespace ManagedX
 
 		#region Temperature conversion functions
 
-		// TODO - move this into a XScience static class
+		/// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
+		/// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
+		/// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float ToCelcius( float temperatureInDegreesFahrenheit )
+		{
+			return temperatureInDegreesFahrenheit / 1.8f - 32.0f;
+		}
 
-		///// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
-		///// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
-		///// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
-		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		//public static float ToFahrenheit( float temperatureInDegreesCelcius )
-		//{
-		//	return temperatureInDegreesCelcius * 1.8f + 32.0f;
-		//}
-
-		///// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
-		///// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
-		///// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
-		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		//public static double ToFahrenheit( double temperatureInDegreesCelcius )
-		//{
-		//	return temperatureInDegreesCelcius * 1.8 + 32.0;
-		//}
+		/// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
+		/// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
+		/// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double ToCelcius( double temperatureInDegreesFahrenheit )
+		{
+			return temperatureInDegreesFahrenheit / 1.8 - 32.0;
+		}
 
 
-		///// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
-		///// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
-		///// <returns>Returns the specified temperature, in degrees Celcius.</returns>
-		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		//public static float ToCelcius( float temperatureInDegreesFahrenheit )
-		//{
-		//	return temperatureInDegreesFahrenheit / 1.8f - 32.0f;
-		//}
+		/// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
+		/// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
+		/// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float ToFahrenheit( float temperatureInDegreesCelcius )
+		{
+			return temperatureInDegreesCelcius * 1.8f + 32.0f;
+		}
 
-		///// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
-		///// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
-		///// <returns>Returns the specified temperature, in degrees Celcius.</returns>
-		//[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		//public static double ToCelcius( double temperatureInDegreesFahrenheit )
-		//{
-		//	return temperatureInDegreesFahrenheit / 1.8 - 32.0;
-		//}
+		/// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
+		/// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
+		/// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double ToFahrenheit( double temperatureInDegreesCelcius )
+		{
+			return temperatureInDegreesCelcius * 1.8 + 32.0;
+		}
 
 		#endregion // Temperature conversion functions
 
@@ -86,7 +94,7 @@ namespace ManagedX
 
 		/// <summary>Converts an angle in radians to degrees.</summary>
 		/// <param name="radians">An angle in radians.</param>
-		/// <returns></returns>
+		/// <returns>Returns the specified angle, expressed in degrees.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToDegrees( float radians )
 		{
@@ -97,7 +105,7 @@ namespace ManagedX
 
 		/// <summary>Converts an angle in degrees to radians.</summary>
 		/// <param name="degrees">An angle in degrees.</param>
-		/// <returns></returns>
+		/// <returns>Returns the specified angle, expressed in radians.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToRadians( float degrees )
 		{
@@ -116,16 +124,6 @@ namespace ManagedX
 		{
 			radians %= TwoPi;
 			return ( radians < -Pi ) ? radians + TwoPi : ( radians > Pi ) ? radians - TwoPi : radians;
-		}
-
-
-		/// <summary>Returns <code>e</code> to the specified power.</summary>
-		/// <param name="power">A finite single-precision floating-point value specifying the power.</param>
-		/// <returns>Returns <code>e</code> to the specified power.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Exp( float power )
-		{
-			return (float)Math.Exp( (double)power );
 		}
 
 
