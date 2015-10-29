@@ -12,7 +12,7 @@
 		/// <summary>The object does not contain the specified object.</summary>
 		Disjoint = 0,
 
-		/// <summary>The objects intersect.</summary>
+		/// <summary>The objects intersect (or match).</summary>
 		Intersects = 1,
 
 		/// <summary>The object contains the specified object.</summary>
