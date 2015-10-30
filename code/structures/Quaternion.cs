@@ -149,9 +149,9 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Rotates the specified <see cref="Vector2"/>.</summary>
+		/// <summary>Rotates a <see cref="Vector2"/>.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <param name="result">Receives the rotated <see cref="Vector2"/>.</param>
+		/// <param name="result">Receives the rotated <paramref name="vector"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		public void Transform( ref Vector2 vector, out Vector2 result )
@@ -161,28 +161,89 @@ namespace ManagedX
 			
 			var xSquared2 = X * ( X + X );
 			var ySquared2 = Y * y2;
-			var zSquared2 = Z * z2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
 			var xy2 = X * y2;
 			var wz2 = W * z2;
 
-			result.X = vector.X * ( 1.0f - ySquared2 - zSquared2 ) + vector.Y * ( xy2 - wz2 );
-			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( 1.0f - xSquared2 - zSquared2 );
+			result.X = vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 );
+			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 );
 		}
 
-		/// <summary>Rotates and returns the specified <see cref="Vector2"/>.</summary>
+		/// <summary>Rotates a <see cref="Vector2"/>.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <returns>Returns the rotated <see cref="Vector2"/>.</returns>
+		/// <returns>Returns the rotated <paramref name="vector"/>.</returns>
 		public Vector2 Transform( Vector2 vector )
 		{
-			Vector2 result;
-			this.Transform( ref vector, out result );
-			return result;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var xSquared2 = X * ( X + X );
+			var ySquared2 = Y * y2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var xy2 = X * y2;
+			var wz2 = W * z2;
+
+			return new Vector2(
+				vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 ),
+				vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 )
+			);
+		}
+
+		/// <summary>Rotates multiple <see cref="Vector2"/> from an array.</summary>
+		/// <param name="source">An array of <see cref="Vector2"/> structures.</param>
+		/// <param name="sourceIndex">The zero-based index in the <paramref name="source"/> array to start reading from.</param>
+		/// <param name="destination">An array of <see cref="Vector2"/> structures, to receive the rotated vectors.</param>
+		/// <param name="destinationIndex">The zero-based index in the <paramref name="destination"/> array the rotated vectors should be copied to.</param>
+		/// <param name="count">The number of vectors to rotate.</param>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public void Transform( Vector2[] source, int sourceIndex, Vector2[] destination, int destinationIndex, int count )
+		{
+			if( source == null )
+				throw new ArgumentNullException( "source" );
+
+			if( destination == null )
+				throw new ArgumentNullException( "destination" );
+
+			if( sourceIndex < 0 )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
+			if( destinationIndex < 0 )
+				throw new ArgumentOutOfRangeException( "destinationIndex" );
+
+			if( source.Length < sourceIndex + count || destination.Length < destinationIndex + count )
+				throw new ArgumentOutOfRangeException( "count" );
+
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var xSquared2 = X * ( X + X );
+			var ySquared2 = Y * y2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var xy2 = X * y2;
+			var wz2 = W * z2;
+
+			var a = oneMinusZSquared2 - ySquared2;
+			var b = xy2 - wz2;
+			var c = xy2 + wz2;
+			var d = oneMinusZSquared2 - xSquared2;
+
+			Vector2 input, output;
+			for( int v = 0; v < count; v++ )
+			{
+				input = source[ sourceIndex + v ];
+				
+				output.X = input.X * a + input.Y * b;
+				output.Y = input.X * c + input.Y * d;
+				
+				destination[ destinationIndex + v ] = output;
+			}
 		}
 
 
-		/// <summary>Rotates the specified <see cref="Vector3"/>.</summary>
+		/// <summary>Rotates a <see cref="Vector3"/>.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
-		/// <param name="result">Receives the rotated <see cref="Vector3"/>.</param>
+		/// <param name="result">Receives the rotated <paramref name="vector"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		public void Transform( ref Vector3 vector, out Vector3 result )
@@ -196,30 +257,107 @@ namespace ManagedX
 			var xz2 = X * z2;
 			var ySquared2 = Y * y2;
 			var yz2 = Y * z2;
-			var zSquared2 = Z * z2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
 			var wx2 = W * x2;
 			var wy2 = W * y2;
 			var wz2 = W * z2;
 
-			result.X = vector.X * ( 1.0f - ySquared2 - zSquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 );
-			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( 1.0f - xSquared2 - zSquared2 ) + vector.Z * ( yz2 - wx2 );
+			result.X = vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 );
+			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 ) + vector.Z * ( yz2 - wx2 );
 			result.Z = vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( 1.0f - xSquared2 - ySquared2 );
 		}
 
-		/// <summary>Rotates and returns the specified <see cref="Vector3"/>.</summary>
+		/// <summary>Rotates a <see cref="Vector3"/>.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
-		/// <returns>Returns the rotated <see cref="Vector3"/>.</returns>
+		/// <returns>Returns the rotated <paramref name="vector"/>.</returns>
 		public Vector3 Transform( Vector3 vector )
 		{
-			Vector3 result;
-			this.Transform( ref vector, out result );
-			return result;
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var xSquared2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var ySquared2 = Y * y2;
+			var yz2 = Y * z2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+
+			return new Vector3(
+				vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 ),
+				vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 ) + vector.Z * ( yz2 - wx2 ),
+				vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( 1.0f - xSquared2 - ySquared2 )
+			);
+		}
+
+		/// <summary>Rotates an array of <see cref="Vector3"/>.</summary>
+		/// <param name="source">An array of <see cref="Vector3"/> structures.</param>
+		/// <param name="sourceIndex">The zero-based index in the <paramref name="source"/> array to start reading from.</param>
+		/// <param name="destination">An array of <see cref="Vector3"/> structures, to receive the rotated vectors.</param>
+		/// <param name="destinationIndex">The zero-based index in the <paramref name="destination"/> array the rotated vectors should be copied to.</param>
+		/// <param name="count">The number of vectors to rotate.</param>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public void Transform( Vector3[] source, int sourceIndex, Vector3[] destination, int destinationIndex, int count )
+		{
+			if( source == null )
+				throw new ArgumentNullException( "source" );
+
+			if( destination == null )
+				throw new ArgumentNullException( "destination" );
+
+			if( sourceIndex < 0 )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
+			if( destinationIndex < 0 )
+				throw new ArgumentOutOfRangeException( "destinationIndex" );
+
+			if( source.Length < sourceIndex + count || destination.Length < destinationIndex + count )
+				throw new ArgumentOutOfRangeException( "count" );
+
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+			var xSquared2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var ySquared2 = Y * y2;
+			var yz2 = Y * z2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+
+			var a = oneMinusZSquared2 - ySquared2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+			var d = xy2 + wz2;
+			var e = oneMinusZSquared2 - xSquared2;
+			var f = yz2 - wx2;
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = 1.0f - xSquared2 - ySquared2;
+
+			Vector3 input, output;
+			for( int v = 0; v < count; v++ )
+			{
+				input = source[ sourceIndex + v ];
+
+				output.X = input.X * a + input.Y * b + input.Z * c;
+				output.Y = input.X * d + input.Y * e + input.Z * f;
+				output.Z = input.X * g + input.Y * h + input.Z * i;
+
+				destination[ destinationIndex + v ] = output;
+			}
 		}
 
 
-		/// <summary>Rotates the specified <see cref="Vector4"/>.</summary>
+		/// <summary>Rotates a <see cref="Vector4"/>.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="result">Receives the rotated <see cref="Vector4"/>.</param>
+		/// <param name="result">Receives the rotated <paramref name="vector"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		public void Transform( ref Vector4 vector, out Vector4 result )
@@ -244,15 +382,95 @@ namespace ManagedX
 			result.W = vector.W;
 		}
 
-		/// <summary>Rotates and returns the specified <see cref="Vector4"/>.</summary>
+		/// <summary>Rotates a <see cref="Vector4"/>.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <returns>Returns the rotated <see cref="Vector4"/>.</returns>
+		/// <returns>Returns the rotated <paramref name="vector"/>.</returns>
 		public Vector4 Transform( Vector4 vector )
 		{
-			Vector4 result;
-			this.Transform( ref vector, out result );
-			return result;
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var xSquared2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var ySquared2 = Y * y2;
+			var yz2 = Y * z2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+
+			return new Vector4(
+				vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 ),
+				vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 ) + vector.Z * ( yz2 - wx2 ),
+				vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( 1.0f - xSquared2 - ySquared2 ),
+				vector.W
+			);
 		}
+
+		/// <summary>Rotates an array of <see cref="Vector4"/>.</summary>
+		/// <param name="source">An array of <see cref="Vector4"/> structures.</param>
+		/// <param name="sourceIndex">The zero-based index in the <paramref name="source"/> array to start reading from.</param>
+		/// <param name="destination">An array of <see cref="Vector4"/> structures, to receive the rotated vectors.</param>
+		/// <param name="destinationIndex">The zero-based index in the <paramref name="destination"/> array the rotated vectors should be copied to.</param>
+		/// <param name="count">The number of vectors to rotate.</param>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public void Transform( Vector4[] source, int sourceIndex, Vector4[] destination, int destinationIndex, int count )
+		{
+			if( source == null )
+				throw new ArgumentNullException( "source" );
+
+			if( destination == null )
+				throw new ArgumentNullException( "destination" );
+
+			if( sourceIndex < 0 )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
+			if( destinationIndex < 0 )
+				throw new ArgumentOutOfRangeException( "destinationIndex" );
+
+			if( source.Length < sourceIndex + count || destination.Length < destinationIndex + count )
+				throw new ArgumentOutOfRangeException( "count" );
+
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+			var xSquared2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var ySquared2 = Y * y2;
+			var yz2 = Y * z2;
+			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+
+			var a = oneMinusZSquared2 - ySquared2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+			var d = xy2 + wz2;
+			var e = oneMinusZSquared2 - xSquared2;
+			var f = yz2 - wx2;
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = 1.0f - xSquared2 - ySquared2;
+
+			Vector4 input, output;
+			for( int v = 0; v < count; v++ )
+			{
+				input = source[ sourceIndex + v ];
+
+				output.X = input.X * a + input.Y * b + input.Z * c;
+				output.Y = input.X * d + input.Y * e + input.Z * f;
+				output.Z = input.X * g + input.Y * h + input.Z * i;
+				output.W = input.W;
+
+				destination[ destinationIndex + v ] = output;
+			}
+		}
+
 
 
 		/// <summary>Returns a hash code for this <see cref="Quaternion"/> structure.</summary>
