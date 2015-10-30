@@ -264,11 +264,10 @@ namespace ManagedX
 		/// <returns>Returns the sum of the two specified <see cref="Vector3"/>.</returns>
 		public static Vector3 Add( Vector3 vector, Vector3 other )
 		{
-			return new Vector3(
-				vector.X + other.X,
-				vector.Y + other.Y,
-				vector.Z + other.Z
-			);
+			vector.X += other.X;
+			vector.Y += other.Y;
+			vector.Z += other.Z;
+			return vector;
 		}
 
 
@@ -851,11 +850,11 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="vector"></param>
-		/// <param name="min"></param>
-		/// <param name="max"></param>
-		/// <param name="result"></param>
+		/// <summary>Forces a <see cref="Vector3"/> within a specified range.</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="min">A <see cref="Vector3"/> structure containing the minimum value for each component.</param>
+		/// <param name="max">A <see cref="Vector3"/> structure containing the maximum value for each component.</param>
+		/// <param name="result">Receives the clamped <paramref name="vector"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
@@ -884,11 +883,11 @@ namespace ManagedX
 				result.Z = vector.Z;
 		}
 
-		/// <summary></summary>
-		/// <param name="vector"></param>
-		/// <param name="min"></param>
-		/// <param name="max"></param>
-		/// <returns></returns>
+		/// <summary>Forces a <see cref="Vector3"/> within a specified range.</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="min">A <see cref="Vector3"/> structure containing the minimum value for each component.</param>
+		/// <param name="max">A <see cref="Vector3"/> structure containing the maximum value for each component.</param>
+		/// <returns>Returns the clamped <paramref name="vector"/>.</returns>
 		public static Vector3 Clamp( Vector3 vector, Vector3 min, Vector3 max )
 		{
 			if( vector.X < min.X )
@@ -910,9 +909,9 @@ namespace ManagedX
 		}
 
 
-		/// <summary></summary>
-		/// <param name="vector"></param>
-		/// <param name="result"></param>
+		/// <summary>Forces the components of a <see cref="Vector3"/> within the range [0,1].</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="result">Receives the saturated <paramref name="vector"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		public static void Saturate( ref Vector3 vector, out Vector3 result )
@@ -938,10 +937,10 @@ namespace ManagedX
 			else
 				result.Z = vector.Z;
 		}
-		
-		/// <summary></summary>
-		/// <param name="vector"></param>
-		/// <returns></returns>
+
+		/// <summary>Forces the components of a <see cref="Vector3"/> within the range [0,1].</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns the saturated <paramref name="vector"/>.</returns>
 		public static Vector3 Saturate( Vector3 vector )
 		{
 			if( vector.X < 0.0f )
