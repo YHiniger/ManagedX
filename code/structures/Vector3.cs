@@ -78,14 +78,10 @@ namespace ManagedX
 		/// <summary>Normalizes this <see cref="Vector3"/> value.</summary>
 		public void Normalize()
 		{
-			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z ); ;
-			if( length != 0.0f )
-			{
-				var inv = 1.0f / length;
-				X *= inv;
-				Y *= inv;
-				Z *= inv;
-			}
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (float)X * X + Y * Y + Z * Z ); ;
+			X *= oneOverLength;
+			Y *= oneOverLength;
+			Z *= oneOverLength;
 		}
 
 
@@ -95,6 +91,26 @@ namespace ManagedX
 			X = -X;
 			Y = -Y;
 			Z = -Z;
+		}
+
+
+		/// <summary>Forces the components of this <see cref="Vector3"/> within the range [0,1].</summary>
+		public void Saturate()
+		{
+			if( X < 0.0f )
+				X = 0.0f;
+			else if( X > 1.0f )
+				X = 1.0f;
+
+			if( Y < 0.0f )
+				Y = 0.0f;
+			else if( Y > 1.0f )
+				Y = 1.0f;
+
+			if( Z < 0.0f )
+				Z = 0.0f;
+			else if( Z > 1.0f )
+				Z = 1.0f;
 		}
 
 
@@ -248,10 +264,11 @@ namespace ManagedX
 		/// <returns>Returns the sum of the two specified <see cref="Vector3"/>.</returns>
 		public static Vector3 Add( Vector3 vector, Vector3 other )
 		{
-			vector.X += other.X;
-			vector.Y += other.Y;
-			vector.Z += other.Z;
-			return vector;
+			return new Vector3(
+				vector.X + other.X,
+				vector.Y + other.Y,
+				vector.Z + other.Z
+			);
 		}
 
 
@@ -369,10 +386,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector3 vector, float value, out Vector3 result )
 		{
-			var inv = 1.0f / value;
-			result.X = vector.X * inv;
-			result.Y = vector.Y * inv;
-			result.Z = vector.Z * inv;
+			var oneOverValue = 1.0f / value;
+			result.X = vector.X * oneOverValue;
+			result.Y = vector.Y * oneOverValue;
+			result.Z = vector.Z * oneOverValue;
 		}
 
 		/// <summary>Divides a <see cref="Vector3"/> by a value.</summary>
@@ -381,10 +398,10 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
 		public static Vector3 Divide( Vector3 vector, float value )
 		{
-			var inv = 1.0f / value;
-			vector.X *= inv;
-			vector.Y *= inv;
-			vector.Z *= inv;
+			var oneOverValue = 1.0f / value;
+			vector.X *= oneOverValue;
+			vector.Y *= oneOverValue;
+			vector.Z *= oneOverValue;
 			return vector;
 		}
 
@@ -423,9 +440,20 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Min( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result.X = Math.Min( vector.X, other.X );
-			result.Y = Math.Min( vector.Y, other.Y );
-			result.Z = Math.Min( vector.Z, other.Z );
+			if( other.X < vector.X )
+				result.X = other.X;
+			else
+				result.X = vector.X;
+
+			if( other.Y < vector.Y )
+				result.Y = other.Y;
+			else
+				result.Y = vector.Y;
+
+			if( other.Z < vector.Z )
+				result.Z = other.Z;
+			else
+				result.Z = vector.Z;
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</summary>
@@ -434,11 +462,16 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</returns>
 		public static Vector3 Min( Vector3 vector, Vector3 other )
 		{
-			return new Vector3(
-				Math.Min( vector.X, other.X ),
-				Math.Min( vector.Y, other.Y ),
-				Math.Min( vector.Z, other.Z )
-			);
+			if( other.X < vector.X )
+				vector.X = other.X;
+
+			if( other.Y < vector.Y )
+				vector.Y = other.Y;
+
+			if( other.Z < vector.Z )
+				vector.Z = other.Z;
+			
+			return vector;
 		}
 
 
@@ -451,9 +484,20 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Max( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
-			result.X = Math.Max( vector.X, other.X );
-			result.Y = Math.Max( vector.Y, other.Y );
-			result.Z = Math.Max( vector.Z, other.Z );
+			if( other.X > vector.X )
+				result.X = other.X;
+			else
+				result.X = vector.X;
+
+			if( other.Y > vector.Y )
+				result.Y = other.Y;
+			else
+				result.Y = vector.Y;
+
+			if( other.Z > vector.Z )
+				result.Z = other.Z;
+			else
+				result.Z = vector.Z;
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</summary>
@@ -462,11 +506,16 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</returns>
 		public static Vector3 Max( Vector3 vector, Vector3 other )
 		{
-			return new Vector3(
-				Math.Max( vector.X, other.X ),
-				Math.Max( vector.Y, other.Y ),
-				Math.Max( vector.Z, other.Z )
-			);
+			if( other.X > vector.X )
+				vector.X = other.X;
+
+			if( other.Y > vector.Y )
+				vector.Y = other.Y;
+
+			if( other.Z > vector.Z )
+				vector.Z = other.Z;
+
+			return vector;
 		}
 
 	
@@ -482,7 +531,7 @@ namespace ManagedX
 			var x = position.X - other.X;
 			var y = position.Y - other.Y;
 			var z = position.Z - other.Z;
-			result = (float)Math.Sqrt( x * x + y * y + z * z );
+			result = (float)Math.Sqrt( (double)( x * x + y * y + z * z ) );
 		}
 
 		/// <summary>Returns the distance between two <see cref="Vector3"/> positions.</summary>
@@ -494,7 +543,7 @@ namespace ManagedX
 			var x = position.X - other.X;
 			var y = position.Y - other.Y;
 			var z = position.Z - other.Z;
-			return (float)Math.Sqrt( x * x + y * y + z * z );
+			return (float)Math.Sqrt( (double)( x * x + y * y + z * z ) );
 		}
 
 
@@ -526,6 +575,32 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Normalizes a <see cref="Vector3"/>.</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="result">Receives the normalized <paramref name="vector"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		public static void Normalize( ref Vector3 vector, out Vector3 result )
+		{
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)( vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z ) );
+			result.X = vector.X * oneOverLength;
+			result.Y = vector.Y * oneOverLength;
+			result.Z = vector.Z * oneOverLength;
+		}
+
+		/// <summary>Normalizes a <see cref="Vector3"/>.</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns the normalized <paramref name="vector"/>.</returns>
+		public static Vector3 Normalize( Vector3 vector )
+		{
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)( vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z ) );
+			vector.X *= oneOverLength;
+			vector.Y *= oneOverLength;
+			vector.Z *= oneOverLength;
+			return vector;
+		}
+
+	
 		/// <summary>Calculates the dot product of two <see cref="Vector3"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector3"/> value.</param>
 		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
@@ -572,11 +647,11 @@ namespace ManagedX
 		{
 			var dot2 = ( vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z ) * 2.0f;
 
-			return new Vector3(
-				vector.X - dot2 * normal.X,
-				vector.Y - dot2 * normal.Y,
-				vector.Z - dot2 * normal.Z
-			);
+			vector.X -= dot2 * normal.X;
+			vector.Y -= dot2 * normal.Y;
+			vector.Z -= dot2 * normal.Z;
+			
+			return vector;
 		}
 
 
@@ -590,9 +665,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
 		public static void Lerp( ref Vector3 source, ref Vector3 target, float amount, out Vector3 result )
 		{
-			result.X = XMath.Lerp( source.X, target.X, amount );
-			result.Y = XMath.Lerp( source.Y, target.Y, amount );
-			result.Z = XMath.Lerp( source.Z, target.Z, amount );
+			result.X = source.X + ( target.X - source.X ) * amount;
+			result.Y = source.Y + ( target.Y - source.Y ) * amount;
+			result.Z = source.Z + ( target.Z - source.Z ) * amount;
 		}
 
 		/// <summary>Performs a linear interpolation between two vectors.</summary>
@@ -602,11 +677,10 @@ namespace ManagedX
 		/// <returns>Returns the result of the linear interpolation.</returns>
 		public static Vector3 Lerp( Vector3 source, Vector3 target, float amount )
 		{
-			return new Vector3(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount ),
-				XMath.Lerp( source.Z, target.Z, amount )
-			);
+			source.X += ( target.X - source.X ) * amount;
+			source.Y += ( target.Y - source.Y ) * amount;
+			source.Z += ( target.Z - source.Z ) * amount;
+			return source;
 		}
 
 
@@ -622,9 +696,10 @@ namespace ManagedX
 		{
 			amount = amount.Saturate();
 			amount = amount * amount * ( 3.0f - 2.0f * amount );
-			result.X = XMath.Lerp( source.X, target.X, amount );
-			result.Y = XMath.Lerp( source.Y, target.Y, amount );
-			result.Z = XMath.Lerp( source.Z, target.Z, amount );
+			
+			result.X = source.X + ( target.X - source.X ) * amount;
+			result.Y = source.Y + ( target.Y - source.Y ) * amount;
+			result.Z = source.Z + ( target.Z - source.Z ) * amount;
 		}
 
 		/// <summary>Interpolates between two values using a cubic equation.</summary>
@@ -636,11 +711,11 @@ namespace ManagedX
 		{
 			amount = amount.Saturate();
 			amount = amount * amount * ( 3.0f - 2.0f * amount );
-			return new Vector3(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount ),
-				XMath.Lerp( source.Z, target.Z, amount )
-			);
+			
+			source.X += ( target.X - source.X ) * amount;
+			source.Y += ( target.Y - source.Y ) * amount;
+			source.Z += ( target.Z - source.Z ) * amount;
+			return source;
 		}
 
 
@@ -678,11 +753,11 @@ namespace ManagedX
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
 
-			return new Vector3(
-				0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed ),
-				0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed )
-			);
+			value1.X = 0.5f * ( 2.0f * value2.X + ( -value1.X + value3.X ) * amount + ( 2.0f * value1.X - 5.0f * value2.X + 4.0f * value3.X - value4.X ) * amountSquared + ( -value1.X + 3.0f * value2.X - 3.0f * value3.X + value4.X ) * amountCubed );
+			value1.Y = 0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed );
+			value1.Z = 0.5f * ( 2.0f * value2.Z + ( -value1.Z + value3.Z ) * amount + ( 2.0f * value1.Z - 5.0f * value2.Z + 4.0f * value3.Z - value4.Z ) * amountSquared + ( -value1.Z + 3.0f * value2.Z - 3.0f * value3.Z + value4.Z ) * amountCubed );
+
+			return value1;
 		}
 
 
@@ -703,13 +778,12 @@ namespace ManagedX
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
 
-			var amountSquared3 = 3.0f * amountSquared;
-			var amountCubed2 = 2.0f * amountCubed;
-
-			var a = amountCubed2 - amountSquared3 + 1.0f;
-			var b = -amountCubed2 + amountSquared3;
-			var c = amountCubed - 2.0f * amountSquared + amount;
+			//var a = 2.0f * amountCubed - 3.0f * amountSquared + 1.0f;
+			var b = -2.0f * amountCubed + 3.0f * amountSquared;
+			var a = 1.0f - b;
+			//var c = amountCubed - 2.0f * amountSquared + amount;
 			var d = amountCubed - amountSquared;
+			var c = d - amountSquared + amount;
 
 			result.X = position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d;
 			result.Y = position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d;
@@ -728,19 +802,18 @@ namespace ManagedX
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
 
-			var amountSquared3 = 3.0f * amountSquared;
-			var amountCubed2 = 2.0f * amountCubed;
-
-			var a = amountCubed2 - amountSquared3 + 1.0f;
-			var b = -amountCubed2 + amountSquared3;
-			var c = amountCubed - 2.0f * amountSquared + amount;
+			//var a = 2.0f * amountCubed - 3.0f * amountSquared + 1.0f;
+			var b = -2.0f * amountCubed + 3.0f * amountSquared;
+			var a = 1.0f - b;
+			//var c = amountCubed - 2.0f * amountSquared + amount;
 			var d = amountCubed - amountSquared;
+			var c = d - amountSquared + amount;
 
-			return new Vector3(
-				position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d,
-				position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d,
-				position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d
-			);
+			position1.X = position1.X * a + position2.X * b + tangent1.X * c + tangent2.X * d;
+			position1.Y = position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d;
+			position1.Z = position1.Z * a + position2.Z * b + tangent1.Z * c + tangent2.Z * d;
+
+			return position1;
 		}
 
 
@@ -771,11 +844,122 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</returns>
 		public static Vector3 Barycentric( Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2 )
 		{
-			return new Vector3(
-				value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X ),
-				value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y ),
-				value1.Z + amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z )
-			);
+			value1.X += amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X );
+			value1.Y += amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y );
+			value1.Z += amount1 * ( value2.Z - value1.Z ) + amount2 * ( value3.Z - value1.Z );
+			return value1;
+		}
+
+
+		/// <summary></summary>
+		/// <param name="vector"></param>
+		/// <param name="min"></param>
+		/// <param name="max"></param>
+		/// <param name="result"></param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		public static void Clamp( ref Vector3 vector, ref Vector3 min, ref Vector3 max, out Vector3 result )
+		{
+			if( vector.X < min.X )
+				result.X = min.X;
+			else if( vector.X > max.X )
+				result.X = max.X;
+			else
+				result.X = vector.X;
+
+			if( vector.Y < min.Y )
+				result.Y = min.Y;
+			else if( vector.Y > max.Y )
+				result.Y = max.Y;
+			else
+				result.Y = vector.Y;
+
+			if( vector.Z < min.Z )
+				result.Z = min.Z;
+			else if( vector.Z > max.Z )
+				result.Z = max.Z;
+			else
+				result.Z = vector.Z;
+		}
+
+		/// <summary></summary>
+		/// <param name="vector"></param>
+		/// <param name="min"></param>
+		/// <param name="max"></param>
+		/// <returns></returns>
+		public static Vector3 Clamp( Vector3 vector, Vector3 min, Vector3 max )
+		{
+			if( vector.X < min.X )
+				vector.X = min.X;
+			else if( vector.X > max.X )
+				vector.X = max.X;
+
+			if( vector.Y < min.Y )
+				vector.Y = min.Y;
+			else if( vector.Y > max.Y )
+				vector.Y = max.Y;
+
+			if( vector.Z < min.Z )
+				vector.Z = min.Z;
+			else if( vector.Z > max.Z )
+				vector.Z = max.Z;
+
+			return vector;
+		}
+
+
+		/// <summary></summary>
+		/// <param name="vector"></param>
+		/// <param name="result"></param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		public static void Saturate( ref Vector3 vector, out Vector3 result )
+		{
+			if( vector.X < 0.0f )
+				result.X = 0.0f;
+			else if( vector.X > 1.0f )
+				result.X = 1.0f;
+			else
+				result.X = vector.X;
+
+			if( vector.Y < 0.0f )
+				result.Y = 0.0f;
+			else if( vector.Y > 1.0f )
+				result.Y = 1.0f;
+			else
+				result.Y = vector.Y;
+
+			if( vector.Z < 0.0f )
+				result.Z = 0.0f;
+			else if( vector.Z > 1.0f )
+				result.Z = 1.0f;
+			else
+				result.Z = vector.Z;
+		}
+		
+		/// <summary></summary>
+		/// <param name="vector"></param>
+		/// <returns></returns>
+		public static Vector3 Saturate( Vector3 vector )
+		{
+			if( vector.X < 0.0f )
+				vector.X = 0.0f;
+			else if( vector.X > 1.0f )
+				vector.X = 1.0f;
+
+			if( vector.Y < 0.0f )
+				vector.Y = 0.0f;
+			else if( vector.Y > 1.0f )
+				vector.Y = 1.0f;
+
+			if( vector.Z < 0.0f )
+				vector.Z = 0.0f;
+			else if( vector.Z > 1.0f )
+				vector.Z = 1.0f;
+			
+			return vector;
 		}
 
 

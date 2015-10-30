@@ -457,10 +457,25 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Min( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result.X = Math.Min( vector.X, other.X );
-			result.Y = Math.Min( vector.Y, other.Y );
-			result.Z = Math.Min( vector.Z, other.Z );
-			result.W = Math.Min( vector.W, other.W );
+			if( other.X < vector.X )
+				result.X = other.X;
+			else
+				result.X = vector.X;
+
+			if( other.Y < vector.Y )
+				result.Y = other.Y;
+			else
+				result.Y = vector.Y;
+
+			if( other.Z < vector.Z )
+				result.Z = other.Z;
+			else
+				result.Z = vector.Z;
+
+			if( other.W < vector.W )
+				result.W = other.W;
+			else
+				result.W = vector.W;
 		}
 
 		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</summary>
@@ -469,10 +484,18 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the minimum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Min( Vector4 vector, Vector4 other )
 		{
-			vector.X = Math.Min( vector.X, other.X );
-			vector.Y = Math.Min( vector.Y, other.Y );
-			vector.Z = Math.Min( vector.Z, other.Z );
-			vector.W = Math.Min( vector.W, other.W );
+			if( other.X < vector.X )
+				vector.X = other.X;
+
+			if( other.Y < vector.Y )
+				vector.Y = other.Y;
+
+			if( other.Z < vector.Z )
+				vector.Z = other.Z;
+
+			if( other.W < vector.W )
+				vector.W = other.W;
+
 			return vector;
 		}
 
@@ -486,10 +509,25 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Max( ref Vector4 vector, ref Vector4 other, out Vector4 result )
 		{
-			result.X = Math.Max( vector.X, other.X );
-			result.Y = Math.Max( vector.Y, other.Y );
-			result.Z = Math.Max( vector.Z, other.Z );
-			result.W = Math.Max( vector.W, other.W );
+			if( other.X > vector.X )
+				result.X = other.X;
+			else
+				result.X = vector.X;
+
+			if( other.Y > vector.Y )
+				result.Y = other.Y;
+			else
+				result.Y = vector.Y;
+
+			if( other.Z > vector.Z )
+				result.Z = other.Z;
+			else
+				result.Z = vector.Z;
+
+			if( other.W > vector.W )
+				result.W = other.W;
+			else
+				result.W = vector.W;
 		}
 
 		/// <summary>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</summary>
@@ -498,10 +536,18 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector4"/> structure whose components are set to the maximum components between two <see cref="Vector4"/> values.</returns>
 		public static Vector4 Max( Vector4 vector, Vector4 other )
 		{
-			vector.X = Math.Max( vector.X, other.X );
-			vector.Y = Math.Max( vector.Y, other.Y );
-			vector.Z = Math.Max( vector.Z, other.Z );
-			vector.W = Math.Max( vector.W, other.W );
+			if( other.X > vector.X )
+				vector.X = other.X;
+
+			if( other.Y > vector.Y )
+				vector.Y = other.Y;
+
+			if( other.Z > vector.Z )
+				vector.Z = other.Z;
+
+			if( other.W > vector.W )
+				vector.W = other.W;
+
 			return vector;
 		}
 

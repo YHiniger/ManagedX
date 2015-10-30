@@ -368,8 +368,15 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Min( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result.X = Math.Min( vector.X, other.X );
-			result.Y = Math.Min( vector.Y, other.Y );
+			if( other.X < vector.X )
+				result.X = other.X;
+			else
+				result.X = vector.X;
+
+			if( other.Y < vector.Y )
+				result.Y = other.Y;
+			else
+				result.Y = vector.Y;
 		}
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between two <see cref="Vector2"/> values.</summary>
@@ -378,8 +385,12 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the minimum components between the two <see cref="Vector2"/> values.</returns>
 		public static Vector2 Min( Vector2 vector, Vector2 other )
 		{
-			vector.X = Math.Min( vector.X, other.X );
-			vector.Y = Math.Min( vector.Y, other.Y );
+			if( other.X < vector.X )
+				vector.X = other.X;
+
+			if( other.Y < vector.Y )
+				vector.Y = other.Y;
+
 			return vector;
 		}
 
@@ -393,8 +404,15 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Max( ref Vector2 vector, ref Vector2 other, out Vector2 result )
 		{
-			result.X = Math.Max( vector.X, other.X );
-			result.Y = Math.Max( vector.Y, other.Y );
+			if( other.X > vector.X )
+				result.X = other.X;
+			else
+				result.X = vector.X;
+
+			if( other.Y > vector.Y )
+				result.Y = other.Y;
+			else
+				result.Y = vector.Y;
 		}
 
 		/// <summary>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between two <see cref="Vector2"/> values.</summary>
@@ -403,8 +421,12 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Vector2"/> structure whose components are set to the maximum components between the two <see cref="Vector2"/> values.</returns>
 		public static Vector2 Max( Vector2 vector, Vector2 other )
 		{
-			vector.X = Math.Max( vector.X, other.X );
-			vector.Y = Math.Max( vector.Y, other.Y );
+			if( other.X > vector.X )
+				vector.X = other.X;
+
+			if( other.Y > vector.Y )
+				vector.Y = other.Y;
+
 			return vector;
 		}
 
