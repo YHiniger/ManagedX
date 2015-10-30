@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
@@ -231,16 +230,16 @@ namespace ManagedX
 		/// <summary>A <see cref="Vector4"/> whose components are set to 1.</summary>
 		public static readonly Vector4 One = new Vector4( 1.0f, 1.0f, 1.0f, 1.0f );
 
-		/// <summary>Unit vector: (1,0,0,0).</summary>
+		/// <summary>Unit vector pointing to the positive X direction: (1,0,0,0).</summary>
 		public static readonly Vector4 UnitX = new Vector4( 1.0f, 0.0f, 0.0f, 0.0f );
 
-		/// <summary>Unit vector: (0,1,0,0).</summary>
+		/// <summary>Unit vector pointing to the positive Y direction: (0,1,0,0).</summary>
 		public static readonly Vector4 UnitY = new Vector4( 0.0f, 1.0f, 0.0f, 0.0f );
 
-		/// <summary>Unit vector: (0,0,1,0).</summary>
+		/// <summary>Unit vector pointing to the positive Z direction: (0,0,1,0).</summary>
 		public static readonly Vector4 UnitZ = new Vector4( 0.0f, 0.0f, 1.0f, 0.0f );
 		
-		/// <summary>Unit vector: (0,0,0,1).</summary>
+		/// <summary>Unit vector pointing to the positive W direction: (0,0,0,1).</summary>
 		public static readonly Vector4 UnitW = new Vector4( 0.0f, 0.0f, 0.0f, 1.0f );
 
 
@@ -273,7 +272,7 @@ namespace ManagedX
 			return vector;
 		}
 
-		// TODO - Add( Vector4 vector, float value ), Subtract, Divide
+		// TODO - Add( Vector4 vector, float value ), Subtract
 
 
 		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
@@ -382,7 +381,6 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid, non-zero, <see cref="Vector4"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector4 Divide( Vector4 vector, Vector4 other )
 		{
 			vector.X /= other.X;
@@ -392,10 +390,10 @@ namespace ManagedX
 			return vector;
 		}
 
-		/// <summary>Divides a <see cref="Vector4"/> by another <see cref="Vector4"/>.</summary>
+		/// <summary>Divides a <see cref="Vector4"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
 		/// <param name="value">A single-precision floating-point value.</param>
-		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</param>
+		/// <param name="result">Receives the result of the division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector4 vector, float value, out Vector4 result )
@@ -407,10 +405,10 @@ namespace ManagedX
 			result.W = vector.W * inv;
 		}
 
-		/// <summary>Divides a <see cref="Vector4"/> by another <see cref="Vector4"/>.</summary>
+		/// <summary>Returns the division of a <see cref="Vector4"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
 		/// <param name="value">A single-precision floating-point value.</param>
-		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
+		/// <returns>Returns the result of the division.</returns>
 		public static Vector4 Divide( Vector4 vector, float value )
 		{
 			var inv = 1.0f / value;
@@ -418,6 +416,33 @@ namespace ManagedX
 			vector.Y *= inv;
 			vector.Z *= inv;
 			vector.W *= inv;
+			return vector;
+		}
+
+		/// <summary>Divides a value by a <see cref="Vector4"/>.</summary>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="result">Receives the result of the division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Divide( float value, ref Vector4 vector, out Vector4 result )
+		{
+			result.X = value / vector.X;
+			result.Y = value / vector.Y;
+			result.Z = value / vector.Z;
+			result.W = value / vector.W;
+		}
+
+		/// <summary>Returns the division of a value by a <see cref="Vector4"/>.</summary>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Vector4 Divide( float value, Vector4 vector )
+		{
+			vector.X = value / vector.X;
+			vector.Y = value / vector.Y;
+			vector.Z = value / vector.Z;
+			vector.W = value / vector.W;
 			return vector;
 		}
 
@@ -804,6 +829,7 @@ namespace ManagedX
 			return vector.Equals( other );
 		}
 
+
 		/// <summary>Inequality comparer.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A <see cref="Vector4"/> structure.</param>
@@ -821,48 +847,6 @@ namespace ManagedX
 		{
 			vector.Negate();
 			return vector;
-		}
-
-
-		/// <summary>Inferiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Vector4 vector, Vector4 other )
-		{
-			return ( vector.X < other.X ) && ( vector.Y < other.Y ) && ( vector.Z < other.Z );
-		}
-
-		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Vector4 vector, Vector4 other )
-		{
-			return ( vector.X <= other.X ) && ( vector.Y <= other.Y ) && ( vector.Z <= other.Z );
-		}
-
-
-		/// <summary>Superiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Vector4 vector, Vector4 other )
-		{
-			return ( vector.X > other.X ) && ( vector.Y > other.Y ) && ( vector.Z > other.Z );
-		}
-
-		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Vector4 vector, Vector4 other )
-		{
-			return ( vector.X >= other.X ) && ( vector.Y >= other.Y ) && ( vector.Z >= other.Z );
 		}
 
 

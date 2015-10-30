@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
@@ -155,7 +154,6 @@ namespace ManagedX
 		/// <param name="result">Receives the rotated <see cref="Vector2"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public void Transform( ref Vector2 vector, out Vector2 result )
 		{
 			var y2 = Y + Y;
@@ -187,7 +185,6 @@ namespace ManagedX
 		/// <param name="result">Receives the rotated <see cref="Vector3"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public void Transform( ref Vector3 vector, out Vector3 result )
 		{
 			var x2 = X + X;
@@ -225,7 +222,6 @@ namespace ManagedX
 		/// <param name="result">Receives the rotated <see cref="Vector4"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public void Transform( ref Vector4 vector, out Vector4 result )
 		{
 			var x2 = X + X;
@@ -471,12 +467,11 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Quaternion"/> structure whose components are set to the minimum components between two <see cref="Quaternion"/> values.</returns>
 		public static Quaternion Min( Quaternion quaternion, Quaternion other )
 		{
-			return new Quaternion(
-				Math.Min( quaternion.X, other.X ),
-				Math.Min( quaternion.Y, other.Y ),
-				Math.Min( quaternion.Z, other.Z ),
-				Math.Min( quaternion.W, other.W )
-			);
+			quaternion.X = Math.Min( quaternion.X, other.X );
+			quaternion.Y = Math.Min( quaternion.Y, other.Y );
+			quaternion.Z = Math.Min( quaternion.Z, other.Z );
+			quaternion.W = Math.Min( quaternion.W, other.W );
+			return quaternion;
 		}
 
 
@@ -501,12 +496,11 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between the two specified quaternions.</returns>
 		public static Quaternion Max( Quaternion quaternion, Quaternion other )
 		{
-			return new Quaternion(
-				Math.Max( quaternion.X, other.X ),
-				Math.Max( quaternion.Y, other.Y ),
-				Math.Max( quaternion.Z, other.Z ),
-				Math.Max( quaternion.W, other.W )
-			);
+			quaternion.X = Math.Max( quaternion.X, other.X );
+			quaternion.Y = Math.Max( quaternion.Y, other.Y );
+			quaternion.Z = Math.Max( quaternion.Z, other.Z );
+			quaternion.W = Math.Max( quaternion.W, other.W );
+			return quaternion;
 		}
 
 
@@ -542,10 +536,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
 		public static void Lerp( ref Quaternion source, ref Quaternion target, float amount, out Quaternion result )
 		{
-			result.X = XMath.Lerp( source.X, target.X, amount );
-			result.Y = XMath.Lerp( source.Y, target.Y, amount );
-			result.Z = XMath.Lerp( source.Z, target.Z, amount );
-			result.W = XMath.Lerp( source.W, target.W, amount );
+			result.X = source.X + ( target.X - source.X ) * amount;
+			result.Y = source.Y + ( target.Y - source.Y ) * amount;
+			result.Z = source.Z + ( target.Z - source.Z ) * amount;
+			result.W = source.W + ( target.W - source.W ) * amount;
 		}
 
 		/// <summary>Performs a linear interpolation between two quaternions.</summary>
@@ -555,12 +549,11 @@ namespace ManagedX
 		/// <returns>Returns the result of the linear interpolation.</returns>
 		public static Quaternion Lerp( Quaternion source, Quaternion target, float amount )
 		{
-			return new Quaternion(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount ),
-				XMath.Lerp( source.Z, target.Z, amount ),
-				XMath.Lerp( source.W, target.W, amount )
-			);
+			source.X = source.X + ( target.X - source.X ) * amount;
+			source.Y = source.Y + ( target.Y - source.Y ) * amount;
+			source.Z = source.Z + ( target.Z - source.Z ) * amount;
+			source.W = source.W + ( target.W - source.W ) * amount;
+			return source;
 		}
 
 
@@ -592,8 +585,7 @@ namespace ManagedX
 			else
 			{
 				var angle = (float)Math.Acos( (double)dotProduct );
-				var invSinAngle = 1.0f / (float)Math.Sin( angle );
-				//var invSinAngle = (float)( 1.0 / Math.Sin( (double)angle ) );
+				var invSinAngle = 1.0f / (float)Math.Sin( (double)angle );
 				srcFactor = (float)Math.Sin( ( 1.0f - amount ) * angle ) * invSinAngle;
 				tgtFactor = (float)Math.Sin( amount * angle ) * invSinAngle;
 			}
@@ -647,7 +639,15 @@ namespace ManagedX
 		public static Quaternion Concatenate( Quaternion quaternion, Quaternion other )
 		{
 			Quaternion result;
-			Concatenate( ref quaternion, ref other, out result );
+			var x = other.Y * quaternion.Z - other.Z * quaternion.Y;
+			var y = other.Z * quaternion.X - other.X * quaternion.Z;
+			var z = other.X * quaternion.Y - other.Y * quaternion.X;
+			var w = other.X * quaternion.X + other.Y * quaternion.Y + other.Z * quaternion.Z;
+
+			result.X = quaternion.X * other.W + other.X * quaternion.W + x;
+			result.Y = quaternion.Y * other.W + other.Y * quaternion.W + y;
+			result.Z = quaternion.Z * other.W + other.Z * quaternion.W + z;
+			result.W = other.W * quaternion.W - w;
 			return result;
 		}
 
@@ -670,7 +670,9 @@ namespace ManagedX
 		/// <returns>Returns the conjugate of the specified <paramref name="quaternion"/>.</returns>
 		public static Quaternion Conjugate( Quaternion quaternion )
 		{
-			Conjugate( ref quaternion, out quaternion );
+			quaternion.X = -quaternion.X;
+			quaternion.Y = -quaternion.Y;
+			quaternion.Z = -quaternion.Z;
 			return quaternion;
 		}
 
@@ -740,7 +742,22 @@ namespace ManagedX
 		public static Quaternion CreateFromYawPitchRoll( float yaw, float pitch, float roll )
 		{
 			Quaternion result;
-			CreateFromYawPitchRoll( yaw, pitch, roll, out result );
+			var halfRoll = roll * 0.5f;
+			var sinHalfRoll = (float)Math.Sin( halfRoll );
+			var cosHalfRoll = (float)Math.Cos( halfRoll );
+
+			var halfPitch = pitch * 0.5f;
+			var sinHalfPitch = (float)Math.Sin( halfPitch );
+			var cosHalfPitch = (float)Math.Cos( halfPitch );
+
+			var halfYaw = yaw * 0.5f;
+			var sinHalfYaw = (float)Math.Sin( halfYaw );
+			var cosHalfYaw = (float)Math.Cos( halfYaw );
+
+			result.X = cosHalfYaw * sinHalfPitch * cosHalfRoll + sinHalfYaw * cosHalfPitch * sinHalfRoll;
+			result.Y = sinHalfYaw * cosHalfPitch * cosHalfRoll - cosHalfYaw * sinHalfPitch * sinHalfRoll;
+			result.Z = cosHalfYaw * cosHalfPitch * sinHalfRoll - sinHalfYaw * sinHalfPitch * cosHalfRoll;
+			result.W = cosHalfYaw * cosHalfPitch * cosHalfRoll + sinHalfYaw * sinHalfPitch * sinHalfRoll;
 			return result;
 		}
 
@@ -755,6 +772,7 @@ namespace ManagedX
 		{
 			var halfAngle = angle * 0.5f;
 			var sinHalfAngle = (float)Math.Sin( halfAngle );
+			
 			result.X = axis.X * sinHalfAngle;
 			result.Y = axis.Y * sinHalfAngle;
 			result.Z = axis.Z * sinHalfAngle;
@@ -768,7 +786,14 @@ namespace ManagedX
 		public static Quaternion CreateFromAxisAngle( Vector3 axis, float angle )
 		{
 			Quaternion result;
-			CreateFromAxisAngle( ref axis, angle, out result );
+			
+			var halfAngle = angle * 0.5f;
+			var sinHalfAngle = (float)Math.Sin( halfAngle );
+			
+			result.X = axis.X * sinHalfAngle;
+			result.Y = axis.Y * sinHalfAngle;
+			result.Z = axis.Z * sinHalfAngle;
+			result.W = (float)Math.Cos( halfAngle );
 			return result;
 		}
 
@@ -777,170 +802,145 @@ namespace ManagedX
 
 		#region Operators
 
-		/// <summary><see cref="Vector3"/> conversion operator.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <returns>Returns a <see cref="Vector3"/> structure initializes with the X, Y and Z components of the specified <see cref="Vector4"/>.</returns>
-		public static explicit operator Vector3( Quaternion vector )
-		{
-			return new Vector3( vector.X, vector.Y, vector.Z );
-		}
-
-
-		/// <summary><see cref="Quaternion"/> conversion operator.</summary>
-		/// <param name="vector">A <see cref="Quaternion"/> structure.</param>
-		/// <returns>Returns a <see cref="Vector4"/> structure initializes with the X, Y and Z components of the specified <see cref="Quaternion"/>.</returns>
-		public static explicit operator Vector4( Quaternion vector )
-		{
-			return vector.ToVector4();
-		}
-
-
 		/// <summary>Equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A <see cref="Vector4"/> structure.</param>
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
-		public static bool operator ==( Quaternion vector, Quaternion other )
+		public static bool operator ==( Quaternion quaternion, Quaternion other )
 		{
-			return vector.Equals( other );
+			return ( quaternion.X == other.X ) && ( quaternion.Y == other.Y ) && ( quaternion.Z == other.Z ) && ( quaternion.W == other.W );
 		}
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A <see cref="Vector4"/> structure.</param>
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
-		public static bool operator !=( Quaternion vector, Quaternion other )
+		public static bool operator !=( Quaternion quaternion, Quaternion other )
 		{
-			return !vector.Equals( other );
+			return ( quaternion.X != other.X ) || ( quaternion.Y != other.Y ) || ( quaternion.Z != other.Z ) || ( quaternion.W != other.W );
 		}
 
 
 		/// <summary>Unary negation operator.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Quaternion operator -( Quaternion vector )
+		public static Quaternion operator -( Quaternion quaternion )
 		{
-			vector.Negate();
-			return vector;
-		}
-
-
-		/// <summary>Inferiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Quaternion vector, Quaternion other )
-		{
-			return ( vector.X < other.X ) && ( vector.Y < other.Y ) && ( vector.Z < other.Z );
-		}
-
-		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Quaternion vector, Quaternion other )
-		{
-			return ( vector.X <= other.X ) && ( vector.Y <= other.Y ) && ( vector.Z <= other.Z );
-		}
-
-
-		/// <summary>Superiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Quaternion vector, Quaternion other )
-		{
-			return ( vector.X > other.X ) && ( vector.Y > other.Y ) && ( vector.Z > other.Z );
-		}
-
-		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Quaternion vector, Quaternion other )
-		{
-			return ( vector.X >= other.X ) && ( vector.Y >= other.Y ) && ( vector.Z >= other.Z );
+			quaternion.X = -quaternion.X;
+			quaternion.Y = -quaternion.Y;
+			quaternion.Z = -quaternion.Z;
+			quaternion.W = -quaternion.W;
+			return quaternion;
 		}
 
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Quaternion operator +( Quaternion vector, Quaternion other )
+		public static Quaternion operator +( Quaternion quaternion, Quaternion other )
 		{
-			return new Quaternion( vector.X + other.X, vector.Y + other.Y, vector.Z + other.Z, vector.W + other.W );
+			quaternion.X += other.X;
+			quaternion.Y += other.Y;
+			quaternion.Z += other.Z;
+			quaternion.W += other.W;
+			return quaternion;
 		}
 
 
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Quaternion operator -( Quaternion vector, Quaternion other )
+		public static Quaternion operator -( Quaternion quaternion, Quaternion other )
 		{
-			return new Quaternion( vector.X - other.X, vector.Y - other.Y, vector.Z - other.Z, vector.W - other.W );
+			quaternion.X -= other.X;
+			quaternion.Y -= other.Y;
+			quaternion.Z -= other.Z;
+			quaternion.W -= other.W;
+			return quaternion;
 		}
 
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Quaternion operator *( Quaternion vector, Quaternion other )
+		public static Quaternion operator *( Quaternion quaternion, Quaternion other )
 		{
-			return new Quaternion( vector.X * other.X, vector.Y * other.Y, vector.Z * other.Z, vector.W * other.W );
+			quaternion.X *= other.X;
+			quaternion.Y *= other.Y;
+			quaternion.Z *= other.Z;
+			quaternion.W *= other.W;
+			return quaternion;
 		}
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <returns></returns>
-		public static Quaternion operator *( Quaternion vector, float value )
+		public static Quaternion operator *( Quaternion quaternion, float value )
 		{
-			return new Quaternion( vector.X * value, vector.Y * value, vector.Z * value, vector.W * value );
+			quaternion.X *= value;
+			quaternion.Y *= value;
+			quaternion.Z *= value;
+			quaternion.W *= value;
+			return quaternion;
 		}
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="value">A finite single-precision floating-point value.</param>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Quaternion operator *( float value, Quaternion vector )
+		public static Quaternion operator *( float value, Quaternion quaternion )
 		{
-			return new Quaternion( vector.X * value, vector.Y * value, vector.Z * value, vector.W * value );
+			quaternion.X *= value;
+			quaternion.Y *= value;
+			quaternion.Z *= value;
+			quaternion.W *= value;
+			return quaternion;
 		}
 
 
 		/// <summary>Division operator.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="other">A valid, non-zero, <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Quaternion operator /( Quaternion vector, Quaternion other )
+		public static Quaternion operator /( Quaternion quaternion, Quaternion other )
 		{
-			return new Quaternion( vector.X / other.X, vector.Y / other.Y, vector.Z / other.Z, vector.W / other.W );
+			quaternion.X /= other.X;
+			quaternion.Y /= other.Y;
+			quaternion.Z /= other.Z;
+			quaternion.W /= other.W;
+			return quaternion;
 		}
 
 		/// <summary>Division operator.</summary>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
 		/// <returns></returns>
-		public static Quaternion operator /( Quaternion vector, float value )
+		public static Quaternion operator /( Quaternion quaternion, float value )
 		{
 			var inv = 1.0f / value;
-			return new Quaternion( vector.X * inv, vector.Y * inv, vector.Z * inv, vector.W * inv );
+			quaternion.X *= inv;
+			quaternion.Y *= inv;
+			quaternion.Z *= inv;
+			quaternion.W *= inv;
+			return quaternion;
 		}
 
 		/// <summary>Division operator.</summary>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
-		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
 		/// <returns></returns>
-		public static Quaternion operator /( float value, Quaternion vector )
+		public static Quaternion operator /( float value, Quaternion quaternion )
 		{
-			return new Quaternion( value / vector.X, value / vector.Y, value / vector.Z, value / vector.W );
+			quaternion.X = value / quaternion.X;
+			quaternion.Y = value / quaternion.Y;
+			quaternion.Z = value / quaternion.Z;
+			quaternion.W = value / quaternion.W;
+			return quaternion;
 		}
 
 		#endregion // Operators

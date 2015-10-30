@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
@@ -198,10 +197,14 @@ namespace ManagedX
 		/// <summary>Unit vector pointing to the left: (-1,0,0).</summary>
 		public static readonly Vector3 Left = new Vector3( -1.0f, 0.0f, 0.0f );
 
-		/// <summary>Unit vector pointing to the right: (1,0,0).</summary>
+		/// <summary>Unit vector pointing to the right: (1,0,0).
+		/// <para>Also known as <see cref="UnitX"/>.</para>
+		/// </summary>
 		public static readonly Vector3 Right = new Vector3( 1.0f, 0.0f, 0.0f );
 
-		/// <summary>Unit vector pointing upward: (0,1,0).</summary>
+		/// <summary>Unit vector pointing upward: (0,1,0).
+		/// <para>Also known as <see cref="UnitY"/>.</para>
+		/// </summary>
 		public static readonly Vector3 Up = new Vector3( 0.0f, 1.0f, 0.0f );
 
 		/// <summary>Unit vector pointing downward: (0,-1,0).</summary>
@@ -210,14 +213,24 @@ namespace ManagedX
 		/// <summary>Unit vector pointing forward: (0,0,-1).</summary>
 		public static readonly Vector3 Forward = new Vector3( 0.0f, 0.0f, -1.0f );
 
-		/// <summary>Unit vector pointing backward: (0,0,1).</summary>
+		/// <summary>Unit vector pointing backward: (0,0,1).
+		/// <para>Also known as <see cref="UnitZ"/>.</para>
+		/// </summary>
 		public static readonly Vector3 Backward = new Vector3( 0.0f, 0.0f, 1.0f );
 
-		
+		/// <summary>Unit vector pointing to the positive X direction.</summary>
+		public static readonly Vector3 UnitX = Right;
 
-		/// <summary>Returns the sum of two <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/>.</param>
-		/// <param name="other">A valid <see cref="Vector3"/>.</param>
+		/// <summary>Unit vector pointing to the positive Y direction.</summary>
+		public static readonly Vector3 UnitY = Up;
+
+		/// <summary>Unit vector pointing to the positive Z direction.</summary>
+		public static readonly Vector3 UnitZ = Backward;
+
+
+		/// <summary>Calculates the sum of two <see cref="Vector3"/>.</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the sum of the two specified <see cref="Vector3"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -230,8 +243,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the sum of two <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/>.</param>
-		/// <param name="other">A valid <see cref="Vector3"/>.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns the sum of the two specified <see cref="Vector3"/>.</returns>
 		public static Vector3 Add( Vector3 vector, Vector3 other )
 		{
@@ -242,9 +255,9 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/>.</param>
-		/// <param name="other">A valid <see cref="Vector3"/>.</param>
+		/// <summary>Calculates the difference between two vectors.</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the difference between <paramref name="vector"/> and <paramref name="other"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -257,8 +270,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/>.</param>
-		/// <param name="other">A valid <see cref="Vector3"/>.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns the difference between <paramref name="vector"/> and <paramref name="other"/>.</returns>
 		public static Vector3 Subtract( Vector3 vector, Vector3 other )
 		{
@@ -270,8 +283,8 @@ namespace ManagedX
 
 
 		/// <summary>Multiplies two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -284,8 +297,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Multiplies two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</returns>
 		public static Vector3 Multiply( Vector3 vector, Vector3 other )
 		{
@@ -323,8 +336,8 @@ namespace ManagedX
 
 
 		/// <summary>Divides a <see cref="Vector3"/> by another <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -337,8 +350,8 @@ namespace ManagedX
 		}
 		
 		/// <summary>Divides a <see cref="Vector3"/> by another <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid, non-zero, <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
 		public static Vector3 Divide( Vector3 vector, Vector3 other )
 		{
@@ -366,7 +379,6 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A single-precision floating-point value.</param>
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static Vector3 Divide( Vector3 vector, float value )
 		{
 			var inv = 1.0f / value;
@@ -376,10 +388,35 @@ namespace ManagedX
 			return vector;
 		}
 
+		/// <summary>Divides a value by a <see cref="Vector3"/>.</summary>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="result">Receives the result of the division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Divide( float value, ref Vector3 vector, out Vector3 result )
+		{
+			result.X = value / vector.X;
+			result.Y = value / vector.Y;
+			result.Z = value / vector.Z;
+		}
+
+		/// <summary>Divides a <see cref="Vector3"/> by a value.</summary>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Vector3 Divide( float value, Vector3 vector )
+		{
+			vector.X = value / vector.X;
+			vector.Y = value / vector.Y;
+			vector.Z = value / vector.Z;
+			return vector;
+		}
+
 
 		/// <summary>Retrieves a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -392,8 +429,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</returns>
 		public static Vector3 Min( Vector3 vector, Vector3 other )
 		{
@@ -406,8 +443,8 @@ namespace ManagedX
 
 
 		/// <summary>Retrieves a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -420,8 +457,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <returns>Returns a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</returns>
 		public static Vector3 Max( Vector3 vector, Vector3 other )
 		{
@@ -434,8 +471,8 @@ namespace ManagedX
 
 	
 		/// <summary>Calculates the distance between two <see cref="Vector3"/> positions.</summary>
-		/// <param name="position">A valid <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <param name="position">A <see cref="Vector3"/> structure.</param>
+		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the distance between the two specified positions.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -792,8 +829,9 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public static bool operator ==( Vector3 vector, Vector3 other )
 		{
-			return vector.Equals( other );
+			return ( vector.X == other.X ) && ( vector.Y == other.Y ) && ( vector.Z == other.Z );
 		}
+
 
 		/// <summary>Inequality comparer.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
@@ -801,48 +839,7 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Vector3 vector, Vector3 other )
 		{
-			return !vector.Equals( other );
-		}
-
-
-		/// <summary>Inferiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Vector3 vector, Vector3 other )
-		{
-			return ( vector.X < other.X ) && ( vector.Y < other.Y ) && ( vector.Z < other.Z );
-		}
-
-		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Vector3 vector, Vector3 other )
-		{
-			return ( vector.X <= other.X ) && ( vector.Y <= other.Y ) && ( vector.Z <= other.Z );
-		}
-
-		/// <summary>Superiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Vector3 vector, Vector3 other )
-		{
-			return ( vector.X > other.X ) && ( vector.Y > other.Y ) && ( vector.Z > other.Z );
-		}
-
-		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
-		/// <param name="other">A <see cref="Vector3"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Vector3 vector, Vector3 other )
-		{
-			return ( vector.X >= other.X ) && ( vector.Y >= other.Y ) && ( vector.Z >= other.Z );
+			return ( vector.X != other.X ) || ( vector.Y != other.Y ) || ( vector.Z != other.Z );
 		}
 
 
@@ -851,7 +848,9 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator -( Vector3 vector )
 		{
-			vector.Negate();
+			vector.X = -vector.X;
+			vector.Y = -vector.Y;
+			vector.Z = -vector.Z;
 			return vector;
 		}
 
