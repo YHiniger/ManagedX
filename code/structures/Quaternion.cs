@@ -366,7 +366,7 @@ namespace ManagedX
 			var y2 = Y + Y;
 			var z2 = Z + Z;
 
-			var xSquared2 = X * x2;
+			var oneMinusXSquared2 = 1.0f - X * x2;
 			var xy2 = X * y2;
 			var xz2 = X * z2;
 			var ySquared2 = Y * y2;
@@ -377,8 +377,8 @@ namespace ManagedX
 			var wz2 = W * z2;
 
 			result.X = vector.X * ( 1.0f - ySquared2 - zSquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 );
-			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( 1.0f - xSquared2 - zSquared2 ) + vector.Z * ( yz2 - wx2 );
-			result.Z = vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( 1.0f - xSquared2 - ySquared2 );
+			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusXSquared2 - zSquared2 ) + vector.Z * ( yz2 - wx2 );
+			result.Z = vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( oneMinusXSquared2 - ySquared2 );
 			result.W = vector.W;
 		}
 
@@ -391,20 +391,20 @@ namespace ManagedX
 			var y2 = Y + Y;
 			var z2 = Z + Z;
 
-			var xSquared2 = X * x2;
+			var oneMinusXSquared2 = 1.0f - X * x2;
 			var xy2 = X * y2;
 			var xz2 = X * z2;
 			var ySquared2 = Y * y2;
 			var yz2 = Y * z2;
-			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var zSquared2 = Z * z2;
 			var wx2 = W * x2;
 			var wy2 = W * y2;
 			var wz2 = W * z2;
 
 			return new Vector4(
-				vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 ),
-				vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 ) + vector.Z * ( yz2 - wx2 ),
-				vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( 1.0f - xSquared2 - ySquared2 ),
+				vector.X * ( 1.0f - ySquared2 - zSquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 ),
+				vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusXSquared2 - zSquared2 ) + vector.Z * ( yz2 - wx2 ),
+				vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( oneMinusXSquared2 - ySquared2 ),
 				vector.W
 			);
 		}
@@ -437,25 +437,25 @@ namespace ManagedX
 			var x2 = X + X;
 			var y2 = Y + Y;
 			var z2 = Z + Z;
-			var xSquared2 = X * x2;
+			var oneMinusXSquared2 = 1.0f - X * x2;
 			var xy2 = X * y2;
 			var xz2 = X * z2;
 			var ySquared2 = Y * y2;
 			var yz2 = Y * z2;
-			var oneMinusZSquared2 = 1.0f - Z * z2;
+			var zSquared2 = Z * z2;
 			var wx2 = W * x2;
 			var wy2 = W * y2;
 			var wz2 = W * z2;
 
-			var a = oneMinusZSquared2 - ySquared2;
+			var a = 1.0f - ySquared2 - zSquared2;
 			var b = xy2 - wz2;
 			var c = xz2 + wy2;
 			var d = xy2 + wz2;
-			var e = oneMinusZSquared2 - xSquared2;
+			var e = oneMinusXSquared2 - zSquared2;
 			var f = yz2 - wx2;
 			var g = xz2 - wy2;
 			var h = yz2 + wx2;
-			var i = 1.0f - xSquared2 - ySquared2;
+			var i = oneMinusXSquared2 - ySquared2;
 
 			Vector4 input, output;
 			for( int v = 0; v < count; v++ )
