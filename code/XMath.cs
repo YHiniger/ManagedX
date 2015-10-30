@@ -52,7 +52,7 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToCelcius( float temperatureInDegreesFahrenheit )
 		{
-			return temperatureInDegreesFahrenheit / 1.8f - 32.0f;
+			return ( temperatureInDegreesFahrenheit - 32.0f ) / 1.8f;
 		}
 
 		/// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
@@ -61,7 +61,7 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double ToCelcius( double temperatureInDegreesFahrenheit )
 		{
-			return temperatureInDegreesFahrenheit / 1.8 - 32.0;
+			return ( temperatureInDegreesFahrenheit - 32.0 ) / 1.8;
 		}
 
 
