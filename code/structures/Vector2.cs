@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
@@ -51,13 +50,9 @@ namespace ManagedX
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
 		public void Normalize()
 		{
-			var length = (float)Math.Sqrt( X * X + Y * Y );
-			if( length > 0.0f )
-			{
-				var inv = 1.0f / length;
-				X *= inv;
-				Y *= inv;
-			}
+			var length = (float)Math.Sqrt( (double)( X * X + Y * Y ) );
+			X /= length;
+			Y /= length;
 		}
 
 
@@ -76,12 +71,12 @@ namespace ManagedX
 		{
 			var x = other.X - X;
 			var y = other.Y - Y;
-			return (float)Math.Sqrt( x * x + y * y );
+			return (float)Math.Sqrt( (double)( x * x + y * y ) );
 		}
 
 
 		/// <summary>Gets the length of this <see cref="Vector2"/>.</summary>
-		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y ); } }
+		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y ) ); } }
 
 
 		/// <summary>Gets the square of the length of this <see cref="Vector2"/>.</summary>
@@ -291,10 +286,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns the result of the division of two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A valid, non-zero <see cref="Vector2"/> structure.</param>
-		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</param>
+		/// <summary>Divides a <see cref="Vector2"/> by another <see cref="Vector2"/>.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives the result of the division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -305,9 +300,9 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the result of the division of two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A valid, non-zero <see cref="Vector2"/> structure.</param>
-		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</returns>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the result of the division.</returns>
 		public static Vector2 Divide( Vector2 vector, Vector2 other )
 		{
 			vector.X /= other.X;
@@ -316,9 +311,9 @@ namespace ManagedX
 		}
 
 		/// <summary>Divides a <see cref="Vector2"/> by a value.</summary>
-		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
-		/// <param name="value">The divider; must be a finite, non-zero value.</param>
-		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector2 vector, float value, out Vector2 result )
@@ -329,14 +324,37 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
-		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
-		/// <param name="value">The divider; must be a finite, non-zero value.</param>
-		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <returns>Returns the result of the division.</returns>
 		public static Vector2 Divide( Vector2 vector, float value )
 		{
 			var inv = 1.0f / value;
 			vector.X *= inv;
 			vector.Y *= inv;
+			return vector;
+		}
+
+		/// <summary>Divides a value by a <see cref="Vector2"/>.</summary>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives the result of the division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Divide( float value, ref Vector2 vector, out Vector2 result )
+		{
+			result.X = value / vector.X;
+			result.Y = value / vector.Y;
+		}
+
+		/// <summary>Returns the result of the division of a value by a <see cref="Vector2"/>.</summary>
+		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Vector2 Divide( float value, Vector2 vector )
+		{
+			vector.X = value / vector.X;
+			vector.Y = value / vector.Y;
 			return vector;
 		}
 
@@ -451,33 +469,25 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		public static void Normalize( ref Vector2 vector, out Vector2 result )
 		{
-			var length = (float)Math.Sqrt( vector.X * vector.X + vector.Y * vector.Y );
+			var length = (float)Math.Sqrt( (double)( vector.X * vector.X + vector.Y * vector.Y ) );
 			if( length == 0.0f )
 				result = vector;
 			else
 			{
-				var inv = 1.0f / length;
-				result.X = vector.X * inv;
-				result.Y = vector.Y * inv;
+				result.X = vector.X / length;
+				result.Y = vector.Y / length;
 			}
 		}
 
 		/// <summary>Returns a normalized <see cref="Vector2"/>.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
 		/// <returns>Returns the normalized <paramref name="vector"/>.</returns>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
 		public static Vector2 Normalize( Vector2 vector )
 		{
-			var length = (float)Math.Sqrt( vector.X * vector.X + vector.Y * vector.Y );
-			if( length == 0.0f )
-				return vector;
-			
-			var inv = 1.0f / length;
-			return new Vector2(
-				vector.X * inv,
-				vector.Y * inv
-			);
+			var length = (float)Math.Sqrt( (double)( vector.X * vector.X + vector.Y * vector.Y ) );
+			vector.X /= length;
+			vector.Y /= length;
+			return vector;
 		}
 
 
@@ -827,8 +837,9 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public static bool operator ==( Vector2 vector, Vector2 other )
 		{
-			return vector.Equals( other );
+			return ( vector.X == other.X ) && ( vector.Y == other.Y );
 		}
+
 
 		/// <summary>Inequality comparer.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
@@ -836,48 +847,7 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Vector2 vector, Vector2 other )
 		{
-			return !vector.Equals( other );
-		}
-
-
-		/// <summary>Inferiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Vector2 vector, Vector2 other )
-		{
-			return ( vector.X < other.X ) && ( vector.Y < other.Y );
-		}
-
-		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Vector2 vector, Vector2 other )
-		{
-			return ( vector.X <= other.X ) && ( vector.Y <= other.Y );
-		}
-
-		/// <summary>Superiority comparer.</summary>
-		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Vector2 vector, Vector2 other )
-		{
-			return ( vector.X > other.X ) && ( vector.Y > other.Y );
-		}
-
-		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A <see cref="Vector2"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Vector2 vector, Vector2 other )
-		{
-			return ( vector.X >= other.X ) && ( vector.Y >= other.Y );
+			return ( vector.X != other.X ) && ( vector.Y != other.Y );
 		}
 
 

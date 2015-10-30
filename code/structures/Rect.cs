@@ -30,6 +30,19 @@ namespace ManagedX
 		public int Bottom;
 
 
+		/// <summary>Initializes a new <see cref="Rect"/> structure with the specified values.</summary>
+		/// <param name="left">The position of the left side of the rectangle; also known as "X".</param>
+		/// <param name="top">The position of the top of the rectangle; also known as "Y".</param>
+		/// <param name="right">The position of the right side of the rectangle.</param>
+		/// <param name="bottom">The position of the bottom of the rectangle.</param>
+		public Rect( int left, int top, int right, int bottom )
+		{
+			Left = left;
+			Top = top;
+			Right = right;
+			Bottom = bottom;
+		}
+
 
 		/// <summary>Gets or sets the position of the upper left corner of the rectangle.</summary>
 		public Point UpperLeftCorner
@@ -57,6 +70,32 @@ namespace ManagedX
 
 		/// <summary>Gets the center of the rectangle.</summary>
 		public Point Center { get { return new Point( ( Left + Right ) / 2, ( Top + Bottom ) / 2 ); } }
+
+
+		/// <summary>Gets or sets the horizontal position of the rectangle.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X", Justification = "Uniformity." )]
+		public int X
+		{
+			get { return Left; }
+			set
+			{
+				Right += value - Left;
+				Left = value;
+			}
+		}
+
+
+		/// <summary>Gets or sets the vertical position of the rectangle.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y", Justification = "Uniformity." )]
+		public int Y
+		{
+			get { return Top; }
+			set
+			{
+				Bottom += value - Top;
+				Top = value;
+			}
+		}
 
 
 		/// <summary>Gets or sets the width of the rectangle.</summary>
@@ -245,7 +284,7 @@ namespace ManagedX
 		/// <returns>Returns a string representing this <see cref="Rect"/> structure.</returns>
 		public override string ToString()
 		{
-			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{{Left: {0}, Top: {1}, Right: {2}, Bottom: {3}}}", this.Left, this.Top, this.Right, this.Bottom );
+			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{{Left: {0}, Top: {1}, Right: {2}, Bottom: {3}}}", Left, Top, Right, Bottom );
 		}
 
 
@@ -253,6 +292,28 @@ namespace ManagedX
 
 		/// <summary>The empty <see cref="Rect"/> structure.</summary>
 		public static readonly Rect Empty = new Rect();
+
+
+		/// <summary>Negates a <see cref="Rect"/> structure.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="result">Receives the negated <paramref name="rect"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		public static void Negate( ref Rect rect, out Rect result )
+		{
+			result.Left = -rect.Right;
+			result.Top = -rect.Bottom;
+			result.Right = -rect.Left;
+			result.Bottom = -rect.Top;
+		}
+
+		/// <summary>Negates a <see cref="Rect"/> structure.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns the negated <paramref name="rect"/>.</returns>
+		public static Rect Negate( Rect rect )
+		{
+			return new Rect( -rect.Right, -rect.Bottom, -rect.Left, -rect.Top );
+		}
 
 
 		/// <summary>Creates a rectangle containing the two specified rectangles.</summary>
@@ -264,10 +325,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
 		public static void Union( ref Rect rect, ref Rect other, out Rect result )
 		{
-			result.Left = ( rect.Left < other.Left ) ? rect.Left : other.Left;
-			result.Top = ( rect.Top < other.Top ) ? rect.Top : other.Top;
-			result.Right = ( rect.Right > other.Right ) ? rect.Right : other.Right;
-			result.Bottom = ( rect.Bottom > other.Bottom ) ? rect.Bottom : other.Bottom;
+			result.Left = Math.Min( rect.Left, other.Left );
+			result.Top = Math.Min( rect.Top, other.Top );
+			result.Right = Math.Max( rect.Right, other.Right );
+			result.Bottom = Math.Max( rect.Bottom, other.Bottom );
 		}
 
 		/// <summary>Returns a rectangle containing the two specified rectangles.</summary>
@@ -276,12 +337,11 @@ namespace ManagedX
 		/// <returns>Returns a rectangle containing the two specified rectangles.</returns>
 		public static Rect Union( Rect rect, Rect other )
 		{
-			Rect result;
-			result.Left = ( rect.Left < other.Left ) ? rect.Left : other.Left;
-			result.Top = ( rect.Top < other.Top ) ? rect.Top : other.Top;
-			result.Right = ( rect.Right > other.Right ) ? rect.Right : other.Right;
-			result.Bottom = ( rect.Bottom > other.Bottom ) ? rect.Bottom : other.Bottom;
-			return result;
+			rect.Left = Math.Min( rect.Left, other.Left );
+			rect.Top = Math.Min( rect.Top, other.Top );
+			rect.Right = Math.Max( rect.Right, other.Right );
+			rect.Bottom = Math.Max( rect.Bottom, other.Bottom );
+			return rect;
 		}
 
 
@@ -334,7 +394,6 @@ namespace ManagedX
 			return Rect.Empty;
 		}
 
-
 		#endregion // Static
 
 
@@ -359,7 +418,54 @@ namespace ManagedX
 			return !rect.Equals( other );
 		}
 
-		// THINKABOUTME - comparison by surface, and when equal: by width, then by height.
+
+		/// <summary>Unary negation operator.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns the negated <paramref name="rect"/>.</returns>
+		public static Rect operator -( Rect rect )
+		{
+			return new Rect( -rect.Right, -rect.Bottom, -rect.Left, -rect.Top );
+		}
+
+
+		/// <summary>Union operator.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns a rectangle containing the two specified rectangles.</returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "Union is the alternate method." )]
+		public static Rect operator +( Rect rect, Rect other )
+		{
+			rect.Left = Math.Min( rect.Left, other.Left );
+			rect.Top = Math.Min( rect.Top, other.Top );
+			rect.Right = Math.Max( rect.Right, other.Right );
+			rect.Bottom = Math.Max( rect.Bottom, other.Bottom );
+			return rect;
+		}
+
+
+		/// <summary>Intersection operator.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns the area where the two rectangles overlap.</returns>
+		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "Intersect is the alternate method." )]
+		public static Rect operator -( Rect rect, Rect other )
+		{
+			var left = Math.Max( rect.Left, other.Left );
+			var top = Math.Max( rect.Top, other.Top );
+			var right = Math.Min( rect.Right, other.Right );
+			var bottom = Math.Min( rect.Bottom, other.Bottom );
+
+			if( right > left && bottom > top )
+			{
+				rect.Left = left;
+				rect.Top = top;
+				rect.Right = right;
+				rect.Bottom = bottom;
+				return rect;
+			}
+
+			return Rect.Empty;
+		}
 
 		#endregion // Operators
 
