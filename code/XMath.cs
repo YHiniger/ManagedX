@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 
 namespace ManagedX
 {
-
-	// Rule #1: avoid divisions; use multiplications instead.
-
 
 	// TODO - try to make use of DirectXMath (https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833%28v=vs.85%29.aspx)
 
@@ -31,7 +27,7 @@ namespace ManagedX
 		public const float PiOver4 = Pi * 0.25f;
 
 
-		///// <summary>Represents the mathematical constant e.</summary>
+		///// <summary>Defines the mathematical constant e.</summary>
 		//public const float E = 2.71828175f;
 
 		///// <summary>Represents the log base ten of e (<see cref="E"/>).</summary>
@@ -123,7 +119,14 @@ namespace ManagedX
 		public static float WrapAngle( float radians )
 		{
 			radians %= TwoPi;
-			return ( radians < -Pi ) ? radians + TwoPi : ( radians > Pi ) ? radians - TwoPi : radians;
+			
+			if( radians < -Pi )
+				return radians + TwoPi;
+			
+			if( radians > Pi )
+				return radians - TwoPi;
+			
+			return radians;
 		}
 
 
@@ -190,25 +193,33 @@ namespace ManagedX
 		/// <summary>Returns the cubic interpolation between two values.</summary>
 		/// <param name="source">A finite single-precision floating-point value.</param>
 		/// <param name="target">A finite single-precision floating-point value.</param>
-		/// <param name="amount">A finite single-precision floating-point value; will be saturated (=forced into the the range [0,1]).</param>
+		/// <param name="amount">A finite single-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
 		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float SmoothStep( float source, float target, float amount )
 		{
-			amount = amount.Saturate();
-			return Lerp( source, target, amount * amount * ( 3.0f - 2.0f * amount ) );
+			if( amount < 0.0f )
+				amount = 0.0f;
+			else if( amount > 1.0f )
+				amount = 1.0f;
+			
+			return source + ( target - source ) * amount * amount * ( 3.0f - 2.0f * amount );
 		}
 
 		/// <summary>Returns the cubic interpolation between two values.</summary>
 		/// <param name="source">A finite double-precision floating-point value.</param>
 		/// <param name="target">A finite double-precision floating-point value.</param>
-		/// <param name="amount">A finite double-precision floating-point value; will be saturated (=forced into the the range [0,1]).</param>
+		/// <param name="amount">A finite double-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
 		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double SmoothStep( double source, double target, double amount )
 		{
-			amount = amount.Saturate();
-			return Lerp( source, target, amount * amount * ( 3.0 - 2.0 * amount ) );
+			if( amount < 0.0 )
+				amount = 0.0;
+			else if( amount > 1.0 )
+				amount = 1.0;
+			
+			return source + ( target - source ) * amount * amount * ( 3.0 - 2.0 * amount );
 		}
 
 		#endregion
@@ -222,10 +233,17 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float MakeFinite( this float value )
 		{
-			if( float.IsInfinity( value ) )
-				return float.IsPositiveInfinity( value ) ? float.MaxValue : float.MinValue;
+			if( float.IsNaN( value ) )
+				return 0.0f;
 
-			return float.IsNaN( value ) ? 0.0f : value;
+			if( float.IsInfinity( value ) )
+			{
+				if( float.IsPositiveInfinity( value ) )
+					return float.MaxValue;
+				return float.MinValue;
+			}
+
+			return value;
 		}
 
 		/// <summary>Converts <see cref="double.NaN"/> to 0, <see cref="double.PositiveInfinity"/> to <see cref="double.MaxValue"/> and <see cref="double.NegativeInfinity"/> to <see cref="double.MinValue"/>; otherwise, returns the specified value.</summary>
@@ -234,10 +252,17 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double MakeFinite( this double value )
 		{
-			if( double.IsInfinity( value ) )
-				return double.IsPositiveInfinity( value ) ? double.MaxValue : double.MinValue;
+			if( double.IsNaN( value ) )
+				return 0.0;
 
-			return double.IsNaN( value ) ? 0.0 : value;
+			if( double.IsInfinity( value ) )
+			{
+				if( double.IsPositiveInfinity( value ) )
+					return double.MaxValue;
+				return double.MinValue;
+			}
+
+			return value;
 		}
 
 
@@ -256,7 +281,13 @@ namespace ManagedX
 		public static TValue Clamp<TValue>( this TValue value, TValue min, TValue max )
 			where TValue : struct, IComparable<TValue>
 		{
-			return ( value.CompareTo( min ) <= 0 ) ? min : ( value.CompareTo( max ) >= 0 ) ? max : value;
+			if( value.CompareTo( min ) < 0 )
+				return min;
+			
+			if( value.CompareTo( max ) > 0 )
+				return max;
+			
+			return value;
 		}
 
 
@@ -270,7 +301,13 @@ namespace ManagedX
 		/// </returns>
 		public static float Clamp( this float value, float min, float max )
 		{
-			return Clamp<float>( value, min, max );
+			if( value < min )
+				return min;
+			
+			if( value > max )
+				return max;
+			
+			return value;
 		}
 
 		/// <summary>Returns the nearest value within the specified range.</summary>
@@ -283,7 +320,13 @@ namespace ManagedX
 		/// </returns>
 		public static double Clamp( this double value, double min, double max )
 		{
-			return Clamp<double>( value, min, max );
+			if( value < min )
+				return min;
+			
+			if( value > max )
+				return max;
+			
+			return value;
 		}
 
 
@@ -293,10 +336,10 @@ namespace ManagedX
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static float Saturate( this float value )
 		{
-			if( value <= 0.0f )
+			if( value < 0.0f )
 				return 0.0f;
 			
-			if( value >= 1.0f )
+			if( value > 1.0f )
 				return 1.0f;
 			
 			return value;
@@ -307,10 +350,10 @@ namespace ManagedX
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static double Saturate( this double value )
 		{
-			if( value <= 0.0 )
+			if( value < 0.0 )
 				return 0.0;
 
-			if( value >= 1.0 )
+			if( value > 1.0 )
 				return 1.0;
 
 			return value;
