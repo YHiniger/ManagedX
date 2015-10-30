@@ -68,7 +68,7 @@ namespace ManagedX
 
 
 		/// <summary>Gets the length of this <see cref="Vector3"/>.</summary>
-		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y + Z * Z ); } }
+		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z ) ); } }
 
 
 		/// <summary>Gets the square of the length of this <see cref="Vector3"/> value.</summary>
@@ -78,7 +78,7 @@ namespace ManagedX
 		/// <summary>Normalizes this <see cref="Vector3"/> value.</summary>
 		public void Normalize()
 		{
-			var oneOverLength = 1.0f / (float)Math.Sqrt( (float)X * X + Y * Y + Z * Z ); ;
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z ) );
 			X *= oneOverLength;
 			Y *= oneOverLength;
 			Z *= oneOverLength;
@@ -91,6 +91,42 @@ namespace ManagedX
 			X = -X;
 			Y = -Y;
 			Z = -Z;
+		}
+
+
+		/// <summary>Returns the distance between this <see cref="Vector3"/> and another position.</summary>
+		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns the distance between this position and the <paramref name="other"/> position.</returns>
+		public float DistanceTo( Vector3 other )
+		{
+			var x = other.X - X;
+			var y = other.Y - Y;
+			var z = other.Z - Z;
+			return (float)Math.Sqrt( x * x + y * y + z * z );
+		}
+
+
+		/// <summary>Forces the components of this <see cref="Vector3"/> within the range [<paramref name="min"/>,<paramref name="max"/>].</summary>
+		/// <param name="min">A valid <see cref="Vector3"/> structure containing the minimum value for each component.</param>
+		/// <param name="max">A valid <see cref="Vector3"/> structure containing the maximum value for each component.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		public void Clamp( ref Vector3 min, ref Vector3 max )
+		{
+			if( X < min.X )
+				X = min.X;
+			else if( X > max.X )
+				X = max.X;
+
+			if( Y < min.Y )
+				Y = min.Y;
+			else if( Y > max.Y )
+				Y = max.Y;
+
+			if( Z < min.Z )
+				Z = min.Z;
+			else if( Z > max.Z )
+				Z = max.Z;
 		}
 
 
@@ -111,31 +147,6 @@ namespace ManagedX
 				Z = 0.0f;
 			else if( Z > 1.0f )
 				Z = 1.0f;
-		}
-
-
-		/// <summary>Returns the distance between this <see cref="Vector3"/> and another position.</summary>
-		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
-		/// <returns>Returns the distance between this position and the <paramref name="other"/> position.</returns>
-		public float DistanceTo( Vector3 other )
-		{
-			var x = other.X - X;
-			var y = other.Y - Y;
-			var z = other.Z - Z;
-			return (float)Math.Sqrt( x * x + y * y + z * z );
-		}
-
-
-		/// <summary>Forces the components of this <see cref="Vector3"/> to the range [<paramref name="min"/>,<paramref name="max"/>].</summary>
-		/// <param name="min">A valid <see cref="Vector3"/> structure containing the minimum value for each component.</param>
-		/// <param name="max">A valid <see cref="Vector3"/> structure containing the maximum value for each component.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		public void Clamp( ref Vector3 min, ref Vector3 max )
-		{
-			X = X.Clamp( min.X, max.X );
-			Y = Y.Clamp( min.Y, max.Y );
-			Z = Z.Clamp( min.Z, max.Z );
 		}
 
 
@@ -385,10 +396,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector3 vector, float value, out Vector3 result )
 		{
-			var oneOverValue = 1.0f / value;
-			result.X = vector.X * oneOverValue;
-			result.Y = vector.Y * oneOverValue;
-			result.Z = vector.Z * oneOverValue;
+			value = 1.0f / value;
+			result.X = vector.X * value;
+			result.Y = vector.Y * value;
+			result.Z = vector.Z * value;
 		}
 
 		/// <summary>Divides a <see cref="Vector3"/> by a value.</summary>
@@ -397,10 +408,10 @@ namespace ManagedX
 		/// <returns>Returns the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</returns>
 		public static Vector3 Divide( Vector3 vector, float value )
 		{
-			var oneOverValue = 1.0f / value;
-			vector.X *= oneOverValue;
-			vector.Y *= oneOverValue;
-			vector.Z *= oneOverValue;
+			value = 1.0f / value;
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
 			return vector;
 		}
 
@@ -1119,10 +1130,10 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector3 operator /( Vector3 vector, float value )
 		{
-			var inv = 1.0f / value;
-			vector.X *= inv;
-			vector.Y *= inv;
-			vector.Z *= inv;
+			value = 1.0f / value;
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
 			return vector;
 		}
 

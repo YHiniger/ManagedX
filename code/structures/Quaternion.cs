@@ -673,10 +673,25 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Min( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
-			result.X = Math.Min( quaternion.X, other.X );
-			result.Y = Math.Min( quaternion.Y, other.Y );
-			result.Z = Math.Min( quaternion.Z, other.Z );
-			result.W = Math.Min( quaternion.W, other.W );
+			if( other.X < quaternion.X )
+				result.X = other.X;
+			else
+				result.X = quaternion.X;
+
+			if( other.Y < quaternion.Y )
+				result.Y = other.Y;
+			else
+				result.Y = quaternion.Y;
+
+			if( other.Z < quaternion.Z )
+				result.Z = other.Z;
+			else
+				result.Z = quaternion.Z;
+
+			if( other.W < quaternion.W )
+				result.W = other.W;
+			else
+				result.W = quaternion.W;
 		}
 
 		/// <summary>Returns a <see cref="Quaternion"/> structure whose components are set to the minimum components between two <see cref="Quaternion"/> values.</summary>
@@ -685,10 +700,18 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Quaternion"/> structure whose components are set to the minimum components between two <see cref="Quaternion"/> values.</returns>
 		public static Quaternion Min( Quaternion quaternion, Quaternion other )
 		{
-			quaternion.X = Math.Min( quaternion.X, other.X );
-			quaternion.Y = Math.Min( quaternion.Y, other.Y );
-			quaternion.Z = Math.Min( quaternion.Z, other.Z );
-			quaternion.W = Math.Min( quaternion.W, other.W );
+			if( other.X < quaternion.X )
+				quaternion.X = other.X;
+
+			if( other.Y < quaternion.Y )
+				quaternion.Y = other.Y;
+
+			if( other.Z < quaternion.Z )
+				quaternion.Z = other.Z;
+
+			if( other.W < quaternion.W )
+				quaternion.W = other.W;
+
 			return quaternion;
 		}
 
@@ -702,10 +725,25 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Max( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
-			result.X = Math.Max( quaternion.X, other.X );
-			result.Y = Math.Max( quaternion.Y, other.Y );
-			result.Z = Math.Max( quaternion.Z, other.Z );
-			result.W = Math.Max( quaternion.W, other.W );
+			if( other.X > quaternion.X )
+				result.X = other.X;
+			else
+				result.X = quaternion.X;
+
+			if( other.Y > quaternion.Y )
+				result.Y = other.Y;
+			else
+				result.Y = quaternion.Y;
+
+			if( other.Z > quaternion.Z )
+				result.Z = other.Z;
+			else
+				result.Z = quaternion.Z;
+
+			if( other.W > quaternion.W )
+				result.W = other.W;
+			else
+				result.W = quaternion.W;
 		}
 
 		/// <summary>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between two quaternions.</summary>
@@ -714,10 +752,18 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Quaternion"/> structure whose components are set to the maximum components between the two specified quaternions.</returns>
 		public static Quaternion Max( Quaternion quaternion, Quaternion other )
 		{
-			quaternion.X = Math.Max( quaternion.X, other.X );
-			quaternion.Y = Math.Max( quaternion.Y, other.Y );
-			quaternion.Z = Math.Max( quaternion.Z, other.Z );
-			quaternion.W = Math.Max( quaternion.W, other.W );
+			if( other.X > quaternion.X )
+				quaternion.X = other.X;
+
+			if( other.Y > quaternion.Y )
+				quaternion.Y = other.Y;
+
+			if( other.Z > quaternion.Z )
+				quaternion.Z = other.Z;
+
+			if( other.W > quaternion.W )
+				quaternion.W = other.W;
+
 			return quaternion;
 		}
 
@@ -1140,11 +1186,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Quaternion operator /( Quaternion quaternion, float value )
 		{
-			var inv = 1.0f / value;
-			quaternion.X *= inv;
-			quaternion.Y *= inv;
-			quaternion.Z *= inv;
-			quaternion.W *= inv;
+			value = 1.0f / value;
+			quaternion.X *= value;
+			quaternion.Y *= value;
+			quaternion.Z *= value;
+			quaternion.W *= value;
 			return quaternion;
 		}
 

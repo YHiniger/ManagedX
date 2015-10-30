@@ -89,18 +89,37 @@ namespace ManagedX
 
 
 
+		/// <summary>Returns the distance between this <see cref="Vector4"/> and another position.</summary>
+		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns the distance between this position and the <paramref name="other"/> position.</returns>
+		public float DistanceTo( Vector4 other )
+		{
+			var x = other.X - X;
+			var y = other.Y - Y;
+			var z = other.Z - Z;
+			var w = other.W - W;
+			return (float)Math.Sqrt( (double)( x * x + y * y + z * z + w * w ) );
+		}
+
+
+		/// <summary>Gets the length of this <see cref="Vector4"/>.</summary>
+		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z + W * W ) ); } }
+
+
+		/// <summary>Gets the square of the length of this <see cref="Vector4"/>.
+		/// <para>Note: this property is faster than <see cref="Length"/>, since it doesn't calculate the square root.</para>
+		/// </summary>
+		public float LengthSquared { get { return X * X + Y * Y + Z * Z + W * W; } }
+
+
 		/// <summary>Normalizes this <see cref="Vector4"/>.</summary>
 		public void Normalize()
 		{
-			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W );
-			if( length != 0.0f )
-			{
-				var inv = 1.0f / length;
-				X *= inv;
-				Y *= inv;
-				Z *= inv;
-				W *= inv;
-			}
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z + W * W ) );
+			X *= oneOverLength;
+			Y *= oneOverLength;
+			Z *= oneOverLength;
+			W *= oneOverLength;
 		}
 
 
@@ -114,29 +133,6 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns the distance between this <see cref="Vector4"/> and another position.</summary>
-		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
-		/// <returns>Returns the distance between this position and the <paramref name="other"/> position.</returns>
-		public float DistanceTo( Vector4 other )
-		{
-			var x = other.X - this.X;
-			var y = other.Y - this.Y;
-			var z = other.Z - this.Z;
-			var w = other.W - this.W;
-			return (float)Math.Sqrt( x * x + y * y + z * z + w * w );
-		}
-
-
-		/// <summary>Gets the square of the length of this <see cref="Vector4"/>.
-		/// <para>Note: this property is faster than <see cref="Length"/>, since it doesn't calculate the square root.</para>
-		/// </summary>
-		public float LengthSquared { get { return this.X * this.X + this.Y * this.Y + this.Z * this.Z + this.W * this.W; } }
-
-
-		/// <summary>Gets the length of this <see cref="Vector4"/>.</summary>
-		public float Length { get { return (float)Math.Sqrt( this.X * this.X + this.Y * this.Y + this.Z * this.Z + this.W * this.W ); } }
-
-
 		/// <summary>Forces the components of this <see cref="Vector4"/> to the range [<paramref name="min"/>,<paramref name="max"/>].</summary>
 		/// <param name="min">A valid <see cref="Vector4"/> structure containing the minimum value for each component.</param>
 		/// <param name="max">A valid <see cref="Vector4"/> structure containing the maximum value for each component.</param>
@@ -144,10 +140,50 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
 		public void Clamp( ref Vector4 min, ref Vector4 max )
 		{
-			this.X = this.X.Clamp( min.X, max.X );
-			this.Y = this.Y.Clamp( min.Y, max.Y );
-			this.Z = this.Z.Clamp( min.Z, max.Z );
-			this.W = this.W.Clamp( min.W, max.W );
+			if( X < min.X )
+				X = min.X;
+			else if( X > max.X )
+				X = max.X;
+
+			if( Y < min.Y )
+				Y = min.Y;
+			else if( Y > max.Y )
+				Y = max.Y;
+
+			if( Z < min.Z )
+				Z = min.Z;
+			else if( Z > max.Z )
+				Z = max.Z;
+
+			if( W < min.W )
+				W = min.W;
+			else if( W > max.W )
+				W = max.W;
+		}
+
+
+		/// <summary>Forces the components of this <see cref="Vector4"/> within the range [0,1].</summary>
+		public void Saturate()
+		{
+			if( X < 0.0f )
+				X = 0.0f;
+			else if( X > 1.0f )
+				X = 1.0f;
+
+			if( Y < 0.0f )
+				Y = 0.0f;
+			else if( Y > 1.0f )
+				Y = 1.0f;
+
+			if( Z < 0.0f )
+				Z = 0.0f;
+			else if( Z > 1.0f )
+				Z = 1.0f;
+
+			if( W < 0.0f )
+				W = 0.0f;
+			else if( W > 1.0f )
+				W = 1.0f;
 		}
 
 
@@ -398,11 +434,11 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector4 vector, float value, out Vector4 result )
 		{
-			var inv = 1.0f / value;
-			result.X = vector.X * inv;
-			result.Y = vector.Y * inv;
-			result.Z = vector.Z * inv;
-			result.W = vector.W * inv;
+			value = 1.0f / value;
+			result.X = vector.X * value;
+			result.Y = vector.Y * value;
+			result.Z = vector.Z * value;
+			result.W = vector.W * value;
 		}
 
 		/// <summary>Returns the division of a <see cref="Vector4"/> by a value.</summary>
@@ -411,11 +447,11 @@ namespace ManagedX
 		/// <returns>Returns the result of the division.</returns>
 		public static Vector4 Divide( Vector4 vector, float value )
 		{
-			var inv = 1.0f / value;
-			vector.X *= inv;
-			vector.Y *= inv;
-			vector.Z *= inv;
-			vector.W *= inv;
+			value = 1.0f / value;
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
+			vector.W *= value;
 			return vector;
 		}
 
@@ -983,11 +1019,11 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector4 operator /( Vector4 vector, float value )
 		{
-			var inv = 1.0f / value;
-			vector.X *= inv;
-			vector.Y *= inv;
-			vector.Z *= inv;
-			vector.W *= inv;
+			value = 1.0f / value;
+			vector.X *= value;
+			vector.Y *= value;
+			vector.Z *= value;
+			vector.W *= value;
 			return vector;
 		}
 

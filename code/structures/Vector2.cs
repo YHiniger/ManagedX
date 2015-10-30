@@ -47,6 +47,14 @@ namespace ManagedX
 		#endregion // Constructors
 
 
+		/// <summary>Gets the length of this <see cref="Vector2"/>.</summary>
+		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y ) ); } }
+
+
+		/// <summary>Gets the square of the length of this <see cref="Vector2"/>.</summary>
+		public float LengthSquared { get { return X * X + Y * Y; } }
+
+
 		/// <summary>Normalizes this <see cref="Vector2"/> structure.</summary>
 		public void Normalize()
 		{
@@ -73,14 +81,6 @@ namespace ManagedX
 			var y = other.Y - Y;
 			return (float)Math.Sqrt( (double)( x * x + y * y ) );
 		}
-
-
-		/// <summary>Gets the length of this <see cref="Vector2"/>.</summary>
-		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y ) ); } }
-
-
-		/// <summary>Gets the square of the length of this <see cref="Vector2"/>.</summary>
-		public float LengthSquared { get { return X * X + Y * Y; } }
 
 
 		/// <summary>Forces the components of this <see cref="Vector2"/> within the specified range .</summary>
@@ -318,9 +318,8 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Divide( ref Vector2 vector, float value, out Vector2 result )
 		{
-			var inv = 1.0f / value;
-			result.X = vector.X * inv;
-			result.Y = vector.Y * inv;
+			result.X = vector.X / value;
+			result.Y = vector.Y / value;
 		}
 
 		/// <summary>Returns the result of the division of a <see cref="Vector2"/> by a value.</summary>
@@ -329,9 +328,8 @@ namespace ManagedX
 		/// <returns>Returns the result of the division.</returns>
 		public static Vector2 Divide( Vector2 vector, float value )
 		{
-			var inv = 1.0f / value;
-			vector.X *= inv;
-			vector.Y *= inv;
+			vector.X /= value;
+			vector.Y /= value;
 			return vector;
 		}
 
@@ -691,11 +689,8 @@ namespace ManagedX
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
 
-			var amountSquared3 = 3.0f * amountSquared;
-			var amountCubed2 = 2.0f * amountCubed;
-
-			var a = amountCubed2 - amountSquared3 + 1.0f;
-			var b = -amountCubed2 + amountSquared3;
+			var a = 2.0f * amountCubed - 3.0f * amountSquared + 1.0f;
+			var b = -2.0f * amountCubed + 3.0f * amountSquared;
 			var c = amountCubed - 2.0f * amountSquared + amount;
 			var d = amountCubed - amountSquared;
 
@@ -715,11 +710,8 @@ namespace ManagedX
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
 
-			var amountSquared3 = 3.0f * amountSquared;
-			var amountCubed2 = 2.0f * amountCubed;
-
-			var a = amountCubed2 - amountSquared3 + 1.0f;
-			var b = -amountCubed2 + amountSquared3;
+			var a = 2.0f * amountCubed - 3.0f * amountSquared + 1.0f;
+			var b = -2.0f * amountCubed + 3.0f * amountSquared;
 			var c = amountCubed - 2.0f * amountSquared + amount;
 			var d = amountCubed - amountSquared;
 
@@ -959,9 +951,8 @@ namespace ManagedX
 		/// <returns></returns>
 		public static Vector2 operator /( Vector2 vector, float value )
 		{
-			var inv = 1.0f / value;
-			vector.X *= inv;
-			vector.Y *= inv;
+			vector.X /= value;
+			vector.Y /= value;
 			return vector;
 		}
 
