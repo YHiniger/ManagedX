@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Reflection;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle( "ManagedX" )]
-[assembly: AssemblyDescription( "ManagedX" )]
-[assembly: AssemblyConfiguration( "" )]
+[assembly: AssemblyTitle( "ManagedX.dll" )]
+[assembly: AssemblyDescription( "ManagedX.dll" )]
+#if DEBUG
+[assembly: AssemblyConfiguration( "Debug" )]
+#else
+[assembly: AssemblyConfiguration( "Release" )]
+#endif
 [assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "ManagedX" )]
 [assembly: AssemblyCopyright( "Copyright © Yvan J.W. HINIGER 2015" )]
@@ -34,11 +39,14 @@ using System.Runtime.InteropServices;
 // Vous pouvez spécifier toutes les valeurs ou indiquer les numéros de build et de révision par défaut 
 // en utilisant '*', comme indiqué ci-dessous :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "0.4.0.0" )]
-[assembly: AssemblyFileVersion( "0.4.0.0" )]
+[assembly: AssemblyVersion( "0.5.0.0" )]
+[assembly: AssemblyFileVersion( "0.5.0.0" )]
 
 // L'anglais est la langue par défaut.
 [assembly: NeutralResourcesLanguageAttribute( "en" )]
 
-// Tous les types publiques sont conformes au Common Language System (CLS), on l'indique donc:
+// Tous les types exportés sont conformes au Common Language System (CLS):
 [assembly: CLSCompliant( true )]
+
+// 
+[assembly: DefaultDependency( LoadHint.Always )]
