@@ -94,8 +94,18 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToDegrees( float radians )
 		{
-			const float conv = Pi / 180.0f;
-			return radians * conv;
+			const float RadToDeg = Pi / 180.0f;
+			return radians * RadToDeg;
+		}
+
+		/// <summary>Converts an angle in radians to degrees.</summary>
+		/// <param name="radians">An angle in radians.</param>
+		/// <returns>Returns the specified angle, expressed in degrees.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double ToDegrees( double radians )
+		{
+			const double RadToDeg = Math.PI / 180.0;
+			return radians * RadToDeg;
 		}
 
 
@@ -105,17 +115,28 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToRadians( float degrees )
 		{
-			const float conv = 180.0f / Pi;
-			return degrees * conv;
+			const float DegToRad = 180.0f / Pi;
+			return degrees * DegToRad;
+		}
+
+		/// <summary>Converts an angle in degrees to radians.</summary>
+		/// <param name="degrees">An angle in degrees.</param>
+		/// <returns>Returns the specified angle, expressed in radians.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double ToRadians( double degrees )
+		{
+			const double DegToRad = 180.0 / Math.PI;
+			return degrees * DegToRad;
 		}
 
 		#endregion // Angle conversion functions
 
 
+		#region WrapAngle
+
 		/// <summary>Reduces an angle to a value within the range [-π,+π].</summary>
 		/// <param name="radians">An angle, in radians.</param>
 		/// <returns>Returns the specified angle reduced to the range [-π,+π].</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float WrapAngle( float radians )
 		{
 			radians %= TwoPi;
@@ -129,6 +150,28 @@ namespace ManagedX
 			return radians;
 		}
 
+		/// <summary>Reduces an angle to a value within the range [-π,+π].</summary>
+		/// <param name="radians">An angle, in radians.</param>
+		/// <returns>Returns the specified angle reduced to the range [-π,+π].</returns>
+		public static double WrapAngle( double radians )
+		{
+			const double Pi2 = Math.PI * 2.0;
+
+			radians %= Pi2;
+
+			if( radians < -Math.PI )
+				return radians + Pi2;
+
+			if( radians > Math.PI )
+				return radians - Pi2;
+
+			return radians;
+		}
+
+		#endregion // WrapAngle
+
+
+		#region Barycentric
 
 		/// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
 		/// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
@@ -137,12 +180,27 @@ namespace ManagedX
 		/// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
 		/// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
 		/// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Barycentric( float value1, float value2, float value3, float amount1, float amount2 )
 		{
-			return value1 + amount1 * ( value2 - value1 ) + amount2 * ( value3 - value1 );
+			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
 		}
 
+		/// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
+		/// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
+		/// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
+		/// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
+		/// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
+		/// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
+		/// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
+		public static double Barycentric( double value1, double value2, double value3, double amount1, double amount2 )
+		{
+			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
+		}
+
+		#endregion // Barycentric
+
+
+		#region Catmull-Rom
 
 		/// <summary>Performs a Catmull-Rom interpolation using the specified positions.</summary>
 		/// <param name="value1">The first position in the interpolation.</param>
@@ -151,13 +209,28 @@ namespace ManagedX
 		/// <param name="value4">The fourth position in the interpolation.</param>
 		/// <param name="amount">Weighting factor.</param>
 		/// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
 			return 0.5f * ( 2.0f * value2 + ( -value1 + value3 ) * amount + ( 2.0f * value1 - 5.0f * value2 + 4.0f * value3 - value4 ) * amountSquared + ( -value1 + 3.0f * value2 - 3.0f * value3 + value4 ) * amountCubed );
 		}
+
+		/// <summary>Performs a Catmull-Rom interpolation using the specified positions.</summary>
+		/// <param name="value1">The first position in the interpolation.</param>
+		/// <param name="value2">The second position in the interpolation.</param>
+		/// <param name="value3">The third position in the interpolation.</param>
+		/// <param name="value4">The fourth position in the interpolation.</param>
+		/// <param name="amount">Weighting factor.</param>
+		/// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
+		public static double CatmullRom( double value1, double value2, double value3, double value4, double amount )
+		{
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+			return 0.5 * ( 2.0 * value2 + ( -value1 + value3 ) * amount + ( 2.0 * value1 - 5.0 * value2 + 4.0 * value3 - value4 ) * amountSquared + ( -value1 + 3.0 * value2 - 3.0 * value3 + value4 ) * amountCubed );
+		}
+
+		#endregion // Catmull-Rom
 
 
 		#region Lerp
@@ -173,7 +246,6 @@ namespace ManagedX
 			return source + ( target - source ) * amount;
 		}
 
-
 		/// <summary>Performs a linear interpolation between two double-precision floating-point values.</summary>
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
@@ -185,7 +257,7 @@ namespace ManagedX
 			return source + ( target - source ) * amount;
 		}
 
-		#endregion
+		#endregion // Lerp
 
 
 		#region SmoothStep
@@ -198,7 +270,7 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float SmoothStep( float source, float target, float amount )
 		{
-			if( amount < 0.0f )
+			if( amount < 0.0f || float.IsNaN( amount ) )
 				amount = 0.0f;
 			else if( amount > 1.0f )
 				amount = 1.0f;
@@ -214,7 +286,7 @@ namespace ManagedX
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double SmoothStep( double source, double target, double amount )
 		{
-			if( amount < 0.0 )
+			if( amount < 0.0 || double.IsNaN( amount ) )
 				amount = 0.0;
 			else if( amount > 1.0 )
 				amount = 1.0;
@@ -222,7 +294,7 @@ namespace ManagedX
 			return source + ( target - source ) * amount * amount * ( 3.0 - 2.0 * amount );
 		}
 
-		#endregion
+		#endregion // SmoothStep
 
 
 		#region Extension methods (MakeFinite, Clamp, Saturate)
@@ -230,7 +302,6 @@ namespace ManagedX
 		/// <summary>Converts <see cref="float.NaN"/> to 0, <see cref="float.PositiveInfinity"/> to <see cref="float.MaxValue"/> and <see cref="float.NegativeInfinity"/> to <see cref="float.MinValue"/>; otherwise, returns the specified value.</summary>
 		/// <param name="value">A single-precision floating-point value.</param>
 		/// <returns>Returns the nearest finite value.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float MakeFinite( this float value )
 		{
 			if( float.IsNaN( value ) )
@@ -249,7 +320,6 @@ namespace ManagedX
 		/// <summary>Converts <see cref="double.NaN"/> to 0, <see cref="double.PositiveInfinity"/> to <see cref="double.MaxValue"/> and <see cref="double.NegativeInfinity"/> to <see cref="double.MinValue"/>; otherwise, returns the specified value.</summary>
 		/// <param name="value">A double-precision floating-point value.</param>
 		/// <returns>Returns the nearest finite value.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double MakeFinite( this double value )
 		{
 			if( double.IsNaN( value ) )
@@ -277,14 +347,13 @@ namespace ManagedX
 		/// <para><paramref name="max"/> if <paramref name="value"/> is greater than or equal to <paramref name="max"/>.</para>
 		/// <para><paramref name="value"/> otherwise.</para>
 		/// </returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static TValue Clamp<TValue>( this TValue value, TValue min, TValue max )
 			where TValue : struct, IComparable<TValue>
 		{
-			if( value.CompareTo( min ) < 0 )
+			if( value.CompareTo( min ) <= 0 )
 				return min;
 			
-			if( value.CompareTo( max ) > 0 )
+			if( value.CompareTo( max ) >= 0 )
 				return max;
 			
 			return value;
@@ -365,7 +434,7 @@ namespace ManagedX
 			return value;
 		}
 
-		#endregion
+		#endregion // Extension methods
 
 	}
 
