@@ -171,6 +171,68 @@ namespace ManagedX
 		#endregion // WrapAngle
 
 
+		#region Lerp
+
+		/// <summary>Performs a linear interpolation between two single-precision floating-point values.</summary>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The amount of <paramref name="target"/> in the final blend; should be within the range [0,1].</param>
+		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Lerp( float source, float target, float amount )
+		{
+			return source + ( target - source ) * amount;
+		}
+
+		/// <summary>Performs a linear interpolation between two double-precision floating-point values.</summary>
+		/// <param name="source">The source value.</param>
+		/// <param name="target">The target value.</param>
+		/// <param name="amount">The amount of <paramref name="target"/> in the final blend; should be within the range [0,1].</param>
+		/// <returns></returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double Lerp( double source, double target, double amount )
+		{
+			return source + ( target - source ) * amount;
+		}
+
+		#endregion // Lerp
+
+
+		#region SmoothStep
+
+		/// <summary>Returns the cubic interpolation between two values.</summary>
+		/// <param name="source">A finite single-precision floating-point value.</param>
+		/// <param name="target">A finite single-precision floating-point value.</param>
+		/// <param name="amount">A finite single-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
+		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		public static float SmoothStep( float source, float target, float amount )
+		{
+			if( amount < 0.0f || float.IsNaN( amount ) )
+				amount = 0.0f;
+			else if( amount > 1.0f )
+				amount = 1.0f;
+			
+			return source + ( target - source ) * amount * amount * ( 3.0f - 2.0f * amount );
+		}
+
+		/// <summary>Returns the cubic interpolation between two values.</summary>
+		/// <param name="source">A finite double-precision floating-point value.</param>
+		/// <param name="target">A finite double-precision floating-point value.</param>
+		/// <param name="amount">A finite double-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
+		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		public static double SmoothStep( double source, double target, double amount )
+		{
+			if( amount < 0.0 || double.IsNaN( amount ) )
+				amount = 0.0;
+			else if( amount > 1.0 )
+				amount = 1.0;
+			
+			return source + ( target - source ) * amount * amount * ( 3.0 - 2.0 * amount );
+		}
+
+		#endregion // SmoothStep
+
+
 		#region Barycentric
 
 		/// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
@@ -180,6 +242,7 @@ namespace ManagedX
 		/// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
 		/// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
 		/// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Barycentric( float value1, float value2, float value3, float amount1, float amount2 )
 		{
 			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
@@ -192,6 +255,7 @@ namespace ManagedX
 		/// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
 		/// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
 		/// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double Barycentric( double value1, double value2, double value3, double amount1, double amount2 )
 		{
 			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
@@ -276,70 +340,6 @@ namespace ManagedX
 		}
 
 		#endregion // Catmull-Rom
-
-
-		#region Lerp
-
-		/// <summary>Performs a linear interpolation between two single-precision floating-point values.</summary>
-		/// <param name="source">The source value.</param>
-		/// <param name="target">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="target"/> in the final blend; should be within the range [0,1].</param>
-		/// <returns></returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float Lerp( float source, float target, float amount )
-		{
-			return source + ( target - source ) * amount;
-		}
-
-		/// <summary>Performs a linear interpolation between two double-precision floating-point values.</summary>
-		/// <param name="source">The source value.</param>
-		/// <param name="target">The target value.</param>
-		/// <param name="amount">The amount of <paramref name="target"/> in the final blend; should be within the range [0,1].</param>
-		/// <returns></returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double Lerp( double source, double target, double amount )
-		{
-			return source + ( target - source ) * amount;
-		}
-
-		#endregion // Lerp
-
-
-		#region SmoothStep
-
-		/// <summary>Returns the cubic interpolation between two values.</summary>
-		/// <param name="source">A finite single-precision floating-point value.</param>
-		/// <param name="target">A finite single-precision floating-point value.</param>
-		/// <param name="amount">A finite single-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
-		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float SmoothStep( float source, float target, float amount )
-		{
-			if( amount < 0.0f || float.IsNaN( amount ) )
-				amount = 0.0f;
-			else if( amount > 1.0f )
-				amount = 1.0f;
-			
-			return source + ( target - source ) * amount * amount * ( 3.0f - 2.0f * amount );
-		}
-
-		/// <summary>Returns the cubic interpolation between two values.</summary>
-		/// <param name="source">A finite double-precision floating-point value.</param>
-		/// <param name="target">A finite double-precision floating-point value.</param>
-		/// <param name="amount">A finite double-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
-		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double SmoothStep( double source, double target, double amount )
-		{
-			if( amount < 0.0 || double.IsNaN( amount ) )
-				amount = 0.0;
-			else if( amount > 1.0 )
-				amount = 1.0;
-			
-			return source + ( target - source ) * amount * amount * ( 3.0 - 2.0 * amount );
-		}
-
-		#endregion // SmoothStep
 
 
 		#region Extension methods (MakeFinite, Clamp, Saturate)
