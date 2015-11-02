@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 namespace ManagedX
 {
 
+	// A little reminder: https://en.wikipedia.org/wiki/List_of_mathematical_symbols
 	// TODO ? try to make use of DirectXMath (https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833%28v=vs.85%29.aspx)
 
 	
@@ -17,13 +18,13 @@ namespace ManagedX
 		/// <summary>Defines the value of π.</summary>
 		public const float Pi = 3.141592654f;
 
-		/// <summary>Defines the value of 2π.</summary>
+		/// <summary>Defines the value of π × 2.</summary>
 		public const float TwoPi = Pi * 2.0f;
 
-		/// <summary>Defines π/2.</summary>
+		/// <summary>Defines the value of π / 2.</summary>
 		public const float PiOver2 = Pi * 0.5f;
 
-		/// <summary>Defines π/4.</summary>
+		/// <summary>Defines the value of π / 4.</summary>
 		public const float PiOver4 = Pi * 0.25f;
 
 
