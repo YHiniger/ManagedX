@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace ManagedX
 {
 
-	// TODO - try to make use of DirectXMath (https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833%28v=vs.85%29.aspx)
+	// TODO ? try to make use of DirectXMath (https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833%28v=vs.85%29.aspx)
 
 	
 	/// <summary>Provides common math constants and functions, as well as extension methods to <see cref="float"/> and <see cref="double"/>.</summary>
@@ -20,10 +20,10 @@ namespace ManagedX
 		/// <summary>Defines the value of 2π.</summary>
 		public const float TwoPi = Pi * 2.0f;
 
-		/// <summary>Defines π / 2.</summary>
+		/// <summary>Defines π/2.</summary>
 		public const float PiOver2 = Pi * 0.5f;
 
-		/// <summary>Defines π / 4.</summary>
+		/// <summary>Defines π/4.</summary>
 		public const float PiOver4 = Pi * 0.25f;
 
 
@@ -198,6 +198,51 @@ namespace ManagedX
 		}
 
 		#endregion // Barycentric
+
+		
+		#region Hermite
+
+		/// <summary>Performs a Hermite spline interpolation.</summary>
+		/// <param name="position1">The first position.</param>
+		/// <param name="position2">The second position.</param>
+		/// <param name="tangent1">The first tangent.</param>
+		/// <param name="tangent2">The second tangent.</param>
+		/// <param name="amount">The weighting factor.</param>
+		/// <returns>Returns the result of the interpolation.</returns>
+		public static float Hermite( float position1, float position2, float tangent1, float tangent2, float amount)
+		{
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+
+			var a = 2.0f * amountCubed - 3.0f * amountSquared + 1.0f;
+			var b = -2.0f * amountCubed + 3.0f * amountSquared;
+			var c = amountCubed - 2.0f * amountSquared + amount;
+			var d = amountCubed - amountSquared;
+
+			return position1 * a + position2 * b + tangent1 * c + tangent2 * d;
+		}
+
+		/// <summary>Performs a Hermite spline interpolation.</summary>
+		/// <param name="position1">The first position.</param>
+		/// <param name="position2">The second position.</param>
+		/// <param name="tangent1">The first tangent.</param>
+		/// <param name="tangent2">The second tangent.</param>
+		/// <param name="amount">The weighting factor.</param>
+		/// <returns>Returns the result of the interpolation.</returns>
+		public static double Hermite( double position1, double position2, double tangent1, double tangent2, double amount )
+		{
+			var amountSquared = amount * amount;
+			var amountCubed = amount * amountSquared;
+
+			var a = 2.0 * amountCubed - 3.0 * amountSquared + 1.0;
+			var b = -2.0 * amountCubed + 3.0 * amountSquared;
+			var c = amountCubed - 2.0 * amountSquared + amount;
+			var d = amountCubed - amountSquared;
+
+			return position1 * a + position2 * b + tangent1 * c + tangent2 * d;
+		}
+
+		#endregion // Hermite
 
 
 		#region Catmull-Rom
