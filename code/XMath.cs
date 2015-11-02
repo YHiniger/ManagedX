@@ -301,6 +301,9 @@ namespace ManagedX
 		/// </returns>
 		public static float Clamp( this float value, float min, float max )
 		{
+			if( float.IsNaN( value ) )
+				value = 0.0f;
+
 			if( value < min )
 				return min;
 			
@@ -320,6 +323,9 @@ namespace ManagedX
 		/// </returns>
 		public static double Clamp( this double value, double min, double max )
 		{
+			if( double.IsNaN( value ) )
+				value = 0.0;
+
 			if( value < min )
 				return min;
 			
@@ -336,7 +342,7 @@ namespace ManagedX
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static float Saturate( this float value )
 		{
-			if( value < 0.0f )
+			if( float.IsNaN( value ) || value < 0.0f )
 				return 0.0f;
 			
 			if( value > 1.0f )
@@ -350,7 +356,7 @@ namespace ManagedX
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
 		public static double Saturate( this double value )
 		{
-			if( value < 0.0 )
+			if( double.IsNaN( value ) || value < 0.0 )
 				return 0.0;
 
 			if( value > 1.0 )
