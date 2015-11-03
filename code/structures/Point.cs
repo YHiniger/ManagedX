@@ -163,6 +163,128 @@ namespace ManagedX
 			return point;
 		}
 
+
+		/// <summary>Multiplies two <see cref="Point"/> values.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="result">Receives the product of the two specified points.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Multiply( ref Point point, ref Point other, out Point result )
+		{
+			result.X = point.X * other.X;
+			result.Y = point.Y * other.Y;
+		}
+
+		/// <summary>Multiplies two <see cref="Point"/> values.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the product of the two specified points.</returns>
+		public static Point Multiply( Point point, Point other )
+		{
+			point.X *= other.X;
+			point.Y *= other.Y;
+			return point;
+		}
+
+
+		/// <summary>Divides two <see cref="Point"/> values.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="result">Receives the result of the division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Divide( ref Point point, ref Point other, out Point result )
+		{
+			result.X = point.X / other.X;
+			result.Y = point.Y / other.Y;
+		}
+
+		/// <summary>Divides two <see cref="Point"/> values.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Point Divide( Point point, Point other )
+		{
+			point.X /= other.X;
+			point.Y /= other.Y;
+			return point;
+		}
+
+
+		/// <summary>Retrieves the minimum values between two points.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="result"></param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Min( ref Point point, ref Point other, out Point result )
+		{
+			if( point.X < other.X )
+				result.X = point.X;
+			else
+				result.X = other.X;
+
+			if( point.Y < other.Y )
+				result.Y = point.Y;
+			else
+				result.Y = other.Y;
+		}
+
+		/// <summary>Returns a <see cref="Point"/> initialized with the minimum values between two points.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns></returns>
+		public static Point Min( Point point, Point other )
+		{
+			if( point.X > other.X )
+				point.X = other.X;
+
+			if( point.Y > other.Y )
+				point.Y = other.Y;
+
+			return point;
+		}
+
+
+		/// <summary>Retrieves the maximum values between two points.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="result"></param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Max( ref Point point, ref Point other, out Point result )
+		{
+			if( point.X > other.X )
+				result.X = point.X;
+			else
+				result.X = other.X;
+
+			if( point.Y > other.Y )
+				result.Y = point.Y;
+			else
+				result.Y = other.Y;
+		}
+
+		/// <summary>Returns a <see cref="Point"/> initialized with the maximum values between two points.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns></returns>
+		public static Point Max( Point point, Point other )
+		{
+			if( point.X < other.X )
+				point.X = other.X;
+
+			if( point.Y < other.Y )
+				point.Y = other.Y;
+
+			return point;
+		}
+
 		#endregion // Static
 
 
@@ -188,48 +310,48 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Inferiority comparer.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Point point, Point other )
-		{
-			return ( point.X < other.X ) && ( point.Y < other.Y );
-		}
+		///// <summary>Inferiority comparer.</summary>
+		///// <param name="point">A <see cref="Point"/> structure.</param>
+		///// <param name="other">A <see cref="Point"/> structure.</param>
+		///// <returns></returns>
+		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		//public static bool operator <( Point point, Point other )
+		//{
+		//	return ( point.X < other.X ) && ( point.Y < other.Y );
+		//}
 
 
-		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Point point, Point other )
-		{
-			return ( point.X <= other.X ) && ( point.Y <= other.Y );
-		}
+		///// <summary>Inferiority or equality comparer.</summary>
+		///// <param name="point">A <see cref="Point"/> structure.</param>
+		///// <param name="other">A <see cref="Point"/> structure.</param>
+		///// <returns></returns>
+		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		//public static bool operator <=( Point point, Point other )
+		//{
+		//	return ( point.X <= other.X ) && ( point.Y <= other.Y );
+		//}
 
 
-		/// <summary>Superiority comparer.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Point point, Point other )
-		{
-			return ( point.X > other.X ) && ( point.Y > other.Y );
-		}
+		///// <summary>Superiority comparer.</summary>
+		///// <param name="point">A <see cref="Point"/> structure.</param>
+		///// <param name="other">A <see cref="Point"/> structure.</param>
+		///// <returns></returns>
+		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		//public static bool operator >( Point point, Point other )
+		//{
+		//	return ( point.X > other.X ) && ( point.Y > other.Y );
+		//}
 
 
-		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Point point, Point other )
-		{
-			return ( point.X >= other.X ) && ( point.Y >= other.Y );
-		}
+		///// <summary>Superiority or equality comparer.</summary>
+		///// <param name="point">A <see cref="Point"/> structure.</param>
+		///// <param name="other">A <see cref="Point"/> structure.</param>
+		///// <returns></returns>
+		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
+		//public static bool operator >=( Point point, Point other )
+		//{
+		//	return ( point.X >= other.X ) && ( point.Y >= other.Y );
+		//}
 
 	
 		/// <summary>Negation operator.</summary>
@@ -254,7 +376,29 @@ namespace ManagedX
 			return point;
 		}
 
+		/// <summary>Addition operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the result of the addition.</returns>
+		public static Point operator +( Point point, int value )
+		{
+			point.X += value;
+			point.Y += value;
+			return point;
+		}
 
+		/// <summary>Addition operator.</summary>
+		/// <param name="value">An integer value.</param>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of the addition.</returns>
+		public static Point operator +( int value, Point point )
+		{
+			point.X += value;
+			point.Y += value;
+			return point;
+		}
+
+	
 		/// <summary>Subtraction operator.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <param name="other">A <see cref="Point"/> structure.</param>
@@ -263,6 +407,96 @@ namespace ManagedX
 		{
 			point.X -= other.X;
 			point.Y -= other.Y;
+			return point;
+		}
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Point operator -( Point point, int value )
+		{
+			point.X -= value;
+			point.Y -= value;
+			return point;
+		}
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="value">An integer value.</param>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Point operator -( int value, Point point)
+		{
+			point.X = value - point.X;
+			point.Y = value - point.Y;
+			return point;
+		}
+
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the product of the two specified points.</returns>
+		public static Point operator *( Point point, Point other )
+		{
+			point.X *= other.X;
+			point.Y *= other.Y;
+			return point;
+		}
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Point operator *( Point point, int value )
+		{
+			point.X *= value;
+			point.Y *= value;
+			return point;
+		}
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="value">An integer value.</param>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Point operator *( int value, Point point )
+		{
+			point.X *= value;
+			point.Y *= value;
+			return point;
+		}
+
+
+		/// <summary>Division operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Point operator /( Point point, Point other )
+		{
+			point.X /= other.X;
+			point.Y /= other.Y;
+			return point;
+		}
+
+		/// <summary>Division operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Point operator /( Point point, int value )
+		{
+			point.X /= value;
+			point.Y /= value;
+			return point;
+		}
+
+		/// <summary>Division operator.</summary>
+		/// <param name="value">An integer value.</param>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Point operator /( int value, Point point )
+		{
+			point.X = value / point.X;
+			point.Y = value / point.Y;
 			return point;
 		}
 
