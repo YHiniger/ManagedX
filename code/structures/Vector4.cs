@@ -308,7 +308,32 @@ namespace ManagedX
 			return vector;
 		}
 
-		// TODO - Add( Vector4 vector, float value ), Subtract
+		/// <summary>Calculates the sum of two <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the sum of the two specified <see cref="Vector4"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Add( ref Vector4 vector, float value, out Vector4 result )
+		{
+			result.X = vector.X + value;
+			result.Y = vector.Y + value;
+			result.Z = vector.Z + value;
+			result.W = vector.W + value;
+		}
+
+		/// <summary>Returns the sum of two <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the sum of the two specified <see cref="Vector4"/>.</returns>
+		public static Vector4 Add( Vector4 vector, float value )
+		{
+			vector.X += value;
+			vector.Y += value;
+			vector.Z += value;
+			vector.W += value;
+			return vector;
+		}
 
 
 		/// <summary>Subtracts a vector (<paramref name="other"/>) from another vector (<paramref name="vector"/>).</summary>
@@ -336,6 +361,60 @@ namespace ManagedX
 			vector.Y -= other.Y;
 			vector.Z -= other.Z;
 			vector.W -= other.W;
+			return vector;
+		}
+
+		/// <summary>Subtracts a value from a <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the subtraction.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Subtract( ref Vector4 vector, float value, out Vector4 result )
+		{
+			result.X = vector.X - value;
+			result.Y = vector.Y - value;
+			result.Z = vector.Z - value;
+			result.W = vector.W - value;
+		}
+
+		/// <summary>Subtracts a value from a <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Vector4 Subtract( Vector4 vector, float value )
+		{
+			vector.X -= value;
+			vector.Y -= value;
+			vector.Z -= value;
+			vector.W -= value;
+			return vector;
+		}
+
+		/// <summary>Subtracts a vector from a value.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="result">Receives the result of the subtraction.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Subtract( float value, ref Vector4 vector, out Vector4 result )
+		{
+			result.X = value - vector.X;
+			result.Y = value - vector.Y;
+			result.Z = value - vector.Z;
+			result.W = value - vector.W;
+		}
+
+		/// <summary>Subtracts a vector from a value.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Vector4 Subtract( float value, Vector4 vector )
+		{
+			vector.X = value - vector.X;
+			vector.Y = value - vector.Y;
+			vector.Z = value - vector.Z;
+			vector.W = value - vector.W;
 			return vector;
 		}
 
@@ -370,7 +449,7 @@ namespace ManagedX
 
 		/// <summary>Multiplies a <see cref="Vector4"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the multiplied <see cref="Vector4"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -384,7 +463,7 @@ namespace ManagedX
 
 		/// <summary>Multiplies a <see cref="Vector4"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <returns>Returns the multiplied <see cref="Vector4"/>.</returns>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -428,7 +507,7 @@ namespace ManagedX
 
 		/// <summary>Divides a <see cref="Vector4"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the result of the division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
@@ -443,7 +522,7 @@ namespace ManagedX
 
 		/// <summary>Returns the division of a <see cref="Vector4"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <returns>Returns the result of the division.</returns>
 		public static Vector4 Divide( Vector4 vector, float value )
 		{
@@ -456,7 +535,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Divides a value by a <see cref="Vector4"/>.</summary>
-		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
 		/// <param name="result">Receives the result of the division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -470,7 +549,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the division of a value by a <see cref="Vector4"/>.</summary>
-		/// <param name="value">A single-precision floating-point value.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
 		/// <returns>Returns the result of the division.</returns>
 		public static Vector4 Divide( float value, Vector4 vector )
@@ -662,7 +741,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Performs a linear interpolation between two vectors.</summary>
+		/// <summary>Performs a linear interpolation between two <see cref="Vector4"/>.</summary>
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
@@ -672,29 +751,29 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
 		public static void Lerp( ref Vector4 source, ref Vector4 target, float amount, out Vector4 result )
 		{
-			result.X = XMath.Lerp( source.X, target.X, amount );
-			result.Y = XMath.Lerp( source.Y, target.Y, amount );
-			result.Z = XMath.Lerp( source.Z, target.Z, amount );
-			result.W = XMath.Lerp( source.W, target.W, amount );
+			result.X = source.X + ( target.X - source.X ) * amount;
+			result.Y = source.Y + ( target.Y - source.Y ) * amount;
+			result.Z = source.Z + ( target.Z - source.Z ) * amount;
+			result.W = source.W + ( target.W - source.W ) * amount;
 		}
 
-		/// <summary>Performs a linear interpolation between two vectors.</summary>
+		/// <summary>Performs a linear interpolation between two <see cref="Vector4"/>.</summary>
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
 		/// <returns>Returns the result of the linear interpolation.</returns>
 		public static Vector4 Lerp( Vector4 source, Vector4 target, float amount )
 		{
-			return new Vector4(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount ),
-				XMath.Lerp( source.Z, target.Z, amount ),
-				XMath.Lerp( source.W, target.W, amount )
-			);
+			source.X += ( target.X - source.X ) * amount;
+			source.Y += ( target.Y - source.Y ) * amount;
+			source.Z += ( target.Z - source.Z ) * amount;
+			source.W += ( target.W - source.W ) * amount;
+
+			return source;
 		}
 
 
-		/// <summary>Interpolates between two values using a cubic equation.</summary>
+		/// <summary>Interpolates between two <see cref="Vector4"/> using a cubic equation.</summary>
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; will be saturated.</param>
@@ -704,31 +783,39 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
 		public static void SmoothStep( ref Vector4 source, ref Vector4 target, float amount, out Vector4 result )
 		{
-			amount = amount.Saturate();
+			if( amount < 0.0f )
+				amount = 0.0f;
+			else if( amount > 1.0f )
+				amount = 1.0f;
+
 			amount = amount * amount * ( 3.0f - 2.0f * amount );
 			
-			result.X = XMath.Lerp( source.X, target.X, amount );
-			result.Y = XMath.Lerp( source.Y, target.Y, amount );
-			result.Z = XMath.Lerp( source.Z, target.Z, amount );
-			result.W = XMath.Lerp( source.W, target.W, amount );
+			result.X = source.X + ( target.X - source.X ) * amount;
+			result.Y = source.Y + ( target.Y - source.Y ) * amount;
+			result.Z = source.Z + ( target.Z - source.Z ) * amount;
+			result.W = source.W + ( target.W - source.W ) * amount;
 		}
 
-		/// <summary>Interpolates between two values using a cubic equation.</summary>
+		/// <summary>Interpolates between two <see cref="Vector4"/> using a cubic equation.</summary>
 		/// <param name="source">The source value.</param>
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; will be saturated.</param>
 		/// <returns>Returns the result of the cubic interpolation.</returns>
 		public static Vector4 SmoothStep( Vector4 source, Vector4 target, float amount )
 		{
-			amount = amount.Saturate();
+			if( amount < 0.0f )
+				amount = 0.0f;
+			else if( amount > 1.0f )
+				amount = 1.0f;
+
 			amount = amount * amount * ( 3.0f - 2.0f * amount );
 
-			return new Vector4(
-				XMath.Lerp( source.X, target.X, amount ),
-				XMath.Lerp( source.Y, target.Y, amount ),
-				XMath.Lerp( source.Z, target.Z, amount ),
-				XMath.Lerp( source.W, target.W, amount )
-			);
+			source.X += ( target.X - source.X ) * amount;
+			source.Y += ( target.Y - source.Y ) * amount;
+			source.Z += ( target.Z - source.Z ) * amount;
+			source.W += ( target.W - source.W ) * amount;
+
+			return source;
 		}
 
 
@@ -945,6 +1032,32 @@ namespace ManagedX
 			return vector;
 		}
 
+		/// <summary>Addition operator.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns></returns>
+		public static Vector4 operator +( Vector4 vector, float value )
+		{
+			vector.X += value;
+			vector.Y += value;
+			vector.Z += value;
+			vector.W += value;
+			return vector;
+		}
+
+		/// <summary>Addition operator.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <returns></returns>
+		public static Vector4 operator +( float value, Vector4 vector )
+		{
+			vector.X += value;
+			vector.Y += value;
+			vector.Z += value;
+			vector.W += value;
+			return vector;
+		}
+
 
 		/// <summary>Subtraction operator.</summary>
 		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
@@ -956,6 +1069,32 @@ namespace ManagedX
 			vector.Y -= other.Y;
 			vector.Z -= other.Z;
 			vector.W -= other.W;
+			return vector;
+		}
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns></returns>
+		public static Vector4 operator -( Vector4 vector, float value )
+		{
+			vector.X -= value;
+			vector.Y -= value;
+			vector.Z -= value;
+			vector.W -= value;
+			return vector;
+		}
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A valid <see cref="Vector4"/> structure.</param>
+		/// <returns></returns>
+		public static Vector4 operator -( float value, Vector4 vector )
+		{
+			vector.X = value - vector.X;
+			vector.Y = value - vector.Y;
+			vector.Z = value - vector.Z;
+			vector.W = value - vector.W;
 			return vector;
 		}
 

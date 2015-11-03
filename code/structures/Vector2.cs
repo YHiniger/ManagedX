@@ -212,6 +212,29 @@ namespace ManagedX
 			return vector;
 		}
 
+		/// <summary>Adds a <see cref="Vector2"/> and a value.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the addition.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Add( ref Vector2 vector, float value, out Vector2 result )
+		{
+			result.X = vector.X + value;
+			result.Y = vector.Y + value;
+		}
+
+		/// <summary>Adds a <see cref="Vector2"/> and a value.</summary>
+		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the addition.</returns>
+		public static Vector2 Add( Vector2 vector, float value )
+		{
+			vector.X += value;
+			vector.Y += value;
+			return vector;
+		}
+
 
 		/// <summary>Subtracts a <see cref="Vector2"/> value (<paramref name="other"/>) from another <see cref="Vector2"/> value (<paramref name="vector"/>).</summary>
 		/// <param name="vector">The initial <see cref="Vector2"/> value.</param>
@@ -237,10 +260,56 @@ namespace ManagedX
 			return vector;
 		}
 
+		/// <summary>Subtracts a value from a <see cref="Vector2"/>.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the subtraction.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Subtract( ref Vector2 vector, float value, out Vector2 result )
+		{
+			result.X = vector.X - value;
+			result.Y = vector.Y - value;
+		}
 
-		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
-		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector2"/> structure.</param>
+		/// <summary>Subtracts a value from a <see cref="Vector2"/> value.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Vector2 Subtract( Vector2 vector, float value )
+		{
+			vector.X -= value;
+			vector.Y -= value;
+			return vector;
+		}
+
+		/// <summary>Subtracts a <see cref="Vector2"/> value from a value.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="result">Receives the result of the subtraction.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Subtract( float value, ref Vector2 vector, out Vector2 result )
+		{
+			result.X = value - vector.X;
+			result.Y = value - vector.Y;
+		}
+
+		/// <summary>Subtracts a <see cref="Vector2"/> value from a value.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Vector2 Subtract( float value, Vector2 vector )
+		{
+			vector.X = value - vector.X;
+			vector.Y = value - vector.Y;
+			return vector;
+		}
+
+
+		/// <summary>Multiplies two <see cref="Vector2"/>.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="other">A <see cref="Vector2"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -262,10 +331,10 @@ namespace ManagedX
 			return vector;
 		}
 
-		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
+		/// <summary>Multiplies a <see cref="Vector2"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <param name="value">The multiplier; must be a finite value.</param>
-		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the product.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
 		public static void Multiply( ref Vector2 vector, float value, out Vector2 result )
@@ -274,10 +343,10 @@ namespace ManagedX
 			result.Y = vector.Y * value;
 		}
 
-		/// <summary>Returns the product of two <see cref="Vector2"/> values.</summary>
+		/// <summary>Multiplies a <see cref="Vector2"/> by a value.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
-		/// <param name="value">The multiplier; must be a finite value.</param>
-		/// <returns>Returns the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</returns>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the product.</returns>
 		public static Vector2 Multiply( Vector2 vector, float value )
 		{
 			vector.X *= value;
@@ -584,10 +653,9 @@ namespace ManagedX
 		/// <returns>Returns the result of the linear interpolation.</returns>
 		public static Vector2 Lerp( Vector2 source, Vector2 target, float amount )
 		{
-			return new Vector2(
-				source.X + ( target.X - source.X ) * amount,
-				source.Y + ( target.Y - source.Y ) * amount
-			);
+			source.X += ( target.X - source.X ) * amount;
+			source.Y += ( target.Y - source.Y ) * amount;
+			return source;
 		}
 
 
@@ -625,11 +693,10 @@ namespace ManagedX
 				amount = 1.0f;
 
 			amount = amount * amount * ( 3.0f - 2.0f * amount );
-			
-			return new Vector2(
-				source.X + ( target.X - source.X ) * amount,
-				source.Y + ( target.Y - source.Y ) * amount
-			);
+
+			source.X += ( target.X - source.X ) * amount;
+			source.Y += ( target.Y - source.Y ) * amount;
+			return source;
 		}
 
 
@@ -887,6 +954,28 @@ namespace ManagedX
 			return vector;
 		}
 
+		/// <summary>Addition operator.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the sum of the specified <see cref="Vector2"/> values.</returns>
+		public static Vector2 operator +( Vector2 vector, float value )
+		{
+			vector.X += value;
+			vector.Y += value;
+			return vector;
+		}
+		
+		/// <summary>Addition operator.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the sum of the specified <see cref="Vector2"/> values.</returns>
+		public static Vector2 operator +( float value, Vector2 vector )
+		{
+			vector.X += value;
+			vector.Y += value;
+			return vector;
+		}
+
 
 		/// <summary>Subtraction operator.</summary>
 		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
@@ -896,6 +985,28 @@ namespace ManagedX
 		{
 			vector.X -= other.X;
 			vector.Y -= other.Y;
+			return vector;
+		}
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Vector2 operator -( Vector2 vector, float value )
+		{
+			vector.X -= value;
+			vector.Y -= value;
+			return vector;
+		}
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Vector2 operator -( float value, Vector2 vector )
+		{
+			vector.X = value - vector.X;
+			vector.Y = value - vector.Y;
 			return vector;
 		}
 
