@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX
 {
-	
-	/// <summary>Represents a point in 2D space.</summary>
+
+	/// <summary>Defines the (integer) coordinates of a point in 2D space.</summary>
 	[System.Diagnostics.DebuggerStepThrough]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
@@ -14,12 +14,12 @@ namespace ManagedX
 	{
 
 		/// <summary>The X component of the point.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X", Justification = "Seriously?" )]
 		public int X;
 		
 		/// <summary>The Y component of the point.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y", Justification = "Seriously?" )]
 		public int Y;
 
@@ -37,6 +37,9 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Gets a value indicating whether the components of this <see cref="Point"/> are set to zero.</summary>
+		public bool IsZero { get { return ( X == 0 ) && ( Y == 0 ); } }
+
 		
 		/// <summary>Offsets this <see cref="Point"/> by the specified <see cref="Point"/>.</summary>
 		/// <param name="value">A <see cref="Point"/> structure.</param>
@@ -44,6 +47,14 @@ namespace ManagedX
 		{
 			X += value.X;
 			Y += value.Y;
+		}
+
+		/// <summary>Offsets this <see cref="Point"/> by the specified <see cref="Size"/>.</summary>
+		/// <param name="value">A <see cref="Size"/> structure.</param>
+		public void Offset( Size value )
+		{
+			X += value.Width;
+			Y += value.Height;
 		}
 
 
@@ -310,50 +321,6 @@ namespace ManagedX
 		}
 
 
-		///// <summary>Inferiority comparer.</summary>
-		///// <param name="point">A <see cref="Point"/> structure.</param>
-		///// <param name="other">A <see cref="Point"/> structure.</param>
-		///// <returns></returns>
-		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		//public static bool operator <( Point point, Point other )
-		//{
-		//	return ( point.X < other.X ) && ( point.Y < other.Y );
-		//}
-
-
-		///// <summary>Inferiority or equality comparer.</summary>
-		///// <param name="point">A <see cref="Point"/> structure.</param>
-		///// <param name="other">A <see cref="Point"/> structure.</param>
-		///// <returns></returns>
-		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		//public static bool operator <=( Point point, Point other )
-		//{
-		//	return ( point.X <= other.X ) && ( point.Y <= other.Y );
-		//}
-
-
-		///// <summary>Superiority comparer.</summary>
-		///// <param name="point">A <see cref="Point"/> structure.</param>
-		///// <param name="other">A <see cref="Point"/> structure.</param>
-		///// <returns></returns>
-		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		//public static bool operator >( Point point, Point other )
-		//{
-		//	return ( point.X > other.X ) && ( point.Y > other.Y );
-		//}
-
-
-		///// <summary>Superiority or equality comparer.</summary>
-		///// <param name="point">A <see cref="Point"/> structure.</param>
-		///// <param name="other">A <see cref="Point"/> structure.</param>
-		///// <returns></returns>
-		//[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		//public static bool operator >=( Point point, Point other )
-		//{
-		//	return ( point.X >= other.X ) && ( point.Y >= other.Y );
-		//}
-
-	
 		/// <summary>Negation operator.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <returns>Returns a <see cref="Point"/> structure initialized with values opposite to the specified <paramref name="point"/>.</returns>
@@ -398,6 +365,17 @@ namespace ManagedX
 			return point;
 		}
 
+		/// <summary>Addition operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the result of the addition.</returns>
+		public static Point operator +( Point point, Size size )
+		{
+			point.X += size.Width;
+			point.Y += size.Height;
+			return point;
+		}
+
 	
 		/// <summary>Subtraction operator.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
@@ -429,6 +407,17 @@ namespace ManagedX
 		{
 			point.X = value - point.X;
 			point.Y = value - point.Y;
+			return point;
+		}
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Point operator -( Point point, Size size )
+		{
+			point.X -= size.Width;
+			point.Y -= size.Height;
 			return point;
 		}
 
@@ -466,6 +455,17 @@ namespace ManagedX
 			return point;
 		}
 
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the product of <paramref name="point"/> by <paramref name="size"/>.</returns>
+		public static Point operator *( Point point, Size size )
+		{
+			point.X *= size.Width;
+			point.Y *= size.Height;
+			return point;
+		}
+
 
 		/// <summary>Division operator.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
@@ -498,6 +498,26 @@ namespace ManagedX
 			point.X = value / point.X;
 			point.Y = value / point.Y;
 			return point;
+		}
+
+		/// <summary>Division operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the quotient of <paramref name="point"/> over <paramref name="size"/>.</returns>
+		public static Point operator /( Point point, Size size )
+		{
+			point.X /= size.Width;
+			point.Y /= size.Height;
+			return point;
+		}
+
+
+		/// <summary><see cref="Size"/> conversion operator.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns a <see cref="Size"/> structure initialized with the specified <paramref name="point"/>.</returns>
+		public static explicit operator Size( Point point )
+		{
+			return new Size( point.X, point.Y );
 		}
 
 		#endregion // Operators

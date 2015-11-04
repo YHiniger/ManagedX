@@ -30,6 +30,7 @@ namespace ManagedX
 		public int Bottom;
 
 
+
 		/// <summary>Initializes a new <see cref="Rect"/> structure with the specified values.</summary>
 		/// <param name="left">The position of the left side of the rectangle; also known as "X".</param>
 		/// <param name="top">The position of the top of the rectangle; also known as "Y".</param>
@@ -42,6 +43,7 @@ namespace ManagedX
 			Right = right;
 			Bottom = bottom;
 		}
+
 
 
 		/// <summary>Gets or sets the position of the upper left corner of the rectangle.</summary>
@@ -72,7 +74,7 @@ namespace ManagedX
 		public Point Center { get { return new Point( ( Left + Right ) / 2, ( Top + Bottom ) / 2 ); } }
 
 
-		/// <summary>Gets or sets the horizontal position of the rectangle.</summary>
+		/// <summary>Gets or sets the horizontal position of the left side (<see cref="Left"/>) of the rectangle.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X", Justification = "Uniformity." )]
 		public int X
 		{
@@ -85,7 +87,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Gets or sets the vertical position of the rectangle.</summary>
+		/// <summary>Gets or sets the vertical position of the upper side (<see cref="Top"/>) of the rectangle.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y", Justification = "Uniformity." )]
 		public int Y
 		{
@@ -146,20 +148,6 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a value indicating whether this rectangle contains or intersects a point.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <returns>Returns a value indicating whether this rectangle contains or intersects a point.</returns>
-		public ContainmentType Contains( Point point )
-		{
-			if( Left > point.X || Right < point.X || Top > point.Y || Bottom < point.Y )
-				return ContainmentType.Disjoint;
-
-			if( Left < point.X && Right > point.X && Top < point.Y && Bottom > point.Y )
-				return ContainmentType.Contains;
-
-			return ContainmentType.Intersects;
-		}
-
 		/// <summary>Obtains a value indicating whether this rectangle contains or intersects with a <see cref="Point"/>.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <param name="result">Receives a value indicating whether the specified <paramref name="point"/> is contained by or intersects with this rectangle.</param>
@@ -175,20 +163,20 @@ namespace ManagedX
 				result = ContainmentType.Intersects;
 		}
 
-
-		/// <summary>Returns a value indicating whether this rectangle contains or intersects a rectangle.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <returns>Returns a value indicating whether this rectangle contains or intersects another rectangle.</returns>
-		public ContainmentType Contains( Rect rect )
+		/// <summary>Returns a value indicating whether this rectangle contains or intersects a point.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <returns>Returns a value indicating whether this rectangle contains or intersects a point.</returns>
+		public ContainmentType Contains( Point point )
 		{
-			if( Left < rect.Left && Right > rect.Right && Top < rect.Top && Bottom > rect.Bottom )
-				return ContainmentType.Contains;
-
-			if( Left > rect.Right || Right < rect.Left || Top > rect.Bottom || Bottom < rect.Top )
+			if( Left > point.X || Right < point.X || Top > point.Y || Bottom < point.Y )
 				return ContainmentType.Disjoint;
+
+			if( Left < point.X && Right > point.X && Top < point.Y && Bottom > point.Y )
+				return ContainmentType.Contains;
 
 			return ContainmentType.Intersects;
 		}
+
 
 		/// <summary>Indicates whether this rectangle contains or intersects with another rectangle.</summary>
 		/// <param name="rect">A <see cref="Rect"/> structure.</param>
@@ -203,6 +191,20 @@ namespace ManagedX
 				result = ContainmentType.Disjoint;
 			else
 				result = ContainmentType.Intersects;
+		}
+
+		/// <summary>Returns a value indicating whether this rectangle contains or intersects a rectangle.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns a value indicating whether this rectangle contains or intersects another rectangle.</returns>
+		public ContainmentType Contains( Rect rect )
+		{
+			if( Left < rect.Left && Right > rect.Right && Top < rect.Top && Bottom > rect.Bottom )
+				return ContainmentType.Contains;
+
+			if( Left > rect.Right || Right < rect.Left || Top > rect.Bottom || Bottom < rect.Top )
+				return ContainmentType.Disjoint;
+
+			return ContainmentType.Intersects;
 		}
 
 		#endregion
@@ -221,13 +223,22 @@ namespace ManagedX
 
 		/// <summary>Offsets the rectangle by the specified amount.</summary>
 		/// <param name="amount">A <see cref="Point"/> structure containing the horizontal and vertical amount.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		public void Offset( ref Point amount )
+		public void Offset( Point amount )
 		{
 			Left += amount.X;
 			Top += amount.Y;
 			Right += amount.X;
 			Bottom += amount.Y;
+		}
+
+		/// <summary>Offsets the rectangle by the specified amount.</summary>
+		/// <param name="amount">A <see cref="Size"/> structure containing the horizontal and vertical amount.</param>
+		public void Offset( Size amount )
+		{
+			Left += amount.Width;
+			Top += amount.Height;
+			Right += amount.Width;
+			Bottom += amount.Height;
 		}
 
 
@@ -244,14 +255,21 @@ namespace ManagedX
 
 		/// <summary>Pushes the edges of the rectangle by the specified amount.</summary>
 		/// <param name="amount">A <see cref="Size"/> structure containing the horizontal and vertical amount.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		public void Inflate( ref Size amount )
+		public void Inflate( Size amount )
 		{
 			Left -= amount.Width;
 			Top -= amount.Height;
 			Right += amount.Width;
 			Bottom += amount.Height;
 		}
+
+
+		/// <summary>Gets a value indicating whether the <see cref="Size"/> of this <see cref="Rect"/> is empty (see <see cref="ManagedX.Size.Empty"/>).</summary>
+		public bool IsEmpty { get { return ( Left == Right ) && ( Top == Bottom ); } }
+
+		
+		/// <summary>Gets a value indicating whether the <see cref="Left"/>, <see cref="Top"/>, <see cref="Right"/> and <see cref="Bottom"/> of this <see cref="Rect"/> are set to zero.</summary>
+		public bool IsZero { get { return ( Left == 0 ) && ( Right == 0 ) && ( Top == 0 ) && ( Bottom == 0 ); } }
 
 
 		/// <summary>Returns a hash code for this <see cref="Rect"/> structure.</summary>
@@ -290,8 +308,8 @@ namespace ManagedX
 
 		#region Static
 
-		/// <summary>The empty <see cref="Rect"/> structure.</summary>
-		public static readonly Rect Empty = new Rect();
+		/// <summary>The «zero» <see cref="Rect"/> structure.</summary>
+		public static readonly Rect Zero;
 
 
 		/// <summary>Negates a <see cref="Rect"/> structure.</summary>
@@ -368,7 +386,7 @@ namespace ManagedX
 				return;
 			}
 
-			result = Rect.Empty;
+			result = Rect.Zero;
 		}
 
 		/// <summary>Returns a <see cref="Rect"/> structure defining the area where one rectangle overlaps with another rectangle.</summary>
@@ -391,7 +409,7 @@ namespace ManagedX
 				return rect;
 			}
 
-			return Rect.Empty;
+			return Rect.Zero;
 		}
 
 		#endregion // Static
@@ -464,7 +482,7 @@ namespace ManagedX
 				return rect;
 			}
 
-			return Rect.Empty;
+			return Rect.Zero;
 		}
 
 		#endregion // Operators

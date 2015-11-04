@@ -6,22 +6,23 @@ using System.Runtime.InteropServices;
 namespace ManagedX
 {
 	
-	/// <summary>Represents a size (integer) in 2D space.</summary>
+	/// <summary>Represents an integer size in 2D space.</summary>
 	[System.Diagnostics.DebuggerStepThrough]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Size : IEquatable<Size>
 	{
 
-		/// <summary>The width component of this <see cref="Size"/> structure; should be greater than or equal to zero.</summary>
+		/// <summary>The width component of this <see cref="Size"/> structure; should not be a negative value.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Width;
 
-		/// <summary>The height component of this <see cref="Size"/> structure; should be greater than or equal to zero.</summary>
+		/// <summary>The height component of this <see cref="Size"/> structure; should not be a negative value.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Height;
 
 
+		#region Constructors
 
 		/// <summary>Initializes a new <see cref="Size"/> structure.</summary>
 		/// <param name="width">The width component of the size; must be greater than or equal to zero.</param>
@@ -35,10 +36,25 @@ namespace ManagedX
 			if( height < 0 )
 				throw new ArgumentOutOfRangeException( "height" );
 			
-			this.Width = width;
-			this.Height = height;
+			Width = width;
+			Height = height;
 		}
 
+
+		/// <summary>Initializes a new <see cref="Size"/> structure from a <see cref="Point"/>.</summary>
+		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <exception cref="ArgumentOutOfRangeException"></exception>
+		public Size( Point point )
+		{
+			Width = point.X;
+			Height = point.Y;
+		}
+
+		#endregion // Constructors
+
+
+		/// <summary>Gets a value indicating whether the components of this <see cref="Size"/> are set to zero (see <see cref="Empty"/>).</summary>
+		public bool IsEmpty { get { return ( Width == 0 ) && ( Height == 0 ); } }
 
 
 		/// <summary>Returns a hash code for this <see cref="Size"/> structure.</summary>
@@ -75,6 +91,7 @@ namespace ManagedX
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{0}×{1}", Width, Height );
 		}
+
 
 
 		#region Static
@@ -157,13 +174,11 @@ namespace ManagedX
 			return size;
 		}
 
-
 		/// <summary>Multiplies a <see cref="Size"/> by an integer.</summary>
 		/// <param name="size">A <see cref="Size"/> structure.</param>
 		/// <param name="value">An integer value.</param>
 		/// <param name="result">Receives the result of the product.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
 		public static void Multiply( ref Size size, int value, out Size result )
 		{
@@ -180,6 +195,126 @@ namespace ManagedX
 			size.Width *= value;
 			size.Height *= value;
 			return size;
+		}
+
+
+		/// <summary>Calculates the result of the integer division of a <see cref="Size"/> by another <see cref="Size"/>.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="result">Receives the result of the integer division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		public static void Divide( ref Size size, ref Size other, out Size result )
+		{
+			result.Width = size.Width / other.Width;
+			result.Height = size.Height / other.Height;
+		}
+
+		/// <summary>Returns the result of the integer division of a <see cref="Size"/> by another <see cref="Size"/>.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the result of the integer division.</returns>
+		public static Size Divide( Size size, Size other )
+		{
+			size.Width /= other.Width;
+			size.Height /= other.Height;
+			return size;
+		}
+
+		/// <summary>Calculates the result of the integer division of a <see cref="Size"/> by an integer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <param name="result">Receives the result of the integer division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		public static void Divide( ref Size size, int value, out Size result )
+		{
+			result.Width = size.Width / value;
+			result.Height = size.Height / value;
+		}
+
+		/// <summary>Returns the result of the integer division of a <see cref="Size"/> by an integer.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the result of the integer division.</returns>
+		public static Size Divide( Size size, int value )
+		{
+			size.Width /= value;
+			size.Height /= value;
+			return size;
+		}
+
+
+		/// <summary>Retrieves the smallest values between two sizes.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Size"/> initialized with the smallest values between the two specified sizes.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Min( ref Size size, ref Size other, out Size result )
+		{
+			if( size.Width < other.Width )
+				result.Width = size.Width;
+			else
+				result.Width = other.Width;
+
+			if( size.Height < other.Height )
+				result.Height = size.Height;
+			else
+				result.Height = other.Height;
+		}
+
+		/// <summary>Returns a <see cref="Size"/> initialized with the smallest values between two sizes.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns a <see cref="Size"/> initialized with the smallest values between the two specified sizes.</returns>
+		public static Size Min( Size size, Size other )
+		{
+			if( size.Width > other.Width )
+				size.Width = other.Width;
+
+			if( size.Height > other.Height )
+				size.Height = other.Height;
+
+			return size;
+		}
+
+
+		/// <summary>Retrieves the greatest values between two sizes.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Size"/> initialized with the greatest values between the two specified sizes.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		public static void Max( ref Size size, ref Size other, out Size result )
+		{
+			if( size.Width > other.Width )
+				result.Width = size.Width;
+			else
+				result.Width = other.Width;
+
+			if( size.Height > other.Height )
+				result.Height = size.Height;
+			else
+				result.Height = other.Height;
+		}
+
+		/// <summary>Returns a <see cref="Size"/> initialized with the greatest values between two sizes.</summary>
+		/// <param name="point">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns a <see cref="Size"/> initialized with the greatest values between the two specified sizes.</returns>
+		public static Size Max( Size point, Size other )
+		{
+			if( point.Width < other.Width )
+				point.Width = other.Width;
+
+			if( point.Height < other.Height )
+				point.Height = other.Height;
+
+			return point;
 		}
 
 		#endregion // Static
@@ -204,50 +339,6 @@ namespace ManagedX
 		public static bool operator !=( Size size, Size other )
 		{
 			return !size.Equals( other );
-		}
-
-
-		/// <summary>Inferiority comparer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <( Size size, Size other )
-		{
-			return ( size.Width < other.Width ) && ( size.Height < other.Height );
-		}
-
-
-		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator <=( Size size, Size other )
-		{
-			return ( size.Width <= other.Width ) && ( size.Height <= other.Height );
-		}
-
-
-		/// <summary>Superiority comparer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >( Size size, Size other )
-		{
-			return ( size.Width > other.Width ) && ( size.Height > other.Height );
-		}
-
-
-		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
-		/// <returns></returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "This wouldn't make sense." )]
-		public static bool operator >=( Size size, Size other )
-		{
-			return ( size.Width >= other.Width ) && ( size.Height >= other.Height );
 		}
 
 
@@ -307,6 +398,39 @@ namespace ManagedX
 			size.Width *= value;
 			size.Height *= value;
 			return size;
+		}
+
+		
+		/// <summary>Division operator.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns the result of the integer division.</returns>
+		public static Size operator /( Size size, Size other )
+		{
+			size.Width /= other.Width;
+			size.Height /= other.Height;
+			return size;
+		}
+
+		/// <summary>Division operator.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="value">An integer value.</param>
+		/// <returns>Returns the result of the integer division.</returns>
+		public static Size operator /( Size size, int value )
+		{
+			size.Width /= value;
+			size.Height /= value;
+			return size;
+		}
+
+
+
+		/// <summary><see cref="Point"/> conversion operator.</summary>
+		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <returns>Returns a <see cref="Point"/> structure initialized from the specified <paramref name="size"/>.</returns>
+		public static explicit operator Point( Size size )
+		{
+			return new Point( size.Width, size.Height );
 		}
 
 		#endregion // Operators

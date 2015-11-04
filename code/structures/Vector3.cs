@@ -1090,15 +1090,21 @@ namespace ManagedX
 
 		#region Operators
 
-		/// <summary><see cref="Vector2"/> conversion operator.</summary>
+		/// <summary><see cref="Vector3"/> to <see cref="Vector2"/> conversion operator.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
-		/// <returns>Returns a <see cref="Vector2"/> structure initialized with the X and Y components of the specified <see cref="Vector3"/>.</returns>
+		/// <returns>Returns a new <see cref="Vector2"/> structure initialized with the specified <paramref name="vector"/>.</returns>
 		public static explicit operator Vector2( Vector3 vector )
 		{
-			return new Vector2(
-				vector.X,
-				vector.Y
-			);
+			return new Vector2( vector.X, vector.Y );
+		}
+
+
+		/// <summary><see cref="Vector2"/> to <see cref="Vector3"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns a new <see cref="Vector3"/> structure initialized with the specified <paramref name="vector"/>.</returns>
+		public static explicit operator Vector3( Vector2 vector )
+		{
+			return new Vector3( vector, 0.0f );
 		}
 
 

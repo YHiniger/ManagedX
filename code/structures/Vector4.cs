@@ -964,28 +964,37 @@ namespace ManagedX
 
 		#region Operators
 
-		/// <summary><see cref="Vector2"/> conversion operator.</summary>
+		/// <summary><see cref="Vector4"/> to <see cref="Vector2"/> conversion operator.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <returns>Returns a <see cref="Vector2"/> structure initializes with the X and Y components of the specified <see cref="Vector4"/>.</returns>
+		/// <returns>Returns a new <see cref="Vector2"/> structure initialized with the specified <paramref name="vector"/>.</returns>
 		public static explicit operator Vector2( Vector4 vector )
 		{
-			return new Vector2(
-				vector.X,
-				vector.Y
-			);
+			return new Vector2( vector.X, vector.Y );
+		}
+
+		/// <summary><see cref="Vector4"/> to <see cref="Vector2"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <returns>Returns a new <see cref="Vector4"/> initialized with specified <paramref name="vector"/>.</returns>
+		public static explicit operator Vector4( Vector2 vector )
+		{
+			return new Vector4( vector, 0.0f, 0.0f );
 		}
 
 
-		/// <summary><see cref="Vector3"/> conversion operator.</summary>
+		/// <summary><see cref="Vector4"/> to <see cref="Vector3"/> conversion operator.</summary>
 		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
-		/// <returns>Returns a <see cref="Vector3"/> structure initializes with the X, Y and Z components of the specified <see cref="Vector4"/>.</returns>
+		/// <returns>Returns a new <see cref="Vector3"/> structure initialized with the specified <paramref name="vector"/>.</returns>
 		public static explicit operator Vector3( Vector4 vector )
 		{
-			return new Vector3(
-				vector.X,
-				vector.Y,
-				vector.Z
-			);
+			return new Vector3( vector.X, vector.Y, vector.Z );
+		}
+
+		/// <summary><see cref="Vector4"/> to <see cref="Vector3"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <returns>Returns a new <see cref="Vector4"/> initialized with specified <paramref name="vector"/>.</returns>
+		public static explicit operator Vector4( Vector3 vector )
+		{
+			return new Vector4( vector, 0.0f );
 		}
 
 
