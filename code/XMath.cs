@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 
@@ -341,6 +342,86 @@ namespace ManagedX
 		}
 
 		#endregion // Catmull-Rom
+
+
+		/// <summary>Calculates the length of a vector, given its components.</summary>
+		/// <param name="x">The X component of the vector.</param>
+		/// <param name="y">The Y component of the vector.</param>
+		/// <returns>Returns the length of the specified vector.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		public static float Length( float x, float y )
+		{
+			return (float)Math.Sqrt( (double)( x * x + y * y ) );
+		}
+
+		/// <summary>Calculates the length of a vector, given its components.</summary>
+		/// <param name="x">The X component of the vector.</param>
+		/// <param name="y">The Y component of the vector.</param>
+		/// <param name="z">The Z component of the vector.</param>
+		/// <returns>Returns the length of the specified vector.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		public static float Length( float x, float y, float z )
+		{
+			return (float)Math.Sqrt( (double)( x * x + y * y + z * z ) );
+		}
+
+		/// <summary>Calculates the length of a vector, given its components.</summary>
+		/// <param name="x">The x component of the vector.</param>
+		/// <param name="y">The y component of the vector.</param>
+		/// <param name="z">The z component of the vector.</param>
+		/// <param name="w">The w component of the vector.</param>
+		/// <returns>Returns the length of the specified vector.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w" )]
+		public static float Length( float x, float y, float z, float w )
+		{
+			return (float)Math.Sqrt( (double)( x * x + y * y + z * z + w * w ) );
+		}
+
+
+		/// <summary>Calculates the square of the length of a vector, given its components.</summary>
+		/// <param name="x">The X component of the vector.</param>
+		/// <param name="y">The Y component of the vector.</param>
+		/// <returns>Returns the square of the length of the specified vector.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		public static float LengthSquared( float x, float y )
+		{
+			return x * x + y * y;
+		}
+
+		/// <summary>Calculates the square of the length of a vector, given its components.</summary>
+		/// <param name="x">The X component of the vector.</param>
+		/// <param name="y">The Y component of the vector.</param>
+		/// <param name="z">The Z component of the vector.</param>
+		/// <returns>Returns the square of the length of the specified vector.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		public static float LengthSquared( float x, float y, float z )
+		{
+			return x * x + y * y + z * z;
+		}
+
+		/// <summary>Calculates the square of the length of a vector, given its components.</summary>
+		/// <param name="x">The X component of the vector.</param>
+		/// <param name="y">The Y component of the vector.</param>
+		/// <param name="z">The Z component of the vector.</param>
+		/// <param name="w">The w component of the vector.</param>
+		/// <returns>Returns the square of the length of the specified vector.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w" )]
+		public static float LengthSquared( float x, float y, float z, float w )
+		{
+			return x * x + y * y + z * z + w * w;
+		}
 
 
 		#region Extension methods (MakeFinite, Clamp, Saturate)

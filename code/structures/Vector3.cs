@@ -603,28 +603,6 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Calculates the length of a vector, given its components.</summary>
-		/// <param name="x">The X component of the vector.</param>
-		/// <param name="y">The Y component of the vector.</param>
-		/// <param name="z">The Z component of the vector.</param>
-		/// <returns>Returns the length of the specified vector.</returns>
-		public static float Length( float x, float y, float z )
-		{
-			return (float)Math.Sqrt( (double)( x * x + y * y + z * z ) );
-		}
-
-
-		/// <summary>Calculates the square of the length of a vector, given its components.</summary>
-		/// <param name="x">The X component of the vector.</param>
-		/// <param name="y">The Y component of the vector.</param>
-		/// <param name="z">The Z component of the vector.</param>
-		/// <returns>Returns the square of the length of the specified vector.</returns>
-		public static float LengthSquared( float x, float y, float z )
-		{
-			return x * x + y * y + z * z;
-		}
-
-
 		/// <summary>Calculates the distance between two <see cref="Vector3"/> positions.</summary>
 		/// <param name="position">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
