@@ -45,13 +45,25 @@ namespace ManagedX
 		/// </summary>
 		NotConnected = 1167,
 
+		/// <summary>Element not found.</summary>
+		NotFound = 1168,
+
 		/// <summary>XInput: the controller state is empty ?
 		/// </summary>
 		Empty = 4306,
-		
+
+
+		/// <summary>Not implemented.</summary>
+		NotImplemented = unchecked( (int)0x80004001 ), // E_NOTIMPL
 
 		/// <summary>No such interface supported.</summary>
 		NoInterface = unchecked( (int)0x80004002 ), // E_NOINTERFACE
+
+		/// <summary>Operation aborted.</summary>
+		Abort = unchecked( (int)0x80004004 ), // E_ABORT
+
+		/// <summary>Unspecified failure.</summary>
+		Fail = unchecked( (int)0x80004005 ), // E_FAIL
 
 		/// <summary>One or more arguments are not valid.</summary>
 		InvalidArgument = unchecked( (int)0x80070057 ), // E_INVALID_ARG
@@ -122,7 +134,7 @@ namespace ManagedX
 		//ERROR_SHARING_VIOLATION = 2147942432
 
 
-		#region XAudio2
+		#region XAudio2, XAPO
 
 		// https://msdn.microsoft.com/en-us/library/windows/desktop/ee419234%28v=vs.85%29.aspx
 		// xAudio2.h
@@ -143,7 +155,12 @@ namespace ManagedX
 		/// <summary>An audio device became unusable through being unplugged or some other event.</summary>
 		AudioDeviceInvalidated = unchecked( (int)0x88960004 ), // XAUDIO2_E_DEVICE_INVALIDATED
 
-		#endregion // XAudio2
+
+		/// <summary>Requested audio format is unsupported.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XAPO", Justification = "XAPO = X-Audio Processing Object" )]
+		XAPOFormatUnsupported = unchecked( (int)0x88970001 ),
+
+		#endregion // XAudio2, XAPO
 
 	}
 
