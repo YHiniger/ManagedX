@@ -1,4 +1,7 @@
-﻿namespace ManagedX
+﻿using System.Diagnostics.CodeAnalysis;
+
+
+namespace ManagedX
 {
 
 	// https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
@@ -45,6 +48,17 @@
 		/// <summary>XInput: the controller state is empty ?
 		/// </summary>
 		Empty = 4306,
+		
+
+		/// <summary>No such interface supported.</summary>
+		NoInterface = unchecked( (int)0x80004002 ), // E_NOINTERFACE
+
+		/// <summary>One or more arguments are not valid.</summary>
+		InvalidArgument = unchecked( (int)0x80070057 ), // E_INVALID_ARG
+
+		/// <summary>Failed to allocate necessary memory.</summary>
+		OutOfMemory = unchecked( (int)0x8007000E ), // E_OUTOFMEMORY
+
 
 		//D3DERR_WRONGTEXTUREFORMAT = 2289436696,
 		//D3DERR_TOOMANYOPERATIONS = 2289436701,
@@ -111,22 +125,25 @@
 		#region XAudio2
 
 		// https://msdn.microsoft.com/en-us/library/windows/desktop/ee419234%28v=vs.85%29.aspx
+		// xAudio2.h
 
 		/// <summary>Returned by XAudio2 for certain API usage errors (invalid calls and so on) that are hard to avoid completely and should be handled by a title at runtime.
 		/// <para>(API usage errors that are completely avoidable, such as invalid parameters, cause an ASSERT in debug builds and undefined behavior in retail builds, so no error code is defined for them.)</para>
 		/// </summary>
-		InvalidCall = -2003435519,
+		InvalidXAudio2Call = unchecked( (int)0x88960001 ), // XAUDIO2_E_INVALID_CALL
 
 		/// <summary>The Xbox 360 XMA hardware suffered an unrecoverable error.</summary>
-		XmaDecoderError = -2003435518,
+		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XMA", Justification = "XMA = ..." )]
+		XMADecoderError = unchecked( (int)0x88960002 ), // XAUDIO2_E_XMA_DECODER_ERROR
 
 		/// <summary>An effect failed to instantiate.</summary>
-		XapoCreationFailed = -2003435517,
+		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XAPO", Justification = "XAPO = X-Audio Processing Object" )]
+		XAPOCreationFailed = unchecked( (int)0x88960003 ), // XAUDIO2_E_XAPO_CREATION_FAILED
 
 		/// <summary>An audio device became unusable through being unplugged or some other event.</summary>
-		DeviceInvalidated = -2003435516
+		AudioDeviceInvalidated = unchecked( (int)0x88960004 ), // XAUDIO2_E_DEVICE_INVALIDATED
 
-		#endregion
+		#endregion // XAudio2
 
 	}
 
