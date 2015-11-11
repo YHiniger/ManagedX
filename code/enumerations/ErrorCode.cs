@@ -53,11 +53,32 @@ namespace ManagedX
 		Empty = 4306,
 
 
+		#region Stg*
+
+		// https://msdn.microsoft.com/en-us/library/windows/desktop/dd542645%28v=vs.85%29.aspx
+
+		/// <summary>STG: access denied.</summary>
+		StgAccessDenied = unchecked( (int)0x80030005 ),		// STG_E_ACCESSDENIED
+		
+		/// <summary>STG: invalid parameter.</summary>
+		StgInvalidArgument = unchecked( (int)0x80030057 ),	// STG_E_INVALIDPARAMETER
+
+		#endregion // Stg*
+
+
+		/// <summary>Status code: a string has been truncated to fit into the buffer.</summary>
+		InPlaceTruncated = 0x000401A0, // INPLACE_S_TRUNCATED
+		// FIXME - THIS IS NOT AN ERROR, BUT A STATUS CODE !!!
+
+
 		/// <summary>Not implemented.</summary>
 		NotImplemented = unchecked( (int)0x80004001 ), // E_NOTIMPL
 
 		/// <summary>No such interface supported.</summary>
 		NoInterface = unchecked( (int)0x80004002 ), // E_NOINTERFACE
+
+		/// <summary>Pointer that is not valid.</summary>
+		Pointer = unchecked( (int)0x80004003 ), // E_POINTER
 
 		/// <summary>Operation aborted.</summary>
 		Abort = unchecked( (int)0x80004004 ), // E_ABORT
@@ -65,8 +86,9 @@ namespace ManagedX
 		/// <summary>Unspecified failure.</summary>
 		Fail = unchecked( (int)0x80004005 ), // E_FAIL
 
+
 		/// <summary>One or more arguments are not valid.</summary>
-		InvalidArgument = unchecked( (int)0x80070057 ), // E_INVALID_ARG
+		InvalidArgument = unchecked( (int)0x80070057 ), // E_INVALIDARG
 
 		/// <summary>Failed to allocate necessary memory.</summary>
 		OutOfMemory = unchecked( (int)0x8007000E ), // E_OUTOFMEMORY
@@ -123,15 +145,84 @@ namespace ManagedX
 		//DIRECTRENDERING_E_INVALID_MODE = 2150814720,
 		//DIRECTRENDERING_E_ELEMENT_NOT_IN_VISUALTREE = 2281703676,
 		//VFW_E_NO_AUDIO_HARDWARE = 2147746390,
-		//E_INVALIDARG = 2147942487,
-		//E_FAIL = 2147500037,
-		//E_ABORT = 2147500036,
-		//E_ACCESSDENIED = 2147942405,
-		//E_NOTIMPL = 2147500033,
-		//E_OUTOFMEMORY = 2147942414,
 		//STRSAFE_E_INSUFFICIENT_BUFFER = 2147942522,
 		//REGDB_E_CLASSNOTREG = 2147746132,
 		//ERROR_SHARING_VIOLATION = 2147942432
+
+
+		#region AudioClient
+
+		// AudioClient.h
+
+		/// <summary></summary>
+		AudioClientNotInitialized = unchecked( (int)0x88890001 ),			// AUDCLNT_E_NOT_INITIALIZED
+
+		/// <summary></summary>
+		AudioClientAlreadyInitialized = unchecked( (int)0x88890002 ),		// AUDCLNT_E_ALREADY_INITIALIZED
+
+		/// <summary></summary>
+		AudioClientWrongEndPointType = unchecked( (int)0x88890003 ),		// AUDCLNT_E_WRONG_ENDPOINT_TYPE
+		
+		/// <summary>An audio device has been invalidated; re-enumeration is required.</summary>
+		AudioClientDeviceInvalidated = unchecked( (int)0x88890004 ),		// AUDCLNT_E_DEVICE_INVALIDATED
+
+		/// <summary></summary>
+		AudioClientNotStopped = unchecked( (int)0x88890005 ),				// AUDCLNT_E_NOT_STOPPED
+		
+		/// <summary></summary>
+		AudioClientBufferTooLarge = unchecked( (int)0x88890006 ),			// AUDCLNT_E_BUFFER_TOO_LARGE
+		
+		/// <summary></summary>
+		AudioClientOutOfOrder = unchecked( (int)0x88890007 ),				// AUDCLNT_E_OUT_OF_ORDER
+		
+		/// <summary></summary>
+		AudioClientUnsupportedFormat = unchecked( (int)0x88890008 ),		// AUDCLNT_E_UNSUPPORTED_FORMAT
+
+		/// <summary></summary>
+		AudioClientInvalidSize = unchecked( (int)0x88890009 ),				// AUDCLNT_E_INVALID_SIZE
+
+		/// <summary></summary>
+		AudioClientDeviceInUse = unchecked( (int)0x8889000a ),				// AUDCLNT_E_DEVICE_IN_USE
+
+		/// <summary></summary>
+		AudioClientBufferOperationPending = unchecked( (int)0x8889000b ),	// AUDCLNT_E_BUFFER_OPERATION_PENDING
+
+		/// <summary></summary>
+		AudioClientThreadNotRegistered = unchecked( (int)0x8889000c ),		// AUDCLNT_E_THREAD_NOT_REGISTERED
+
+		/// <summary></summary>
+		AudioClientExclusiveModeNotAllowed = unchecked( (int)0x8889000e ),	// AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED
+
+		/// <summary></summary>
+		AudioClientEndPointCreateFailed = unchecked( (int)0x8889000f ),		// AUDCLNT_E_ENDPOINT_CREATE_FAILED
+
+		/// <summary></summary>
+		AudioClientServiceNotRunning = unchecked( (int)0x88890010 ),		// AUDCLNT_E_SERVICE_NOT_RUNNING
+
+//#define AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED     AUDCLNT_ERR(0x011)
+//#define AUDCLNT_E_EXCLUSIVE_MODE_ONLY          AUDCLNT_ERR(0x012)
+//#define AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL AUDCLNT_ERR(0x013)
+//#define AUDCLNT_E_EVENTHANDLE_NOT_SET          AUDCLNT_ERR(0x014)
+//#define AUDCLNT_E_INCORRECT_BUFFER_SIZE        AUDCLNT_ERR(0x015)
+//#define AUDCLNT_E_BUFFER_SIZE_ERROR            AUDCLNT_ERR(0x016)
+//#define AUDCLNT_E_CPUUSAGE_EXCEEDED            AUDCLNT_ERR(0x017)
+//#define AUDCLNT_E_BUFFER_ERROR                 AUDCLNT_ERR(0x018)
+//#define AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED      AUDCLNT_ERR(0x019)
+//#define AUDCLNT_E_INVALID_DEVICE_PERIOD        AUDCLNT_ERR(0x020)
+//#define AUDCLNT_E_INVALID_STREAM_FLAG          AUDCLNT_ERR(0x021)
+//#define AUDCLNT_E_ENDPOINT_OFFLOAD_NOT_CAPABLE AUDCLNT_ERR(0x022)
+//#define AUDCLNT_E_OUT_OF_OFFLOAD_RESOURCES     AUDCLNT_ERR(0x023)
+//#define AUDCLNT_E_OFFLOAD_MODE_ONLY            AUDCLNT_ERR(0x024)
+//#define AUDCLNT_E_NONOFFLOAD_MODE_ONLY         AUDCLNT_ERR(0x025)
+//#define AUDCLNT_E_RESOURCES_INVALIDATED        AUDCLNT_ERR(0x026)
+//#define AUDCLNT_E_RAW_MODE_UNSUPPORTED         AUDCLNT_ERR(0x027)
+//#define AUDCLNT_E_ENGINE_PERIODICITY_LOCKED    AUDCLNT_ERR(0x028)
+//#define AUDCLNT_E_ENGINE_FORMAT_LOCKED         AUDCLNT_ERR(0x029)
+//#define AUDCLNT_S_BUFFER_EMPTY                 AUDCLNT_SUCCESS(0x001)
+//#define AUDCLNT_S_THREAD_ALREADY_REGISTERED    AUDCLNT_SUCCESS(0x002)
+//#define AUDCLNT_S_POSITION_STALLED             AUDCLNT_SUCCESS(0x003)
+
+		#endregion // AudioClient
 
 
 		#region XAudio2, XAPO
@@ -153,7 +244,7 @@ namespace ManagedX
 		XAPOCreationFailed = unchecked( (int)0x88960003 ), // XAUDIO2_E_XAPO_CREATION_FAILED
 
 		/// <summary>An audio device became unusable through being unplugged or some other event.</summary>
-		AudioDeviceInvalidated = unchecked( (int)0x88960004 ), // XAUDIO2_E_DEVICE_INVALIDATED
+		XAudio2DeviceInvalidated = unchecked( (int)0x88960004 ), // XAUDIO2_E_DEVICE_INVALIDATED
 
 
 		/// <summary>Requested audio format is unsupported.</summary>
