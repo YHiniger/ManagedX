@@ -20,7 +20,7 @@ namespace ManagedX // .Diagnostics ?
 		}
 
 
-		/// <summary>Gets the last measured frame rate.</summary>
+		/// <summary>Gets the last measured tick rate.</summary>
 		public int TickRate { get { return lastFrameRate; } }
 
 
