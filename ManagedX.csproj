@@ -43,6 +43,7 @@
     <AssemblyOriginatorKeyFile>ManagedX.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="code\Design\IServiceProviderEx.cs" />
     <Compile Include="code\enumerations\ContainmentType.cs" />
     <Compile Include="code\enumerations\ErrorCode.cs" />
     <Compile Include="code\enumerations\PlaneIntersectionType.cs" />
