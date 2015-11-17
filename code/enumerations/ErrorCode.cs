@@ -154,19 +154,19 @@ namespace ManagedX
 
 		// AudioClient.h
 
-		/// <summary></summary>
+		/// <summary>The audio stream has not been successfully initialized.</summary>
 		AudioClientNotInitialized = unchecked( (int)0x88890001 ),			// AUDCLNT_E_NOT_INITIALIZED
 
-		/// <summary></summary>
+		/// <summary>The IAudioClient object is already initialized.</summary>
 		AudioClientAlreadyInitialized = unchecked( (int)0x88890002 ),		// AUDCLNT_E_ALREADY_INITIALIZED
 
-		/// <summary></summary>
+		/// <summary>The caller tried to access an IAudioCaptureClient interface on a rendering endpoint, or an IAudioRenderClient interface on a capture endpoint.</summary>
 		AudioClientWrongEndPointType = unchecked( (int)0x88890003 ),		// AUDCLNT_E_WRONG_ENDPOINT_TYPE
-		
-		/// <summary>An audio device has been invalidated; re-enumeration is required.</summary>
+
+		/// <summary>The audio endpoint device has been unplugged, or the audio hardware or associated hardware resources have been reconfigured, disabled, removed, or otherwise made unavailable for use.</summary>
 		AudioClientDeviceInvalidated = unchecked( (int)0x88890004 ),		// AUDCLNT_E_DEVICE_INVALIDATED
 
-		/// <summary></summary>
+		/// <summary>The audio stream was not stopped at the time the call was made.</summary>
 		AudioClientNotStopped = unchecked( (int)0x88890005 ),				// AUDCLNT_E_NOT_STOPPED
 		
 		/// <summary></summary>
@@ -174,53 +174,105 @@ namespace ManagedX
 		
 		/// <summary></summary>
 		AudioClientOutOfOrder = unchecked( (int)0x88890007 ),				// AUDCLNT_E_OUT_OF_ORDER
-		
-		/// <summary></summary>
+
+		/// <summary>The audio engine (shared mode) or audio endpoint device (exclusive mode) does not support the specified format.</summary>
 		AudioClientUnsupportedFormat = unchecked( (int)0x88890008 ),		// AUDCLNT_E_UNSUPPORTED_FORMAT
 
 		/// <summary></summary>
 		AudioClientInvalidSize = unchecked( (int)0x88890009 ),				// AUDCLNT_E_INVALID_SIZE
 
-		/// <summary></summary>
+		/// <summary>The endpoint device is already in use.
+		/// <para>Either the device is being used in exclusive mode, or the device is being used in shared mode and the caller asked to use the device in exclusive mode.</para>
+		/// </summary>
 		AudioClientDeviceInUse = unchecked( (int)0x8889000a ),				// AUDCLNT_E_DEVICE_IN_USE
 
-		/// <summary></summary>
+		/// <summary>The client is currently writing to or reading from the buffer.</summary>
 		AudioClientBufferOperationPending = unchecked( (int)0x8889000b ),	// AUDCLNT_E_BUFFER_OPERATION_PENDING
 
 		/// <summary></summary>
 		AudioClientThreadNotRegistered = unchecked( (int)0x8889000c ),		// AUDCLNT_E_THREAD_NOT_REGISTERED
 
-		/// <summary></summary>
+		/// <summary>The caller is requesting exclusive-mode use of the endpoint device, but the user has disabled exclusive-mode use of the device.</summary>
 		AudioClientExclusiveModeNotAllowed = unchecked( (int)0x8889000e ),	// AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED
 
-		/// <summary></summary>
+		/// <summary>The method failed to create the audio endpoint for the render or the capture device.
+		/// <para>This can occur if the audio endpoint device has been unplugged, or the audio hardware or associated hardware resources have been reconfigured, disabled, removed, or otherwise made unavailable for use.</para>
+		/// </summary>
 		AudioClientEndPointCreateFailed = unchecked( (int)0x8889000f ),		// AUDCLNT_E_ENDPOINT_CREATE_FAILED
 
-		/// <summary></summary>
+		/// <summary>The Windows audio service is not running.</summary>
 		AudioClientServiceNotRunning = unchecked( (int)0x88890010 ),		// AUDCLNT_E_SERVICE_NOT_RUNNING
 
-//#define AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED     AUDCLNT_ERR(0x011)
-//#define AUDCLNT_E_EXCLUSIVE_MODE_ONLY          AUDCLNT_ERR(0x012)
-//#define AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL AUDCLNT_ERR(0x013)
-//#define AUDCLNT_E_EVENTHANDLE_NOT_SET          AUDCLNT_ERR(0x014)
-//#define AUDCLNT_E_INCORRECT_BUFFER_SIZE        AUDCLNT_ERR(0x015)
-//#define AUDCLNT_E_BUFFER_SIZE_ERROR            AUDCLNT_ERR(0x016)
-//#define AUDCLNT_E_CPUUSAGE_EXCEEDED            AUDCLNT_ERR(0x017)
-//#define AUDCLNT_E_BUFFER_ERROR                 AUDCLNT_ERR(0x018)
-//#define AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED      AUDCLNT_ERR(0x019)
-//#define AUDCLNT_E_INVALID_DEVICE_PERIOD        AUDCLNT_ERR(0x020)
-//#define AUDCLNT_E_INVALID_STREAM_FLAG          AUDCLNT_ERR(0x021)
-//#define AUDCLNT_E_ENDPOINT_OFFLOAD_NOT_CAPABLE AUDCLNT_ERR(0x022)
-//#define AUDCLNT_E_OUT_OF_OFFLOAD_RESOURCES     AUDCLNT_ERR(0x023)
-//#define AUDCLNT_E_OFFLOAD_MODE_ONLY            AUDCLNT_ERR(0x024)
-//#define AUDCLNT_E_NONOFFLOAD_MODE_ONLY         AUDCLNT_ERR(0x025)
-//#define AUDCLNT_E_RESOURCES_INVALIDATED        AUDCLNT_ERR(0x026)
-//#define AUDCLNT_E_RAW_MODE_UNSUPPORTED         AUDCLNT_ERR(0x027)
-//#define AUDCLNT_E_ENGINE_PERIODICITY_LOCKED    AUDCLNT_ERR(0x028)
-//#define AUDCLNT_E_ENGINE_FORMAT_LOCKED         AUDCLNT_ERR(0x029)
-//#define AUDCLNT_S_BUFFER_EMPTY                 AUDCLNT_SUCCESS(0x001)
-//#define AUDCLNT_S_THREAD_ALREADY_REGISTERED    AUDCLNT_SUCCESS(0x002)
-//#define AUDCLNT_S_POSITION_STALLED             AUDCLNT_SUCCESS(0x003)
+		/// <summary>The audio stream was not initialized for event-driven buffering.</summary>
+		AudioClientEventHandleNotExpected = unchecked( (int)0x88890011 ),	// AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED
+
+		/// <summary></summary>
+		AudioClientExclusiveModeOnly = unchecked( (int)0x88890012 ),		// AUDCLNT_E_EXCLUSIVE_MODE_ONLY
+
+		/// <summary>The AUDCLNT_STREAMFLAGS_EVENTCALLBACK flag is set but parameters hnsBufferDuration and hnsPeriodicity are not equal.</summary>
+		AudioClientBufferDurationPeriodNotEqual = unchecked( (int)0x88890013 ),		// AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL
+
+		/// <summary>The audio stream is configured to use event-driven buffering, but the caller has not called IAudioClient::SetEventHandle to set the event handle on the stream.</summary>
+		AudioClientEventHandleNotSet = unchecked( (int)0x88890014 ),		// AUDCLNT_E_EVENTHANDLE_NOT_SET
+
+		/// <summary></summary>
+		AudioClientIncorrectBufferSize = unchecked( (int)0x88890015 ),		// AUDCLNT_E_INCORRECT_BUFFER_SIZE
+
+		/// <summary>Indicates that the buffer duration value requested by an exclusive-mode client is out of range.
+		/// <para>The requested duration value for pull mode must not be greater than 500 milliseconds; for push mode the duration value must not be greater than 2 seconds.</para>
+		/// </summary>
+		AudioClientBufferSizeError = unchecked( (int)0x88890016 ),			// AUDCLNT_E_BUFFER_SIZE_ERROR
+
+		/// <summary>Indicates that the process-pass duration exceeded the maximum CPU usage.
+		/// <para>
+		/// The audio engine keeps track of CPU usage by maintaining the number of times the process-pass duration exceeds the maximum CPU usage.
+		/// The maximum CPU usage is calculated as a percent of the engine's periodicity.
+		/// The percentage value is the system's CPU throttle value (within the range of 10% and 90%).
+		/// If this value is not found, then the default value of 40% is used to calculate the maximum CPU usage.
+		/// </para>
+		/// </summary>
+		AudioClientCPUUsageExceeded = unchecked( (int)0x88890017 ),			// AUDCLNT_E_CPUUSAGE_EXCEEDED
+
+		/// <summary></summary>
+		AudioClientBufferError = unchecked( (int)0x88890018 ),				// AUDCLNT_E_BUFFER_ERROR
+
+		/// <summary></summary>
+		AudioClientBufferSizeNotAligned = unchecked( (int)0x88890019 ),		// AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED
+
+		/// <summary>Indicates that the device period requested by an exclusive-mode client is greater than 500 milliseconds.</summary>
+		AudioClientInvalidDevicePeriod = unchecked( (int)0x88890020 ),		// AUDCLNT_E_INVALID_DEVICE_PERIOD
+
+		/// <summary></summary>
+		AudioClientInvalidStreamFlag = unchecked( (int)0x88890021 ),		// AUDCLNT_E_INVALID_STREAM_FLAG
+
+		/// <summary></summary>
+		AudioClientEndPointOffloadNotCapable = unchecked( (int)0x88890022 ),// AUDCLNT_E_ENDPOINT_OFFLOAD_NOT_CAPABLE
+
+		/// <summary></summary>
+		AudioClientOutOfOffloadResources = unchecked( (int)0x88890023 ),	// AUDCLNT_E_OUT_OF_OFFLOAD_RESOURCES
+
+		/// <summary></summary>
+		AudioClientOffloadModeOnly = unchecked( (int)0x88890024 ),			// AUDCLNT_E_OFFLOAD_MODE_ONLY
+
+		/// <summary></summary>
+		AudioClientNonOffloadModeOnly = unchecked( (int)0x88890025 ),		// AUDCLNT_E_NONOFFLOAD_MODE_ONLY
+
+		/// <summary></summary>
+		AudioClientResourcesInvalidated = unchecked( (int)0x88890026 ),		// AUDCLNT_E_RESOURCES_INVALIDATED
+
+		/// <summary></summary>
+		AudioClientRawModeUnsupported = unchecked( (int)0x88890027 ),		// AUDCLNT_E_RAW_MODE_UNSUPPORTED
+
+		/// <summary></summary>
+		AudioClientEnginePeriodicityLocked = unchecked( (int)0x88890028 ),	// AUDCLNT_E_ENGINE_PERIODICITY_LOCKED
+		
+		/// <summary></summary>
+		AudioClientEngineFormatLocked = unchecked( (int)0x88890029 ),		// AUDCLNT_E_ENGINE_FORMAT_LOCKED
+		
+
+		//#define AUDCLNT_S_BUFFER_EMPTY                 AUDCLNT_SUCCESS(0x001)
+		//#define AUDCLNT_S_THREAD_ALREADY_REGISTERED    AUDCLNT_SUCCESS(0x002)
+		//#define AUDCLNT_S_POSITION_STALLED             AUDCLNT_SUCCESS(0x003)
 
 		#endregion // AudioClient
 
