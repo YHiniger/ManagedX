@@ -7,7 +7,7 @@ namespace ManagedX
 {
 
 	// A little reminder: https://en.wikipedia.org/wiki/List_of_mathematical_symbols
-	// TODO ? try to make use of DirectXMath (https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833%28v=vs.85%29.aspx)
+	// THINKABOUTME - try to make use of DirectXMath (https://msdn.microsoft.com/en-us/library/windows/desktop/hh437833%28v=vs.85%29.aspx)
 
 	
 	/// <summary>Provides common math constants and functions, as well as extension methods to <see cref="float"/> and <see cref="double"/>.</summary>

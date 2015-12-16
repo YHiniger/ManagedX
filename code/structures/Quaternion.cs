@@ -33,6 +33,7 @@ namespace ManagedX
 		public float W;
 
 
+
 		#region Constructors
 
 		/// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
@@ -471,6 +472,254 @@ namespace ManagedX
 			}
 		}
 
+
+		/// <summary>Rotates a <see cref="Ray"/>.</summary>
+		/// <param name="ray">The <see cref="Ray"/> to rotate.</param>
+		/// <param name="result">Receives the rotated <see cref="Ray"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		public void Transform( ref Ray ray, out Ray result )
+		{
+			result.Position = ray.Position;
+			this.Transform( ref ray.Direction, out result.Direction );
+		}
+
+		/// <summary>Returns a rotated <see cref="Ray"/>.</summary>
+		/// <param name="ray">The <see cref="Ray"/> to rotate.</param>
+		/// <returns>Returns the rotated <see cref="Ray"/>.</returns>
+		public Ray Transform( Ray ray )
+		{
+			this.Transform( ref ray.Direction, out ray.Direction );
+			return ray;
+		}
+
+		/// <summary>Rotates an array of <see cref="Ray"/>.</summary>
+		/// <param name="source">An array of source <see cref="Ray"/> structures; must not be null, and must contain at least <paramref name="sourceIndex"/> + <paramref name="count"/> rays.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Ray"/> in the <paramref name="source"/> array; must not be negative.</param>
+		/// <param name="destination">An array to receive the rotated <see cref="Ray"/> structures; must not be null, and must contain at least <paramref name="destinationIndex"/> + <paramref name="count"/> rays.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Ray"/> in the <paramref name="destination"/> array; must not be negative.</param>
+		/// <param name="count">The number of rays to rotate; must be greater than zero.</param>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public void Transform( Ray[] source, int sourceIndex, Ray[] destination, int destinationIndex, int count )
+		{
+			if( source == null )
+				throw new ArgumentNullException( "source" );
+
+			if( sourceIndex < 0 || sourceIndex >= source.Length )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
+			if( destination == null )
+				throw new ArgumentNullException( "destination" );
+
+			if( destinationIndex < 0 || destinationIndex >= destination.Length )
+				throw new ArgumentOutOfRangeException( "destinationIndex" );
+
+			if( count <= 0 || count + sourceIndex >= source.Length || count + destinationIndex >= destination.Length )
+				throw new ArgumentOutOfRangeException( "count" );
+
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+			var xx2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var yy2 = Y * y2;
+			var yz2 = Y * z2;
+			var zz2 = Z * z2;
+
+			var a = 1.0f - yy2 - zz2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+
+			var d = xy2 + wz2;
+			var e = 1.0f - xx2 - zz2;
+			var f = yz2 - wx2;
+
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = 1.0f - xx2 - yy2;
+
+			Ray plane, result;
+			for( var p = 0; p < count; p++ )
+			{
+				plane = source[ sourceIndex + p ];
+
+				var x = plane.Direction.X;
+				var y = plane.Direction.Y;
+				var z = plane.Direction.Z;
+
+				result.Position = plane.Position;
+				result.Direction.X = x * a + y * b + z * c;
+				result.Direction.Y = x * d + y * e + z * f;
+				result.Direction.Z = x * g + y * h + z * i;
+
+				destination[ destinationIndex + p ] = result;
+			}
+		}
+
+
+		/// <summary>Rotates a <see cref="Plane"/>.</summary>
+		/// <param name="plane">A <see cref="Plane"/> structure.</param>
+		/// <param name="result">Receives the rotated <paramref name="plane"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		public void Transform( ref Plane plane, out Plane result )
+		{
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+			
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+			var xx2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var yy2 = Y * y2;
+			var yz2 = Y * z2;
+			var zz2 = Z * z2;
+			
+			var a = 1.0f - yy2 - zz2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+			
+			var d = xy2 + wz2;
+			var e = 1.0f - xx2 - zz2;
+			var f = yz2 - wx2;
+			
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = 1.0f - xx2 - yy2;
+
+			var planeNormal = plane.Normal;
+			var x = planeNormal.X;
+			var y = planeNormal.Y;
+			var z = planeNormal.Z;
+
+			planeNormal.X = x * a + y * b + z * c;
+			planeNormal.Y = x * d + y * e + z * f;
+			planeNormal.Z = x * g + y * h + z * i;
+			
+			result.Normal = planeNormal;
+			result.Distance = plane.Distance;
+		}
+
+		/// <summary>Rotates a <see cref="Plane"/>.</summary>
+		/// <param name="plane">A <see cref="Plane"/> structure.</param>
+		/// <returns>Returns the rotated <paramref name="plane"/>.</returns>
+		public Plane Transform( Plane plane )
+		{
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+			var xx2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var yy2 = Y * y2;
+			var yz2 = Y * z2;
+			var zz2 = Z * z2;
+
+			var a = 1.0f - yy2 - zz2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+
+			var d = xy2 + wz2;
+			var e = 1.0f - xx2 - zz2;
+			var f = yz2 - wx2;
+
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = 1.0f - xx2 - yy2;
+
+			var x = plane.Normal.X;
+			var y = plane.Normal.Y;
+			var z = plane.Normal.Z;
+
+			Plane result;
+			result.Normal.X = x * a + y * b + z * c;
+			result.Normal.Y = x * d + y * e + z * f;
+			result.Normal.Z = x * g + y * h + z * i;
+			result.Distance = plane.Distance;
+			return result;
+		}
+
+		/// <summary>Rotates an array of <see cref="Plane"/>.</summary>
+		/// <param name="source">An array of source <see cref="Plane"/> structures; must not be null.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Plane"/> in the <paramref name="source"/> array; must not be negative.</param>
+		/// <param name="destination">An array to receive the rotated <see cref="Plane"/> structures; must not be null.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Plane"/> in the <paramref name="destination"/> array; must not be negative.</param>
+		/// <param name="count">The number of planes to rotate; must be greater than zero.</param>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public void Transform( Plane[] source, int sourceIndex, Plane[] destination, int destinationIndex, int count )
+		{
+			if( source == null )
+				throw new ArgumentNullException( "source" );
+
+			if( sourceIndex < 0 || sourceIndex >= source.Length )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
+			if( destination == null )
+				throw new ArgumentNullException( "destination" );
+			
+			if( destinationIndex < 0 || destinationIndex >= destination.Length )
+				throw new ArgumentOutOfRangeException( "destinationIndex" );
+			
+			if( count <= 0 || count + sourceIndex >= source.Length || count + destinationIndex >= destination.Length )
+				throw new ArgumentOutOfRangeException( "count" );
+
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+			var xx2 = X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var yy2 = Y * y2;
+			var yz2 = Y * z2;
+			var zz2 = Z * z2;
+
+			var a = 1.0f - yy2 - zz2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+
+			var d = xy2 + wz2;
+			var e = 1.0f - xx2 - zz2;
+			var f = yz2 - wx2;
+
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = 1.0f - xx2 - yy2;
+
+			Plane plane, result;
+			for( var p = 0; p < count; p++ )
+			{
+				plane = source[ sourceIndex + p ];
+				
+				var x = plane.Normal.X;
+				var y = plane.Normal.Y;
+				var z = plane.Normal.Z;
+
+				result.Normal.X = x * a + y * b + z * c;
+				result.Normal.Y = x * d + y * e + z * f;
+				result.Normal.Z = x * g + y * h + z * i;
+				result.Distance = plane.Distance;
+				
+				destination[ destinationIndex + p ] = result;
+			}
+		}
 
 
 		/// <summary>Returns a hash code for this <see cref="Quaternion"/> structure.</summary>
@@ -949,17 +1198,7 @@ namespace ManagedX
 		public static void Inverse( ref Quaternion quaternion, out Quaternion result )
 		{
 			result = quaternion;
-			result.Invert(); // TODO - make sure this doesn't affect quaternion !
-
-			//var length = result.Length;
-			//if( length != 0.0f )
-			//{
-			//	var scale = 1.0f / length;
-			//	result.X *= -scale;
-			//	result.Y *= -scale;
-			//	result.Z *= -scale;
-			//	result.W *= scale;
-			//}
+			result.Invert();
 		}
 
 		/// <summary>Returns the inverse of a <see cref="Quaternion"/>.</summary>
