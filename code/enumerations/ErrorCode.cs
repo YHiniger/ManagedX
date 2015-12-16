@@ -8,7 +8,7 @@ namespace ManagedX
 	// WinUser.h
 	
 
-	/// <summary>Enumerates Windows error codes.</summary>
+	/// <summary>Enumerates Windows error codes (HRESULT).</summary>
 	public enum ErrorCode : int
 	{
 		
@@ -64,11 +64,6 @@ namespace ManagedX
 		StgInvalidArgument = unchecked( (int)0x80030057 ),	// STG_E_INVALIDPARAMETER
 
 		#endregion // Stg*
-
-
-		/// <summary>Status code: a string has been truncated to fit into the buffer.</summary>
-		InPlaceTruncated = 0x000401A0, // INPLACE_S_TRUNCATED
-		// FIXME - THIS IS NOT AN ERROR, BUT A STATUS CODE !!!
 
 
 		/// <summary>Not implemented.</summary>
@@ -231,7 +226,7 @@ namespace ManagedX
 		/// If this value is not found, then the default value of 40% is used to calculate the maximum CPU usage.
 		/// </para>
 		/// </summary>
-		AudioClientCPUUsageExceeded = unchecked( (int)0x88890017 ),			// AUDCLNT_E_CPUUSAGE_EXCEEDED
+		AudioClientCpuUsageExceeded = unchecked( (int)0x88890017 ),			// AUDCLNT_E_CPUUSAGE_EXCEEDED
 
 		/// <summary></summary>
 		AudioClientBufferError = unchecked( (int)0x88890018 ),				// AUDCLNT_E_BUFFER_ERROR
