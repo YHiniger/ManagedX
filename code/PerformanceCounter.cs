@@ -10,8 +10,9 @@ namespace ManagedX // .Diagnostics ?
 
 		private TimeSpan lastUpdateTime;
 		private TimeSpan elapsedTime;
-		private int frameCount;
-		private int lastFrameRate;
+		private int tickCount;
+		private int lastTickRate;
+
 
 
 		/// <summary>Initializes a new <see cref="PerformanceCounter"/>.</summary>
@@ -20,27 +21,36 @@ namespace ManagedX // .Diagnostics ?
 		}
 
 
+
 		/// <summary>Gets the last measured tick rate.</summary>
-		public int TickRate { get { return lastFrameRate; } }
+		public int TickRate { get { return lastTickRate; } }
 
 
-		/// <summary>Updates the frame rate counter.</summary>
+		/// <summary>Updates the tick rate counter.</summary>
 		/// <param name="time">The time elapsed since the application start.</param>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "High performance required." )]
 		public void Tick( ref TimeSpan time )
 		{
-			frameCount++;
+			tickCount++;
 			elapsedTime += time - lastUpdateTime;
 			
 			var elapsed = elapsedTime.TotalSeconds;
 			if( elapsed > 1.0 )
 			{
-				lastFrameRate = (int)( (double)frameCount / elapsed );
-				frameCount = 0;
+				lastTickRate = (int)( (double)tickCount / elapsed );
+				tickCount = 0;
 				elapsedTime = TimeSpan.Zero;
 			}
 
 			lastUpdateTime = time;
+		}
+
+
+		/// <summary>Returns a string representing the <see cref="TickRate"/>.</summary>
+		/// <returns>Returns a string representing the <see cref="TickRate"/>.</returns>
+		public sealed override string ToString()
+		{
+			return lastTickRate.ToString( System.Globalization.CultureInfo.InvariantCulture );
 		}
 
 	}
