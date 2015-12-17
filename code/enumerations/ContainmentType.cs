@@ -5,18 +5,18 @@
 	// DirectXCollision.h
 
 
-	/// <summary>Indicates whether an object contains another object.</summary>
+	/// <summary>Enumerates values indicating whether an object contains another object.</summary>
 	public enum ContainmentType : int
 	{
 
 		/// <summary>The object does not contain the specified object.</summary>
-		Disjoint = 0,
+		Disjoint,
 
 		/// <summary>The objects intersect (or match).</summary>
-		Intersects = 1,
+		Intersects,
 
 		/// <summary>The object contains the specified object.</summary>
-		Contains = 2
+		Contains
 
 	}
 
