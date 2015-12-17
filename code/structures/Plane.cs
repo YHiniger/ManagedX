@@ -120,7 +120,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns the dot product of a specified <see cref="Vector3"/> and the <see cref="Normal"/> vector of this <see cref="Plane"/>.</summary>
+		/// <summary>Calculates the dot product of a specified <see cref="Vector3"/> and the <see cref="Normal"/> vector of this <see cref="Plane"/>.</summary>
 		/// <param name="normal">A <see cref="Vector3"/>.</param>
 		/// <param name="result">Receives the resulting dot product.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
@@ -165,7 +165,13 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public void CalculateIntersection( ref Ray ray, out Vector3 result )
 		{
-			var distance = ( -Distance - Vector3.Dot( Normal, ray.Position ) ) / Vector3.Dot( Normal, ray.Direction );
+			float NdotP;
+			Vector3.Dot( ref Normal, ref ray.Position, out NdotP );
+
+			float NdotD;
+			Vector3.Dot( ref Normal, ref ray.Direction, out NdotD );
+
+			var distance = ( -Distance - NdotP ) / NdotD;
 			result = ray.Position + ray.Direction * distance;
 		}
 
@@ -174,7 +180,13 @@ namespace ManagedX
 		/// <returns>Returns the intersection point with the specified <paramref name="ray"/>.</returns>
 		public Vector3 CalculateIntersection( Ray ray )
 		{
-			var distance = ( -Distance - Vector3.Dot( Normal, ray.Position ) ) / Vector3.Dot( Normal, ray.Direction );
+			float NdotP;
+			Vector3.Dot( ref Normal, ref ray.Position, out NdotP );
+
+			float NdotD;
+			Vector3.Dot( ref Normal, ref ray.Direction, out NdotD );
+
+			var distance = ( -Distance - NdotP ) / NdotD;
 			return ray.Position + ray.Direction * distance;
 		}
 
@@ -187,10 +199,20 @@ namespace ManagedX
 		public void CalculateIntersectionLine( ref Plane other, out Ray result )
 		{
 			var normal = other.Normal;
+			
 			Vector3 direction;
 			Vector3.Cross( ref Normal, ref normal, out direction );
-			
-			result.Position = Vector3.Cross( -Distance * normal + other.Distance * Normal, direction ) / direction.LengthSquared;
+
+			Vector3 a;
+			Vector3.Multiply( ref normal, -Distance, out a );
+
+			Vector3 b;
+			Vector3.Multiply( ref Normal, other.Distance, out b );
+
+			Vector3 c;
+			Vector3.Add( ref a, ref b, out c );
+
+			result.Position = Vector3.Cross( c, direction ) / direction.LengthSquared;
 			result.Direction = direction;
 		}
 
@@ -201,58 +223,67 @@ namespace ManagedX
 		{
 			Ray result;
 			Vector3.Cross( ref Normal, ref other.Normal, out result.Direction );
-			result.Position = Vector3.Cross( -Distance * other.Normal + other.Distance * Normal, result.Direction ) / result.Direction.LengthSquared;
+
+			Vector3 a;
+			Vector3.Multiply( ref other.Normal, -Distance, out a );
+
+			Vector3 b;
+			Vector3.Multiply( ref Normal, other.Distance, out b );
+
+			Vector3 c;
+			Vector3.Add( ref a, ref b, out c );
+
+			result.Position = Vector3.Cross( c, result.Direction ) / result.Direction.LengthSquared;
 			return result;
 		}
 
 
+		/// <summary>Determines the location of a point relative to this <see cref="Plane"/>.</summary>
+		/// <param name="point">A <see cref="Vector3"/>.</param>
+		/// <param name="result">Receives a value indicating the location of the specified <paramref name="point"/> relative to this <see cref="Plane"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		public void Locate( ref Vector3 point, out PlaneIntersectionType result )
+		{
+			float NdotP;
+			Vector3.Dot( ref Normal, ref point, out NdotP );
+			NdotP += Distance;
+
+			if( NdotP > 0.0f )
+			{
+				result = PlaneIntersectionType.Front;
+				return;
+			}
+
+			if( NdotP < 0.0f )
+			{
+				result = PlaneIntersectionType.Back;
+				return;
+			}
+
+			result = PlaneIntersectionType.Intersecting;
+		}
+
+		/// <summary>Returns a value indicating the location of a point relative to this <see cref="Plane"/>.</summary>
+		/// <param name="point">A <see cref="Vector3"/>.</param>
+		/// <returns>Returns a value indicating the location of the specified <paramref name="point"/> relative to this <see cref="Plane"/>.</returns>
+		public PlaneIntersectionType Locate( Vector3 point )
+		{
+			float NdotP;
+			Vector3.Dot( ref Normal, ref point, out NdotP );
+			NdotP += Distance;
+
+			if( NdotP > 0.0f )
+				return PlaneIntersectionType.Front;
+
+			if( NdotP < 0.0f )
+				return PlaneIntersectionType.Back;
+
+			return PlaneIntersectionType.Intersecting;
+		}
+
+
 		#region Intersects
-
-		///// <summary>Determines whether this <see cref="Plane" /> intersects a point.</summary>
-		///// <param name="point">A <see cref="Vector3"/>.</param>
-		///// <param name="result">Receives a value indicating the extend of overlap.</param>
-		//[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		//[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
-		//public void Intersects( ref Vector3 point, out PlaneIntersectionType result )
-		//{
-		//	float NdotP;
-		//	Vector3.Dot( ref Normal, ref point, out NdotP );
-		//	NdotP += Distance;
-
-		//	if( NdotP > 0.0f )
-		//	{
-		//		result = PlaneIntersectionType.Front;
-		//		return;
-		//	}
-
-		//	if( NdotP < 0.0f )
-		//	{
-		//		result = PlaneIntersectionType.Back;
-		//		return;
-		//	}
-
-		//	result = PlaneIntersectionType.Intersecting;
-		//}
-
-
-		///// <summary>Determines whether this <see cref="Plane" /> intersects a point.</summary>
-		///// <param name="point">A <see cref="Vector3"/>.</param>
-		///// <returns>Returns a value indicating the extend of overlap.</returns>
-		//public PlaneIntersectionType Intersects( Vector3 point )
-		//{
-		//	float NdotP;
-		//	Vector3.Dot( ref Normal, ref point, out NdotP );
-		//	NdotP += Distance;
-
-		//	if( NdotP > 0.0f )
-		//		return PlaneIntersectionType.Front;
-
-		//	if( NdotP < 0.0f )
-		//		return PlaneIntersectionType.Back;
-
-		//	return PlaneIntersectionType.Intersecting;
-		//}
-
 
 		/// <summary>Determines whether this <see cref="Plane"/> intersects a <see cref="BoundingBox"/>.</summary>
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
@@ -448,26 +479,26 @@ namespace ManagedX
 		#endregion Intersects
 
 
-		/// <summary>Returns a hash code for this <see cref="Plane"/> structure.</summary>
-		/// <returns>Returns a hash code for this <see cref="Plane"/> structure.</returns>
+		/// <summary>Returns a hash code for this <see cref="Plane"/>.</summary>
+		/// <returns>Returns a hash code for this <see cref="Plane"/>.</returns>
 		public override int GetHashCode()
 		{
 			return Normal.GetHashCode() ^ Distance.GetHashCode();
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Plane"/> structure equals another structure of the same type.</summary>
-		/// <param name="other">A <see cref="Plane"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <summary>Returns a value indicating whether this <see cref="Plane"/> equals another plane.</summary>
+		/// <param name="other">A <see cref="Plane"/>.</param>
+		/// <returns>Returns true if the planes are equal, otherwise returns false.</returns>
 		public bool Equals( Plane other )
 		{
-			return Normal.Equals( other.Normal ) && ( Distance == other.Distance );
+			return ( Distance == other.Distance ) && Normal.Equals( ref other.Normal );
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Plane"/> structure is equivalent to an object.</summary>
+		/// <summary>Returns a value indicating whether this <see cref="Plane"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Plane"/> structure which equals this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="Plane"/> which equals this plane, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Plane ) && this.Equals( (Plane)obj );
@@ -483,18 +514,19 @@ namespace ManagedX
 		}
 
 
-		/// <summary>The "zero" <see cref="Plane"/>.</summary>
+		/// <summary>The "zero" (and invalid) <see cref="Plane"/>.</summary>
 		public static readonly Plane Zero;
 
 
 		/// <summary>Changes the coefficients of the <see cref="Normal"/> vector of a <see cref="Plane"/> to make it of unit length.</summary>
-		/// <param name="plane">The <see cref="Plane"/> to normalize.</param>
-		/// <param name="result">An existing <see cref="Plane"/> filled in with a normalized version of the specified plane.</param>
+		/// <param name="plane">A <see cref="Plane"/>.</param>
+		/// <param name="result">Receives the normalized <paramref name="plane"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public static void Normalize( ref Plane plane, out Plane result )
 		{
 			var planeNormal = plane.Normal;
+			
 			var lengthSquared = planeNormal.X * planeNormal.X + planeNormal.Y * planeNormal.Y + planeNormal.Z * planeNormal.Z;
 			if( Math.Abs( lengthSquared - 1.0f ) < 1.1920929E-07f )
 			{
@@ -502,13 +534,14 @@ namespace ManagedX
 				result.Distance = plane.Distance;
 				return;
 			}
+			
 			var invLength = 1.0f / (float)Math.Sqrt( (double)lengthSquared );
 			result.Normal = planeNormal * invLength;
 			result.Distance = plane.Distance * invLength;
 		}
 
-		/// <summary>Changes the coefficients of the <see cref="Normal"/> vector of a <see cref="Plane"/> to make it of unit length.</summary>
-		/// <param name="plane">The <see cref="Plane"/> to normalize.</param>
+		/// <summary>Returns a <see cref="Plane"/> whose <see cref="Normal"/> coefficients have been changed to make it of unit length.</summary>
+		/// <param name="plane">A <see cref="Plane"/>.</param>
 		/// <returns>Returns the normalized <paramref name="plane"/>.</returns>
 		public static Plane Normalize( Plane plane )
 		{
@@ -532,7 +565,7 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public static bool operator ==( Plane plane, Plane other )
 		{
-			return plane.Equals( other );
+			return ( plane.Distance == other.Distance ) && plane.Normal.Equals( ref other.Normal );
 		}
 
 
@@ -542,7 +575,7 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Plane plane, Plane other )
 		{
-			return !plane.Equals( other );
+			return ( plane.Distance != other.Distance ) || !plane.Normal.Equals( ref other.Normal );
 		}
 
 		#endregion Operators

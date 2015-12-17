@@ -166,6 +166,11 @@ namespace ManagedX
 			return ( X == other.X ) && ( Y == other.Y ) && ( Z == other.Z );
 		}
 
+		internal bool Equals( ref Vector3 other )
+		{
+			return ( X == other.X ) && ( Y == other.Y ) && ( Z == other.Z );
+		}
+
 
 		/// <summary>Returns a value indicating whether this <see cref="Vector3"/> structure is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>

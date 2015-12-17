@@ -52,11 +52,15 @@ namespace ManagedX
 			float RdotP;
 			Vector3.Dot( ref Direction, ref vector, out RdotP );	// assumes the ray direction is normalized
 
-			result = vector.Length;
-			if( RdotP < 0.0f )
-				result = -result;
+			if( RdotP <= 0.0f )
+			{
+				result = float.NaN;
+				return;
+			}
 
-			if( Math.Abs( RdotP / result ) < 1.0f - DirectionThreshold )
+			result = vector.Length;
+
+			if( RdotP / result < 1.0f - DirectionThreshold )
 				result = float.NaN;
 		}
 
@@ -71,11 +75,11 @@ namespace ManagedX
 			float RdotP;
 			Vector3.Dot( ref Direction, ref vector, out RdotP );	// assumes the ray direction is normalized
 
-			var result = vector.Length;
-			if( RdotP < 0.0f )
-				result = -result;
+			if( RdotP <= 0.0f )
+				return float.NaN;
 
-			if( Math.Abs( RdotP / result ) < 1.0f - DirectionThreshold )
+			var result = vector.Length;
+			if( RdotP / result < 1.0f - DirectionThreshold )
 				return float.NaN;
 
 			return result;
@@ -481,10 +485,7 @@ namespace ManagedX
 			
 			var b = ( max >= 0.0f ) ? max : min;
 			if( b >= 0.0f )
-			{
 				result = b;
-				return;
-			}
 		}
 
 		/// <summary>Returns the distance this <see cref="Ray"/> intersects a <see cref="BoundingFrustum"/> at, or NaN if there is no intersection.</summary>
@@ -566,7 +567,7 @@ namespace ManagedX
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public bool Equals( Ray other )
 		{
-			return Position.Equals( other.Position ) && Direction.Equals( other.Direction );
+			return Position.Equals( ref other.Position ) && Direction.Equals( ref other.Direction );
 		}
 
 
@@ -589,7 +590,7 @@ namespace ManagedX
 
 
 
-		/// <summary>The "zero" <see cref="Ray"/>.</summary>
+		/// <summary>The "zero" (and invalid) <see cref="Ray"/>.</summary>
 		public static readonly Ray Zero;
 
 
@@ -601,7 +602,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified rays are equal, otherwise returns false.</returns>
 		public static bool operator ==( Ray ray, Ray other )
 		{
-			return ray.Equals( other );
+			return ray.Position.Equals( ref other.Position ) && ray.Direction.Equals( ref other.Direction );
 		}
 
 
@@ -611,7 +612,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified rays are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Ray ray, Ray other )
 		{
-			return !ray.Equals( other );
+			return !( ray.Position.Equals( ref other.Position ) && ray.Direction.Equals( ref other.Direction ) );
 		}
 
 		#endregion Operators

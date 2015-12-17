@@ -13,13 +13,14 @@ namespace ManagedX
 	public struct Size : IEquatable<Size>
 	{
 
-		/// <summary>The width component of this <see cref="Size"/> structure; should not be a negative value.</summary>
+		/// <summary>The width component of this <see cref="Size"/>; should not be a negative value.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Width;
 
-		/// <summary>The height component of this <see cref="Size"/> structure; should not be a negative value.</summary>
+		/// <summary>The height component of this <see cref="Size"/>; should not be a negative value.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Height;
+
 
 
 		#region Constructors
@@ -50,43 +51,44 @@ namespace ManagedX
 			Height = point.Y;
 		}
 
-		#endregion // Constructors
+		#endregion Constructors
+
 
 
 		/// <summary>Gets a value indicating whether the components of this <see cref="Size"/> are set to zero (see <see cref="Empty"/>).</summary>
 		public bool IsEmpty { get { return ( Width == 0 ) && ( Height == 0 ); } }
 
 
-		/// <summary>Returns a hash code for this <see cref="Size"/> structure.</summary>
-		/// <returns>Returns a hash code for this <see cref="Size"/> structure.</returns>
+		/// <summary>Returns a hash code for this <see cref="Size"/>.</summary>
+		/// <returns>Returns a hash code for this <see cref="Size"/>.</returns>
 		public override int GetHashCode()
 		{
 			return Width ^ Height;
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Size"/> structure equals another structure of the same type.</summary>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <summary>Returns a value indicating whether this <see cref="Size"/> equals another <see cref="Size"/>.</summary>
+		/// <param name="other">A <see cref="Size"/>.</param>
+		/// <returns>Returns true if the sizes are equal, otherwise returns false.</returns>
 		public bool Equals( Size other )
 		{
 			return ( Width == other.Width ) && ( Height == other.Height );
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Size"/> structure is equivalent to an object.</summary>
+		/// <summary>Returns a value indicating whether this <see cref="Size"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Size"/> structure which equals this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="Size"/> which equals this size, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Size ) && this.Equals( (Size)obj );
 		}
 
 
-		/// <summary>Returns a string representing this <see cref="Size"/> structure, in the form:
+		/// <summary>Returns a string representing this <see cref="Size"/>, in the form:
 		/// <para><see cref="Width"/>×<see cref="Height"/></para>
 		/// </summary>
-		/// <returns>Returns a string representing this <see cref="Size"/> structure.</returns>
+		/// <returns>Returns a string representing this <see cref="Size"/>.</returns>
 		public override string ToString()
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{0}×{1}", Width, Height );
@@ -96,13 +98,13 @@ namespace ManagedX
 
 		#region Static
 
-		/// <summary>The empty (or zero) <see cref="Size"/> structure.</summary>
+		/// <summary>The empty (or zero) <see cref="Size"/>.</summary>
 		public static readonly Size Empty = new Size();
 
 
 		/// <summary>Adds two <see cref="Size"/> structures.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the sum of the specified sizes.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
@@ -113,10 +115,10 @@ namespace ManagedX
 			result.Height = size.Height + other.Height;
 		}
 
-		/// <summary>Adds two <see cref="Size"/> values.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
-		/// <returns></returns>
+		/// <summary>Returns the sum of two <see cref="Size"/> values.</summary>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
+		/// <returns>Returns the sum of the specified sizes.</returns>
 		public static Size Add( Size size, Size other )
 		{
 			size.Width += other.Width;
@@ -126,8 +128,8 @@ namespace ManagedX
 
 
 		/// <summary>Subtracts a <see cref="Size"/> (<paramref name="other"/>) from another <see cref="Size"/> (<paramref name="size"/>).</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the difference between the specified sizes.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
@@ -139,8 +141,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Subtracts a <see cref="Size"/> (<paramref name="other"/>) from another <see cref="Size"/> (<paramref name="size"/>).</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns a <see cref="Size"/> structure initialized with the result of ( <paramref name="size"/> - <paramref name="other"/> ).</returns>
 		public static Size Subtract( Size size, Size other )
 		{
@@ -151,8 +153,8 @@ namespace ManagedX
 
 
 		/// <summary>Multiplies two <see cref="Size"/> structures.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the result of the product.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
@@ -164,8 +166,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the product of two <see cref="Size"/> structures.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns the product of the two specified <see cref="Size"/> structures.</returns>
 		public static Size Multiply( Size size, Size other )
 		{
@@ -175,7 +177,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Multiplies a <see cref="Size"/> by an integer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <param name="result">Receives the result of the product.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
@@ -187,7 +189,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the product of a <see cref="Size"/> by an integer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <returns>Returns the product of <paramref name="size"/> x <paramref name="value"/>.</returns>
 		public static Size Multiply( Size size, int value )
@@ -199,8 +201,8 @@ namespace ManagedX
 
 
 		/// <summary>Calculates the result of the integer division of a <see cref="Size"/> by another <see cref="Size"/>.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the result of the integer division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
@@ -212,8 +214,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the result of the integer division of a <see cref="Size"/> by another <see cref="Size"/>.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns the result of the integer division.</returns>
 		public static Size Divide( Size size, Size other )
 		{
@@ -223,7 +225,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Calculates the result of the integer division of a <see cref="Size"/> by an integer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <param name="result">Receives the result of the integer division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
@@ -235,7 +237,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns the result of the integer division of a <see cref="Size"/> by an integer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <returns>Returns the result of the integer division.</returns>
 		public static Size Divide( Size size, int value )
@@ -247,8 +249,8 @@ namespace ManagedX
 
 
 		/// <summary>Retrieves the smallest values between two sizes.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives a <see cref="Size"/> initialized with the smallest values between the two specified sizes.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -267,8 +269,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a <see cref="Size"/> initialized with the smallest values between two sizes.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns a <see cref="Size"/> initialized with the smallest values between the two specified sizes.</returns>
 		public static Size Min( Size size, Size other )
 		{
@@ -283,8 +285,8 @@ namespace ManagedX
 
 
 		/// <summary>Retrieves the greatest values between two sizes.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives a <see cref="Size"/> initialized with the greatest values between the two specified sizes.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -303,28 +305,28 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a <see cref="Size"/> initialized with the greatest values between two sizes.</summary>
-		/// <param name="point">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns a <see cref="Size"/> initialized with the greatest values between the two specified sizes.</returns>
-		public static Size Max( Size point, Size other )
+		public static Size Max( Size size, Size other )
 		{
-			if( point.Width < other.Width )
-				point.Width = other.Width;
+			if( size.Width < other.Width )
+				size.Width = other.Width;
 
-			if( point.Height < other.Height )
-				point.Height = other.Height;
+			if( size.Height < other.Height )
+				size.Height = other.Height;
 
-			return point;
+			return size;
 		}
 
-		#endregion // Static
+		#endregion Static
 
 
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public static bool operator ==( Size size, Size other )
 		{
@@ -333,8 +335,8 @@ namespace ManagedX
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Size size, Size other )
 		{
@@ -344,8 +346,8 @@ namespace ManagedX
 
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns the sum of the two specified <see cref="Size"/> values.</returns>
 		public static Size operator +( Size size, Size other )
 		{
@@ -356,8 +358,8 @@ namespace ManagedX
 
 
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns the difference between the two specified <see cref="Size"/> values.</returns>
 		public static Size operator -( Size size, Size other )
 		{
@@ -368,8 +370,8 @@ namespace ManagedX
 
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns the product of the specified values.</returns>
 		public static Size operator *( Size size, Size other )
 		{
@@ -379,7 +381,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <returns>Returns the product of the specified values.</returns>
 		public static Size operator *( Size size, int value )
@@ -391,7 +393,7 @@ namespace ManagedX
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="value">An integer value.</param>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <returns>Returns the product of the specified values.</returns>
 		public static Size operator *( int value, Size size )
 		{
@@ -402,8 +404,8 @@ namespace ManagedX
 
 		
 		/// <summary>Division operator.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
-		/// <param name="other">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <returns>Returns the result of the integer division.</returns>
 		public static Size operator /( Size size, Size other )
 		{
@@ -413,7 +415,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Division operator.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <returns>Returns the result of the integer division.</returns>
 		public static Size operator /( Size size, int value )
@@ -426,14 +428,14 @@ namespace ManagedX
 
 
 		/// <summary><see cref="Point"/> conversion operator.</summary>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <returns>Returns a <see cref="Point"/> structure initialized from the specified <paramref name="size"/>.</returns>
 		public static explicit operator Point( Size size )
 		{
 			return new Point( size.Width, size.Height );
 		}
 
-		#endregion // Operators
+		#endregion Operators
 
 	}
 

@@ -25,7 +25,7 @@ namespace ManagedX
 
 
 
-		/// <summary>Initializes a new <see cref="Point"/> structure.</summary>
+		/// <summary>Initializes a new <see cref="Point"/>.</summary>
 		/// <param name="x">The X component of the point.</param>
 		/// <param name="y">The Y component of the point.</param>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x", Justification = "Seriously?" )]
@@ -37,12 +37,13 @@ namespace ManagedX
 		}
 
 
+
 		/// <summary>Gets a value indicating whether the components of this <see cref="Point"/> are set to zero.</summary>
 		public bool IsZero { get { return ( X == 0 ) && ( Y == 0 ); } }
 
 		
 		/// <summary>Offsets this <see cref="Point"/> by the specified <see cref="Point"/>.</summary>
-		/// <param name="value">A <see cref="Point"/> structure.</param>
+		/// <param name="value">A <see cref="Point"/>.</param>
 		public void Offset( Point value )
 		{
 			X += value.X;
@@ -50,7 +51,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Offsets this <see cref="Point"/> by the specified <see cref="Size"/>.</summary>
-		/// <param name="value">A <see cref="Size"/> structure.</param>
+		/// <param name="value">A <see cref="Size"/>.</param>
 		public void Offset( Size value )
 		{
 			X += value.Width;
@@ -58,38 +59,36 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a hash code for this <see cref="Point"/> structure.</summary>
-		/// <returns>Returns a hash code for this <see cref="Point"/> structure.</returns>
+		/// <summary>Returns a hash code for this <see cref="Point"/>.</summary>
+		/// <returns>Returns a hash code for this <see cref="Point"/>.</returns>
 		public override int GetHashCode()
 		{
 			return X ^ Y;
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Point"/> structure equals another structure of the same type.</summary>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <summary>Returns a value indicating whether this <see cref="Point"/> equals another structure of the same type.</summary>
+		/// <param name="other">A <see cref="Point"/>.</param>
+		/// <returns>Returns true if the points are equal, otherwise returns false.</returns>
 		public bool Equals( Point other )
 		{
-			return
-				( X == other.X ) &&
-				( Y == other.Y );
+			return ( X == other.X ) && ( Y == other.Y );
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Point"/> structure is equivalent to an object.</summary>
+		/// <summary>Returns a value indicating whether this <see cref="Point"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Point"/> structure which equals this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="Point"/> which equals this <see cref="Point"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Point ) && this.Equals( (Point)obj );
 		}
 
 
-		/// <summary>Returns a string representing this <see cref="Point"/> structure, in the form:
+		/// <summary>Returns a string representing this <see cref="Point"/>, in the form:
 		/// <para>(<see cref="X"/>,<see cref="Y"/>)</para>
 		/// </summary>
-		/// <returns>Returns a string representing this <see cref="Point"/> structure.</returns>
+		/// <returns>Returns a string representing this <see cref="Point"/>.</returns>
 		public override string ToString()
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1})", X, Y );
@@ -98,12 +97,12 @@ namespace ManagedX
 
 		#region Static
 
-		/// <summary>The zero (or empty) <see cref="Point"/> structure.</summary>
+		/// <summary>The zero (or empty) <see cref="Point"/>.</summary>
 		public static readonly Point Zero;
 
 
 		/// <summary>Negates a <see cref="Point"/>.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the negated point.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
@@ -114,7 +113,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a <see cref="Point"/> initialized with coordinates opposite to the specified <see cref="Point"/>.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <returns>Returns a <see cref="Point"/> initialized with coordinates opposite to the specified <see cref="Point"/>.</returns>
 		public static Point Negate( Point point )
 		{
@@ -126,8 +125,8 @@ namespace ManagedX
 
 
 		/// <summary>Adds two <see cref="Point"/> values.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the sum of the two specified points.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -139,8 +138,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Adds two <see cref="Point"/> values.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of ( <paramref name="point"/> + <paramref name="other"/> ).</returns>
 		public static Point Add( Point point, Point other )
 		{
@@ -151,8 +150,8 @@ namespace ManagedX
 
 
 		/// <summary>Calculates the difference between two points.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the difference between <paramref name="point"/> and <paramref name="other"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -164,8 +163,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Subtracts a <see cref="Point"/> value (<paramref name="other"/>) from another <see cref="Point"/> (<paramref name="point"/>).</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of ( <paramref name="point"/> - <paramref name="other"/> ).</returns>
 		public static Point Subtract( Point point, Point other )
 		{
@@ -176,8 +175,8 @@ namespace ManagedX
 
 
 		/// <summary>Multiplies two <see cref="Point"/> values.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the product of the two specified points.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -189,8 +188,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Multiplies two <see cref="Point"/> values.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the product of the two specified points.</returns>
 		public static Point Multiply( Point point, Point other )
 		{
@@ -201,8 +200,8 @@ namespace ManagedX
 
 
 		/// <summary>Divides two <see cref="Point"/> values.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the result of the division.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -214,8 +213,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Divides two <see cref="Point"/> values.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of the division.</returns>
 		public static Point Divide( Point point, Point other )
 		{
@@ -226,8 +225,8 @@ namespace ManagedX
 
 
 		/// <summary>Retrieves the minimum values between two points.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result"></param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -246,8 +245,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a <see cref="Point"/> initialized with the minimum values between two points.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns></returns>
 		public static Point Min( Point point, Point other )
 		{
@@ -262,8 +261,8 @@ namespace ManagedX
 
 
 		/// <summary>Retrieves the maximum values between two points.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result"></param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
@@ -282,8 +281,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a <see cref="Point"/> initialized with the maximum values between two points.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns></returns>
 		public static Point Max( Point point, Point other )
 		{
@@ -302,8 +301,8 @@ namespace ManagedX
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
 		public static bool operator ==( Point point, Point other )
 		{
@@ -312,8 +311,8 @@ namespace ManagedX
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Point point, Point other )
 		{
@@ -322,7 +321,7 @@ namespace ManagedX
 
 
 		/// <summary>Negation operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <returns>Returns a <see cref="Point"/> structure initialized with values opposite to the specified <paramref name="point"/>.</returns>
 		public static Point operator -( Point point )
 		{
@@ -333,8 +332,8 @@ namespace ManagedX
 
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of ( <paramref name="point"/> + <paramref name="other"/> ).</returns>
 		public static Point operator +( Point point, Point other )
 		{
@@ -356,7 +355,7 @@ namespace ManagedX
 
 		/// <summary>Addition operator.</summary>
 		/// <param name="value">An integer value.</param>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of the addition.</returns>
 		public static Point operator +( int value, Point point )
 		{
@@ -366,8 +365,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <returns>Returns the result of the addition.</returns>
 		public static Point operator +( Point point, Size size )
 		{
@@ -378,8 +377,8 @@ namespace ManagedX
 
 	
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of ( <paramref name="point"/> - <paramref name="other"/> ).</returns>
 		public static Point operator -( Point point, Point other )
 		{
@@ -389,7 +388,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <returns>Returns the result of the subtraction.</returns>
 		public static Point operator -( Point point, int value )
@@ -401,7 +400,7 @@ namespace ManagedX
 
 		/// <summary>Subtraction operator.</summary>
 		/// <param name="value">An integer value.</param>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of the subtraction.</returns>
 		public static Point operator -( int value, Point point)
 		{
@@ -411,8 +410,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <returns>Returns the result of the subtraction.</returns>
 		public static Point operator -( Point point, Size size )
 		{
@@ -423,8 +422,8 @@ namespace ManagedX
 
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the product of the two specified points.</returns>
 		public static Point operator *( Point point, Point other )
 		{
@@ -434,7 +433,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <returns>Returns the result of the multiplication.</returns>
 		public static Point operator *( Point point, int value )
@@ -446,7 +445,7 @@ namespace ManagedX
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="value">An integer value.</param>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of the multiplication.</returns>
 		public static Point operator *( int value, Point point )
 		{
@@ -456,8 +455,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <returns>Returns the product of <paramref name="point"/> by <paramref name="size"/>.</returns>
 		public static Point operator *( Point point, Size size )
 		{
@@ -468,8 +467,8 @@ namespace ManagedX
 
 
 		/// <summary>Division operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="other">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of the division.</returns>
 		public static Point operator /( Point point, Point other )
 		{
@@ -479,7 +478,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Division operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <returns>Returns the result of the division.</returns>
 		public static Point operator /( Point point, int value )
@@ -491,7 +490,7 @@ namespace ManagedX
 
 		/// <summary>Division operator.</summary>
 		/// <param name="value">An integer value.</param>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <returns>Returns the result of the division.</returns>
 		public static Point operator /( int value, Point point )
 		{
@@ -501,8 +500,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Division operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <param name="size">A <see cref="Size"/> structure.</param>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <returns>Returns the quotient of <paramref name="point"/> over <paramref name="size"/>.</returns>
 		public static Point operator /( Point point, Size size )
 		{
@@ -513,8 +512,8 @@ namespace ManagedX
 
 
 		/// <summary><see cref="Size"/> conversion operator.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <returns>Returns a <see cref="Size"/> structure initialized with the specified <paramref name="point"/>.</returns>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <returns>Returns a <see cref="Size"/> initialized with the specified <paramref name="point"/>.</returns>
 		public static explicit operator Size( Point point )
 		{
 			return new Size( point.X, point.Y );
