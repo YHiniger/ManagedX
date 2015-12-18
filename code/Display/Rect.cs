@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 
-namespace ManagedX
+namespace ManagedX // .Display
 {
 
 	/// <summary>Defines the (integer) coordinates of the upper-left and lower-right corners of a rectangle.</summary>
@@ -21,17 +21,19 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public int Top;
 
-		/// <summary>The position of the right side of the rectangle.</summary>
+		/// <summary>The position of the right side of the rectangle; must be greater than or equal to <see cref="Left"/>.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public int Right;
 
-		/// <summary>The position of the bottom of the rectangle.</summary>
+		/// <summary>The position of the bottom of the rectangle; must be greater than or equal to <see cref="Top"/>.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public int Bottom;
 
 
 
-		/// <summary>Initializes a new <see cref="Rect"/> structure with the specified values.</summary>
+		#region Constructors
+
+		/// <summary>Initializes a new <see cref="Rect"/>.</summary>
 		/// <param name="left">The position of the left side of the rectangle; also known as "X".</param>
 		/// <param name="top">The position of the top of the rectangle; also known as "Y".</param>
 		/// <param name="right">The position of the right side of the rectangle.</param>
@@ -45,7 +47,21 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Initializes a new <see cref="Rect"/>.</summary>
+		/// <param name="topLeftCorner">A <see cref="Point"/> indicating the position of the upper left corner.</param>
+		/// <param name="size">A <see cref="Size"/> indicating the size of the rectangle.</param>
+		public Rect( Point topLeftCorner, Size size )
+		{
+			Left = topLeftCorner.X;
+			Top = topLeftCorner.Y;
+			Right = Left + size.Width;
+			Bottom = Top + size.Height;
+		}
 
+		#endregion Constructors
+
+		
+		
 		/// <summary>Gets or sets the position of the upper left corner of the rectangle.</summary>
 		public Point UpperLeftCorner
 		{
@@ -75,7 +91,7 @@ namespace ManagedX
 
 
 		/// <summary>Gets or sets the horizontal position of the left side (<see cref="Left"/>) of the rectangle.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X", Justification = "Uniformity." )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X" )]
 		public int X
 		{
 			get { return Left; }
@@ -88,7 +104,7 @@ namespace ManagedX
 
 
 		/// <summary>Gets or sets the vertical position of the upper side (<see cref="Top"/>) of the rectangle.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y", Justification = "Uniformity." )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y" )]
 		public int Y
 		{
 			get { return Top; }
@@ -128,14 +144,59 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Gets a value indicating whether the <see cref="Size"/> of this <see cref="Rect"/> is empty (see <see cref="ManagedX.Size.Empty"/>).</summary>
+		public bool IsEmpty { get { return ( Left == Right ) && ( Top == Bottom ); } }
+
+		
+		/// <summary>Gets a value indicating whether the <see cref="Left"/>, <see cref="Top"/>, <see cref="Right"/> and <see cref="Bottom"/> of this <see cref="Rect"/> are set to zero.</summary>
+		public bool IsZero { get { return ( Left == 0 ) && ( Right == 0 ) && ( Top == 0 ) && ( Bottom == 0 ); } }
+
+
+		/// <summary>Returns an array containing the corners of this <see cref="Rect"/>.</summary>
+		/// <returns>Returns an array containing the corners of this <see cref="Rect"/>.</returns>
+		public Point[] GetCorners()
+		{
+			return new Point[]
+			{
+				new Point( Left, Top ),
+				new Point( Right, Top ),
+				new Point( Right, Bottom ),
+				new Point( Left, Bottom )
+			};
+		}
+
+		/// <summary>Copies the corners of this <see cref="Rect"/> to an array.</summary>
+		/// <param name="corners">An array to receive the corners of this <see cref="Rect"/>; must not be null, and must contain at least 4 + <paramref name="startIndex"/> elements.</param>
+		/// <param name="startIndex">The zero-based index the copy should start at.</param>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public void GetCorners( Point[] corners, int startIndex )
+		{
+			if( corners == null )
+				throw new ArgumentNullException( "corners" );
+
+			if( corners.Length < 4 )
+				throw new ArgumentException( "Not enough corners.", "corners" );
+
+			if( startIndex < 0 || startIndex + 4 > corners.Length )
+				throw new ArgumentOutOfRangeException( "startIndex" );
+
+			corners[ startIndex + 0 ] = new Point( Left, Top );
+			corners[ startIndex + 1 ] = new Point( Right, Top );
+			corners[ startIndex + 2 ] = new Point( Right, Bottom );
+			corners[ startIndex + 3 ] = new Point( Left, Bottom );
+		}
+
+
 		#region Contains
 
 		/// <summary>Returns a value indicating whether this rectangle contains or intersects a point, given its coordinates.</summary>
 		/// <param name="x">The position of the point along the horizontal axis.</param>
 		/// <param name="y">The position of the point along the vertical axis.</param>
 		/// <returns>Returns a value indicating whether this rectangle contains or intersects the specified coordinates.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x", Justification = "Seriously?" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y", Justification = "Seriously?" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
 		public ContainmentType Contains( int x, int y )
 		{
 			if( x < Left || x > Right || y < Top || y > Bottom )
@@ -207,7 +268,30 @@ namespace ManagedX
 			return ContainmentType.Intersects;
 		}
 
-		#endregion
+		#endregion Contains
+
+
+		#region Intersects
+
+		/// <summary>Determines whether this <see cref="Rect"/> intersects another <see cref="Rect"/>.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="result">Receives a value indicating whether the rectangles intersect.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		public void Intersects( ref Rect rect, out bool result )
+		{
+			result = ( Right > rect.X && Left < rect.Right && Bottom > rect.Top && Top < rect.Bottom ); 
+		}
+
+		/// <summary>Returns a value indicating whether this <see cref="Rect"/> intersects another <see cref="Rect"/>.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <returns>Returns a value indicating whether the rectangles intersect.</returns>
+		public bool Intersects( Rect rect )
+		{
+			return ( Right > rect.X && Left < rect.Right && Bottom > rect.Top && Top < rect.Bottom );
+		}
+
+		#endregion Intersects
 
 
 		/// <summary>Offsets the rectangle by the specified amounts.</summary>
@@ -222,7 +306,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Offsets the rectangle by the specified amount.</summary>
-		/// <param name="amount">A <see cref="Point"/> structure containing the horizontal and vertical amount.</param>
+		/// <param name="amount">A <see cref="Point"/> indicating the horizontal and vertical amounts.</param>
 		public void Offset( Point amount )
 		{
 			Left += amount.X;
@@ -232,7 +316,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Offsets the rectangle by the specified amount.</summary>
-		/// <param name="amount">A <see cref="Size"/> structure containing the horizontal and vertical amount.</param>
+		/// <param name="amount">A <see cref="Size"/> indicating the horizontal and vertical amounts.</param>
 		public void Offset( Size amount )
 		{
 			Left += amount.Width;
@@ -254,7 +338,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Pushes the edges of the rectangle by the specified amount.</summary>
-		/// <param name="amount">A <see cref="Size"/> structure containing the horizontal and vertical amount.</param>
+		/// <param name="amount">A <see cref="Size"/> indicating the horizontal and vertical amounts.</param>
 		public void Inflate( Size amount )
 		{
 			Left -= amount.Width;
@@ -264,42 +348,34 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Gets a value indicating whether the <see cref="Size"/> of this <see cref="Rect"/> is empty (see <see cref="ManagedX.Size.Empty"/>).</summary>
-		public bool IsEmpty { get { return ( Left == Right ) && ( Top == Bottom ); } }
-
-		
-		/// <summary>Gets a value indicating whether the <see cref="Left"/>, <see cref="Top"/>, <see cref="Right"/> and <see cref="Bottom"/> of this <see cref="Rect"/> are set to zero.</summary>
-		public bool IsZero { get { return ( Left == 0 ) && ( Right == 0 ) && ( Top == 0 ) && ( Bottom == 0 ); } }
-
-
-		/// <summary>Returns a hash code for this <see cref="Rect"/> structure.</summary>
-		/// <returns>Returns a hash code for this <see cref="Rect"/> structure.</returns>
+		/// <summary>Returns a hash code for this <see cref="Rect"/>.</summary>
+		/// <returns>Returns a hash code for this <see cref="Rect"/>.</returns>
 		public override int GetHashCode()
 		{
 			return Left ^ Top ^ Right ^ Bottom;
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Rect"/> structure equals another structure of the same type.</summary>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
-		/// <returns>Returns true if this structure and the <paramref name="other"/> structure are equal, otherwise returns false.</returns>
+		/// <summary>Returns a value indicating whether this <see cref="Rect"/> equals another <see cref="Rect"/>.</summary>
+		/// <param name="other">A <see cref="Rect"/>.</param>
+		/// <returns>Returns true if this <see cref="Rect"/> and the <paramref name="other"/> <see cref="Rect"/> are equal, otherwise returns false.</returns>
 		public bool Equals( Rect other )
 		{
 			return ( Left == other.Left ) && ( Top == other.Top ) && ( Right == other.Right ) && ( Bottom == other.Bottom );
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Rect"/> structure is equivalent to an object.</summary>
+		/// <summary>Returns a value indicating whether this <see cref="Rect"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Rect"/> structure which equals this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="Rect"/> which equals this <see cref="Rect"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Rect ) && this.Equals( (Rect)obj );
 		}
 
 
-		/// <summary>Returns a string representing this <see cref="Rect"/> structure.</summary>
-		/// <returns>Returns a string representing this <see cref="Rect"/> structure.</returns>
+		/// <summary>Returns a string representing this <see cref="Rect"/>.</summary>
+		/// <returns>Returns a string representing this <see cref="Rect"/>.</returns>
 		public override string ToString()
 		{
 			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{{Left: {0}, Top: {1}, Right: {2}, Bottom: {3}}}", Left, Top, Right, Bottom );
@@ -308,12 +384,12 @@ namespace ManagedX
 
 		#region Static
 
-		/// <summary>The «zero» <see cref="Rect"/> structure.</summary>
+		/// <summary>The «zero» <see cref="Rect"/>.</summary>
 		public static readonly Rect Zero;
 
 
-		/// <summary>Negates a <see cref="Rect"/> structure.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <summary>Negates a <see cref="Rect"/>.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <param name="result">Receives the negated <paramref name="rect"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
@@ -325,8 +401,8 @@ namespace ManagedX
 			result.Bottom = -rect.Top;
 		}
 
-		/// <summary>Negates a <see cref="Rect"/> structure.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <summary>Negates a <see cref="Rect"/>.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <returns>Returns the negated <paramref name="rect"/>.</returns>
 		public static Rect Negate( Rect rect )
 		{
@@ -335,8 +411,8 @@ namespace ManagedX
 
 
 		/// <summary>Creates a rectangle containing the two specified rectangles.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
 		/// <param name="result">Receives the rectangle containing the two specified rectangles.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
@@ -350,8 +426,8 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a rectangle containing the two specified rectangles.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
 		/// <returns>Returns a rectangle containing the two specified rectangles.</returns>
 		public static Rect Union( Rect rect, Rect other )
 		{
@@ -363,9 +439,9 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Creates a <see cref="Rect"/> structure defining the area where one rectangle overlaps with another rectangle.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <summary>Creates a <see cref="Rect"/> defining the area where one rectangle overlaps with another rectangle.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
 		/// <param name="result">Receives the area where the two rectangles overlap.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
@@ -389,9 +465,9 @@ namespace ManagedX
 			result = Rect.Zero;
 		}
 
-		/// <summary>Returns a <see cref="Rect"/> structure defining the area where one rectangle overlaps with another rectangle.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <summary>Returns a <see cref="Rect"/> defining the area where one rectangle overlaps with another rectangle.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
 		/// <returns>Returns the area where the two rectangles overlap.</returns>
 		public static Rect Intersect( Rect rect, Rect other )
 		{
@@ -412,80 +488,40 @@ namespace ManagedX
 			return Rect.Zero;
 		}
 
-		#endregion // Static
+		#endregion Static
 
 
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
+		/// <returns>Returns true if the rectangles are equal, otherwise returns false.</returns>
 		public static bool operator ==( Rect rect, Rect other )
 		{
-			return rect.Equals( other );
+			return ( rect.Left == other.Left ) && ( rect.Top == other.Top ) && ( rect.Right == other.Right ) && ( rect.Bottom == other.Bottom );
 		}
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
-		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
+		/// <returns>Returns true if the rectangles are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Rect rect, Rect other )
 		{
-			return !rect.Equals( other );
+			return ( rect.Left != other.Left ) || ( rect.Top != other.Top ) || ( rect.Right != other.Right ) || ( rect.Bottom != other.Bottom );
 		}
 
 
 		/// <summary>Unary negation operator.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <returns>Returns the negated <paramref name="rect"/>.</returns>
 		public static Rect operator -( Rect rect )
 		{
 			return new Rect( -rect.Right, -rect.Bottom, -rect.Left, -rect.Top );
 		}
 
-
-		/// <summary>Union operator.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
-		/// <returns>Returns a rectangle containing the two specified rectangles.</returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "Union is the alternate method." )]
-		public static Rect operator +( Rect rect, Rect other )
-		{
-			rect.Left = Math.Min( rect.Left, other.Left );
-			rect.Top = Math.Min( rect.Top, other.Top );
-			rect.Right = Math.Max( rect.Right, other.Right );
-			rect.Bottom = Math.Max( rect.Bottom, other.Bottom );
-			return rect;
-		}
-
-
-		/// <summary>Intersection operator.</summary>
-		/// <param name="rect">A <see cref="Rect"/> structure.</param>
-		/// <param name="other">A <see cref="Rect"/> structure.</param>
-		/// <returns>Returns the area where the two rectangles overlap.</returns>
-		[SuppressMessage( "Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates", Justification = "Intersect is the alternate method." )]
-		public static Rect operator -( Rect rect, Rect other )
-		{
-			var left = Math.Max( rect.Left, other.Left );
-			var top = Math.Max( rect.Top, other.Top );
-			var right = Math.Min( rect.Right, other.Right );
-			var bottom = Math.Min( rect.Bottom, other.Bottom );
-
-			if( right > left && bottom > top )
-			{
-				rect.Left = left;
-				rect.Top = top;
-				rect.Right = right;
-				rect.Bottom = bottom;
-				return rect;
-			}
-
-			return Rect.Zero;
-		}
-
-		#endregion // Operators
+		#endregion Operators
 
 	}
 

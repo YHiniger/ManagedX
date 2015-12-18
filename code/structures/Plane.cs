@@ -35,7 +35,7 @@ namespace ManagedX
 
 
 		/// <summary>Initializes a new <see cref="Plane"/>.</summary>
-		/// <param name="value">A <see cref="Vector4"/> with X, Y, and Z components defining the normal of the plane. The W component defines the distance of the plane along the normal from the origin.</param>
+		/// <param name="value">A <see cref="Vector4"/> with X, Y, and Z components defining the normal of the plane, and the W component defining the distance of the plane along its normal from the origin.</param>
 		public Plane( Vector4 value )
 		{
 			Normal.X = value.X;

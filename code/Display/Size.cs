@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 
-namespace ManagedX
+namespace ManagedX // .Display
 {
 	
 	/// <summary>Represents an integer size in 2D space.</summary>
@@ -25,26 +25,18 @@ namespace ManagedX
 
 		#region Constructors
 
-		/// <summary>Initializes a new <see cref="Size"/> structure.</summary>
-		/// <param name="width">The width component of the size; must be greater than or equal to zero.</param>
-		/// <param name="height">The height component of the size; must be greater than or equal to zero.</param>
-		/// <exception cref="ArgumentOutOfRangeException"></exception>
+		/// <summary>Initializes a new <see cref="Size"/>.</summary>
+		/// <param name="width">The width component of the size; should be greater than or equal to zero.</param>
+		/// <param name="height">The height component of the size; should be greater than or equal to zero.</param>
 		public Size( int width, int height )
 		{
-			if( width < 0 )
-				throw new ArgumentOutOfRangeException( "width" );
-			
-			if( height < 0 )
-				throw new ArgumentOutOfRangeException( "height" );
-			
 			Width = width;
 			Height = height;
 		}
 
 
-		/// <summary>Initializes a new <see cref="Size"/> structure from a <see cref="Point"/>.</summary>
-		/// <param name="point">A <see cref="Point"/> structure.</param>
-		/// <exception cref="ArgumentOutOfRangeException"></exception>
+		/// <summary>Initializes a new <see cref="Size"/> from a <see cref="Point"/>.</summary>
+		/// <param name="point">A <see cref="Point"/>.</param>
 		public Size( Point point )
 		{
 			Width = point.X;
@@ -98,11 +90,11 @@ namespace ManagedX
 
 		#region Static
 
-		/// <summary>The empty (or zero) <see cref="Size"/>.</summary>
+		/// <summary>The empty (or «zero») <see cref="Size"/>.</summary>
 		public static readonly Size Empty = new Size();
 
 
-		/// <summary>Adds two <see cref="Size"/> structures.</summary>
+		/// <summary>Adds two <see cref="Size"/> values.</summary>
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the sum of the specified sizes.</param>

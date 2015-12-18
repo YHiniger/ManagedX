@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 
-namespace ManagedX
+namespace ManagedX // .Display
 {
 
 	/// <summary>Defines the (integer) coordinates of a point in 2D space.</summary>
@@ -97,7 +97,7 @@ namespace ManagedX
 
 		#region Static
 
-		/// <summary>The zero (or empty) <see cref="Point"/>.</summary>
+		/// <summary>The «zero» (or empty) <see cref="Point"/>.</summary>
 		public static readonly Point Zero;
 
 
