@@ -12,8 +12,11 @@ namespace ManagedX
 	public struct Ray : IEquatable<Ray>
 	{
 
-		private const float DistanceThreshold = 1E-05f;
-		private const float DirectionThreshold = 1E-06f;
+		/// <summary>Defines the default threshold value used in intersection detection.</summary>
+		public const float DefaultIntersectionThreshold = 1E-05f; // Ray, Plane, BoundingFrustum
+		
+		/// <summary>Defines the default threshold value used in <see cref="BoundingBox"/> and <see cref="Vector3"/> intersection detection.</summary>
+		public const float DefaultBoxIntersectionThreshold = 1E-06f; // Vector3, BoundingBox
 
 
 		/// <summary>The starting position (=source) of the ray.</summary>
@@ -60,7 +63,7 @@ namespace ManagedX
 
 			result = vector.Length;
 
-			if( RdotP / result < 1.0f - DirectionThreshold )
+			if( RdotP / result < 1.0f - DefaultBoxIntersectionThreshold )
 				result = float.NaN;
 		}
 
@@ -79,7 +82,7 @@ namespace ManagedX
 				return float.NaN;
 
 			var result = vector.Length;
-			if( RdotP / result < 1.0f - DirectionThreshold )
+			if( RdotP / result < 1.0f - DefaultBoxIntersectionThreshold )
 				return float.NaN;
 
 			return result;
@@ -115,7 +118,7 @@ namespace ManagedX
 
 			float dot;
 			Vector3.Dot( ref rayDirection2, ref rayDirection, out dot );
-			if( Math.Abs( dot / rayLength ) < 1.0f - DistanceThreshold )
+			if( Math.Abs( dot / rayLength ) < 1.0f - DefaultIntersectionThreshold )
 				result = float.NaN;
 		}
 
@@ -144,7 +147,7 @@ namespace ManagedX
 
 			float dot;
 			Vector3.Dot( ref rayDirection, ref ray.Direction, out dot );
-			if( Math.Abs( dot ) < 1.0f - DistanceThreshold )
+			if( Math.Abs( dot ) < 1.0f - DefaultIntersectionThreshold )
 				result = float.NaN;
 			
 			return result;
@@ -162,12 +165,12 @@ namespace ManagedX
 			
 			var planeNormal = plane.Normal;
 			var NdotD = planeNormal.X * Direction.X + planeNormal.Y * Direction.Y + planeNormal.Z * Direction.Z;
-			if( Math.Abs( NdotD ) < DistanceThreshold )
+			if( Math.Abs( NdotD ) < DefaultIntersectionThreshold )
 				return;
 			
 			var NdotP = planeNormal.X * Position.X + planeNormal.Y * Position.Y + planeNormal.Z * Position.Z;
 			var distance = ( -plane.Distance - NdotP ) / NdotD;
-			if( distance < -DistanceThreshold )
+			if( distance < -DefaultIntersectionThreshold )
 				return;
 
 			result = distance;
@@ -180,12 +183,12 @@ namespace ManagedX
 		{
 			var planeNormal = plane.Normal;
 			var NdotD = planeNormal.X * Direction.X + planeNormal.Y * Direction.Y + planeNormal.Z * Direction.Z;
-			if( Math.Abs( NdotD ) < DistanceThreshold )
+			if( Math.Abs( NdotD ) < DefaultIntersectionThreshold )
 				return float.NaN;
 
 			var NdotP = planeNormal.X * Position.X + planeNormal.Y * Position.Y + planeNormal.Z * Position.Z;
 			var distance = ( -plane.Distance - NdotP ) / NdotD;
-			if( distance < -DistanceThreshold )
+			if( distance < -DefaultIntersectionThreshold )
 				return float.NaN;
 
 			return distance;
@@ -206,7 +209,7 @@ namespace ManagedX
 			var maxDistance = 0.0f;
 			var minDistance = float.MaxValue;
 
-			if( Math.Abs( Direction.X ) < DirectionThreshold )
+			if( Math.Abs( Direction.X ) < DefaultBoxIntersectionThreshold )
 			{
 				if( Position.X < boxMin.X || Position.X > boxMax.X )
 					return;
@@ -228,7 +231,7 @@ namespace ManagedX
 					return;
 			}
 
-			if( Math.Abs( Direction.Y ) < DirectionThreshold )
+			if( Math.Abs( Direction.Y ) < DefaultBoxIntersectionThreshold )
 			{
 				if( Position.Y < boxMin.Y || Position.Y > boxMax.Y )
 					return;
@@ -250,7 +253,7 @@ namespace ManagedX
 					return;
 			}
 
-			if( Math.Abs( Direction.Z ) < DirectionThreshold )
+			if( Math.Abs( Direction.Z ) < DefaultBoxIntersectionThreshold )
 			{
 				if( Position.Z < boxMin.Z || Position.Z > boxMax.Z )
 					return;
@@ -285,7 +288,7 @@ namespace ManagedX
 			var maxDistance = 0.0f;
 			var minDistance = float.MaxValue;
 
-			if( Math.Abs( Direction.X ) < DirectionThreshold )
+			if( Math.Abs( Direction.X ) < DefaultBoxIntersectionThreshold )
 			{
 				if( Position.X < boxMin.X || Position.X > boxMax.X )
 					return float.NaN;
@@ -307,7 +310,7 @@ namespace ManagedX
 					return float.NaN;
 			}
 
-			if( Math.Abs( Direction.Y ) < DirectionThreshold )
+			if( Math.Abs( Direction.Y ) < DefaultBoxIntersectionThreshold )
 			{
 				if( Position.Y < boxMin.Y || Position.Y > boxMax.Y )
 					return float.NaN;
@@ -329,7 +332,7 @@ namespace ManagedX
 					return float.NaN;
 			}
 
-			if( Math.Abs( Direction.Z ) < DirectionThreshold )
+			if( Math.Abs( Direction.Z ) < DefaultBoxIntersectionThreshold )
 			{
 				if( Position.Z < boxMin.Z || Position.Z > boxMax.Z )
 					return float.NaN;
@@ -440,52 +443,60 @@ namespace ManagedX
 				return;
 			}
 
-			var min = float.MaxValue;
-			var max = float.MinValue;
+			var minRatio = float.MaxValue;
+			var maxRatio = float.MinValue;
 
 			result = float.NaN;
+			
+			float NdotD, NdotP, ratio;
+			Plane plane;
 			for( var i = 0; i < BoundingFrustum.PlaneCount; i++ )
 			{
-				var plane = planes[ i ];
-				var normal = plane.Normal;
+				plane = planes[ i ];
 				
-				float NdotD;
-				Vector3.Dot( ref Direction, ref normal, out NdotD );
+				Vector3.Dot( ref Direction, ref plane.Normal, out NdotD );
 				
-				float NdotP;
-				Vector3.Dot( ref Position, ref normal, out NdotP );
+				Vector3.Dot( ref Position, ref plane.Normal, out NdotP );
 				NdotP += plane.Distance;
-				
-				if( Math.Abs( NdotD ) < DistanceThreshold )
+
+				if( Math.Abs( NdotD ) < DefaultIntersectionThreshold )
 				{
 					if( NdotP > 0.0f )
 						return;
 				}
 				else
 				{
-					var a = -NdotP / NdotD;
+					ratio = -NdotP / NdotD;
 					if( NdotD < 0.0f )
 					{
-						if( a > min )
+						if( ratio > minRatio )
 							return;
-						
-						if( a > max )
-							max = a;
+
+						if( ratio > maxRatio )
+							maxRatio = ratio;
 					}
 					else
 					{
-						if( a < max )
+						if( ratio < maxRatio )
 							return;
-						
-						if( a < min )
-							min = a;
+
+						if( ratio < minRatio )
+							minRatio = ratio;
 					}
 				}
 			}
-			
-			var b = ( max >= 0.0f ) ? max : min;
-			if( b >= 0.0f )
-				result = b;
+
+			if( maxRatio >= 0.0f )
+			{
+				result = maxRatio;
+				return;
+			}
+
+			if( minRatio >= 0.0f )
+			{
+				result = minRatio;
+				return;
+			}
 		}
 
 		/// <summary>Returns the distance this <see cref="Ray"/> intersects a <see cref="BoundingFrustum"/> at, or NaN if there is no intersection.</summary>
@@ -501,51 +512,51 @@ namespace ManagedX
 			if( containmentType == ContainmentType.Contains )
 				return 0.0f;
 
-			var min = float.MaxValue;
-			var max = float.MinValue;
+			var minRatio = float.MaxValue;
+			var maxRatio = float.MinValue;
 
+			float NdotD, NdotP, ratio;
+			Plane plane;
 			for( var i = 0; i < BoundingFrustum.PlaneCount; i++ )
 			{
-				var plane = frustum.planes[ i ];
-				var normal = plane.Normal;
+				plane = frustum.planes[ i ];
 
-				float NdotD;
-				Vector3.Dot( ref Direction, ref normal, out NdotD );
-
-				float NdotP;
-				Vector3.Dot( ref Position, ref normal, out NdotP );
+				Vector3.Dot( ref Direction, ref plane.Normal, out NdotD );
+				Vector3.Dot( ref Position, ref plane.Normal, out NdotP );
 				NdotP += plane.Distance;
 
-				if( Math.Abs( NdotD ) < DistanceThreshold )
+				if( Math.Abs( NdotD ) < DefaultIntersectionThreshold )
 				{
 					if( NdotP > 0.0f )
 						return float.NaN;
 				}
 				else
 				{
-					var a = -NdotP / NdotD;
+					ratio = -NdotP / NdotD;
 					if( NdotD < 0.0f )
 					{
-						if( a > min )
+						if( ratio > minRatio )
 							return float.NaN;
 
-						if( a > max )
-							max = a;
+						if( ratio > maxRatio )
+							maxRatio = ratio;
 					}
 					else
 					{
-						if( a < max )
+						if( ratio < maxRatio )
 							return float.NaN;
 
-						if( a < min )
-							min = a;
+						if( ratio < minRatio )
+							minRatio = ratio;
 					}
 				}
 			}
 
-			var b = ( max >= 0.0f ) ? max : min;
-			if( b >= 0.0f )
-				return b;
+			if( maxRatio >= 0.0f )
+				return maxRatio;
+
+			if( minRatio >= 0.0f )
+				return minRatio;
 
 			return float.NaN;
 		}
@@ -590,7 +601,7 @@ namespace ManagedX
 
 
 
-		/// <summary>The "zero" (and invalid) <see cref="Ray"/>.</summary>
+		/// <summary>The «zero» (and invalid) <see cref="Ray"/>.</summary>
 		public static readonly Ray Zero;
 
 

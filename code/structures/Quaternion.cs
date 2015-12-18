@@ -722,17 +722,17 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a hash code for this <see cref="Quaternion"/> structure.</summary>
-		/// <returns>Returns a hash code for this <see cref="Quaternion"/> structure.</returns>
+		/// <summary>Returns a hash code for this <see cref="Quaternion"/>.</summary>
+		/// <returns>Returns a hash code for this <see cref="Quaternion"/>.</returns>
 		public override int GetHashCode()
 		{
 			return this.X.GetHashCode() ^ this.Y.GetHashCode() ^ this.Z.GetHashCode() ^ this.W.GetHashCode();
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Quaternion"/> structure equals another structure of the same type.</summary>
-		/// <param name="other">A <see cref="Quaternion"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <summary>Returns a value indicating whether this <see cref="Quaternion"/> equals another <see cref="Quaternion"/>.</summary>
+		/// <param name="other">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns true if the quaternions are equal, otherwise returns false.</returns>
 		public bool Equals( Quaternion other )
 		{
 			return
@@ -742,48 +742,46 @@ namespace ManagedX
 				( W == other.W );
 		}
 
+		internal bool Equals( ref Quaternion other )
+		{
+			return
+				( X == other.X ) &&
+				( Y == other.Y ) &&
+				( Z == other.Z ) &&
+				( W == other.W );
+		}
 
-		/// <summary>Returns a value indicating whether this <see cref="Quaternion"/> structure is equivalent to an object.</summary>
+
+		/// <summary>Returns a value indicating whether this <see cref="Quaternion"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Quaternion"/> structure which equals this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="Quaternion"/> which equals this <see cref="Quaternion"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Quaternion ) && this.Equals( (Quaternion)obj );
 		}
 
 
-		/// <summary>Returns a string representing this <see cref="Quaternion"/> structure, in the form:
+		/// <summary>Returns a string representing this <see cref="Quaternion"/>, in the form:
 		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>,<see cref="W"/>)</para>
 		/// </summary>
-		/// <param name="formatProvider">The format provider.</param>
-		/// <returns>Returns a string representing this <see cref="Quaternion"/> structure.</returns>
-		public string ToString( IFormatProvider formatProvider )
+		/// <returns>Returns a string representing this <see cref="Quaternion"/>.</returns>
+		public override string ToString()
 		{
-			return string.Format( formatProvider ?? System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2},{3})", X, Y, Z, W );
+			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "{{{0},{1},{2},{3}}}", X, Y, Z, W );
 			// FIXME - what's the "math syntax" for a quaternion ?
 		}
 
 
-		/// <summary>Returns a string representing this <see cref="Quaternion"/> structure, in the form:
-		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>,<see cref="W"/>)</para>
-		/// </summary>
-		/// <returns>Returns a string representing this <see cref="Quaternion"/> structure.</returns>
-		public override string ToString()
-		{
-			return this.ToString( System.Globalization.CultureInfo.InvariantCulture );
-		}
-
-
-		/// <summary>Returns an array containing, respectively, the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/> structure.</summary>
-		/// <returns>Returns an array containing the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/> structure.</returns>
+		/// <summary>Returns an array containing, respectively, the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</summary>
+		/// <returns>Returns an array containing the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</returns>
 		public float[] ToArray()
 		{
 			return new float[] { this.X, this.Y, this.Z, this.W };
 		}
 
 
-		/// <summary>Returns a <see cref="Vector4"/> structure initialized with the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</summary>
-		/// <returns>Returns a <see cref="Vector4"/> structure initialized with the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</returns>
+		/// <summary>Returns a <see cref="Vector4"/> initialized with the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</summary>
+		/// <returns>Returns a <see cref="Vector4"/> initialized with the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</returns>
 		public Vector4 ToVector4()
 		{
 			return new Vector4( X, Y, Z, W );

@@ -25,7 +25,7 @@ namespace ManagedX
 		#region Constructors
 		
 		/// <summary>Initializes a new <see cref="Plane"/>.</summary>
-		/// <param name="normal">The normal of the plane; must be normalized.</param>
+		/// <param name="normal">The normal of the plane; should be normalized.</param>
 		/// <param name="distance">The distance of the plane along its normal from the origin.</param>
 		public Plane( Vector3 normal, float distance )
 		{
@@ -92,12 +92,12 @@ namespace ManagedX
 		public void Normalize()
 		{
 			var lengthSquared = Normal.X * Normal.X + Normal.Y * Normal.Y + Normal.Z * Normal.Z;
-			if( Math.Abs( lengthSquared - 1.0f ) < 1.1920929E-07f )
+			if( lengthSquared == 0.0f )
 				return;
 
-			var invLength = 1.0f / (float)Math.Sqrt( (double)lengthSquared );
-			Normal *= invLength;
-			Distance *= invLength;
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)lengthSquared );
+			Normal *= oneOverLength;
+			Distance *= oneOverLength;
 		}
 
 
@@ -423,7 +423,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public void Intersects( ref BoundingFrustum frustum, out PlaneIntersectionType result )
 		{
-			var corners = frustum.cornerArray;
+			var corners = frustum.corners;
 			if( corners == null || corners.Length != BoundingFrustum.CornerCount )
 				throw new ArgumentException( "Invalid bounding frustum.", "frustum" );
 
@@ -433,7 +433,7 @@ namespace ManagedX
 			{
 				Vector3.Dot( ref Normal, ref corners[ i ], out NdotP );
 				
-				if( NdotP + Distance > 0f )
+				if( NdotP + Distance > 0.0f )
 					flags |= 1;
 				else
 					flags |= 2;
@@ -454,7 +454,7 @@ namespace ManagedX
 		public PlaneIntersectionType Intersects( BoundingFrustum frustum )
 		{
 			var flags = 0;
-			var corners = frustum.cornerArray;
+			var corners = frustum.corners;
 
 			float NdotP;
 			for( var i = 0; i < BoundingFrustum.CornerCount; i++ )
@@ -514,7 +514,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>The "zero" (and invalid) <see cref="Plane"/>.</summary>
+		/// <summary>The «zero» (and invalid) <see cref="Plane"/>.</summary>
 		public static readonly Plane Zero;
 
 
@@ -528,16 +528,16 @@ namespace ManagedX
 			var planeNormal = plane.Normal;
 			
 			var lengthSquared = planeNormal.X * planeNormal.X + planeNormal.Y * planeNormal.Y + planeNormal.Z * planeNormal.Z;
-			if( Math.Abs( lengthSquared - 1.0f ) < 1.1920929E-07f )
+			if( lengthSquared == 0.0f )
 			{
 				result.Normal = planeNormal;
 				result.Distance = plane.Distance;
 				return;
 			}
 			
-			var invLength = 1.0f / (float)Math.Sqrt( (double)lengthSquared );
-			result.Normal = planeNormal * invLength;
-			result.Distance = plane.Distance * invLength;
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)lengthSquared );
+			result.Normal = planeNormal * oneOverLength;
+			result.Distance = plane.Distance * oneOverLength;
 		}
 
 		/// <summary>Returns a <see cref="Plane"/> whose <see cref="Normal"/> coefficients have been changed to make it of unit length.</summary>
@@ -546,12 +546,12 @@ namespace ManagedX
 		public static Plane Normalize( Plane plane )
 		{
 			var lengthSquared = plane.Normal.X * plane.Normal.X + plane.Normal.Y * plane.Normal.Y + plane.Normal.Z * plane.Normal.Z;
-			if( Math.Abs( lengthSquared - 1.0f ) < 1.1920929E-07f )
+			if( lengthSquared == 0.0f )
 				return plane;
 			
-			var invLength = 1.0f / (float)Math.Sqrt( (double)lengthSquared );
-			plane.Normal *= invLength;
-			plane.Distance *= invLength;
+			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)lengthSquared );
+			plane.Normal *= oneOverLength;
+			plane.Distance *= oneOverLength;
 
 			return plane;
 		}
@@ -560,9 +560,9 @@ namespace ManagedX
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="plane">A <see cref="Plane"/> structure.</param>
-		/// <param name="other">A <see cref="Plane"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <param name="plane">A <see cref="Plane"/>.</param>
+		/// <param name="other">A <see cref="Plane"/>.</param>
+		/// <returns>Returns true if the planes are equal, otherwise returns false.</returns>
 		public static bool operator ==( Plane plane, Plane other )
 		{
 			return ( plane.Distance == other.Distance ) && plane.Normal.Equals( ref other.Normal );
@@ -570,9 +570,9 @@ namespace ManagedX
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="plane">A <see cref="Plane"/> structure.</param>
-		/// <param name="other">A <see cref="Plane"/> structure.</param>
-		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
+		/// <param name="plane">A <see cref="Plane"/>.</param>
+		/// <param name="other">A <see cref="Plane"/>.</param>
+		/// <returns>Returns true if the planes are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Plane plane, Plane other )
 		{
 			return ( plane.Distance != other.Distance ) || !plane.Normal.Equals( ref other.Normal );
