@@ -196,10 +196,66 @@ namespace ManagedX
 		/// <returns>Returns a value indicating whether this <see cref="BoundingSphere"/> contains the specified <paramref name="box"/>.</returns>
 		public ContainmentType Contains( BoundingBox box )
 		{
-			// TODO - unroll:
-			ContainmentType result;
-			this.Contains( ref box, out result );
-			return result;
+			bool intersects;
+			box.Intersects( ref this, out intersects );
+			if( !intersects )
+				return ContainmentType.Disjoint;
+
+			var radiusSquared = Radius * Radius;
+
+			var boxMin = box.Min;
+			var boxMax = box.Max;
+
+			Vector3 vector;
+			vector.X = Center.X - boxMin.X;
+			vector.Y = Center.Y - boxMax.Y;
+			vector.Z = Center.Z - boxMax.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			vector.X = Center.X - boxMax.X;
+			vector.Y = Center.Y - boxMax.Y;
+			vector.Z = Center.Z - boxMax.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			vector.X = Center.X - boxMax.X;
+			vector.Y = Center.Y - boxMin.Y;
+			vector.Z = Center.Z - boxMax.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			vector.X = Center.X - boxMin.X;
+			vector.Y = Center.Y - boxMin.Y;
+			vector.Z = Center.Z - boxMax.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			vector.X = Center.X - boxMin.X;
+			vector.Y = Center.Y - boxMax.Y;
+			vector.Z = Center.Z - boxMin.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			vector.X = Center.X - boxMax.X;
+			vector.Y = Center.Y - boxMax.Y;
+			vector.Z = Center.Z - boxMin.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			vector.X = Center.X - boxMax.X;
+			vector.Y = Center.Y - boxMin.Y;
+			vector.Z = Center.Z - boxMin.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			vector.X = Center.X - boxMin.X;
+			vector.Y = Center.Y - boxMin.Y;
+			vector.Z = Center.Z - boxMin.Z;
+			if( vector.LengthSquared > radiusSquared )
+				return ContainmentType.Intersects;
+
+			return ContainmentType.Contains;
 		}
 
 
@@ -360,7 +416,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="BoundingSphere"/> equals another bounding box.</summary>
+		/// <summary>Returns a value indicating whether this <see cref="BoundingSphere"/> equals another <see cref="BoundingSphere"/>.</summary>
 		/// <param name="other">A <see cref="BoundingSphere"/>.</param>
 		/// <returns>Returns true if the bounding spheres are equal, otherwise returns false.</returns>
 		public bool Equals( BoundingSphere other )
@@ -371,7 +427,7 @@ namespace ManagedX
 
 		/// <summary>Returns a value indicating whether this <see cref="BoundingSphere"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="BoundingSphere"/> which equals this bounding sphere, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="BoundingSphere"/> which equals this <see cref="BoundingSphere"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is BoundingSphere ) && this.Equals( (BoundingSphere)obj );
@@ -379,7 +435,7 @@ namespace ManagedX
 
 
 
-		/// <summary>Creates a <see cref="BoundingSphere"/> that contains the two specified <see cref="BoundingSphere"/> instances.</summary>
+		/// <summary>Creates a <see cref="BoundingSphere"/> that contains the two specified bounding spheres.</summary>
 		/// <param name="sphere">The <see cref="BoundingSphere"/> to be merged.</param>
 		/// <param name="other">The other <see cref="BoundingSphere"/> to be merged.</param>
 		/// <param name="result">Receives the resulting <see cref="BoundingSphere"/>.</param>

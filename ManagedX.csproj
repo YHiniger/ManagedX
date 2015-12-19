@@ -65,6 +65,7 @@
     <Compile Include="code\structures\Plane.cs" />
     <Compile Include="code\structures\Quaternion.cs" />
     <Compile Include="code\structures\Ray.cs" />
+    <Compile Include="code\structures\ScaleRotationTranslation.cs" />
     <Compile Include="code\structures\Vector4.cs" />
     <Compile Include="code\MissingRequirementException.cs" />
     <Compile Include="code\structures\Vector3.cs" />

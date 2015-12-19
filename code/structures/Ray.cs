@@ -18,6 +18,8 @@ namespace ManagedX
 		/// <summary>Defines the default threshold value used in <see cref="BoundingBox"/> and <see cref="Vector3"/> intersection detection.</summary>
 		public const float DefaultBoxIntersectionThreshold = 1E-06f; // Vector3, BoundingBox
 
+		// TODO - add threshold support to intersection detection methods
+
 
 		/// <summary>The starting position (=source) of the ray.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
@@ -82,6 +84,7 @@ namespace ManagedX
 				return float.NaN;
 
 			var result = vector.Length;
+			
 			if( RdotP / result < 1.0f - DefaultBoxIntersectionThreshold )
 				return float.NaN;
 
