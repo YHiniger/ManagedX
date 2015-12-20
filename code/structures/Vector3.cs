@@ -14,29 +14,27 @@ namespace ManagedX
 
 		/// <summary>The X component of this <see cref="Vector3"/> structure; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float X;
 
 		/// <summary>The Y component of this <see cref="Vector3"/> structure; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float Y;
 
 		/// <summary>The Z component of this <see cref="Vector3"/> structure; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float Z;
 
 
 		#region Constructors
 
 		/// <summary>Initializes a new <see cref="Vector3"/>.</summary>
-		/// <param name="x">The X component; must be a finite number.</param>
-		/// <param name="y">The Y component; must be a finite number.</param>
-		/// <param name="z">The Z component; must be a finite number.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		/// <param name="x">The X component.</param>
+		/// <param name="y">The Y component.</param>
+		/// <param name="z">The Z component.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public Vector3( float x, float y, float z )
 		{
 			this.X = x;
@@ -46,8 +44,8 @@ namespace ManagedX
 
 		/// <summary>Initializes a new <see cref="Vector3"/>.</summary>
 		/// <param name="xy">The X and Y components of the vector.</param>
-		/// <param name="z">The Z component; must be a finite number.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		/// <param name="z">The Z component.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public Vector3( Vector2 xy, float z )
 		{
 			X = xy.X;
@@ -57,13 +55,13 @@ namespace ManagedX
 
 
 		/// <summary>Initializes a new <see cref="Vector3"/>.</summary>
-		/// <param name="xyz">The value used for both <see cref="X"/>, <see cref="Y"/> and <see cref="Z"/> components; must be a finite number.</param>
+		/// <param name="xyz">The value used for both <see cref="X"/>, <see cref="Y"/> and <see cref="Z"/> components.</param>
 		public Vector3( float xyz )
 		{
 			X = Y = Z = xyz;
 		}
 
-		#endregion // Constructors
+		#endregion Constructors
 
 
 
@@ -102,7 +100,7 @@ namespace ManagedX
 			var x = other.X - X;
 			var y = other.Y - Y;
 			var z = other.Z - Z;
-			return (float)Math.Sqrt( x * x + y * y + z * z );
+			return (float)Math.Sqrt( (double)( x * x + y * y + z * z ) );
 		}
 
 
@@ -181,24 +179,13 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a string representing this <see cref="Vector3"/> structure, in the form:
+		/// <summary>Returns a string representing this <see cref="Vector3"/>, in the form:
 		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>)</para>
 		/// </summary>
-		/// <param name="formatProvider">The format provider.</param>
-		/// <returns>Returns a string representing this <see cref="Vector3"/> structure.</returns>
-		public string ToString( IFormatProvider formatProvider )
-		{
-			return string.Format( formatProvider ?? System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2})", X, Y, Z );
-		}
-
-
-		/// <summary>Returns a string representing this <see cref="Vector3"/> structure, in the form:
-		/// <para>(<see cref="X"/>,<see cref="Y"/>,<see cref="Z"/>)</para>
-		/// </summary>
-		/// <returns>Returns a string representing this <see cref="Vector3"/> structure.</returns>
+		/// <returns>Returns a string representing this <see cref="Vector3"/>.</returns>
 		public override string ToString()
 		{
-			return this.ToString( System.Globalization.CultureInfo.InvariantCulture );
+			return string.Format( System.Globalization.CultureInfo.InvariantCulture, "({0},{1},{2})", X, Y, Z );
 		}
 
 		
@@ -221,7 +208,7 @@ namespace ManagedX
 		#region Static
 
 		/// <summary>A <see cref="Vector3"/> whose components are set to 0.</summary>
-		public static readonly Vector3 Zero = new Vector3();
+		public static readonly Vector3 Zero;
 
 		/// <summary>A <see cref="Vector3"/> whose components are set to 1.</summary>
 		public static readonly Vector3 One = new Vector3( 1.0f, 1.0f, 1.0f );

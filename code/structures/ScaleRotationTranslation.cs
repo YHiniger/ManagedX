@@ -6,30 +6,30 @@ using System.Runtime.InteropServices;
 namespace ManagedX
 {
 
-	/// <summary>Contains transformation information: scale, rotation and translation (also known as "SRT").</summary>
+	/// <summary>Contains information about the scale, rotation and translation (SRT) transformations.</summary>
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 40 )]
 	public struct ScaleRotationTranslation : IEquatable<ScaleRotationTranslation>
 	{
 
-		/// <summary>The scale.</summary>
+		/// <summary>The scale part of the transformation.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public Vector3 Scale;
 		
-		/// <summary>The rotation.</summary>
+		/// <summary>The rotation part of the transformation.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public Quaternion Rotation;
 		
-		/// <summary>The translation.</summary>
+		/// <summary>The translation part of the transformation.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public Vector3 Translation;
 
 
 
 		/// <summary>Initializes a new <see cref="ScaleRotationTranslation"/>.</summary>
-		/// <param name="scale">The scale.</param>
-		/// <param name="rotation">The rotation.</param>
-		/// <param name="translation">The translation.</param>
+		/// <param name="scale">The scale part of the transformation.</param>
+		/// <param name="rotation">The rotation part of the transformation.</param>
+		/// <param name="translation">The translation part of the transformation.</param>
 		public ScaleRotationTranslation( Vector3 scale, Quaternion rotation, Vector3 translation )
 		{
 			Scale = scale;
@@ -43,15 +43,9 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Matrix"/> corresponding to this <see cref="ScaleRotationTranslation"/> structure.</returns>
 		public Matrix ToMatrix()
 		{
-			Matrix scale, rotation, translation;
-			Matrix scaleRotation, scaleRotationTranslation;
-
-			Matrix.CreateScale( ref Scale, out scale );
-			Matrix.CreateFromQuaternion( ref Rotation, out rotation );
-			Matrix.CreateTranslation( ref Translation, out translation );
-			Matrix.Multiply( ref scale, ref rotation, out scaleRotation );
-			Matrix.Multiply( ref scaleRotation, ref translation, out scaleRotationTranslation );
-			return scaleRotationTranslation;
+			Matrix result;
+			Matrix.CreateFromScaleRotationTranslation( ref Scale, ref Rotation, ref Translation, out result );
+			return result;
 		}
 
 
@@ -65,7 +59,7 @@ namespace ManagedX
 
 		/// <summary>Returns a value indicating whether this <see cref="ScaleRotationTranslation"/> equals another <see cref="ScaleRotationTranslation"/>.</summary>
 		/// <param name="other">A <see cref="ScaleRotationTranslation"/>.</param>
-		/// <returns>Returns true if the <see cref="ScaleRotationTranslation"/> structures are equal, otherwise returns false.</returns>
+		/// <returns>Returns true if the <see cref="ScaleRotationTranslation"/> transformations are equal, otherwise returns false.</returns>
 		public bool Equals( ScaleRotationTranslation other )
 		{
 			return Scale.Equals( ref other.Scale ) && Rotation.Equals( ref other.Rotation ) && Translation.Equals( ref other.Translation );
@@ -74,12 +68,19 @@ namespace ManagedX
 
 		/// <summary>Returns a value indicating whether this <see cref="ScaleRotationTranslation"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="ScaleRotationTranslation"/> structure which equals this <see cref="ScaleRotationTranslation"/>.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="ScaleRotationTranslation"/> which equals this <see cref="ScaleRotationTranslation"/>.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is ScaleRotationTranslation ) && this.Equals( (ScaleRotationTranslation)obj );
 		}
 
+
+		/// <summary>Returns a string representing this <see cref="ScaleRotationTranslation"/>.</summary>
+		/// <returns>Returns a string representing this <see cref="ScaleRotationTranslation"/>.</returns>
+		public override string ToString()
+		{
+			return "{Scale: " + Scale.ToString() + ", Rotation: " + Rotation.ToString() + ", Translation: " + Translation.ToString() + '}';
+		}
 
 		
 		/// <summary>The identity <see cref="ScaleRotationTranslation"/>.</summary>

@@ -50,9 +50,7 @@ namespace ManagedX
 		/// <param name="y">The Y component of the normal defining the plane.</param>
 		/// <param name="z">The Z component of the normal defining the plane.</param>
 		/// <param name="distance">The distance of the plane along its normal from the origin.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public Plane( float x, float y, float z, float distance )
 		{
 			Normal.X = x;
@@ -102,17 +100,17 @@ namespace ManagedX
 
 
 		/// <summary>Calculates the dot product of this <see cref="Plane"/> and a <see cref="Vector4"/>.</summary>
-		/// <param name="value">A <see cref="Vector4"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector4"/>.</param>
 		/// <param name="result">Receives the resulting dot product.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
-		public void Dot( ref Vector4 value, out float result )
+		public void Dot( ref Vector4 vector, out float result )
 		{
-			result = Normal.X * value.X + Normal.Y * value.Y + Normal.Z * value.Z + Distance * value.W;
+			result = Normal.X * vector.X + Normal.Y * vector.Y + Normal.Z * vector.Z + Distance * vector.W;
 		}
 
 		/// <summary>Returns the dot product of this <see cref="Plane"/> and a <see cref="Vector4"/>.</summary>
-		/// <param name="value">A <see cref="Vector4"/> structure.</param>
+		/// <param name="value">A <see cref="Vector4"/>.</param>
 		/// <returns>Returns the resulting dot product.</returns>
 		public float Dot( Vector4 value )
 		{
@@ -487,7 +485,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Plane"/> equals another plane.</summary>
+		/// <summary>Returns a value indicating whether this <see cref="Plane"/> equals another <see cref="Plane"/>.</summary>
 		/// <param name="other">A <see cref="Plane"/>.</param>
 		/// <returns>Returns true if the planes are equal, otherwise returns false.</returns>
 		public bool Equals( Plane other )
@@ -498,7 +496,7 @@ namespace ManagedX
 
 		/// <summary>Returns a value indicating whether this <see cref="Plane"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Plane"/> which equals this plane, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="Plane"/> which equals this <see cref="Plane"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Plane ) && this.Equals( (Plane)obj );
@@ -509,8 +507,7 @@ namespace ManagedX
 		/// <returns>Returns a string representing this <see cref="Plane"/>.</returns>
 		public override string ToString()
 		{
-			var formatProvider = System.Globalization.CultureInfo.InvariantCulture;
-			return "{Normal: " + Normal.ToString( formatProvider ) + ", Distance: " + Distance.ToString( formatProvider ) + '}';
+			return "{Normal: " + Normal.ToString() + ", Distance: " + Distance.ToString( System.Globalization.CultureInfo.InvariantCulture ) + '}';
 		}
 
 

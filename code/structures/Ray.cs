@@ -12,7 +12,7 @@ namespace ManagedX
 	public struct Ray : IEquatable<Ray>
 	{
 
-		/// <summary>Defines the default threshold value used in intersection detection.</summary>
+		/// <summary>Defines the default threshold value used in <see cref="Ray"/>, <see cref="Plane"/> and <see cref="BoundingFrustum"/> intersection detection.</summary>
 		public const float DefaultIntersectionThreshold = 1E-05f; // Ray, Plane, BoundingFrustum
 		
 		/// <summary>Defines the default threshold value used in <see cref="BoundingBox"/> and <see cref="Vector3"/> intersection detection.</summary>
@@ -47,8 +47,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Ray"/> intersects a point.</summary>
 		/// <param name="point">A <see cref="Vector3"/>.</param>
 		/// <param name="result">Receives the distance this <see cref="Ray"/> intersects the <paramref name="point"/> at, or NaN if there is no intersection.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref Vector3 point, out float result )
 		{
 			Vector3 vector;
@@ -95,8 +95,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Ray"/> intersects another ray.</summary>
 		/// <param name="ray">A <see cref="Ray"/>.</param>
 		/// <param name="result">Receives the distance this <see cref="Ray"/> intersects the other <paramref name="ray"/> at, or NaN if there is no intersection.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref Ray ray, out float result )
 		{
 			result = 0.0f;
@@ -160,8 +160,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Ray"/> intersects a <see cref="Plane"/>.</summary>
 		/// <param name="plane">A <see cref="Plane"/>.</param>
 		/// <param name="result">Receives the distance this <see cref="Ray"/> intersects the specified <see cref="Plane"/> at, or NaN if there is no intersection.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref Plane plane, out float result )
 		{
 			result = float.NaN;
@@ -201,8 +201,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Ray"/> intersects a <see cref="BoundingBox"/>.</summary>
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives the distance the ray intersects the <see cref="BoundingBox"/> at, or NaN if there is no intersection.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingBox box, out float result )
 		{
 			result = float.NaN;
@@ -364,8 +364,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Ray"/> intersects a specified <see cref="BoundingSphere"/>.</summary>
 		/// <param name="sphere">A <see cref="BoundingSphere"/>.</param>
 		/// <param name="result">Receives the distance the ray intersects the <see cref="BoundingSphere"/> at, or NaN if there is no intersection.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingSphere sphere, out float result )
 		{
 			var sphereCenter = sphere.Center;
@@ -430,8 +430,8 @@ namespace ManagedX
 		/// <param name="frustum">A valid <see cref="BoundingFrustum"/>.</param>
 		/// <param name="result">Receives the distance the ray intersects the <see cref="BoundingFrustum"/> at, or NaN if there is no intersection.</param>
 		/// <exception cref="ArgumentException"/>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingFrustum frustum, out float result )
 		{
 			var planes = frustum.planes;
@@ -568,26 +568,26 @@ namespace ManagedX
 
 
 
-		/// <summary>Returns a hash code for this <see cref="Ray"/> structure.</summary>
-		/// <returns>Returns a hash code for this <see cref="Ray"/> structure.</returns>
+		/// <summary>Returns a hash code for this <see cref="Ray"/>.</summary>
+		/// <returns>Returns a hash code for this <see cref="Ray"/>.</returns>
 		public override int GetHashCode()
 		{
 			return Position.GetHashCode() ^ Direction.GetHashCode();
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Ray"/> structure equals another structure of the same type.</summary>
-		/// <param name="other">A <see cref="Ray"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <summary>Returns a value indicating whether this <see cref="Ray"/> equals another <see cref="Ray"/>.</summary>
+		/// <param name="other">A <see cref="Ray"/>.</param>
+		/// <returns>Returns true if the rays are equal, otherwise returns false.</returns>
 		public bool Equals( Ray other )
 		{
 			return Position.Equals( ref other.Position ) && Direction.Equals( ref other.Direction );
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Ray"/> structure is equivalent to an object.</summary>
+		/// <summary>Returns a value indicating whether this <see cref="Ray"/> is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="Ray"/> structure which equals this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="Ray"/> which equals this <see cref="Ray"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is Ray ) && this.Equals( (Ray)obj );
@@ -598,8 +598,7 @@ namespace ManagedX
 		/// <returns>Returns a string representing this <see cref="Ray"/>.</returns>
 		public override string ToString()
 		{
-			var formatProvider = System.Globalization.CultureInfo.InvariantCulture;
-			return "{Position: " + Position.ToString( formatProvider ) + ", Direction: " + Direction.ToString( formatProvider ) + "}";
+			return "{Position: " + Position.ToString() + ", Direction: " + Direction.ToString() + "}";
 		}
 
 
@@ -611,8 +610,8 @@ namespace ManagedX
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="ray">A <see cref="Ray"/> structure.</param>
-		/// <param name="other">A <see cref="Ray"/> structure.</param>
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <param name="other">A <see cref="Ray"/>.</param>
 		/// <returns>Returns true if the specified rays are equal, otherwise returns false.</returns>
 		public static bool operator ==( Ray ray, Ray other )
 		{
@@ -621,8 +620,8 @@ namespace ManagedX
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="ray">A <see cref="Ray"/> structure.</param>
-		/// <param name="other">A <see cref="Ray"/> structure.</param>
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <param name="other">A <see cref="Ray"/>.</param>
 		/// <returns>Returns true if the specified rays are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Ray ray, Ray other )
 		{

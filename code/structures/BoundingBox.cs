@@ -428,8 +428,7 @@ namespace ManagedX
 		/// <returns>Returns a string representing this <see cref="BoundingBox"/>.</returns>
 		public override string ToString()
 		{
-			var formatProvider = System.Globalization.CultureInfo.InvariantCulture;
-			return "{Min: " + Min.ToString( formatProvider ) + ", Max: " + Max.ToString( formatProvider ) + '}';
+			return "{Min: " + Min.ToString() + ", Max: " + Max.ToString() + '}';
 		}
 
 

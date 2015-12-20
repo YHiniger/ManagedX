@@ -12,24 +12,24 @@ namespace ManagedX
 	public struct Quaternion : IEquatable<Quaternion>
 	{
 
-		/// <summary>The X component of this <see cref="Vector4"/> structure; must be a finite number.</summary>
+		/// <summary>The X component of this <see cref="Quaternion"/>.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float X;
 
-		/// <summary>The Y component of this <see cref="Vector4"/> structure; must be a finite number.</summary>
+		/// <summary>The Y component of this <see cref="Quaternion"/>.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float Y;
 
-		/// <summary>The Z component of this <see cref="Vector4"/> structure; must be a finite number.</summary>
+		/// <summary>The Z component of this <see cref="Quaternion"/>.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float Z;
 
-		/// <summary>The W component of this <see cref="Vector4"/> structure; must be a finite number.</summary>
+		/// <summary>The W component of this <see cref="Quaternion"/>.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "W" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float W;
 
 
@@ -41,10 +41,7 @@ namespace ManagedX
 		/// <param name="y">The Y component; must be a finite number.</param>
 		/// <param name="z">The Z component; must be a finite number.</param>
 		/// <param name="w">The W component; must be a finite number.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public Quaternion( float x, float y, float z, float w )
 		{
 			this.X = x;
@@ -53,12 +50,12 @@ namespace ManagedX
 			this.W = w;
 		}
 
+
 		/// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
-		/// <param name="xy">The X and Y components of the vector.</param>
+		/// <param name="xy">A valid <see cref="Vector2"/> containing the X and Y components of the quaternion.</param>
 		/// <param name="z">The Z component; must be a finite number.</param>
 		/// <param name="w">The W component; must be a finite number.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public Quaternion( Vector2 xy, float z, float w )
 		{
 			this.X = xy.X;
@@ -67,10 +64,11 @@ namespace ManagedX
 			this.W = w;
 		}
 
+
 		/// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
-		/// <param name="xyz">A valid <see cref="Vector3"/> containing the X, Y and Z components of the vector.</param>
+		/// <param name="xyz">A valid <see cref="Vector3"/> containing the X, Y and Z components of the quaternion.</param>
 		/// <param name="w">The W component; must be a finite number.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public Quaternion( Vector3 xyz, float w )
 		{
 			this.X = xyz.X;
@@ -78,6 +76,7 @@ namespace ManagedX
 			this.Z = xyz.Z;
 			this.W = w;
 		}
+
 
 		/// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
 		/// <param name="xyzw">A valid <see cref="Vector4"/>, containing components of the quaternion.</param>
@@ -89,6 +88,7 @@ namespace ManagedX
 			W = xyzw.W;
 		}
 
+
 		/// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
 		/// <param name="xyzw">The value used for both <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components; must be a finite number.</param>
 		public Quaternion( float xyzw )
@@ -96,24 +96,22 @@ namespace ManagedX
 			this.W = this.Z = this.Y = this.X = xyzw;
 		}
 
-		#endregion // Constructors
+		#endregion Constructors
 
 
 
 		/// <summary>Gets the length of this <see cref="Quaternion"/>.</summary>
-		public float Length { get { return (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W ); } }
+		public float Length { get { return (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z + W * W ) ); } }
 
 
-		/// <summary>Gets the square of the length of this <see cref="Quaternion"/>.
-		/// <para>Note: this property is faster than <see cref="Length"/>, since it doesn't calculate the square root.</para>
-		/// </summary>
+		/// <summary>Gets the square of the length of this <see cref="Quaternion"/>.</summary>
 		public float LengthSquared { get { return X * X + Y * Y + Z * Z + W * W; } }
 
 
 		/// <summary>Normalizes this <see cref="Quaternion"/>.</summary>
 		public void Normalize()
 		{
-			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W );
+			var length = (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z + W * W ) );
 			if( length != 0.0f )
 			{
 				var inv = 1.0f / length;
@@ -125,10 +123,20 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Negates this <see cref="Quaternion"/>.</summary>
+		public void Negate()
+		{
+			X = -X;
+			Y = -Y;
+			Z = -Z;
+			W = -W;
+		}
+
+
 		/// <summary>Inverts this <see cref="Quaternion"/>.</summary>
 		public void Invert()
 		{
-			var length = (float)Math.Sqrt( X * X + Y * Y + Z * Z + W * W );
+			var length = (float)Math.Sqrt( (double)( X * X + Y * Y + Z * Z + W * W ) );
 			if( length != 0.0f )
 			{
 				var inv = 1.0f / length;
@@ -140,21 +148,11 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Inverts the sign of all this <see cref="Quaternion"/>'s components.</summary>
-		public void Negate()
-		{
-			X = -X;
-			Y = -Y;
-			Z = -Z;
-			W = -W;
-		}
-
-
 		/// <summary>Rotates a <see cref="Vector2"/>.</summary>
-		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector2"/>.</param>
 		/// <param name="result">Receives the rotated <paramref name="vector"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Transform( ref Vector2 vector, out Vector2 result )
 		{
 			var y2 = Y + Y;
@@ -166,12 +164,13 @@ namespace ManagedX
 			var xy2 = X * y2;
 			var wz2 = W * z2;
 
-			result.X = vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 );
-			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 );
+			var x = vector.X;
+			result.X = x * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 );
+			result.Y = x * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 );
 		}
 
-		/// <summary>Rotates a <see cref="Vector2"/>.</summary>
-		/// <param name="vector">A <see cref="Vector2"/> structure.</param>
+		/// <summary>Returns a rotated <see cref="Vector2"/>.</summary>
+		/// <param name="vector">A <see cref="Vector2"/>.</param>
 		/// <returns>Returns the rotated <paramref name="vector"/>.</returns>
 		public Vector2 Transform( Vector2 vector )
 		{
@@ -190,12 +189,12 @@ namespace ManagedX
 			);
 		}
 
-		/// <summary>Rotates multiple <see cref="Vector2"/> from an array.</summary>
-		/// <param name="source">An array of <see cref="Vector2"/> structures.</param>
-		/// <param name="sourceIndex">The zero-based index in the <paramref name="source"/> array to start reading from.</param>
-		/// <param name="destination">An array of <see cref="Vector2"/> structures, to receive the rotated vectors.</param>
-		/// <param name="destinationIndex">The zero-based index in the <paramref name="destination"/> array the rotated vectors should be copied to.</param>
-		/// <param name="count">The number of vectors to rotate.</param>
+		/// <summary>Applies the rotation to each <see cref="Vector2"/> of an array.</summary>
+		/// <param name="source">An array of source vectors; must not be null.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Vector2"/> in the <paramref name="source"/> array to rotate; must be greater than or equal to zero.</param>
+		/// <param name="destination">An array to receive the rotated vectors; must not be null.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Vector2"/> in the <paramref name="destination"/> array; must be greater than or equal to zero.</param>
+		/// <param name="count">The number of vectors to rotate; must be greater than zero.</param>
 		/// <exception cref="ArgumentNullException"/>
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public void Transform( Vector2[] source, int sourceIndex, Vector2[] destination, int destinationIndex, int count )
@@ -203,16 +202,16 @@ namespace ManagedX
 			if( source == null )
 				throw new ArgumentNullException( "source" );
 
+			if( sourceIndex < 0 || sourceIndex >= source.Length )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
 			if( destination == null )
 				throw new ArgumentNullException( "destination" );
 
-			if( sourceIndex < 0 )
-				throw new ArgumentOutOfRangeException( "sourceIndex" );
-
-			if( destinationIndex < 0 )
+			if( destinationIndex < 0 || destinationIndex >= destination.Length )
 				throw new ArgumentOutOfRangeException( "destinationIndex" );
 
-			if( source.Length < sourceIndex + count || destination.Length < destinationIndex + count )
+			if( count <= 0 || source.Length <= sourceIndex + count || destination.Length <= destinationIndex + count )
 				throw new ArgumentOutOfRangeException( "count" );
 
 			var y2 = Y + Y;
@@ -243,10 +242,10 @@ namespace ManagedX
 
 
 		/// <summary>Rotates a <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/>.</param>
 		/// <param name="result">Receives the rotated <paramref name="vector"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Transform( ref Vector3 vector, out Vector3 result )
 		{
 			var x2 = X + X;
@@ -263,13 +262,15 @@ namespace ManagedX
 			var wy2 = W * y2;
 			var wz2 = W * z2;
 
-			result.X = vector.X * ( oneMinusZSquared2 - ySquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 );
-			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusZSquared2 - xSquared2 ) + vector.Z * ( yz2 - wx2 );
-			result.Z = vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( 1.0f - xSquared2 - ySquared2 );
+			var x = vector.X;
+			var y = vector.Y;
+			result.X = x * ( oneMinusZSquared2 - ySquared2 ) + y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 );
+			result.Y = x * ( xy2 + wz2 ) + y * ( oneMinusZSquared2 - xSquared2 ) + vector.Z * ( yz2 - wx2 );
+			result.Z = x * ( xz2 - wy2 ) + y * ( yz2 + wx2 ) + vector.Z * ( 1.0f - xSquared2 - ySquared2 );
 		}
 
 		/// <summary>Rotates a <see cref="Vector3"/>.</summary>
-		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector3"/>.</param>
 		/// <returns>Returns the rotated <paramref name="vector"/>.</returns>
 		public Vector3 Transform( Vector3 vector )
 		{
@@ -294,12 +295,12 @@ namespace ManagedX
 			);
 		}
 
-		/// <summary>Rotates an array of <see cref="Vector3"/>.</summary>
-		/// <param name="source">An array of <see cref="Vector3"/> structures.</param>
-		/// <param name="sourceIndex">The zero-based index in the <paramref name="source"/> array to start reading from.</param>
-		/// <param name="destination">An array of <see cref="Vector3"/> structures, to receive the rotated vectors.</param>
-		/// <param name="destinationIndex">The zero-based index in the <paramref name="destination"/> array the rotated vectors should be copied to.</param>
-		/// <param name="count">The number of vectors to rotate.</param>
+		/// <summary>Applies the rotation to each <see cref="Vector3"/> of an array.</summary>
+		/// <param name="source">An array of source vectors; must not be null.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Vector3"/> in the <paramref name="source"/> array to rotate; must be greater than or equal to zero.</param>
+		/// <param name="destination">An array to receive the rotated vectors; must not be null.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Vector3"/> in the <paramref name="destination"/> array; must be greater than or equal to zero.</param>
+		/// <param name="count">The number of vectors to rotate; must be greater than zero.</param>
 		/// <exception cref="ArgumentNullException"/>
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public void Transform( Vector3[] source, int sourceIndex, Vector3[] destination, int destinationIndex, int count )
@@ -307,16 +308,16 @@ namespace ManagedX
 			if( source == null )
 				throw new ArgumentNullException( "source" );
 
+			if( sourceIndex < 0 || sourceIndex >= source.Length )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
 			if( destination == null )
 				throw new ArgumentNullException( "destination" );
 
-			if( sourceIndex < 0 )
-				throw new ArgumentOutOfRangeException( "sourceIndex" );
-
-			if( destinationIndex < 0 )
+			if( destinationIndex < 0 || destinationIndex >= destination.Length )
 				throw new ArgumentOutOfRangeException( "destinationIndex" );
 
-			if( source.Length < sourceIndex + count || destination.Length < destinationIndex + count )
+			if( count <= 0 || source.Length <= sourceIndex + count || destination.Length <= destinationIndex + count )
 				throw new ArgumentOutOfRangeException( "count" );
 
 			var x2 = X + X;
@@ -357,10 +358,10 @@ namespace ManagedX
 
 
 		/// <summary>Rotates a <see cref="Vector4"/>.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <param name="vector">A <see cref="Vector4"/>.</param>
 		/// <param name="result">Receives the rotated <paramref name="vector"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Transform( ref Vector4 vector, out Vector4 result )
 		{
 			var x2 = X + X;
@@ -377,14 +378,16 @@ namespace ManagedX
 			var wy2 = W * y2;
 			var wz2 = W * z2;
 
-			result.X = vector.X * ( 1.0f - ySquared2 - zSquared2 ) + vector.Y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 );
-			result.Y = vector.X * ( xy2 + wz2 ) + vector.Y * ( oneMinusXSquared2 - zSquared2 ) + vector.Z * ( yz2 - wx2 );
-			result.Z = vector.X * ( xz2 - wy2 ) + vector.Y * ( yz2 + wx2 ) + vector.Z * ( oneMinusXSquared2 - ySquared2 );
+			var x = vector.X;
+			var y = vector.Y;
+			result.X = x * ( 1.0f - ySquared2 - zSquared2 ) + y * ( xy2 - wz2 ) + vector.Z * ( xz2 + wy2 );
+			result.Y = x * ( xy2 + wz2 ) + y * ( oneMinusXSquared2 - zSquared2 ) + vector.Z * ( yz2 - wx2 );
+			result.Z = x * ( xz2 - wy2 ) + y * ( yz2 + wx2 ) + vector.Z * ( oneMinusXSquared2 - ySquared2 );
 			result.W = vector.W;
 		}
 
-		/// <summary>Rotates a <see cref="Vector4"/>.</summary>
-		/// <param name="vector">A <see cref="Vector4"/> structure.</param>
+		/// <summary>Returns a rotated <see cref="Vector4"/>.</summary>
+		/// <param name="vector">A <see cref="Vector4"/>.</param>
 		/// <returns>Returns the rotated <paramref name="vector"/>.</returns>
 		public Vector4 Transform( Vector4 vector )
 		{
@@ -410,12 +413,12 @@ namespace ManagedX
 			);
 		}
 
-		/// <summary>Rotates an array of <see cref="Vector4"/>.</summary>
-		/// <param name="source">An array of <see cref="Vector4"/> structures.</param>
-		/// <param name="sourceIndex">The zero-based index in the <paramref name="source"/> array to start reading from.</param>
-		/// <param name="destination">An array of <see cref="Vector4"/> structures, to receive the rotated vectors.</param>
-		/// <param name="destinationIndex">The zero-based index in the <paramref name="destination"/> array the rotated vectors should be copied to.</param>
-		/// <param name="count">The number of vectors to rotate.</param>
+		/// <summary>Applies the rotation to each <see cref="Vector4"/> of an array.</summary>
+		/// <param name="source">An array of source vectors; must not be null.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Vector4"/> in the <paramref name="source"/> array to rotate; must be greater than or equal to zero.</param>
+		/// <param name="destination">An array to receive the rotated vectors; must not be null.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Vector4"/> in the <paramref name="destination"/> array; must be greater than or equal to zero.</param>
+		/// <param name="count">The number of vectors to rotate; must be greater than zero.</param>
 		/// <exception cref="ArgumentNullException"/>
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public void Transform( Vector4[] source, int sourceIndex, Vector4[] destination, int destinationIndex, int count )
@@ -423,16 +426,16 @@ namespace ManagedX
 			if( source == null )
 				throw new ArgumentNullException( "source" );
 
+			if( sourceIndex < 0 || sourceIndex >= source.Length )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
 			if( destination == null )
 				throw new ArgumentNullException( "destination" );
 
-			if( sourceIndex < 0 )
-				throw new ArgumentOutOfRangeException( "sourceIndex" );
-
-			if( destinationIndex < 0 )
+			if( destinationIndex < 0 || destinationIndex >= destination.Length )
 				throw new ArgumentOutOfRangeException( "destinationIndex" );
 
-			if( source.Length < sourceIndex + count || destination.Length < destinationIndex + count )
+			if( count <= 0 || source.Length <= sourceIndex + count || destination.Length <= destinationIndex + count )
 				throw new ArgumentOutOfRangeException( "count" );
 
 			var x2 = X + X;
@@ -474,10 +477,10 @@ namespace ManagedX
 
 
 		/// <summary>Rotates a <see cref="Ray"/>.</summary>
-		/// <param name="ray">The <see cref="Ray"/> to rotate.</param>
-		/// <param name="result">Receives the rotated <see cref="Ray"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <param name="result">Receives the rotated <paramref name="ray"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Transform( ref Ray ray, out Ray result )
 		{
 			result.Position = ray.Position;
@@ -485,19 +488,19 @@ namespace ManagedX
 		}
 
 		/// <summary>Returns a rotated <see cref="Ray"/>.</summary>
-		/// <param name="ray">The <see cref="Ray"/> to rotate.</param>
-		/// <returns>Returns the rotated <see cref="Ray"/>.</returns>
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <returns>Returns the rotated <paramref name="ray"/>.</returns>
 		public Ray Transform( Ray ray )
 		{
 			this.Transform( ref ray.Direction, out ray.Direction );
 			return ray;
 		}
 
-		/// <summary>Rotates an array of <see cref="Ray"/>.</summary>
-		/// <param name="source">An array of source <see cref="Ray"/> structures; must not be null, and must contain at least <paramref name="sourceIndex"/> + <paramref name="count"/> rays.</param>
-		/// <param name="sourceIndex">The zero-based index of the first <see cref="Ray"/> in the <paramref name="source"/> array; must not be negative.</param>
-		/// <param name="destination">An array to receive the rotated <see cref="Ray"/> structures; must not be null, and must contain at least <paramref name="destinationIndex"/> + <paramref name="count"/> rays.</param>
-		/// <param name="destinationIndex">The zero-based index of the first <see cref="Ray"/> in the <paramref name="destination"/> array; must not be negative.</param>
+		/// <summary>Applies the rotation to each <see cref="Ray"/> of an array.</summary>
+		/// <param name="source">An array of source rays; must not be null.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Ray"/> in the <paramref name="source"/> array to rotate; must be greater than or equal to zero.</param>
+		/// <param name="destination">An array to receive the rotated rays; must not be null.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Ray"/> in the <paramref name="destination"/> array; must be greater than or equal to zero.</param>
 		/// <param name="count">The number of rays to rotate; must be greater than zero.</param>
 		/// <exception cref="ArgumentNullException"/>
 		/// <exception cref="ArgumentOutOfRangeException"/>
@@ -515,7 +518,7 @@ namespace ManagedX
 			if( destinationIndex < 0 || destinationIndex >= destination.Length )
 				throw new ArgumentOutOfRangeException( "destinationIndex" );
 
-			if( count <= 0 || count + sourceIndex >= source.Length || count + destinationIndex >= destination.Length )
+			if( count <= 0 || source.Length <= sourceIndex + count || destination.Length <= destinationIndex + count )
 				throw new ArgumentOutOfRangeException( "count" );
 
 			var x2 = X + X;
@@ -564,10 +567,10 @@ namespace ManagedX
 
 
 		/// <summary>Rotates a <see cref="Plane"/>.</summary>
-		/// <param name="plane">A <see cref="Plane"/> structure.</param>
+		/// <param name="plane">A <see cref="Plane"/>.</param>
 		/// <param name="result">Receives the rotated <paramref name="plane"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Transform( ref Plane plane, out Plane result )
 		{
 			var x2 = X + X;
@@ -609,8 +612,8 @@ namespace ManagedX
 			result.Distance = plane.Distance;
 		}
 
-		/// <summary>Rotates a <see cref="Plane"/>.</summary>
-		/// <param name="plane">A <see cref="Plane"/> structure.</param>
+		/// <summary>Returns a rotated <see cref="Plane"/>.</summary>
+		/// <param name="plane">A <see cref="Plane"/>.</param>
 		/// <returns>Returns the rotated <paramref name="plane"/>.</returns>
 		public Plane Transform( Plane plane )
 		{
@@ -652,11 +655,11 @@ namespace ManagedX
 			return result;
 		}
 
-		/// <summary>Rotates an array of <see cref="Plane"/>.</summary>
-		/// <param name="source">An array of source <see cref="Plane"/> structures; must not be null.</param>
-		/// <param name="sourceIndex">The zero-based index of the first <see cref="Plane"/> in the <paramref name="source"/> array; must not be negative.</param>
-		/// <param name="destination">An array to receive the rotated <see cref="Plane"/> structures; must not be null.</param>
-		/// <param name="destinationIndex">The zero-based index of the first <see cref="Plane"/> in the <paramref name="destination"/> array; must not be negative.</param>
+		/// <summary>Applies the rotation to each <see cref="Plane"/> of an array.</summary>
+		/// <param name="source">An array of source planes; must not be null.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Plane"/> in the <paramref name="source"/> array to rotate; must be greater than or equal to zero.</param>
+		/// <param name="destination">An array to receive the rotated planes; must not be null.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Plane"/> in the <paramref name="destination"/> array; must be greater than or equal to zero.</param>
 		/// <param name="count">The number of planes to rotate; must be greater than zero.</param>
 		/// <exception cref="ArgumentNullException"/>
 		/// <exception cref="ArgumentOutOfRangeException"/>
@@ -674,7 +677,7 @@ namespace ManagedX
 			if( destinationIndex < 0 || destinationIndex >= destination.Length )
 				throw new ArgumentOutOfRangeException( "destinationIndex" );
 			
-			if( count <= 0 || count + sourceIndex >= source.Length || count + destinationIndex >= destination.Length )
+			if( count <= 0 || source.Length <= sourceIndex + count || destination.Length <= destinationIndex + count )
 				throw new ArgumentOutOfRangeException( "count" );
 
 			var x2 = X + X;
@@ -718,6 +721,207 @@ namespace ManagedX
 				result.Distance = plane.Distance;
 				
 				destination[ destinationIndex + p ] = result;
+			}
+		}
+
+
+		/// <summary>Applies the rotation to a <see cref="Matrix"/>.</summary>
+		/// <param name="matrix">A <see cref="Matrix"/>.</param>
+		/// <param name="result">Receives the transformed <paramref name="matrix"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public void Transform( ref Matrix matrix, out Matrix result )
+		{
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+			var oneMinusXSquared2 = 1.0f - X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var ySquared2 = Y * y2;
+			var yz2 = Y * z2;
+			var zSquared2 = Z * z2;
+
+
+			var a = 1.0f - ySquared2 - zSquared2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+			var d = xy2 + wz2;
+			var e = oneMinusXSquared2 - zSquared2;
+			var f = yz2 - wx2;
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = oneMinusXSquared2 - ySquared2;
+
+			var m1 = matrix.M11;
+			var m2 = matrix.M12;
+			var m3 = matrix.M13;
+			result.M11 = m1 * a + m2 * b + m3 * c;
+			result.M12 = m1 * d + m2 * e + m3 * f;
+			result.M13 = m1 * g + m2 * h + m3 * i;
+			result.M14 = matrix.M14;
+
+			m1 = matrix.M21;
+			m2 = matrix.M22;
+			m3 = matrix.M23;
+			result.M21 = m1 * a + m2 * b + m3 * c;
+			result.M22 = m1 * d + m2 * e + m3 * f;
+			result.M23 = m1 * g + m2 * h + m3 * i;
+			result.M24 = matrix.M24;
+
+			m1 = matrix.M31;
+			m2 = matrix.M32;
+			m3 = matrix.M33;
+			result.M31 = m1 * a + m2 * b + m3 * c;
+			result.M32 = m1 * d + m2 * e + m3 * f;
+			result.M33 = m1 * g + m2 * h + m3 * i;
+			result.M34 = matrix.M34;
+
+			m1 = matrix.M41;
+			m2 = matrix.M42;
+			m3 = matrix.M43;
+			result.M41 = m1 * a + m2 * b + m3 * c;
+			result.M42 = m1 * d + m2 * e + m3 * f;
+			result.M43 = m1 * g + m2 * h + m3 * i;
+			result.M44 = matrix.M44;
+		}
+
+		/// <summary>Applies the rotation to a <see cref="Matrix"/> and returns it.</summary>
+		/// <param name="matrix">A <see cref="Matrix"/>.</param>
+		/// <returns>Returns the updated <paramref name="matrix"/>.</returns>
+		public Matrix Transform( Matrix matrix )
+		{
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+			var oneMinusXSquared2 = 1.0f - X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var ySquared2 = Y * y2;
+			var yz2 = Y * z2;
+			var zSquared2 = Z * z2;
+
+
+			var a = 1.0f - ySquared2 - zSquared2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+			var d = xy2 + wz2;
+			var e = oneMinusXSquared2 - zSquared2;
+			var f = yz2 - wx2;
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = oneMinusXSquared2 - ySquared2;
+
+			Matrix result;
+
+			result.M11 = matrix.M11 * a + matrix.M12 * b + matrix.M13 * c;
+			result.M12 = matrix.M11 * d + matrix.M12 * e + matrix.M13 * f;
+			result.M13 = matrix.M11 * g + matrix.M12 * h + matrix.M13 * i;
+			result.M14 = matrix.M14;
+
+			result.M21 = matrix.M21 * a + matrix.M22 * b + matrix.M23 * c;
+			result.M22 = matrix.M21 * d + matrix.M22 * e + matrix.M23 * f;
+			result.M23 = matrix.M21 * g + matrix.M22 * h + matrix.M23 * i;
+			result.M24 = matrix.M24;
+
+			result.M31 = matrix.M31 * a + matrix.M32 * b + matrix.M33 * c;
+			result.M32 = matrix.M31 * d + matrix.M32 * e + matrix.M33 * f;
+			result.M33 = matrix.M31 * g + matrix.M32 * h + matrix.M33 * i;
+			result.M34 = matrix.M34;
+
+			result.M41 = matrix.M41 * a + matrix.M42 * b + matrix.M43 * c;
+			result.M42 = matrix.M41 * d + matrix.M42 * e + matrix.M43 * f;
+			result.M43 = matrix.M41 * g + matrix.M42 * h + matrix.M43 * i;
+			result.M44 = matrix.M44;
+			
+			return result;
+		}
+
+		/// <summary>Applies the rotation to each <see cref="Matrix"/> of an array.</summary>
+		/// <param name="source">An array of source matrices; must not be null.</param>
+		/// <param name="sourceIndex">The zero-based index of the first <see cref="Matrix"/> in the <paramref name="source"/> array to transform; must be greater than or equal to zero.</param>
+		/// <param name="destination">An array to receive the transformed matrices; must not be null.</param>
+		/// <param name="destinationIndex">The zero-based index of the first <see cref="Matrix"/> in the <paramref name="destination"/> array; must be greater than or equal to zero.</param>
+		/// <param name="count">The number of matrices to transform; must be greater than zero.</param>
+		/// <exception cref="ArgumentNullException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		public void Transform( Matrix[] source, int sourceIndex, Matrix[] destination, int destinationIndex, int count )
+		{
+			if( source == null )
+				throw new ArgumentNullException( "source" );
+
+			if( sourceIndex < 0 || sourceIndex >= source.Length )
+				throw new ArgumentOutOfRangeException( "sourceIndex" );
+
+			if( destination == null )
+				throw new ArgumentNullException( "destination" );
+
+			if( destinationIndex < 0 || destinationIndex >= destination.Length )
+				throw new ArgumentOutOfRangeException( "destinationIndex" );
+
+			if( count <= 0 || source.Length <= sourceIndex + count || destination.Length <= destinationIndex + count )
+				throw new ArgumentOutOfRangeException( "count" );
+
+			var x2 = X + X;
+			var y2 = Y + Y;
+			var z2 = Z + Z;
+
+			var wx2 = W * x2;
+			var wy2 = W * y2;
+			var wz2 = W * z2;
+			var oneMinusXSquared2 = 1.0f - X * x2;
+			var xy2 = X * y2;
+			var xz2 = X * z2;
+			var ySquared2 = Y * y2;
+			var yz2 = Y * z2;
+			var zSquared2 = Z * z2;
+
+
+			var a = 1.0f - ySquared2 - zSquared2;
+			var b = xy2 - wz2;
+			var c = xz2 + wy2;
+			var d = xy2 + wz2;
+			var e = oneMinusXSquared2 - zSquared2;
+			var f = yz2 - wx2;
+			var g = xz2 - wy2;
+			var h = yz2 + wx2;
+			var i = oneMinusXSquared2 - ySquared2;
+
+			Matrix input, output;
+
+			for( var index = 0; index < count; index++ )
+			{
+				input = source[ sourceIndex + index ];
+				
+				output.M11 = input.M11 * a + input.M12 * b + input.M13 * c;
+				output.M12 = input.M11 * d + input.M12 * e + input.M13 * f;
+				output.M13 = input.M11 * g + input.M12 * h + input.M13 * i;
+				output.M14 = input.M14;
+
+				output.M21 = input.M21 * a + input.M22 * b + input.M23 * c;
+				output.M22 = input.M21 * d + input.M22 * e + input.M23 * f;
+				output.M23 = input.M21 * g + input.M22 * h + input.M23 * i;
+				output.M24 = input.M24;
+
+				output.M31 = input.M31 * a + input.M32 * b + input.M33 * c;
+				output.M32 = input.M31 * d + input.M32 * e + input.M33 * f;
+				output.M33 = input.M31 * g + input.M32 * h + input.M33 * i;
+				output.M34 = input.M34;
+
+				output.M41 = input.M41 * a + input.M42 * b + input.M43 * c;
+				output.M42 = input.M41 * d + input.M42 * e + input.M43 * f;
+				output.M43 = input.M41 * g + input.M42 * h + input.M43 * i;
+				output.M44 = input.M44;
+
+				destination[ destinationIndex + index ] = output;
 			}
 		}
 
@@ -780,13 +984,6 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a <see cref="Vector4"/> initialized with the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</summary>
-		/// <returns>Returns a <see cref="Vector4"/> initialized with the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components of this <see cref="Quaternion"/>.</returns>
-		public Vector4 ToVector4()
-		{
-			return new Vector4( X, Y, Z, W );
-		}
-
 
 		#region Static
 
@@ -798,9 +995,8 @@ namespace ManagedX
 		/// <param name="quaternion">A <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives the sum of the two specified <see cref="Quaternion"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Add( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X + other.X;
@@ -827,9 +1023,8 @@ namespace ManagedX
 		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
 		/// <param name="other">A <see cref="Quaternion"/>.</param>
 		/// <param name="result">Receives the difference between <paramref name="quaternion"/> and <paramref name="other"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Subtract( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X - other.X;
@@ -856,9 +1051,8 @@ namespace ManagedX
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="quaternion"/> × <paramref name="other"/> ).</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X * other.X;
@@ -885,9 +1079,8 @@ namespace ManagedX
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A valid, non-zero, <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="quaternion"/> : <paramref name="other"/> ).</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Divide( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			result.X = quaternion.X / other.X;
@@ -915,9 +1108,8 @@ namespace ManagedX
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives a <see cref="Quaternion"/> structure whose components are set to the minimum components between two <see cref="Quaternion"/> values.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Min( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			if( other.X < quaternion.X )
@@ -967,9 +1159,8 @@ namespace ManagedX
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives a <see cref="Quaternion"/> structure whose components are set to the maximum components between the two specified quaternions.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Max( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			if( other.X > quaternion.X )
@@ -1019,9 +1210,8 @@ namespace ManagedX
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> value.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> value.</param>
 		/// <param name="result">Receives the dot product of the two specified quaternions.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Dot( ref Quaternion quaternion, ref Quaternion other, out float result )
 		{
 			result = quaternion.X * other.X + quaternion.Y * other.Y + quaternion.Z * other.Z + quaternion.W * other.W;
@@ -1042,9 +1232,8 @@ namespace ManagedX
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
 		/// <param name="result">Receives the result of the linear interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Lerp( ref Quaternion source, ref Quaternion target, float amount, out Quaternion result )
 		{
 			result.X = source.X + ( target.X - source.X ) * amount;
@@ -1073,9 +1262,8 @@ namespace ManagedX
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
 		/// <param name="result">Receives the result of the interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void SLerp( ref Quaternion source, ref Quaternion target, float amount, out Quaternion result )
 		{
 			var dotProduct = source.X * target.X + source.Y * target.Y + source.Z * target.Z + source.W * target.W;
@@ -1127,9 +1315,8 @@ namespace ManagedX
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="other">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives the result of the concatenation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Concatenate( ref Quaternion quaternion, ref Quaternion other, out Quaternion result )
 		{
 			var x = other.Y * quaternion.Z - other.Z * quaternion.Y;
@@ -1166,8 +1353,8 @@ namespace ManagedX
 		/// <summary>Calculates the conjugate of a <see cref="Quaternion"/>.</summary>
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives the conjugate of the specified <paramref name="quaternion"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Conjugate( ref Quaternion quaternion, out Quaternion result )
 		{
 			result.X = -quaternion.X;
@@ -1191,8 +1378,8 @@ namespace ManagedX
 		/// <summary>Calculates the inverse of a <see cref="Quaternion"/>.</summary>
 		/// <param name="quaternion">A valid <see cref="Quaternion"/> structure.</param>
 		/// <param name="result">Receives the inverse of the specified <paramref name="quaternion"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Inverse( ref Quaternion quaternion, out Quaternion result )
 		{
 			result = quaternion;
@@ -1214,7 +1401,7 @@ namespace ManagedX
 		/// <param name="pitch">The pitch angle, in radians, around the x-axis.</param>
 		/// <param name="roll">The roll angle, in radians, around the z-axis.</param>
 		/// <param name="result">Receives a <see cref="Quaternion"/> structure filled in to express the specified yaw, pitch, and roll angles.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateFromYawPitchRoll( float yaw, float pitch, float roll, out Quaternion result )
 		{
 			var halfRoll = roll * 0.5f;
@@ -1267,8 +1454,8 @@ namespace ManagedX
 		/// <param name="axis">The vector to rotate around.</param>
 		/// <param name="angle">The angle to rotate around the vector.</param>
 		/// <param name="result">Receives the <see cref="Quaternion"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateFromAxisAngle( ref Vector3 axis, float angle, out Quaternion result )
 		{
 			var halfAngle = angle * 0.5f;
@@ -1298,15 +1485,15 @@ namespace ManagedX
 			return result;
 		}
 
-		#endregion // Static
+		#endregion Static
 
 
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="quaternion">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <param name="other">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns true if the quaternions are equal, otherwise returns false.</returns>
 		public static bool operator ==( Quaternion quaternion, Quaternion other )
 		{
 			return ( quaternion.X == other.X ) && ( quaternion.Y == other.Y ) && ( quaternion.Z == other.Z ) && ( quaternion.W == other.W );
@@ -1314,9 +1501,9 @@ namespace ManagedX
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="quaternion">A <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A <see cref="Vector4"/> structure.</param>
-		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <param name="other">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns true if the quaternions are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Quaternion quaternion, Quaternion other )
 		{
 			return ( quaternion.X != other.X ) || ( quaternion.Y != other.Y ) || ( quaternion.Z != other.Z ) || ( quaternion.W != other.W );
@@ -1324,8 +1511,8 @@ namespace ManagedX
 
 
 		/// <summary>Unary negation operator.</summary>
-		/// <param name="quaternion">A <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns the negated <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator -( Quaternion quaternion )
 		{
 			quaternion.X = -quaternion.X;
@@ -1337,9 +1524,9 @@ namespace ManagedX
 
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <param name="other">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator +( Quaternion quaternion, Quaternion other )
 		{
 			quaternion.X += other.X;
@@ -1351,9 +1538,9 @@ namespace ManagedX
 
 
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <param name="other">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator -( Quaternion quaternion, Quaternion other )
 		{
 			quaternion.X -= other.X;
@@ -1365,9 +1552,9 @@ namespace ManagedX
 
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A valid <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <param name="other">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator *( Quaternion quaternion, Quaternion other )
 		{
 			quaternion.X *= other.X;
@@ -1378,9 +1565,9 @@ namespace ManagedX
 		}
 
 		/// <summary>Multiplication operator.</summary>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
-		/// <returns></returns>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator *( Quaternion quaternion, float value )
 		{
 			quaternion.X *= value;
@@ -1392,8 +1579,8 @@ namespace ManagedX
 
 		/// <summary>Multiplication operator.</summary>
 		/// <param name="value">A finite single-precision floating-point value.</param>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator *( float value, Quaternion quaternion )
 		{
 			quaternion.X *= value;
@@ -1405,9 +1592,9 @@ namespace ManagedX
 
 
 		/// <summary>Division operator.</summary>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
-		/// <param name="other">A valid, non-zero, <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <param name="other">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator /( Quaternion quaternion, Quaternion other )
 		{
 			quaternion.X /= other.X;
@@ -1418,9 +1605,9 @@ namespace ManagedX
 		}
 
 		/// <summary>Division operator.</summary>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
-		/// <returns></returns>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator /( Quaternion quaternion, float value )
 		{
 			value = 1.0f / value;
@@ -1433,8 +1620,8 @@ namespace ManagedX
 
 		/// <summary>Division operator.</summary>
 		/// <param name="value">A finite, non-zero, single-precision floating-point value.</param>
-		/// <param name="quaternion">A valid <see cref="Vector4"/> structure.</param>
-		/// <returns></returns>
+		/// <param name="quaternion">A <see cref="Quaternion"/>.</param>
+		/// <returns>Returns the resulting <see cref="Quaternion"/>.</returns>
 		public static Quaternion operator /( float value, Quaternion quaternion )
 		{
 			quaternion.X = value / quaternion.X;
@@ -1444,7 +1631,7 @@ namespace ManagedX
 			return quaternion;
 		}
 
-		#endregion // Operators
+		#endregion Operators
 
 	}
 

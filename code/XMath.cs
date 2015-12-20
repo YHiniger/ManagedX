@@ -42,7 +42,7 @@ namespace ManagedX
 		///// <summary>Defines the value of the golden number.</summary>
 		//public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
-		#endregion // Constants
+		#endregion Constants
 
 
 
@@ -85,7 +85,7 @@ namespace ManagedX
 			return temperatureInDegreesCelcius * 1.8 + 32.0;
 		}
 
-		#endregion // Temperature conversion functions
+		#endregion Temperature conversion functions
 
 
 		#region Angle conversion functions
@@ -131,7 +131,7 @@ namespace ManagedX
 			return degrees * DegToRad;
 		}
 
-		#endregion // Angle conversion functions
+		#endregion Angle conversion functions
 
 
 		#region WrapAngle
@@ -170,7 +170,7 @@ namespace ManagedX
 			return radians;
 		}
 
-		#endregion // WrapAngle
+		#endregion WrapAngle
 
 
 		#region Lerp
@@ -197,7 +197,7 @@ namespace ManagedX
 			return source + ( target - source ) * amount;
 		}
 
-		#endregion // Lerp
+		#endregion Lerp
 
 
 		#region SmoothStep
@@ -232,7 +232,7 @@ namespace ManagedX
 			return source + ( target - source ) * amount * amount * ( 3.0 - 2.0 * amount );
 		}
 
-		#endregion // SmoothStep
+		#endregion SmoothStep
 
 
 		#region Barycentric
@@ -263,7 +263,7 @@ namespace ManagedX
 			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
 		}
 
-		#endregion // Barycentric
+		#endregion Barycentric
 
 		
 		#region Hermite
@@ -308,7 +308,7 @@ namespace ManagedX
 			return position1 * a + position2 * b + tangent1 * c + tangent2 * d;
 		}
 
-		#endregion // Hermite
+		#endregion Hermite
 
 
 		#region Catmull-Rom
@@ -341,15 +341,14 @@ namespace ManagedX
 			return 0.5 * ( 2.0 * value2 + ( -value1 + value3 ) * amount + ( 2.0 * value1 - 5.0 * value2 + 4.0 * value3 - value4 ) * amountSquared + ( -value1 + 3.0 * value2 - 3.0 * value3 + value4 ) * amountCubed );
 		}
 
-		#endregion // Catmull-Rom
+		#endregion Catmull-Rom
 
 
 		/// <summary>Calculates the length of a vector, given its components.</summary>
 		/// <param name="x">The X component of the vector.</param>
 		/// <param name="y">The Y component of the vector.</param>
 		/// <returns>Returns the length of the specified vector.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static float Length( float x, float y )
 		{
 			return (float)Math.Sqrt( (double)( x * x + y * y ) );
@@ -360,9 +359,7 @@ namespace ManagedX
 		/// <param name="y">The Y component of the vector.</param>
 		/// <param name="z">The Z component of the vector.</param>
 		/// <returns>Returns the length of the specified vector.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static float Length( float x, float y, float z )
 		{
 			return (float)Math.Sqrt( (double)( x * x + y * y + z * z ) );
@@ -374,10 +371,7 @@ namespace ManagedX
 		/// <param name="z">The z component of the vector.</param>
 		/// <param name="w">The w component of the vector.</param>
 		/// <returns>Returns the length of the specified vector.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static float Length( float x, float y, float z, float w )
 		{
 			return (float)Math.Sqrt( (double)( x * x + y * y + z * z + w * w ) );
@@ -388,8 +382,7 @@ namespace ManagedX
 		/// <param name="x">The X component of the vector.</param>
 		/// <param name="y">The Y component of the vector.</param>
 		/// <returns>Returns the square of the length of the specified vector.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static float LengthSquared( float x, float y )
 		{
 			return x * x + y * y;
@@ -400,9 +393,7 @@ namespace ManagedX
 		/// <param name="y">The Y component of the vector.</param>
 		/// <param name="z">The Z component of the vector.</param>
 		/// <returns>Returns the square of the length of the specified vector.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static float LengthSquared( float x, float y, float z )
 		{
 			return x * x + y * y + z * z;
@@ -414,10 +405,7 @@ namespace ManagedX
 		/// <param name="z">The Z component of the vector.</param>
 		/// <param name="w">The w component of the vector.</param>
 		/// <returns>Returns the square of the length of the specified vector.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static float LengthSquared( float x, float y, float z, float w )
 		{
 			return x * x + y * y + z * z + w * w;
@@ -561,7 +549,7 @@ namespace ManagedX
 			return value;
 		}
 
-		#endregion // Extension methods
+		#endregion Extension methods
 
 	}
 
