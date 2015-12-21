@@ -12,6 +12,10 @@ namespace ManagedX
 	public struct Matrix : IEquatable<Matrix>
 	{
 
+		private const float BillboardDistanceSquaredThreshold = 1E-04f;
+		private const float ConstrainedBillboardThreshold = 0.998254657f;
+
+
 		/// <summary>Value at row 1 column 1 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M11;
@@ -1589,7 +1593,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a <see cref="Matrix"/> that can be used to rotate a set of vertices around the x-axis.</summary>
+		/// <summary>Creates a <see cref="Matrix"/> which can be used to rotate a set of vertices around the x-axis.</summary>
 		/// <param name="angle">The angle, in radians, to rotate around the x-axis.</param>
 		/// <param name="result">Receives the rotation <see cref="Matrix"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
@@ -1653,7 +1657,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a <see cref="Matrix"/> that can be used to rotate a set of vertices around the y-axis.</summary>
+		/// <summary>Creates a <see cref="Matrix"/> which can be used to rotate a set of vertices around the y-axis.</summary>
 		/// <param name="angle">The angle, in radians, to rotate around the y-axis.</param>
 		/// <param name="result">Receives the rotation <see cref="Matrix"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
@@ -1717,7 +1721,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a <see cref="Matrix"/> that can be used to rotate a set of vertices around the z-axis.</summary>
+		/// <summary>Creates a <see cref="Matrix"/> which can be used to rotate a set of vertices around the z-axis.</summary>
 		/// <param name="angle">The angle, in radians, to rotate around the z-axis.</param>
 		/// <param name="result">Receives the rotation <see cref="Matrix"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
@@ -2354,7 +2358,35 @@ namespace ManagedX
 			return result;
 		}
 
-		
+
+		/// <summary>Creates a customized, orthogonal projection <see cref="Matrix"/>.</summary>
+		/// <param name="left">Minimum x-value of the view volume.</param>
+		/// <param name="right">Maximum x-value of the view volume.</param>
+		/// <param name="bottom">Minimum y-value of the view volume.</param>
+		/// <param name="top">Maximum y-value of the view volume.</param>
+		/// <param name="zNearPlane">Minimum z-value of the view volume.</param>
+		/// <param name="zFarPlane">Maximum z-value of the view volume.</param>
+		/// <param name="result">Receives the created <see cref="Matrix"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void CreateOrthographicOffCenter( float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, out Matrix result )
+		{
+			result.M11 = 2.0f / ( right - left );
+			result.M12 = result.M13 = result.M14 = 0.0f;
+
+			result.M21 = 0.0f;
+			result.M22 = 2.0f / ( top - bottom );
+			result.M23 = result.M24 = 0.0f;
+
+			result.M31 = result.M32 = 0.0f;
+			result.M33 = 1.0f / ( zNearPlane - zFarPlane );
+			result.M34 = 0.0f;
+
+			result.M41 = ( left + right ) / ( left - right );
+			result.M42 = ( top + bottom ) / ( bottom - top );
+			result.M43 = zNearPlane / ( zNearPlane - zFarPlane );
+			result.M44 = 1.0f;
+		}
+
 		/// <summary>Returns a customized, orthogonal projection matrix.</summary>
 		/// <param name="left">Minimum x-value of the view volume.</param>
 		/// <param name="right">Maximum x-value of the view volume.</param>
@@ -2385,8 +2417,41 @@ namespace ManagedX
 
 			return result;
 		}
-		// TODO
 
+
+		/// <summary>Creates a perspective projection <see cref="Matrix"/>.</summary>
+		/// <param name="width">Width of the view volume at the near view plane.</param>
+		/// <param name="height">Height of the view volume at the near view plane.</param>
+		/// <param name="nearPlaneDistance">The distance to the near view plane; must be greater than zero.</param>
+		/// <param name="farPlaneDistance">The distance to the far view plane; must be greater that zero.</param>
+		/// <param name="result">Receives the created perspective projection <see cref="Matrix"/>.</param>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		/// <exception cref="ArgumentException"/>
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void CreatePerspective( float width, float height, float nearPlaneDistance, float farPlaneDistance, out Matrix result )
+		{
+			if( float.IsNaN( nearPlaneDistance ) || nearPlaneDistance <= 0.0f )
+				throw new ArgumentOutOfRangeException( "nearPlaneDistance" );
+
+			if( float.IsNaN( farPlaneDistance ) || farPlaneDistance <= 0.0f )
+				throw new ArgumentOutOfRangeException( "farPlaneDistance" );
+
+			if( farPlaneDistance <= nearPlaneDistance )
+				throw new ArgumentException( "farPlaneDistance <= nearPlaneDistance", "farPlaneDistance" );
+
+			result.M11 = 2.0f * nearPlaneDistance / width;
+			result.M12 = result.M13 = result.M14 = 0.0f;
+
+			result.M21 = result.M23 = result.M24 = 0.0f;
+			result.M22 = 2.0f * nearPlaneDistance / height;
+
+			result.M33 = farPlaneDistance / ( nearPlaneDistance - farPlaneDistance );
+			result.M31 = result.M32 = 0.0f;
+			result.M34 = -1.0f;
+
+			result.M41 = result.M42 = result.M44 = 0.0f;
+			result.M43 = nearPlaneDistance * farPlaneDistance / ( nearPlaneDistance - farPlaneDistance );
+		}
 
 		/// <summary>Returns a perspective projection <see cref="Matrix"/>.</summary>
 		/// <param name="width">Width of the view volume at the near view plane.</param>
@@ -2424,7 +2489,6 @@ namespace ManagedX
 			
 			return result;
 		}
-		// TODO
 
 
 		/// <summary>Creates a perspective projection <see cref="Matrix"/> based on a field of view.</summary>
@@ -2515,11 +2579,48 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Creates a customized, perspective projection <see cref="Matrix"/>.</summary>
+		/// <param name="left">The minimum x-value of the view volume at the near view plane.</param>
+		/// <param name="right">The maximum x-value of the view volume at the near view plane.</param>
+		/// <param name="bottom">The minimum y-value of the view volume at the near view plane.</param>
+		/// <param name="top">The maximum y-value of the view volume at the near view plane.</param>
+		/// <param name="nearPlaneDistance">The distance to the near view plane; must be greater than zero.</param>
+		/// <param name="farPlaneDistance">The distance to the far view plane; must be greater that zero.</param>
+		/// <param name="result">Receives the customized perspective projection <see cref="Matrix"/>.</param>
+		/// <exception cref="ArgumentOutOfRangeException"/>
+		/// <exception cref="ArgumentException"/>
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void CreatePerspectiveOffCenter( float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance, out Matrix result )
+		{
+			if( float.IsNaN( nearPlaneDistance ) || nearPlaneDistance <= 0.0f )
+				throw new ArgumentOutOfRangeException( "nearPlaneDistance" );
+
+			if( float.IsNaN( farPlaneDistance ) || farPlaneDistance <= 0.0f )
+				throw new ArgumentOutOfRangeException( "farPlaneDistance" );
+
+			if( farPlaneDistance <= nearPlaneDistance )
+				throw new ArgumentException( "farPlaneDistance <= nearPlaneDistance", "farPlaneDistance" );
+
+			result.M11 = 2.0f * nearPlaneDistance / ( right - left );
+			result.M12 = result.M13 = result.M14 = 0.0f;
+
+			result.M21 = result.M23 = result.M24 = 0.0f;
+			result.M22 = 2.0f * nearPlaneDistance / ( top - bottom );
+
+			result.M31 = ( left + right ) / ( right - left );
+			result.M32 = ( top + bottom ) / ( top - bottom );
+			result.M33 = farPlaneDistance / ( nearPlaneDistance - farPlaneDistance );
+			result.M34 = -1.0f;
+
+			result.M43 = nearPlaneDistance * farPlaneDistance / ( nearPlaneDistance - farPlaneDistance );
+			result.M41 = result.M42 = result.M44 = 0.0f;
+		}
+
 		/// <summary>Returns a customized, perspective projection <see cref="Matrix"/>.</summary>
-		/// <param name="left">Minimum x-value of the view volume at the near view plane.</param>
-		/// <param name="right">Maximum x-value of the view volume at the near view plane.</param>
-		/// <param name="bottom">Minimum y-value of the view volume at the near view plane.</param>
-		/// <param name="top">Maximum y-value of the view volume at the near view plane.</param>
+		/// <param name="left">The minimum x-value of the view volume at the near view plane.</param>
+		/// <param name="right">The maximum x-value of the view volume at the near view plane.</param>
+		/// <param name="bottom">The minimum y-value of the view volume at the near view plane.</param>
+		/// <param name="top">The maximum y-value of the view volume at the near view plane.</param>
 		/// <param name="nearPlaneDistance">The distance to the near view plane; must be greater than zero.</param>
 		/// <param name="farPlaneDistance">The distance to the far view plane; must be greater that zero.</param>
 		/// <returns></returns>
@@ -2554,19 +2655,62 @@ namespace ManagedX
 			
 			return result;
 		}
-		// TODO
 
 
-		private const float BillboardDistanceSquaredThreshold = 1E-04f;
-		private const float ConstrainedBillboardThreshold = 0.998254657f;
-
-
-		/// <summary>Creates a spherical billboard that rotates around a specified object position.</summary>
+		/// <summary>Creates a spherical billboard which rotates around a specified object position.</summary>
 		/// <param name="objectPosition">The position of the object the billboard will rotate around.</param>
 		/// <param name="cameraPosition">The position of the camera.</param>
 		/// <param name="cameraUpVector">The up vector of the camera.</param>
 		/// <param name="cameraForwardVector">The forward vector of the camera, or zero.</param>
-		/// <returns></returns>
+		/// <param name="result">Receives the spherical billboard <see cref="Matrix"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void CreateBillboard( ref Vector3 objectPosition, ref Vector3 cameraPosition, ref Vector3 cameraUpVector, ref Vector3 cameraForwardVector, out Matrix result )
+		{
+			var cameraToObject = objectPosition - cameraPosition;
+
+			var distanceSquared = cameraToObject.LengthSquared;
+			if( distanceSquared < BillboardDistanceSquaredThreshold )
+				if( cameraForwardVector != Vector3.Zero )
+				{
+					cameraToObject = -cameraForwardVector;
+					cameraToObject.Normalize();
+				}
+				else
+					cameraToObject = Vector3.Forward;
+			else
+				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared ); // normalized
+
+			Vector3 rightVector;
+			Vector3.Cross( ref cameraUpVector, ref cameraToObject, out rightVector );
+			rightVector.Normalize();
+
+			Vector3.Cross( ref cameraToObject, ref rightVector, out cameraUpVector );
+
+			result.M11 = rightVector.X;
+			result.M12 = rightVector.Y;
+			result.M13 = rightVector.Z;
+			result.M14 = 0.0f;
+			result.M21 = cameraUpVector.X;
+			result.M22 = cameraUpVector.Y;
+			result.M23 = cameraUpVector.Z;
+			result.M24 = 0.0f;
+			result.M31 = cameraToObject.X;
+			result.M32 = cameraToObject.Y;
+			result.M33 = cameraToObject.Z;
+			result.M34 = 0.0f;
+			result.M41 = objectPosition.X;
+			result.M42 = objectPosition.Y;
+			result.M43 = objectPosition.Z;
+			result.M44 = 1.0f;
+		}
+
+		/// <summary>Returns a spherical billboard which rotates around a specified object position.</summary>
+		/// <param name="objectPosition">The position of the object the billboard will rotate around.</param>
+		/// <param name="cameraPosition">The position of the camera.</param>
+		/// <param name="cameraUpVector">The up vector of the camera.</param>
+		/// <param name="cameraForwardVector">The forward vector of the camera, or zero.</param>
+		/// <returns>Returns the spherical billboard <see cref="Matrix"/>.</returns>
 		public static Matrix CreateBillboard( Vector3 objectPosition, Vector3 cameraPosition, Vector3 cameraUpVector, Vector3 cameraForwardVector )
 		{
 			var cameraToObject = objectPosition - cameraPosition;
@@ -2608,16 +2752,92 @@ namespace ManagedX
 			result.M44 = 1.0f;
 			return result;
 		}
-		// TODO
 
 
-		/// <summary>Creates a cylindrical billboard that rotates around a specified axis.</summary>
+		/// <summary>Creates a cylindrical billboard which rotates around a specified axis.</summary>
 		/// <param name="objectPosition">The position of the object the billboard will rotate around.</param>
 		/// <param name="cameraPosition">The position of the camera.</param>
 		/// <param name="rotateAxis">The axis to rotate the billboard around.</param>
 		/// <param name="cameraForwardVector">The forward vector of the camera, or <see cref="Vector3.Zero"/>.</param>
 		/// <param name="objectForwardVector">The forward vector of the object, or <see cref="Vector3.Zero"/>.</param>
-		/// <returns></returns>
+		/// <param name="result">Receives the cylindrical billboard <see cref="Matrix"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void CreateConstrainedBillboard( ref Vector3 objectPosition, ref Vector3 cameraPosition, ref Vector3 rotateAxis, ref Vector3 cameraForwardVector, ref Vector3 objectForwardVector, out Matrix result )
+		{
+			var cameraToObject = objectPosition - cameraPosition;
+
+			var distanceSquared = cameraToObject.LengthSquared;
+			if( distanceSquared < BillboardDistanceSquaredThreshold )
+				if( cameraForwardVector != Vector3.Zero )
+				{
+					cameraToObject = -cameraForwardVector;
+					cameraToObject.Normalize();
+				}
+				else
+					cameraToObject = Vector3.Forward;
+			else
+				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared );	// normalized
+
+			float dot;
+			Vector3.Dot( ref rotateAxis, ref cameraToObject, out dot );
+
+			Vector3 frontVector, sideVector;
+			if( Math.Abs( dot ) > ConstrainedBillboardThreshold )
+			{
+				if( objectForwardVector != Vector3.Zero )
+				{
+					frontVector = objectForwardVector;
+					Vector3.Dot( ref rotateAxis, ref frontVector, out dot );
+					if( Math.Abs( dot ) > ConstrainedBillboardThreshold )
+					{
+						dot = Vector3.Dot( rotateAxis, Vector3.Forward );
+						frontVector = ( ( Math.Abs( dot ) > ConstrainedBillboardThreshold ) ? Vector3.Right : Vector3.Forward );
+					}
+				}
+				else
+				{
+					dot = Vector3.Dot( rotateAxis, Vector3.Forward );
+					frontVector = ( ( Math.Abs( dot ) > ConstrainedBillboardThreshold ) ? Vector3.Right : Vector3.Forward );
+				}
+
+				Vector3.Cross( ref rotateAxis, ref frontVector, out sideVector );
+			}
+			else
+			{
+				Vector3.Cross( ref rotateAxis, ref cameraToObject, out sideVector );
+			}
+
+			sideVector.Normalize();
+
+			Vector3.Cross( ref sideVector, ref rotateAxis, out frontVector );
+			frontVector.Normalize();
+
+			result.M11 = sideVector.X;
+			result.M12 = sideVector.Y;
+			result.M13 = sideVector.Z;
+			result.M14 = 0.0f;
+			result.M21 = rotateAxis.X;
+			result.M22 = rotateAxis.Y;
+			result.M23 = rotateAxis.Z;
+			result.M24 = 0.0f;
+			result.M31 = frontVector.X;
+			result.M32 = frontVector.Y;
+			result.M33 = frontVector.Z;
+			result.M34 = 0.0f;
+			result.M41 = objectPosition.X;
+			result.M42 = objectPosition.Y;
+			result.M43 = objectPosition.Z;
+			result.M44 = 1.0f;
+		}
+
+		/// <summary>Returns a cylindrical billboard which rotates around a specified axis.</summary>
+		/// <param name="objectPosition">The position of the object the billboard will rotate around.</param>
+		/// <param name="cameraPosition">The position of the camera.</param>
+		/// <param name="rotateAxis">The axis to rotate the billboard around.</param>
+		/// <param name="cameraForwardVector">The forward vector of the camera, or <see cref="Vector3.Zero"/>.</param>
+		/// <param name="objectForwardVector">The forward vector of the object, or <see cref="Vector3.Zero"/>.</param>
+		/// <returns>Returns the cylindrical billboard <see cref="Matrix"/>.</returns>
 		public static Matrix CreateConstrainedBillboard( Vector3 objectPosition, Vector3 cameraPosition, Vector3 rotateAxis, Vector3 cameraForwardVector, Vector3 objectForwardVector )
 		{
 			var cameraToObject = objectPosition - cameraPosition;
@@ -2687,7 +2907,6 @@ namespace ManagedX
 			result.M44 = 1.0f;
 			return result;
 		}
-		// TODO
 
 
 		/// <summary>Creates a <see cref="Matrix"/> from scale, rotation and translation (SRT) parameters.</summary>
