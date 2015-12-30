@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="code\Design\IServiceProviderEx.cs" />
     <Compile Include="code\Diagnostics\PerformanceCounter.cs" />
+    <Compile Include="code\Display\Color.cs" />
     <Compile Include="code\Display\HslColor.cs" />
     <Compile Include="code\Display\LUID.cs" />
     <Compile Include="code\Display\Point.cs" />

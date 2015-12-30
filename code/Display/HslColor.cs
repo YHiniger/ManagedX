@@ -12,19 +12,19 @@ namespace ManagedX // .Display
 	public struct HslColor : IEquatable<HslColor>
 	{
 
-		/// <summary>The hue, within the range [0,360[.</summary>
+		/// <summary>The hue, reduced within the range [0,360[.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float Hue;
 
-		/// <summary>The saturation, within the range [0,1].</summary>
+		/// <summary>The color saturation; should be within the range [0,1].</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float Saturation;
 
-		/// <summary>The lightness, within the range [0,1].</summary>
+		/// <summary>The color lightness; should be within the range [0,1].</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float Lightness;
 
-		/// <summary>The opacity, within the range [0,1].</summary>
+		/// <summary>The color opacity; should be within the range [0,1].</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float Opacity;
 
@@ -49,7 +49,7 @@ namespace ManagedX // .Display
 
 
 		/// <summary>Initializes a new <see cref="HslColor"/>.</summary>
-		/// <param name="hue">The hue of the color, within the range [0,360).</param>
+		/// <param name="hue">The hue of the color, within the range [0,360[.</param>
 		/// <param name="saturation">The saturation of the color, within the range [0,1].</param>
 		/// <param name="lightness">The lightness of the color, within the range [0,1].</param>
 		public HslColor( float hue, float saturation, float lightness )
@@ -84,82 +84,84 @@ namespace ManagedX // .Display
 		}
 
 
-		///// <summary>Returns the corresponding ARGB color.</summary>
-		///// <returns></returns>
-		//public Color ToColor()
-		//{
-		//	this.Normalize();
+		/// <summary>Returns the corresponding <see cref="Color"/>.</summary>
+		/// <returns>Returns the corresponding <see cref="Color"/>.</returns>
+		public Color ToColor()
+		{
+			this.Normalize();
 
-		//	int a = (int)( this.Opacity * 255.0f );
-		//	int r, g, b;
+			int r, g, b;
 
-		//	if( !float.IsNaN( this.Hue ) && !float.IsInfinity( this.Hue ) )
-		//	{
-		//		this.Hue %= 360.0f;
-		//		if( this.Hue < 0.0f )
-		//			this.Hue += 360.0f;
+			if( !float.IsNaN( this.Hue ) )
+			{
+				var h = this.Hue / 60.0f;
+				var c = ( 1.0f - Math.Abs( this.Lightness * 2.0f - 1.0f ) ) * this.Saturation;
+				var x = c * ( 1.0F - Math.Abs( h % 2.0f - 1.0f ) );
 
-		//		float h = this.Hue / 60.0f;
-		//		float c = ( 1.0f - Math.Abs( this.Lightness * 2.0f - 1.0f ) ) * this.Saturation;
-		//		float x = c * ( 1.0F - Math.Abs( h % 2.0f - 1.0f ) );
+				float r1, g1, b1;
+				var n = (int)( Math.Floor( h % 6.0f ) );
 
-		//		float r1, g1, b1;
-		//		switch( (int)( Math.Floor( h % 6.0f ) ) )
-		//		{
-		//			case 0:
-		//				r1 = c;
-		//				g1 = x;
-		//				b1 = 0f;
-		//				break;
+				if( n >= 4 )
+				{
+					g1 = 0.0f;
+					if( n == 4 )
+					{
+						r1 = x;
+						b1 = c;
+					}
+					else //if( n == 5 )
+					{
+						r1 = c;
+						b1 = x;
+					}
+				}
+				else if( n >= 2 )
+				{
+					r1 = 0.0f;
+					if( n == 2 )
+					{
+						g1 = c;
+						b1 = x;
+					}
+					else //if( n == 3 )
+					{
+						g1 = x;
+						b1 = c;
+					}
+				}
+				else
+				{
+					b1 = 0.0f;
+					if( n == 0 )
+					{
+						r1 = c;
+						g1 = x;
+					}
+					else //if( n == 1 )
+					{
+						r1 = x;
+						g1 = c;
+					}
+				}
 
-		//			case 1:
-		//				r1 = x;
-		//				g1 = c;
-		//				b1 = 0f;
-		//				break;
 
-		//			case 2:
-		//				r1 = 0f;
-		//				g1 = c;
-		//				b1 = x;
-		//				break;
+				var m = this.Lightness - c * 0.5f;
+				r1 += m;
+				g1 += m;
+				b1 += m;
 
-		//			case 3:
-		//				r1 = 0f;
-		//				g1 = x;
-		//				b1 = c;
-		//				break;
+				r = (int)( r1.Clamp( 0.0f, 1.0f ) * 255.0f );
+				g = (int)( g1.Clamp( 0.0f, 1.0f ) * 255.0f );
+				b = (int)( b1.Clamp( 0.0f, 1.0f ) * 255.0f );
+			}
+			else
+				r = g = b = 0;
 
-		//			case 4:
-		//				r1 = x;
-		//				g1 = 0f;
-		//				b1 = c;
-		//				break;
+			var a = (int)( this.Opacity * 255.0f );
 
-		//			default:
-		//				r1 = c;
-		//				g1 = 0f;
-		//				b1 = x;
-		//				break;
-		//		}
-
-		//		float m = this.Lightness - c * 0.5f;
-		//		r1 += m;
-		//		g1 += m;
-		//		b1 += m;
-
-		//		r = (int)( r1.Clamp( 0.0f, 1.0f ) * 255.0f );
-		//		g = (int)( g1.Clamp( 0.0f, 1.0f ) * 255.0f );
-		//		b = (int)( b1.Clamp( 0.0f, 1.0f ) * 255.0f );
-		//	}
-		//	else
-		//	{
-		//		r = g = b = 0;
-		//	}
-
-		//	return Color.FromArgb( a, r, g, b );
-		//	// http://en.wikipedia.org/wiki/HSL_and_HSV#Converting_to_RGB
-		//}
+			return new Color( (byte)r, (byte)g, (byte)b, (byte)a );
+			// http://en.wikipedia.org/wiki/HSL_and_HSV#Converting_to_RGB
+		}
 
 
 		/// <summary>Returns a hash code for this <see cref="HslColor"/>.</summary>
@@ -231,10 +233,10 @@ namespace ManagedX // .Display
 		}
 
 
-		/// <summary></summary>
-		/// <param name="color"></param>
-		/// <param name="other"></param>
-		/// <param name="result"></param>
+		/// <summary>Calculates the sum of two <see cref="HslColor"/>.</summary>
+		/// <param name="color">An <see cref="HslColor"/>.</param>
+		/// <param name="other">An <see cref="HslColor"/>.</param>
+		/// <param name="result">Receives the sum of the specified colors.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Add( ref HslColor color, ref HslColor other, out HslColor result )
@@ -246,10 +248,10 @@ namespace ManagedX // .Display
 			result.Normalize();
 		}
 
-		/// <summary></summary>
-		/// <param name="color"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Returns the sum of two <see cref="HslColor"/>.</summary>
+		/// <param name="color">An <see cref="HslColor"/>.</param>
+		/// <param name="other">An <see cref="HslColor"/>.</param>
+		/// <returns>Returns the sum of the specified colors.</returns>
 		public static HslColor Add( HslColor color, HslColor other )
 		{
 			HslColor result;
@@ -263,10 +265,10 @@ namespace ManagedX // .Display
 		}
 
 
-		/// <summary></summary>
-		/// <param name="color"></param>
-		/// <param name="other"></param>
-		/// <param name="result"></param>
+		/// <summary>Calculates the difference between two <see cref="HslColor"/>.</summary>
+		/// <param name="color">An <see cref="HslColor"/>.</param>
+		/// <param name="other">An <see cref="HslColor"/>.</param>
+		/// <param name="result">Receives the resulting <see cref="HslColor"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Subtract( ref HslColor color, ref HslColor other, out HslColor result )
@@ -278,10 +280,10 @@ namespace ManagedX // .Display
 			result.Normalize();
 		}
 
-		/// <summary></summary>
-		/// <param name="color"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <summary>Returns the difference between two <see cref="HslColor"/>.</summary>
+		/// <param name="color">An <see cref="HslColor"/>.</param>
+		/// <param name="other">An <see cref="HslColor"/>.</param>
+		/// <returns>Returns the resulting <see cref="HslColor"/>.</returns>
 		public static HslColor Subtract( HslColor color, HslColor other )
 		{
 			HslColor result;
@@ -319,9 +321,9 @@ namespace ManagedX // .Display
 
 
 		/// <summary>Addition operator.</summary>
-		/// <param name="color"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <param name="color">An <see cref="HslColor"/>.</param>
+		/// <param name="other">An <see cref="HslColor"/>.</param>
+		/// <returns>Returns the sum of the specified colors.</returns>
 		public static HslColor operator +( HslColor color, HslColor other )
 		{
 			HslColor result;
@@ -334,10 +336,11 @@ namespace ManagedX // .Display
 			return result;
 		}
 
+
 		/// <summary>Subtraction operator.</summary>
-		/// <param name="color"></param>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <param name="color">An <see cref="HslColor"/>.</param>
+		/// <param name="other">An <see cref="HslColor"/>.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
 		public static HslColor operator -( HslColor color, HslColor other )
 		{
 			HslColor result;
