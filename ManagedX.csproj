@@ -71,6 +71,7 @@
     <Compile Include="code\MissingRequirementException.cs" />
     <Compile Include="code\structures\Vector3.cs" />
     <Compile Include="code\structures\Vector2.cs" />
+    <Compile Include="code\structures\Viewport.cs" />
     <Compile Include="code\XMath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="README.md" />

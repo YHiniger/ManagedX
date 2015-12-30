@@ -39,7 +39,7 @@ namespace ManagedX
 			corners = new Vector3[ CornerCount ];
 			gjk = new GJK();
 
-			this.SetMatrix( ref value );
+			this.BuildPlanes();
 		}
 
 
@@ -77,43 +77,45 @@ namespace ManagedX
 		public Matrix Matrix
 		{
 			get { return matrix; }
-			set { this.SetMatrix( ref value ); }
+			set
+			{
+				matrix = value;
+				this.BuildPlanes();
+			}
 		}
 
 
-		private void SetMatrix( ref Matrix value )
+		private void BuildPlanes()
 		{
-			this.matrix = value;
+			planes[ 0 ].Normal.X = -matrix.M13;
+			planes[ 0 ].Normal.Y = -matrix.M23;
+			planes[ 0 ].Normal.Z = -matrix.M33;
+			planes[ 0 ].Distance = -matrix.M43;
 
-			this.planes[ 0 ].Normal.X = -value.M13;
-			this.planes[ 0 ].Normal.Y = -value.M23;
-			this.planes[ 0 ].Normal.Z = -value.M33;
-			this.planes[ 0 ].Distance = -value.M43;
+			planes[ 1 ].Normal.X = -matrix.M14 + matrix.M13;
+			planes[ 1 ].Normal.Y = -matrix.M24 + matrix.M23;
+			planes[ 1 ].Normal.Z = -matrix.M34 + matrix.M33;
+			planes[ 1 ].Distance = -matrix.M44 + matrix.M43;
 
-			this.planes[ 1 ].Normal.X = -value.M14 + value.M13;
-			this.planes[ 1 ].Normal.Y = -value.M24 + value.M23;
-			this.planes[ 1 ].Normal.Z = -value.M34 + value.M33;
-			this.planes[ 1 ].Distance = -value.M44 + value.M43;
+			planes[ 2 ].Normal.X = -matrix.M14 - matrix.M11;
+			planes[ 2 ].Normal.Y = -matrix.M24 - matrix.M21;
+			planes[ 2 ].Normal.Z = -matrix.M34 - matrix.M31;
+			planes[ 2 ].Distance = -matrix.M44 - matrix.M41;
 
-			this.planes[ 2 ].Normal.X = -value.M14 - value.M11;
-			this.planes[ 2 ].Normal.Y = -value.M24 - value.M21;
-			this.planes[ 2 ].Normal.Z = -value.M34 - value.M31;
-			this.planes[ 2 ].Distance = -value.M44 - value.M41;
+			planes[ 3 ].Normal.X = -matrix.M14 + matrix.M11;
+			planes[ 3 ].Normal.Y = -matrix.M24 + matrix.M21;
+			planes[ 3 ].Normal.Z = -matrix.M34 + matrix.M31;
+			planes[ 3 ].Distance = -matrix.M44 + matrix.M41;
 
-			this.planes[ 3 ].Normal.X = -value.M14 + value.M11;
-			this.planes[ 3 ].Normal.Y = -value.M24 + value.M21;
-			this.planes[ 3 ].Normal.Z = -value.M34 + value.M31;
-			this.planes[ 3 ].Distance = -value.M44 + value.M41;
+			planes[ 4 ].Normal.X = -matrix.M14 + matrix.M12;
+			planes[ 4 ].Normal.Y = -matrix.M24 + matrix.M22;
+			planes[ 4 ].Normal.Z = -matrix.M34 + matrix.M32;
+			planes[ 4 ].Distance = -matrix.M44 + matrix.M42;
 
-			this.planes[ 4 ].Normal.X = -value.M14 + value.M12;
-			this.planes[ 4 ].Normal.Y = -value.M24 + value.M22;
-			this.planes[ 4 ].Normal.Z = -value.M34 + value.M32;
-			this.planes[ 4 ].Distance = -value.M44 + value.M42;
-
-			this.planes[ 5 ].Normal.X = -value.M14 - value.M12;
-			this.planes[ 5 ].Normal.Y = -value.M24 - value.M22;
-			this.planes[ 5 ].Normal.Z = -value.M34 - value.M32;
-			this.planes[ 5 ].Distance = -value.M44 - value.M42;
+			planes[ 5 ].Normal.X = -matrix.M14 - matrix.M12;
+			planes[ 5 ].Normal.Y = -matrix.M24 - matrix.M22;
+			planes[ 5 ].Normal.Z = -matrix.M34 - matrix.M32;
+			planes[ 5 ].Distance = -matrix.M44 - matrix.M42;
 
 			for( var p = 0; p < PlaneCount; p++ )
 				planes[ p ].Normalize();
@@ -252,8 +254,8 @@ namespace ManagedX
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives true if this <see cref="BoundingFrustum"/> and the <see cref="BoundingBox"/> intersect, false otherwise.</param>
 		/// <exception cref="InvalidOperationException"/>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingBox box, out bool result )
 		{
 			if( corners == null )
@@ -356,8 +358,8 @@ namespace ManagedX
 		/// <param name="result">Receives true if this <see cref="BoundingFrustum"/> intersects the specified <see cref="BoundingFrustum"/>, false otherwise.</param>
 		/// <exception cref="ArgumentException"/>
 		/// <exception cref="InvalidOperationException"/>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingFrustum frustum, out bool result )
 		{
 			var frustumCorners = frustum.corners;
@@ -469,8 +471,8 @@ namespace ManagedX
 		/// <param name="sphere">A <see cref="BoundingSphere"/>.</param>
 		/// <param name="result">Receives true if this <see cref="BoundingFrustum"/> and <see cref="BoundingSphere"/> intersect, false otherwise.</param>
 		/// <exception cref="InvalidOperationException"/>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingSphere sphere, out bool result )
 		{
 			if( corners == null )
@@ -579,8 +581,8 @@ namespace ManagedX
 		/// <summary>Returns a value indicating whether this <see cref="BoundingFrustum"/> contains another <see cref="BoundingFrustum"/>.</summary>
 		/// <param name="frustum">A <see cref="BoundingFrustum"/>.</param>
 		/// <param name="result">Receives a value indicating whether this <see cref="BoundingFrustum"/> contains the specified <paramref name="frustum"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref BoundingFrustum frustum, out ContainmentType result )
 		{
 			var otherCorners = frustum.corners;
@@ -633,8 +635,8 @@ namespace ManagedX
 		/// <summary>Checks whether the current <see cref="BoundingFrustum"/> contains the specified point.</summary>
 		/// <param name="point">The point to test for overlap.</param>
 		/// <param name="result">[OutAttribute] Enumeration indicating the extent of overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref Vector3 point, out ContainmentType result )
 		{
 			Plane plane;
@@ -672,11 +674,11 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="BoundingFrustum"/> contains a <see cref="BoundingBox"/>.</summary>
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives a value indicating the extent of overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref BoundingBox box, out ContainmentType result )
 		{
-			bool intersecting = false;
+			var intersecting = false;
 
 			for( var i = 0; i < PlaneCount; i++ )
 			{
@@ -693,7 +695,7 @@ namespace ManagedX
 					intersecting = true;
 			}
 
-			result = ( intersecting ? ContainmentType.Intersects : ContainmentType.Contains );
+			result = intersecting ? ContainmentType.Intersects : ContainmentType.Contains;
 		}
 
 		/// <summary>Checks whether this <see cref="BoundingFrustum"/> contains the specified <see cref="BoundingBox"/>.</summary>
@@ -701,7 +703,7 @@ namespace ManagedX
 		/// <returns>Returns a value indicating the extent of overlap.</returns>
 		public ContainmentType Contains( BoundingBox box )
 		{
-			bool intersects = false;
+			var intersects = false;
 			for( var i = 0; i < PlaneCount; i++ )
 			{
 				PlaneIntersectionType planeIntersectionType;
@@ -718,62 +720,63 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Checks whether the current <see cref="BoundingFrustum"/> contains the specified BoundingSphere.</summary>
-		/// <param name="sphere">The BoundingSphere to test for overlap.</param>
-		/// <param name="result">[OutAttribute] Enumeration indicating the extent of overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		/// <summary>Determines whether this <see cref="BoundingFrustum"/> contains a <see cref="BoundingSphere"/>.</summary>
+		/// <param name="sphere">A <see cref="BoundingSphere"/>.</param>
+		/// <param name="result">Receives a value indicating the extent of overlap.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref BoundingSphere sphere, out ContainmentType result )
 		{
-			Vector3 center = sphere.Center;
-			float radius = sphere.Radius;
-			int num = 0;
-			Plane[] array = this.planes;
-			for( int i = 0; i < array.Length; i++ )
+			var center = sphere.Center;
+			var radius = sphere.Radius;
+			var count = 0;
+
+			Plane plane;
+			float PdotC;
+			
+			for( var p = 0; p < planes.Length; p++ )
 			{
-				Plane plane = array[ i ];
-				float num2 = plane.Normal.X * center.X + plane.Normal.Y * center.Y + plane.Normal.Z * center.Z;
-				float num3 = num2 + plane.Distance;
-				if( num3 > radius )
+				plane = planes[ p ];
+				PdotC = plane.Normal.X * center.X + plane.Normal.Y * center.Y + plane.Normal.Z * center.Z + plane.Distance;
+				
+				if( PdotC > radius )
 				{
 					result = ContainmentType.Disjoint;
 					return;
 				}
-				if( num3 < -radius )
-				{
-					num++;
-				}
+				
+				if( PdotC < -radius )
+					count++;
 			}
-			result = ( ( num == 6 ) ? ContainmentType.Contains : ContainmentType.Intersects );
+			
+			result = ( count == 6 ) ? ContainmentType.Contains : ContainmentType.Intersects;
 		}
 
-		/// <summary>Checks whether the current <see cref="BoundingFrustum"/> contains the specified BoundingSphere.</summary>
-		/// <param name="sphere">The BoundingSphere to check against the current BoundingFrustum.</param>
+		/// <summary>Returns a value indicating whether this <see cref="BoundingFrustum"/> contains a <see cref="BoundingSphere"/>.</summary>
+		/// <param name="sphere">A <see cref="BoundingSphere"/>.</param>
+		/// <returns></returns>
 		public ContainmentType Contains( BoundingSphere sphere )
 		{
-			Vector3 center = sphere.Center;
-			float radius = sphere.Radius;
-			int num = 0;
-			Plane[] array = this.planes;
-			for( int i = 0; i < array.Length; i++ )
+			var center = sphere.Center;
+			var radius = sphere.Radius;
+			var count = 0;
+			
+			Plane plane;
+			float PdotC;
+			
+			for( var p = 0; p < planes.Length; p++ )
 			{
-				Plane plane = array[ i ];
-				float num2 = plane.Normal.X * center.X + plane.Normal.Y * center.Y + plane.Normal.Z * center.Z;
-				float num3 = num2 + plane.Distance;
-				if( num3 > radius )
-				{
+				plane = planes[ p ];
+				PdotC = plane.Normal.X * center.X + plane.Normal.Y * center.Y + plane.Normal.Z * center.Z + plane.Distance;
+				
+				if( PdotC > radius )
 					return ContainmentType.Disjoint;
-				}
-				if( num3 < -radius )
-				{
-					num++;
-				}
+				
+				if( PdotC < -radius )
+					count++;
 			}
-			if( num != 6 )
-			{
-				return ContainmentType.Intersects;
-			}
-			return ContainmentType.Contains;
+
+			return ( count == 6 ) ? ContainmentType.Contains : ContainmentType.Intersects;
 		}
 
 		#endregion Contains

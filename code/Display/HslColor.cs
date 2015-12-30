@@ -12,7 +12,7 @@ namespace ManagedX // .Display
 	public struct HslColor : IEquatable<HslColor>
 	{
 
-		/// <summary>The hue, within the range [0,360).</summary>
+		/// <summary>The hue, within the range [0,360[.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float Hue;
 
@@ -33,7 +33,7 @@ namespace ManagedX // .Display
 		#region Constructors
 
 		/// <summary>Initializes a new <see cref="HslColor"/>.</summary>
-		/// <param name="hue">The hue of the color, within the range [0,360).</param>
+		/// <param name="hue">The hue of the color, within the range [0,360[.</param>
 		/// <param name="saturation">The saturation of the color, within the range [0,1].</param>
 		/// <param name="lightness">The lightness of the color, within the range [0,1].</param>
 		/// <param name="opacity">The opacity of the color, within the range [0,1].</param>
@@ -78,9 +78,9 @@ namespace ManagedX // .Display
 					Hue += 360.0f;
 			}
 
-			Saturation.Saturate();
-			Lightness.Saturate();
-			Opacity.Saturate();
+			Saturation = Saturation.Saturate();
+			Lightness = Lightness.Saturate();
+			Opacity = Opacity.Saturate();
 		}
 
 
