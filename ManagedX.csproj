@@ -53,6 +53,7 @@
     <Compile Include="code\Display\Point.cs" />
     <Compile Include="code\Display\Rect.cs" />
     <Compile Include="code\Display\Size.cs" />
+    <Compile Include="code\Display\Viewport.cs" />
     <Compile Include="code\enumerations\ContainmentType.cs" />
     <Compile Include="code\enumerations\ErrorCode.cs" />
     <Compile Include="code\enumerations\PlaneIndex.cs" />
@@ -72,7 +73,6 @@
     <Compile Include="code\MissingRequirementException.cs" />
     <Compile Include="code\structures\Vector3.cs" />
     <Compile Include="code\structures\Vector2.cs" />
-    <Compile Include="code\structures\Viewport.cs" />
     <Compile Include="code\XMath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="README.md" />
