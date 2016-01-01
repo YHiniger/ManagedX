@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 
-namespace ManagedX // .Display
+namespace ManagedX // .Graphics
 {
 	
 	/// <summary>Represents an integer size in 2D space.</summary>

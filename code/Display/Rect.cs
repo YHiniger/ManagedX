@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 
-namespace ManagedX // .Display
+namespace ManagedX // .Graphics
 {
 
 	/// <summary>Defines the (integer) coordinates of the upper-left and lower-right corners of a rectangle.</summary>

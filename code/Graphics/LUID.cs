@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 
 
-namespace ManagedX // .Graphics?
+namespace ManagedX.Graphics
 {
 
 	/// <summary>A locally unique identifier (LUID).</summary>

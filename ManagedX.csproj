@@ -47,13 +47,9 @@
   <ItemGroup>
     <Compile Include="code\Design\IServiceProviderEx.cs" />
     <Compile Include="code\Diagnostics\PerformanceCounter.cs" />
-    <Compile Include="code\Display\Color.cs" />
-    <Compile Include="code\Display\HslColor.cs" />
-    <Compile Include="code\Display\LUID.cs" />
     <Compile Include="code\Display\Point.cs" />
     <Compile Include="code\Display\Rect.cs" />
     <Compile Include="code\Display\Size.cs" />
-    <Compile Include="code\Display\Viewport.cs" />
     <Compile Include="code\enumerations\ContainmentType.cs" />
     <Compile Include="code\enumerations\ErrorCode.cs" />
     <Compile Include="code\enumerations\PlaneIndex.cs" />
@@ -61,6 +57,10 @@
     <Compile Include="code\Design\I3DObject.cs" />
     <Compile Include="code\enumerations\StatusCode.cs" />
     <Compile Include="code\GJK.cs" />
+    <Compile Include="code\Graphics\Color.cs" />
+    <Compile Include="code\Graphics\HslColor.cs" />
+    <Compile Include="code\Graphics\LUID.cs" />
+    <Compile Include="code\Graphics\Viewport.cs" />
     <Compile Include="code\structures\BoundingBox.cs" />
     <Compile Include="code\structures\BoundingFrustum.cs" />
     <Compile Include="code\structures\BoundingSphere.cs" />

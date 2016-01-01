@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 
-namespace ManagedX
+namespace ManagedX.Graphics
 {
 
 	/// <summary></summary>
