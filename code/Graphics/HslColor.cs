@@ -44,7 +44,7 @@ namespace ManagedX.Graphics
 			Lightness = lightness;
 			Opacity = opacity;
 
-			this.Normalize();
+			//this.Normalize();
 		}
 
 
@@ -59,7 +59,7 @@ namespace ManagedX.Graphics
 			Lightness = lightness;
 			Opacity = 1.0f;
 
-			this.Normalize();
+			//this.Normalize();
 		}
 
 		#endregion Constructors
@@ -199,40 +199,6 @@ namespace ManagedX.Graphics
 
 
 
-		/// <summary>Performs a linear interpolation between two <see cref="HslColor"/> structures.</summary>
-		/// <param name="source">The source <see cref="HslColor"/>.</param>
-		/// <param name="target">The target <see cref="HslColor"/>.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <param name="result">Receives the interpolated <see cref="HslColor"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
-		public static void Lerp( ref HslColor source, ref HslColor target, float amount, out HslColor result )
-		{
-			result.Hue = source.Hue + ( target.Hue - source.Hue ) * amount;
-			result.Saturation = source.Saturation + ( target.Saturation - source.Saturation ) * amount;
-			result.Lightness = source.Lightness + ( target.Lightness - source.Lightness ) * amount;
-			result.Opacity = source.Opacity + ( target.Opacity - source.Opacity ) * amount;
-
-			result.Normalize();
-		}
-
-		/// <summary>Performs a linear interpolation between two <see cref="HslColor"/> structures.</summary>
-		/// <param name="source">The source <see cref="HslColor"/>.</param>
-		/// <param name="target">The target <see cref="HslColor"/>.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <returns>Returns the interpolated <see cref="HslColor"/>.</returns>
-		public static HslColor Lerp( HslColor source, HslColor target, float amount )
-		{
-			source.Hue += ( target.Hue - source.Hue ) * amount;
-			source.Saturation += ( target.Saturation - source.Saturation ) * amount;
-			source.Lightness += ( target.Lightness - source.Lightness ) * amount;
-			source.Opacity += ( target.Opacity - source.Opacity ) * amount;
-			
-			source.Normalize();
-			return source;
-		}
-
-
 		/// <summary>Calculates the sum of two <see cref="HslColor"/>.</summary>
 		/// <param name="color">An <see cref="HslColor"/>.</param>
 		/// <param name="other">An <see cref="HslColor"/>.</param>
@@ -294,6 +260,40 @@ namespace ManagedX.Graphics
 			
 			result.Normalize();
 			return result;
+		}
+
+
+		/// <summary>Performs a linear interpolation between two <see cref="HslColor"/> structures.</summary>
+		/// <param name="source">The source <see cref="HslColor"/>.</param>
+		/// <param name="target">The target <see cref="HslColor"/>.</param>
+		/// <param name="amount">The weighting factor.</param>
+		/// <param name="result">Receives the interpolated <see cref="HslColor"/>.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Lerp( ref HslColor source, ref HslColor target, float amount, out HslColor result )
+		{
+			result.Hue = source.Hue + ( target.Hue - source.Hue ) * amount;
+			result.Saturation = source.Saturation + ( target.Saturation - source.Saturation ) * amount;
+			result.Lightness = source.Lightness + ( target.Lightness - source.Lightness ) * amount;
+			result.Opacity = source.Opacity + ( target.Opacity - source.Opacity ) * amount;
+
+			result.Normalize();
+		}
+
+		/// <summary>Performs a linear interpolation between two <see cref="HslColor"/> structures.</summary>
+		/// <param name="source">The source <see cref="HslColor"/>.</param>
+		/// <param name="target">The target <see cref="HslColor"/>.</param>
+		/// <param name="amount">The weighting factor.</param>
+		/// <returns>Returns the interpolated <see cref="HslColor"/>.</returns>
+		public static HslColor Lerp( HslColor source, HslColor target, float amount )
+		{
+			source.Hue += ( target.Hue - source.Hue ) * amount;
+			source.Saturation += ( target.Saturation - source.Saturation ) * amount;
+			source.Lightness += ( target.Lightness - source.Lightness ) * amount;
+			source.Opacity += ( target.Opacity - source.Opacity ) * amount;
+			
+			source.Normalize();
+			return source;
 		}
 
 
