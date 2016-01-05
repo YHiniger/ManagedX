@@ -58,8 +58,10 @@
     <Compile Include="code\enumerations\StatusCode.cs" />
     <Compile Include="code\GJK.cs" />
     <Compile Include="code\Graphics\Color.cs" />
-    <Compile Include="code\Graphics\HslColor.cs" />
+    <Compile Include="code\Graphics\HSL.cs" />
     <Compile Include="code\Graphics\LUID.cs" />
+    <Compile Include="code\Graphics\RGB.cs" />
+    <Compile Include="code\Graphics\RGBA.cs" />
     <Compile Include="code\Graphics\Viewport.cs" />
     <Compile Include="code\structures\BoundingBox.cs" />
     <Compile Include="code\structures\BoundingFrustum.cs" />
