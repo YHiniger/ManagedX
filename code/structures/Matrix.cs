@@ -19,48 +19,63 @@ namespace ManagedX
 		/// <summary>Value at row 1 column 1 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M11;
+		
 		/// <summary>Value at row 1 column 2 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M12;
+		
 		/// <summary>Value at row 1 column 3 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M13;
+		
 		/// <summary>Value at row 1 column 4 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M14;
+		
 		/// <summary>Value at row 2 column 1 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M21;
+		
 		/// <summary>Value at row 2 column 2 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M22;
+		
 		/// <summary>Value at row 2 column 3 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M23;
+		
 		/// <summary>Value at row 2 column 4 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M24;
+		
 		/// <summary>Value at row 3 column 1 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M31;
+		
 		/// <summary>Value at row 3 column 2 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M32;
+		
 		/// <summary>Value at row 3 column 3 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M33;
+		
 		/// <summary>Value at row 3 column 4 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M34;
+		
 		/// <summary>Value at row 4 column 1 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M41;
+		
 		/// <summary>Value at row 4 column 2 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M42;
+		
 		/// <summary>Value at row 4 column 3 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M43;
+		
 		/// <summary>Value at row 4 column 4 of the matrix.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
 		public float M44;
@@ -68,22 +83,22 @@ namespace ManagedX
 
 
 		/// <summary>Initializes a new <see cref="Matrix"/>.</summary>
-		/// <param name="m11"></param>
-		/// <param name="m12"></param>
-		/// <param name="m13"></param>
-		/// <param name="m14"></param>
-		/// <param name="m21"></param>
-		/// <param name="m22"></param>
-		/// <param name="m23"></param>
-		/// <param name="m24"></param>
-		/// <param name="m31"></param>
-		/// <param name="m32"></param>
-		/// <param name="m33"></param>
-		/// <param name="m34"></param>
-		/// <param name="m41"></param>
-		/// <param name="m42"></param>
-		/// <param name="m43"></param>
-		/// <param name="m44"></param>
+		/// <param name="m11">Value at row 1 column 1 of the matrix.</param>
+		/// <param name="m12">Value at row 1 column 2 of the matrix.</param>
+		/// <param name="m13">Value at row 1 column 3 of the matrix.</param>
+		/// <param name="m14">Value at row 1 column 4 of the matrix.</param>
+		/// <param name="m21">Value at row 2 column 1 of the matrix.</param>
+		/// <param name="m22">Value at row 2 column 2 of the matrix.</param>
+		/// <param name="m23">Value at row 2 column 3 of the matrix.</param>
+		/// <param name="m24">Value at row 2 column 4 of the matrix.</param>
+		/// <param name="m31">Value at row 3 column 1 of the matrix.</param>
+		/// <param name="m32">Value at row 3 column 2 of the matrix.</param>
+		/// <param name="m33">Value at row 3 column 3 of the matrix.</param>
+		/// <param name="m34">Value at row 3 column 4 of the matrix.</param>
+		/// <param name="m41">Value at row 4 column 1 of the matrix.</param>
+		/// <param name="m42">Value at row 4 column 2 of the matrix.</param>
+		/// <param name="m43">Value at row 4 column 3 of the matrix.</param>
+		/// <param name="m44">Value at row 4 column 4 of the matrix.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray" )]
 		public Matrix( 
 			float m11, float m12, float m13, float m14, 
@@ -794,6 +809,7 @@ namespace ManagedX
 				( M41 == other.M41 ) && ( M42 == other.M42 ) && ( M43 == other.M43 ) && ( M44 == other.M44 );
 		}
 
+		// used by BoundingFrustum
 		internal bool Equals( ref Matrix other )
 		{
 			return
@@ -823,19 +839,6 @@ namespace ManagedX
 				M21, M22, M23, M24,
 				M31, M32, M33, M34,
 				M41, M42, M43, M44
-			};
-		}
-
-		/// <summary>Returns an array of single-precision floating-point values representing this <see cref="Matrix"/>.</summary>
-		/// <returns>Returns an array of single-precision floating-point values representing this <see cref="Matrix"/>.</returns>
-		public float[][] ToArray2()
-		{
-			return new float[ 4 ][]
-			{
-				new float[ 4 ] { M11, M12, M13, M14 },
-				new float[ 4 ] { M21, M22, M23, M24 },
-				new float[ 4 ] { M31, M32, M33, M34 },
-				new float[ 4 ] { M41, M42, M43, M44 }
 			};
 		}
 
@@ -1315,7 +1318,7 @@ namespace ManagedX
 		/// <summary>Performs a linear interpolation between two matrices.</summary>
 		/// <param name="source">The source <see cref="Matrix"/>.</param>
 		/// <param name="target">The target <see cref="Matrix"/>.</param>
-		/// <param name="amount">The weighting factor.</param>
+		/// <param name="amount">The weighting factor, within the range [0,1].</param>
 		/// <param name="result">Receives the interpolated <see cref="Matrix"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
@@ -1342,10 +1345,10 @@ namespace ManagedX
 			result.M44 = source.M44 + ( target.M44 - source.M44 ) * amount;
 		}
 
-		/// <summary>Linearly interpolates between the corresponding values of two matrices.</summary>
+		/// <summary>Performs a linear interpolation between two matrices.</summary>
 		/// <param name="source">The source <see cref="Matrix"/>.</param>
 		/// <param name="target">The target <see cref="Matrix"/>.</param>
-		/// <param name="amount">The weighting factor.</param>
+		/// <param name="amount">The weighting factor, within the range [0,1].</param>
 		/// <returns>Returns the interpolated <see cref="Matrix"/>.</returns>
 		public static Matrix Lerp( Matrix source, Matrix target, float amount )
 		{

@@ -67,6 +67,7 @@
     <Compile Include="code\structures\BoundingFrustum.cs" />
     <Compile Include="code\structures\BoundingSphere.cs" />
     <Compile Include="code\structures\Matrix.cs" />
+    <Compile Include="code\structures\Matrix3x2.cs" />
     <Compile Include="code\structures\Plane.cs" />
     <Compile Include="code\structures\Quaternion.cs" />
     <Compile Include="code\structures\Ray.cs" />
