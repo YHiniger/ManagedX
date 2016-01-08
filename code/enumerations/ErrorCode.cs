@@ -145,6 +145,108 @@ namespace ManagedX
 		//ERROR_SHARING_VIOLATION = 2147942432
 
 
+		#region DXGI
+
+		// https://msdn.microsoft.com/en-us/library/windows/desktop/bb509553%28v=vs.85%29.aspx
+		// https://msdn.microsoft.com/en-us/library/windows/desktop/aa378137%28v=vs.85%29.aspx
+
+
+		/// <summary>The application provided invalid parameter data; this must be debugged and fixed before the application is released.
+		/// Either the parameters of the call or the state of some object was incorrect. Enable the D3D debug layer in order to see details via debug messages.
+		/// </summary>
+		DxgiInvalidCall = unchecked( (int)0x887A0001 ),
+
+		/// <summary>The object was not found. If calling IDXGIFactory::EnumAdapters, there is no adapter with the specified ordinal.</summary>
+		DxgiNotFound = unchecked( (int)0x887A0002 ),
+
+		/// <summary>The buffer supplied by the application is not big enough to hold the requested data.</summary>
+		DxgiMoreData = unchecked( (int)0x887A0003 ),
+
+		/// <summary>The specified device interface or feature level is not supported on this system.</summary>
+		DxgiUnsupported = unchecked( (int)0x887A0004 ),
+
+		/// <summary>The video card has been physically removed from the system, or a driver upgrade for the video card has occurred. The application should destroy and recreate the device.
+		/// The GPU device instance has been suspended. Use ID3D10Device::GetDeviceRemovedReason to determine the appropriate action.
+		/// </summary>
+		DxgiDeviceRemoved = unchecked( (int)0x887A0005 ),
+
+		/// <summary>The application's device failed due to badly formed commands sent by the application. This is a design-time issue that should be investigated and fixed.
+		/// The GPU will not respond to more commands, most likely because of an invalid command passed by the calling application.
+		/// </summary>
+		DxgiDeviceHung = unchecked( (int)0x887A0006 ),
+
+		/// <summary>The device failed due to a badly formed command. This is a run-time issue; the application should destroy and recreate the device.
+		/// The GPU will not respond to more commands, most likely because some other application submitted invalid commands.
+		/// </summary>
+		DxgiDeviceReset = unchecked( (int)0x887A0007 ),
+
+		/// <summary>The GPU was busy at the moment when the call was made, and the call was neither executed nor scheduled.</summary>
+		DxgiWasStillDrawing = unchecked( (int)0x887A000A ),
+
+		/// <summary>An event (such as power cycle) interrupted the gathering of presentation statistics. Any previous statistics should be considered invalid.</summary>
+		DxgiFrameStatisticsDisjoint = unchecked( (int)0x887A000B ),
+
+		/// <summary>The application attempted to acquire exclusive ownership of an output, but failed because some other application (or device within the application) already acquired ownership.
+		/// Fullscreen mode could not be achieved because the specified output was already in use.
+		/// </summary>
+		DxgiGraphicsVidPNSourceInUse = unchecked( (int)0x887A000C ),
+
+		/// <summary>The driver encountered a problem and was put into the device removed state.
+		/// An internal issue prevented the driver from carrying out the specified operation.
+		/// The driver's state is probably suspect, and the application should not continue.
+		/// </summary>
+		DxgiDriverInternalError = unchecked( (int)0x887A0020 ),
+
+		/// <summary>A global counter resource was in use, and the specified counter cannot be used by this Direct3D device at this time.</summary>
+		DxgiNonExclusive = unchecked( (int)0x887A0021 ),
+
+		/// <summary>A resource is not available at the time of the call, but may become available later.</summary>
+		DxgiNotCurrentlyAvailable = unchecked( (int)0x887A0022 ),
+
+		/// <summary>Reserved.
+		/// The application's remote device has been removed due to session disconnect or network disconnect.
+		/// The application should call IDXGIFactory1::IsCurrent to find out when the remote device becomes available again.
+		/// </summary>
+		DxgiRemoteClientDisconnected = unchecked( (int)0x887A0023 ),
+
+		/// <summary>Reserved.
+		/// The device has been removed during a remote session because the remote computer ran out of memory.
+		/// </summary>
+		DxgiRemoteOutOfMemory = unchecked( (int)0x887A0024 ),
+
+		/// <summary>The keyed mutex was abandoned.</summary>
+		DxgiAccessLost = unchecked( (int)0x887A0026 ),
+
+		/// <summary>The timeout value has elapsed and the resource is not yet available.</summary>
+		DxgiWaitTimeout = unchecked( (int)0x887A0027 ),
+
+		/// <summary>The output duplication has been turned off because the Windows session ended or was disconnected.
+		/// This happens when a remote user disconnects, or when "switch user" is used locally.
+		/// </summary>
+		DxgiSessionDisconnected = unchecked( (int)0x887A0028 ),
+
+		/// <summary>The DXGI outuput (monitor) to which the swapchain content was restricted, has been disconnected or changed.</summary>
+		DxgiRestrictToOutputStale = unchecked( (int)0x887A0029 ),
+
+		/// <summary>DXGI is unable to provide content protection on the swapchain. This is typically caused by an older driver,
+		/// or by the application using a swapchain that is incompatible with content protection.
+		/// </summary>
+		DxgiCanNotProtectContent = unchecked( (int)0x887A002A ),
+
+		/// <summary>The application is trying to use a resource to which it does not have the required access privileges.
+		/// This is most commonly caused by writing to a shared resource with read-only access.
+		/// </summary>
+		DxgiAccessDenied = unchecked( (int)0x887A002B ),
+
+		/// <summary>The application is trying to create a shared handle using a name that is already associated with some other resource.</summary>
+		DxgiNameAlreadyExists = unchecked( (int)0x887A002C ),
+
+		/// <summary>The operation depends on an SDK component that is missing or mismatched.</summary>
+		DxgiSdkComponentMissing = unchecked( (int)0x887A002D ),
+
+		#endregion DXGI
+
+
 		#region AudioClient
 
 		// AudioClient.h
@@ -280,7 +382,7 @@ namespace ManagedX
 		/// <summary>Returned by XAudio2 for certain API usage errors (invalid calls and so on) that are hard to avoid completely and should be handled by a title at runtime.
 		/// <para>(API usage errors that are completely avoidable, such as invalid parameters, cause an ASSERT in debug builds and undefined behavior in retail builds, so no error code is defined for them.)</para>
 		/// </summary>
-		InvalidXAudio2Call = unchecked( (int)0x88960001 ), // XAUDIO2_E_INVALID_CALL
+		XAudio2InvalidCall = unchecked( (int)0x88960001 ), // XAUDIO2_E_INVALID_CALL
 
 		/// <summary>The Xbox 360 XMA hardware suffered an unrecoverable error.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XMA", Justification = "XMA = ..." )]
