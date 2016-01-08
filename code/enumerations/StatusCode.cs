@@ -18,20 +18,22 @@
 		
 		// https://msdn.microsoft.com/en-us/library/windows/desktop/cc308061%28v=vs.85%29.aspx
 
-		/// <summary>The window content is not visible. When receiving this status, an application can stop rendering and use <code>PresentOptions.Test</code> to determine when to resume rendering.
+		/// <summary>The window content is not visible.
+		/// When receiving this status, an application can stop rendering and use <code>PresentOptions.Test</code> to determine when to resume rendering.
 		/// <para>The native name of this constant is <code>DXGI_STATUS_OCCLUDED</code>.</para>
 		/// </summary>
-		Occluded = 0x087A0001,
+		DxgiOccluded = 0x087A0001,
 
-		/// <summary>The desktop display mode has been changed, there might be color conversion/stretching. The application should call IDXGISwapChain::ResizeBuffers to match the new display mode.
+		/// <summary>The desktop display mode has been changed, there might be color conversion/stretching.
+		/// The application should call <code>IDXGISwapChain.ResizeBuffers</code> to match the new display mode.
 		/// <para>The native name of this constant is <code>DXGI_STATUS_MODE_CHANGED</code>.</para>
 		/// </summary>
-		ModeChanged = 0x087A0007,
+		DxgiModeChange = 0x087A0007,
 
-		/// <summary>IDXGISwapChain::ResizeTarget and IDXGISwapChain::SetFullscreenState will return this value if a fullscreen/windowed mode transition is occurring when either API is called.
+		/// <summary><code>IDXGISwapChain.ResizeTarget</code> and <code>IDXGISwapChain.SetFullscreenState</code> will return this value if a fullscreen/windowed mode transition is occurring when either API is called.
 		/// <para>The native name of this constant is <code>DXGI_STATUS_MODE_CHANGE_IN_PROGRESS</code>.</para>
 		/// </summary>
-		ModeChangeInProgress = 0x087A0008
+		DxgiModeChangeInProgress = 0x087A0008
 
 		#endregion DXGI
 

@@ -107,8 +107,7 @@ namespace ManagedX
 		/// <summary>Forces the components of this <see cref="Vector3"/> within the range [<paramref name="min"/>,<paramref name="max"/>].</summary>
 		/// <param name="min">A valid <see cref="Vector3"/> structure containing the minimum value for each component.</param>
 		/// <param name="max">A valid <see cref="Vector3"/> structure containing the maximum value for each component.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		public void Clamp( ref Vector3 min, ref Vector3 max )
 		{
 			if( X < min.X )
@@ -204,10 +203,9 @@ namespace ManagedX
 			return new Vector2( X, Y );
 		}
 
-		
-		#region Static
 
-		/// <summary>A <see cref="Vector3"/> whose components are set to 0.</summary>
+
+		/// <summary>The «zero» <see cref="Vector3"/>.</summary>
 		public static readonly Vector3 Zero;
 
 		/// <summary>A <see cref="Vector3"/> whose components are set to 1.</summary>
@@ -247,13 +245,14 @@ namespace ManagedX
 		public static readonly Vector3 UnitZ = Backward;
 
 
+		#region Static methods
+
 		/// <summary>Calculates the sum of two <see cref="Vector3"/>.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the sum of the two specified <see cref="Vector3"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Add( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X + other.X;
@@ -277,8 +276,8 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the sum of the two specified <see cref="Vector3"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Add( ref Vector3 vector, float value, out Vector3 result )
 		{
 			result.X = vector.X + value;
@@ -303,9 +302,8 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the difference between <paramref name="vector"/> and <paramref name="other"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Subtract( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X - other.X;
@@ -329,8 +327,8 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the result of the subtraction.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Subtract( ref Vector3 vector, float value, out Vector3 result )
 		{
 			result.X = vector.X - value;
@@ -354,8 +352,8 @@ namespace ManagedX
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the result of the subtraction.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Subtract( float value, ref Vector3 vector, out Vector3 result )
 		{
 			result.X = value - vector.X;
@@ -380,9 +378,8 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="other"/> ).</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X * other.X;
@@ -406,8 +403,8 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> × <paramref name="value"/> ).</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Vector3 vector, float value, out Vector3 result )
 		{
 			result.X = vector.X * value;
@@ -432,9 +429,8 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="other"/> ).</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Divide( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.X / other.X;
@@ -458,8 +454,8 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the result of ( <paramref name="vector"/> : <paramref name="value"/> ).</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Divide( ref Vector3 vector, float value, out Vector3 result )
 		{
 			value = 1.0f / value;
@@ -485,8 +481,8 @@ namespace ManagedX
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the result of the division.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Divide( float value, ref Vector3 vector, out Vector3 result )
 		{
 			result.X = value / vector.X;
@@ -511,9 +507,8 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives a <see cref="Vector3"/> structure whose components are set to the minimum components between two <see cref="Vector3"/> values.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Min( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			if( other.X < vector.X )
@@ -555,9 +550,8 @@ namespace ManagedX
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives a <see cref="Vector3"/> structure whose components are set to the maximum components between two <see cref="Vector3"/> values.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Max( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			if( other.X > vector.X )
@@ -599,9 +593,8 @@ namespace ManagedX
 		/// <param name="position">A <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the distance between the two specified positions.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Distance( ref Vector3 position, ref Vector3 other, out float result )
 		{
 			var x = position.X - other.X;
@@ -627,9 +620,8 @@ namespace ManagedX
 		/// <param name="position">A valid <see cref="Vector3"/> value.</param>
 		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
 		/// <param name="result">Receives the square of the distance between the two specified positions.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void DistanceSquared( ref Vector3 position, ref Vector3 other, out float result )
 		{
 			var x = position.X - other.X;
@@ -654,8 +646,8 @@ namespace ManagedX
 		/// <summary>Normalizes a <see cref="Vector3"/>.</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the normalized <paramref name="vector"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Normalize( ref Vector3 vector, out Vector3 result )
 		{
 			var oneOverLength = 1.0f / (float)Math.Sqrt( (double)( vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z ) );
@@ -681,9 +673,8 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector3"/> value.</param>
 		/// <param name="other">A valid <see cref="Vector3"/> value.</param>
 		/// <param name="result">Receives the dot product of the two specified <see cref="Vector3"/> values.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Dot( ref Vector3 vector, ref Vector3 other, out float result )
 		{
 			result = vector.X * other.X + vector.Y * other.Y + vector.Z * other.Z;
@@ -703,9 +694,8 @@ namespace ManagedX
 		/// <param name="vector">Source vector.</param>
 		/// <param name="normal">Normal of vector.</param>
 		/// <param name="result">Receives the reflected vector.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Reflect( ref Vector3 vector, ref Vector3 normal, out Vector3 result )
 		{
 			var dot2 = ( vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z ) * 2.0f;
@@ -736,9 +726,8 @@ namespace ManagedX
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; should be in the range [0,1].</param>
 		/// <param name="result">Receives the result of the linear interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Lerp( ref Vector3 source, ref Vector3 target, float amount, out Vector3 result )
 		{
 			result.X = source.X + ( target.X - source.X ) * amount;
@@ -765,9 +754,8 @@ namespace ManagedX
 		/// <param name="target">The target value.</param>
 		/// <param name="amount">The weighting factor; will be saturated.</param>
 		/// <param name="result">Receives the result of the cubic interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void SmoothStep( ref Vector3 source, ref Vector3 target, float amount, out Vector3 result )
 		{
 			if( amount < 0.0f )
@@ -810,11 +798,8 @@ namespace ManagedX
 		/// <param name="value4">The fourth value in the interpolation.</param>
 		/// <param name="amount">The weighting factor.</param>
 		/// <param name="result">Receives the result of the interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CatmullRom( ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, ref Vector3 value4, float amount, out Vector3 result )
 		{
 			var amountSquared = amount * amount;
@@ -852,11 +837,8 @@ namespace ManagedX
 		/// <param name="tangent2">The tangent associated with the other source position.</param>
 		/// <param name="amount">The weighting factor.</param>
 		/// <param name="result">Receives the result of the Hermite spline interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Hermite( ref Vector3 position1, ref Vector3 tangent1, ref Vector3 position2, ref Vector3 tangent2, float amount, out Vector3 result )
 		{
 			var amountSquared = amount * amount;
@@ -908,10 +890,8 @@ namespace ManagedX
 		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
 		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
 		/// <param name="result">Receives a <see cref="Vector3"/> containing the 3D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 3D triangle.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "5#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Barycentric( ref Vector3 value1, ref Vector3 value2, ref Vector3 value3, float amount1, float amount2, out Vector3 result )
 		{
 			result.X = value1.X + amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X );
@@ -940,10 +920,8 @@ namespace ManagedX
 		/// <param name="min">A <see cref="Vector3"/> structure containing the minimum value for each component.</param>
 		/// <param name="max">A <see cref="Vector3"/> structure containing the maximum value for each component.</param>
 		/// <param name="result">Receives the clamped <paramref name="vector"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Clamp( ref Vector3 vector, ref Vector3 min, ref Vector3 max, out Vector3 result )
 		{
 			if( vector.X < min.X )
@@ -997,8 +975,8 @@ namespace ManagedX
 		/// <summary>Forces the components of a <see cref="Vector3"/> within the range [0,1].</summary>
 		/// <param name="vector">A <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the saturated <paramref name="vector"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Saturate( ref Vector3 vector, out Vector3 result )
 		{
 			if( vector.X < 0.0f )
@@ -1051,9 +1029,8 @@ namespace ManagedX
 		/// <param name="vector">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="other">A valid <see cref="Vector3"/> structure.</param>
 		/// <param name="result">Receives the cross product of the two specified <see cref="Vector3"/> values.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Cross( ref Vector3 vector, ref Vector3 other, out Vector3 result )
 		{
 			result.X = vector.Y * other.Z - vector.Z * other.Y;
@@ -1077,7 +1054,7 @@ namespace ManagedX
 			return vector;
 		}
 
-		#endregion // Static
+		#endregion Static methods
 
 
 		#region Operators

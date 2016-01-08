@@ -1,7 +1,7 @@
 ﻿namespace ManagedX.Design
 {
 	
-	/// <summary>Defines properties to be implemented by 3D objects (ie: audio emitters/listeners).</summary>
+	/// <summary>Defines properties to be implemented by 3D objects (ie: projectiles, audio emitters/listeners, etc).</summary>
 	public interface I3DObject
 	{
 		

@@ -14,19 +14,19 @@ namespace ManagedX // .Graphics
 	{
 
 		/// <summary>The position of the left side of the rectangle; also known as "X".</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Left;
 
 		/// <summary>The position of the top of the rectangle; also known as "Y".</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Top;
 
 		/// <summary>The position of the right side of the rectangle; must be greater than or equal to <see cref="Left"/>.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Right;
 
 		/// <summary>The position of the bottom of the rectangle; must be greater than or equal to <see cref="Top"/>.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Bottom;
 
 
@@ -91,7 +91,7 @@ namespace ManagedX // .Graphics
 
 
 		/// <summary>Gets or sets the horizontal position of the left side (<see cref="Left"/>) of the rectangle.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public int X
 		{
 			get { return Left; }
@@ -104,7 +104,7 @@ namespace ManagedX // .Graphics
 
 
 		/// <summary>Gets or sets the vertical position of the upper side (<see cref="Top"/>) of the rectangle.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public int Y
 		{
 			get { return Top; }
@@ -195,8 +195,7 @@ namespace ManagedX // .Graphics
 		/// <param name="x">The position of the point along the horizontal axis.</param>
 		/// <param name="y">The position of the point along the vertical axis.</param>
 		/// <returns>Returns a value indicating whether this rectangle contains or intersects the specified coordinates.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public ContainmentType Contains( int x, int y )
 		{
 			if( x < Left || x > Right || y < Top || y > Bottom )
@@ -212,8 +211,8 @@ namespace ManagedX // .Graphics
 		/// <summary>Obtains a value indicating whether this rectangle contains or intersects with a <see cref="Point"/>.</summary>
 		/// <param name="point">A <see cref="Point"/> structure.</param>
 		/// <param name="result">Receives a value indicating whether the specified <paramref name="point"/> is contained by or intersects with this rectangle.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref Point point, out ContainmentType result )
 		{
 			if( Left > point.X || Right < point.X || Top > point.Y || Bottom < point.Y )
@@ -242,8 +241,8 @@ namespace ManagedX // .Graphics
 		/// <summary>Indicates whether this rectangle contains or intersects with another rectangle.</summary>
 		/// <param name="rect">A <see cref="Rect"/> structure.</param>
 		/// <param name="result">Receives a value indicating whether the specified <paramref name="rect"/> intersects with or is contained by this rectangle.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref Rect rect, out ContainmentType result )
 		{
 			if( Left < rect.Left && Right > rect.Right && Top < rect.Top && Bottom > rect.Bottom )
@@ -276,8 +275,8 @@ namespace ManagedX // .Graphics
 		/// <summary>Determines whether this <see cref="Rect"/> intersects another <see cref="Rect"/>.</summary>
 		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <param name="result">Receives a value indicating whether the rectangles intersect.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref Rect rect, out bool result )
 		{
 			result = ( Right > rect.X && Left < rect.Right && Bottom > rect.Top && Top < rect.Bottom ); 
@@ -382,17 +381,17 @@ namespace ManagedX // .Graphics
 		}
 
 
-		#region Static
-
 		/// <summary>The «zero» <see cref="Rect"/>.</summary>
 		public static readonly Rect Zero;
 
 
+		#region Static methods
+
 		/// <summary>Negates a <see cref="Rect"/>.</summary>
 		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <param name="result">Receives the negated <paramref name="rect"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Negate( ref Rect rect, out Rect result )
 		{
 			result.Left = -rect.Right;
@@ -414,9 +413,8 @@ namespace ManagedX // .Graphics
 		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <param name="other">A <see cref="Rect"/>.</param>
 		/// <param name="result">Receives the rectangle containing the two specified rectangles.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Union( ref Rect rect, ref Rect other, out Rect result )
 		{
 			result.Left = Math.Min( rect.Left, other.Left );
@@ -443,9 +441,8 @@ namespace ManagedX // .Graphics
 		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <param name="other">A <see cref="Rect"/>.</param>
 		/// <param name="result">Receives the area where the two rectangles overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Intersect( ref Rect rect, ref Rect other, out Rect result )
 		{
 			var left = Math.Max( rect.Left, other.Left );
@@ -488,7 +485,7 @@ namespace ManagedX // .Graphics
 			return Rect.Zero;
 		}
 
-		#endregion Static
+		#endregion Static methods
 
 
 		#region Operators
@@ -513,12 +510,18 @@ namespace ManagedX // .Graphics
 		}
 
 
-		/// <summary>Unary negation operator.</summary>
+		/// <summary>Negation operator.</summary>
 		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <returns>Returns the negated <paramref name="rect"/>.</returns>
 		public static Rect operator -( Rect rect )
 		{
-			return new Rect( -rect.Right, -rect.Bottom, -rect.Left, -rect.Top );
+			var x = rect.Left;
+			var y = rect.Top;
+			rect.Left = -rect.Right;
+			rect.Top = -rect.Bottom;
+			rect.Right = -x;
+			rect.Bottom = -y;
+			return rect;
 		}
 
 		#endregion Operators

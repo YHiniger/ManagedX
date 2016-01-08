@@ -159,9 +159,8 @@ namespace ManagedX
 		}
 
 
-		#region Static
 
-		/// <summary>The zero <see cref="Vector2"/>.</summary>
+		/// <summary>The «zero» <see cref="Vector2"/>.</summary>
 		public static readonly Vector2 Zero;
 
 		/// <summary>A <see cref="Vector2"/> whose components are set to 1.</summary>
@@ -173,7 +172,8 @@ namespace ManagedX
 		/// <summary>A unit <see cref="Vector2"/> pointing to the positive y-direction.</summary>
 		public static readonly Vector2 UnitY = new Vector2( 0.0f, 1.0f );
 
-		
+
+		#region Static methods
 
 		/// <summary>Adds two <see cref="Vector2"/> values.</summary>
 		/// <param name="vector">A valid <see cref="Vector2"/> structure.</param>
@@ -871,7 +871,7 @@ namespace ManagedX
 			return value;
 		}
 
-		#endregion Static
+		#endregion Static methods
 
 
 		#region Operators

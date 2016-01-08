@@ -439,9 +439,8 @@ namespace ManagedX
 		/// <param name="sphere">The <see cref="BoundingSphere"/> to be merged.</param>
 		/// <param name="other">The other <see cref="BoundingSphere"/> to be merged.</param>
 		/// <param name="result">Receives the resulting <see cref="BoundingSphere"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Merge( ref BoundingSphere sphere, ref BoundingSphere other, out BoundingSphere result )
 		{
 			Vector3 value;
@@ -603,8 +602,8 @@ namespace ManagedX
 		/// <summary>Creates the smallest <see cref="BoundingSphere"/> containing a specified <see cref="BoundingBox"/>.</summary>
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives the created <see cref="BoundingSphere"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateFromBoundingBox( ref BoundingBox box, out BoundingSphere result )
 		{
 			var boxMin = box.Min;
@@ -646,8 +645,8 @@ namespace ManagedX
 		/// <param name="frustum">A valid <see cref="BoundingFrustum"/>.</param>
 		/// <param name="result">Receives the created <see cref="BoundingSphere"/>.</param>
 		/// <exception cref="ArgumentException"/>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateFromBoundingFrustum( ref BoundingFrustum frustum, out BoundingSphere result )
 		{
 			var corners = frustum.corners;

@@ -17,67 +17,67 @@ namespace ManagedX
 
 
 		/// <summary>Value at row 1 column 1 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M11;
 		
 		/// <summary>Value at row 1 column 2 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M12;
 		
 		/// <summary>Value at row 1 column 3 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M13;
 		
 		/// <summary>Value at row 1 column 4 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M14;
 		
 		/// <summary>Value at row 2 column 1 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M21;
 		
 		/// <summary>Value at row 2 column 2 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M22;
 		
 		/// <summary>Value at row 2 column 3 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M23;
 		
 		/// <summary>Value at row 2 column 4 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M24;
 		
 		/// <summary>Value at row 3 column 1 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M31;
 		
 		/// <summary>Value at row 3 column 2 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M32;
 		
 		/// <summary>Value at row 3 column 3 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M33;
 		
 		/// <summary>Value at row 3 column 4 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M34;
 		
 		/// <summary>Value at row 4 column 1 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M41;
 		
 		/// <summary>Value at row 4 column 2 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M42;
 		
 		/// <summary>Value at row 4 column 3 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M43;
 		
 		/// <summary>Value at row 4 column 4 of the matrix.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float M44;
 
 
@@ -843,9 +843,8 @@ namespace ManagedX
 		}
 
 
-		#region Static
 
-		/// <summary>A <see cref="Matrix"/> whose components are set to zero.</summary>
+		/// <summary>The «zero» (and invalid) <see cref="Matrix"/>.</summary>
 		public static readonly Matrix Zero;
 
 
@@ -857,6 +856,8 @@ namespace ManagedX
 			0.0f, 0.0f, 0.0f, 1.0f
 		);
 
+
+		#region Static methods
 
 		/// <summary>Adds two matrices.</summary>
 		/// <param name="matrix">A <see cref="Matrix"/> structure.</param>
@@ -2974,7 +2975,7 @@ namespace ManagedX
 			return result;
 		}
 
-		#endregion Static
+		#endregion Static methods
 
 
 		#region Operators

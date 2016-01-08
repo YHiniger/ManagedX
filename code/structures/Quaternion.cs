@@ -985,11 +985,11 @@ namespace ManagedX
 
 
 
-		#region Static
-
 		/// <summary>A <see cref="Quaternion"/> representing no rotation.</summary>
 		public static readonly Quaternion Identity = new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f );
 
+
+		#region Static methods
 
 		/// <summary>Adds two <see cref="Quaternion"/>.</summary>
 		/// <param name="quaternion">A <see cref="Quaternion"/> structure.</param>
@@ -1485,7 +1485,7 @@ namespace ManagedX
 			return result;
 		}
 
-		#endregion Static
+		#endregion Static methods
 
 
 		#region Operators

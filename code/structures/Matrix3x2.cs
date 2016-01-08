@@ -182,7 +182,7 @@ namespace ManagedX
 
 
 		/// <summary>Transforms a 2D normal.</summary>
-		/// <param name="normal">A <see cref="Vector2"/>.</param>
+		/// <param name="normal">A (normalized) <see cref="Vector2"/>.</param>
 		/// <param name="result">Receives the transformed <paramref name="normal"/>.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
@@ -194,7 +194,7 @@ namespace ManagedX
 		}
 
 		/// <summary>Transforms a 2D normal.</summary>
-		/// <param name="normal">A <see cref="Vector2"/>.</param>
+		/// <param name="normal">A (normalized) <see cref="Vector2"/>.</param>
 		/// <returns>Returns the transformed <paramref name="normal"/>.</returns>
 		public Vector2 TransformNormal( Vector2 normal )
 		{
@@ -203,6 +203,7 @@ namespace ManagedX
 			normal.Y = x * M12 + normal.Y * M22;
 			return normal;
 		}
+
 
 
 		/// <summary>The "zero" <see cref="Matrix3x2"/>.</summary>
@@ -237,7 +238,7 @@ namespace ManagedX
 			result.M32 = source.M32 + ( target.M32 - source.M32 ) * amount;
 		}
 
-		/// <summary>Linearly interpolates between two matrices.</summary>
+		/// <summary>Performs a linear interpolation between two matrices.</summary>
 		/// <param name="source">The source <see cref="Matrix3x2"/>.</param>
 		/// <param name="target">The target <see cref="Matrix3x2"/>.</param>
 		/// <param name="amount">The weighting factor, within the range [0,1].</param>
@@ -261,6 +262,7 @@ namespace ManagedX
 		/// <param name="x">The horizontal scale.</param>
 		/// <param name="y">The vertical scale.</param>
 		/// <param name="result">Receives the created scale matrix.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateScale( float x, float y, out Matrix3x2 result )
 		{
@@ -276,6 +278,7 @@ namespace ManagedX
 		/// <param name="x">The horizontal scale.</param>
 		/// <param name="y">The vertical scale.</param>
 		/// <returns>Returns the created scale matrix.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static Matrix3x2 CreateScale( float x, float y )
 		{
 			Matrix3x2 result;
@@ -319,11 +322,41 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Creates a rotation matrix.</summary>
+		/// <param name="angle">The angle, in radians, of the rotation.</param>
+		/// <param name="result">Receives the created rotation matrix.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void CreateRotation( float angle, out Matrix3x2 result )
+		{
+			result.M11 = (float)Math.Cos( (double)angle );
+			result.M12 = (float)Math.Sin( (double)angle );
+			result.M21 = -result.M12;
+			result.M22 = result.M11;
+			result.M31 = 0.0f;
+			result.M32 = 0.0f;
+		}
+
+		/// <summary>Creates a rotation matrix.</summary>
+		/// <param name="angle">The angle, in radians, of the rotation.</param>
+		/// <returns>Returns the created rotation matrix.</returns>
+		public static Matrix3x2 CreateRotation( float angle )
+		{
+			Matrix3x2 result;
+			result.M11 = (float)Math.Cos( (double)angle );
+			result.M12 = (float)Math.Sin( (double)angle );
+			result.M21 = -result.M12;
+			result.M22 = result.M11;
+			result.M31 = 0.0f;
+			result.M32 = 0.0f;
+			return result;
+		}
+
 
 		/// <summary>Creates a translation matrix.</summary>
 		/// <param name="x">The translation in the X direction.</param>
 		/// <param name="y">The translation in the Y direction.</param>
 		/// <param name="result">Receives the created translation matrix.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateTranslation( float x, float y, out Matrix3x2 result )
 		{
@@ -339,6 +372,7 @@ namespace ManagedX
 		/// <param name="x">The translation in the X direction.</param>
 		/// <param name="y">The translation in the Y direction.</param>
 		/// <returns>Returns the created translation matrix.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public static Matrix3x2 CreateTranslation( float x, float y )
 		{
 			Matrix3x2 result;
@@ -350,7 +384,6 @@ namespace ManagedX
 			result.M32 = y;
 			return result;
 		}
-
 
 		/// <summary>Creates a translation matrix.</summary>
 		/// <param name="translation">A <see cref="Vector2"/> representing the translation.</param>
@@ -381,6 +414,22 @@ namespace ManagedX
 			result.M32 = translation.Y;
 			return result;
 		}
+
+
+		//public static Matrix3x2 FromSRT( Vector2 scale, float rotation, Vector2 translation )
+		//{
+		//	var cosRotation = (float)Math.Cos( (double)rotation );
+		//	var sinRotation = (float)Math.Sin( (double)rotation );
+
+		//	Matrix3x2 result;
+		//	result.M11 = scale.X * cosRotation;
+		//	result.M12 = scale.X * sinRotation;
+		//	result.M21 = scale.Y * -sinRotation;
+		//	result.M22 = scale.Y * cosRotation;
+		//	result.M31 = translation.X;
+		//	result.M32 = translation.Y;
+		//	return result;
+		//}
 
 		#endregion Create*
 

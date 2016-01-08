@@ -14,22 +14,22 @@ namespace ManagedX
 
 		/// <summary>The X component of this <see cref="Vector4"/>; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float X;
 
 		/// <summary>The Y component of this <see cref="Vector4"/>; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float Y;
 
 		/// <summary>The Z component of this <see cref="Vector4"/>; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Z" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float Z;
 
 		/// <summary>The W component of this <see cref="Vector4"/>; must be a finite number.</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "W" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public float W;
 
 
@@ -242,9 +242,8 @@ namespace ManagedX
 		}
 
 
-		#region Static
 
-		/// <summary>The zero <see cref="Vector4"/>.</summary>
+		/// <summary>The «zero» <see cref="Vector4"/>.</summary>
 		public static readonly Vector4 Zero;
 
 		/// <summary>A <see cref="Vector4"/> whose components are set to 1.</summary>
@@ -263,6 +262,7 @@ namespace ManagedX
 		public static readonly Vector4 UnitW = new Vector4( 0.0f, 0.0f, 0.0f, 1.0f );
 
 
+		#region Static methods
 
 		/// <summary>Calculates the sum of two <see cref="Vector4"/>.</summary>
 		/// <param name="vector">A <see cref="Vector4"/>.</param>
@@ -924,44 +924,10 @@ namespace ManagedX
 			);
 		}
 
-		#endregion Static
+		#endregion Static methods
 
 
 		#region Operators
-
-		/// <summary><see cref="Vector4"/> to <see cref="Vector2"/> conversion operator.</summary>
-		/// <param name="vector">A <see cref="Vector4"/>.</param>
-		/// <returns>Returns a new <see cref="Vector2"/> initialized with the specified <paramref name="vector"/>.</returns>
-		public static explicit operator Vector2( Vector4 vector )
-		{
-			return new Vector2( vector.X, vector.Y );
-		}
-
-		/// <summary><see cref="Vector4"/> to <see cref="Vector2"/> conversion operator.</summary>
-		/// <param name="vector">A <see cref="Vector2"/>.</param>
-		/// <returns>Returns a new <see cref="Vector4"/> initialized with specified <paramref name="vector"/>.</returns>
-		public static explicit operator Vector4( Vector2 vector )
-		{
-			return new Vector4( vector, 0.0f, 0.0f );
-		}
-
-
-		/// <summary><see cref="Vector4"/> to <see cref="Vector3"/> conversion operator.</summary>
-		/// <param name="vector">A <see cref="Vector4"/>.</param>
-		/// <returns>Returns a new <see cref="Vector3"/> initialized with the specified <paramref name="vector"/>.</returns>
-		public static explicit operator Vector3( Vector4 vector )
-		{
-			return new Vector3( vector.X, vector.Y, vector.Z );
-		}
-
-		/// <summary><see cref="Vector4"/> to <see cref="Vector3"/> conversion operator.</summary>
-		/// <param name="vector">A <see cref="Vector3"/>.</param>
-		/// <returns>Returns a new <see cref="Vector4"/> initialized with specified <paramref name="vector"/>.</returns>
-		public static explicit operator Vector4( Vector3 vector )
-		{
-			return new Vector4( vector, 0.0f );
-		}
-
 
 		/// <summary>Equality comparer.</summary>
 		/// <param name="vector">A <see cref="Vector4"/>.</param>
@@ -1151,6 +1117,40 @@ namespace ManagedX
 			vector.Z = value / vector.Z;
 			vector.W = value / vector.W;
 			return vector;
+		}
+
+
+		/// <summary><see cref="Vector4"/> to <see cref="Vector2"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector4"/>.</param>
+		/// <returns>Returns a new <see cref="Vector2"/> initialized with the specified <paramref name="vector"/>.</returns>
+		public static explicit operator Vector2( Vector4 vector )
+		{
+			return new Vector2( vector.X, vector.Y );
+		}
+
+		/// <summary><see cref="Vector4"/> to <see cref="Vector2"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector2"/>.</param>
+		/// <returns>Returns a new <see cref="Vector4"/> initialized with specified <paramref name="vector"/>.</returns>
+		public static explicit operator Vector4( Vector2 vector )
+		{
+			return new Vector4( vector, 0.0f, 0.0f );
+		}
+
+
+		/// <summary><see cref="Vector4"/> to <see cref="Vector3"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector4"/>.</param>
+		/// <returns>Returns a new <see cref="Vector3"/> initialized with the specified <paramref name="vector"/>.</returns>
+		public static explicit operator Vector3( Vector4 vector )
+		{
+			return new Vector3( vector.X, vector.Y, vector.Z );
+		}
+
+		/// <summary><see cref="Vector4"/> to <see cref="Vector3"/> conversion operator.</summary>
+		/// <param name="vector">A <see cref="Vector3"/>.</param>
+		/// <returns>Returns a new <see cref="Vector4"/> initialized with specified <paramref name="vector"/>.</returns>
+		public static explicit operator Vector4( Vector3 vector )
+		{
+			return new Vector4( vector, 0.0f );
 		}
 
 		#endregion Operators

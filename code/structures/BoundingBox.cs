@@ -466,8 +466,8 @@ namespace ManagedX
 		/// <summary>Creates the smallest <see cref="BoundingBox"/> that will contain the specified <see cref="BoundingSphere"/>.</summary>
 		/// <param name="sphere">The <see cref="BoundingSphere"/> to contain.</param>
 		/// <param name="result">Receives the created <see cref="BoundingBox"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateFromSphere( ref BoundingSphere sphere, out BoundingBox result )
 		{
 			var center = sphere.Center;
@@ -506,9 +506,8 @@ namespace ManagedX
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="other">Another <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives the created <see cref="BoundingBox"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Merge( ref BoundingBox box, ref BoundingBox other, out BoundingBox result )
 		{
 			Vector3.Min( ref box.Min, ref other.Min, out result.Min );

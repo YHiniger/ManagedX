@@ -14,13 +14,13 @@ namespace ManagedX // .Graphics
 	{
 
 		/// <summary>The X component of the point.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X", Justification = "Seriously?" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public int X;
 		
 		/// <summary>The Y component of the point.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y", Justification = "Seriously?" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public int Y;
 
 
@@ -28,8 +28,7 @@ namespace ManagedX // .Graphics
 		/// <summary>Initializes a new <see cref="Point"/>.</summary>
 		/// <param name="x">The X component of the point.</param>
 		/// <param name="y">The Y component of the point.</param>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x", Justification = "Seriously?" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y", Justification = "Seriously?" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public Point( int x, int y )
 		{
 			this.X = x;
@@ -95,17 +94,17 @@ namespace ManagedX // .Graphics
 		}
 
 
-		#region Static
-
 		/// <summary>The «zero» (or empty) <see cref="Point"/>.</summary>
 		public static readonly Point Zero;
 
 
+		#region Static methods
+
 		/// <summary>Negates a <see cref="Point"/>.</summary>
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the negated point.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Negate( ref Point point, out Point result )
 		{
 			result.X = -point.X;
@@ -128,9 +127,8 @@ namespace ManagedX // .Graphics
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the sum of the two specified points.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Add( ref Point point, ref Point other, out Point result )
 		{
 			result.X = point.X + other.X;
@@ -153,9 +151,8 @@ namespace ManagedX // .Graphics
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the difference between <paramref name="point"/> and <paramref name="other"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Subtract( ref Point point, ref Point other, out Point result )
 		{
 			result.X = point.X - other.X;
@@ -178,9 +175,8 @@ namespace ManagedX // .Graphics
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the product of the two specified points.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Point point, ref Point other, out Point result )
 		{
 			result.X = point.X * other.X;
@@ -203,9 +199,8 @@ namespace ManagedX // .Graphics
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result">Receives the result of the division.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Divide( ref Point point, ref Point other, out Point result )
 		{
 			result.X = point.X / other.X;
@@ -228,9 +223,8 @@ namespace ManagedX // .Graphics
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result"></param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Min( ref Point point, ref Point other, out Point result )
 		{
 			if( point.X < other.X )
@@ -264,9 +258,8 @@ namespace ManagedX // .Graphics
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <param name="other">A <see cref="Point"/>.</param>
 		/// <param name="result"></param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Max( ref Point point, ref Point other, out Point result )
 		{
 			if( point.X > other.X )
@@ -295,7 +288,7 @@ namespace ManagedX // .Graphics
 			return point;
 		}
 
-		#endregion // Static
+		#endregion Static methods
 
 
 		#region Operators
@@ -511,7 +504,7 @@ namespace ManagedX // .Graphics
 		}
 
 
-		/// <summary><see cref="Size"/> conversion operator.</summary>
+		/// <summary><see cref="Point"/> to <see cref="Size"/> conversion operator.</summary>
 		/// <param name="point">A <see cref="Point"/>.</param>
 		/// <returns>Returns a <see cref="Size"/> initialized with the specified <paramref name="point"/>.</returns>
 		public static explicit operator Size( Point point )
@@ -519,7 +512,38 @@ namespace ManagedX // .Graphics
 			return new Size( point.X, point.Y );
 		}
 
-		#endregion // Operators
+		/// <summary><see cref="Size"/> to <see cref="Point"/> conversion operator.</summary>
+		/// <param name="size">A <see cref="Size"/>.</param>
+		/// <returns>Returns a <see cref="Point"/> initialized from the specified <paramref name="size"/>.</returns>
+		public static explicit operator Point( Size size )
+		{
+			return new Point( size.Width, size.Height );
+		}
+
+
+		/// <summary><see cref="Point"/> to <see cref="Vector2"/> conversion operator.</summary>
+		/// <param name="point">A <see cref="Point"/>.</param>
+		/// <returns>Returns a <see cref="Vector2"/> initialized with the specified <paramref name="point"/>.</returns>
+		public static explicit operator Vector2( Point point )
+		{
+			Vector2 p;
+			p.X = (float)point.X;
+			p.Y = (float)point.Y;
+			return p;
+		}
+
+		/// <summary><see cref="Vector2"/> to <see cref="Point"/> conversion operator.</summary>
+		/// <param name="point">A <see cref="Vector2"/>.</param>
+		/// <returns>Returns a <see cref="Point"/> initialized from the specified <paramref name="point"/>.</returns>
+		public static explicit operator Point( Vector2 point )
+		{
+			Point p;
+			p.X = (int)point.X;
+			p.Y = (int)point.Y;
+			return p;
+		}
+
+		#endregion Operators
 
 	}
 

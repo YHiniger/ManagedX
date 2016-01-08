@@ -88,19 +88,18 @@ namespace ManagedX // .Graphics
 
 
 
-		#region Static
-
 		/// <summary>The empty (or «zero») <see cref="Size"/>.</summary>
-		public static readonly Size Empty = new Size();
+		public static readonly Size Empty;
 
+
+		#region Static methods
 
 		/// <summary>Adds two <see cref="Size"/> values.</summary>
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the sum of the specified sizes.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Add( ref Size size, ref Size other, out Size result )
 		{
 			result.Width = size.Width + other.Width;
@@ -123,9 +122,8 @@ namespace ManagedX // .Graphics
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the difference between the specified sizes.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Subtract( ref Size size, ref Size other, out Size result )
 		{
 			result.Width = size.Width - other.Width;
@@ -148,9 +146,8 @@ namespace ManagedX // .Graphics
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the result of the product.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Size size, ref Size other, out Size result )
 		{
 			result.Width = size.Width * other.Width;
@@ -172,8 +169,8 @@ namespace ManagedX // .Graphics
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <param name="result">Receives the result of the product.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Size size, int value, out Size result )
 		{
 			result.Width = size.Width * value;
@@ -196,9 +193,8 @@ namespace ManagedX // .Graphics
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives the result of the integer division.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Divide( ref Size size, ref Size other, out Size result )
 		{
 			result.Width = size.Width / other.Width;
@@ -220,8 +216,8 @@ namespace ManagedX // .Graphics
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="value">An integer value.</param>
 		/// <param name="result">Receives the result of the integer division.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Divide( ref Size size, int value, out Size result )
 		{
 			result.Width = size.Width / value;
@@ -244,9 +240,8 @@ namespace ManagedX // .Graphics
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives a <see cref="Size"/> initialized with the smallest values between the two specified sizes.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Min( ref Size size, ref Size other, out Size result )
 		{
 			if( size.Width < other.Width )
@@ -280,9 +275,8 @@ namespace ManagedX // .Graphics
 		/// <param name="size">A <see cref="Size"/>.</param>
 		/// <param name="other">A <see cref="Size"/>.</param>
 		/// <param name="result">Receives a <see cref="Size"/> initialized with the greatest values between the two specified sizes.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#", Justification = "Performance matters." )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Max( ref Size size, ref Size other, out Size result )
 		{
 			if( size.Width > other.Width )
@@ -311,7 +305,7 @@ namespace ManagedX // .Graphics
 			return size;
 		}
 
-		#endregion Static
+		#endregion Static methods
 
 
 		#region Operators
@@ -415,16 +409,6 @@ namespace ManagedX // .Graphics
 			size.Width /= value;
 			size.Height /= value;
 			return size;
-		}
-
-
-
-		/// <summary><see cref="Point"/> conversion operator.</summary>
-		/// <param name="size">A <see cref="Size"/>.</param>
-		/// <returns>Returns a <see cref="Point"/> structure initialized from the specified <paramref name="size"/>.</returns>
-		public static explicit operator Point( Size size )
-		{
-			return new Point( size.Width, size.Height );
 		}
 
 		#endregion Operators

@@ -13,11 +13,11 @@ namespace ManagedX
 	{
 
 		/// <summary>The normal of the <see cref="Plane"/>.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public Vector3 Normal;
 		
 		/// <summary>The distance of the plane along its <see cref="Normal"/> from the origin.</summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields", Justification = "Performance matters." )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float Distance;
 
 
@@ -102,8 +102,8 @@ namespace ManagedX
 		/// <summary>Calculates the dot product of this <see cref="Plane"/> and a <see cref="Vector4"/>.</summary>
 		/// <param name="vector">A <see cref="Vector4"/>.</param>
 		/// <param name="result">Receives the resulting dot product.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Dot( ref Vector4 vector, out float result )
 		{
 			result = Normal.X * vector.X + Normal.Y * vector.Y + Normal.Z * vector.Z + Distance * vector.W;
@@ -121,8 +121,8 @@ namespace ManagedX
 		/// <summary>Calculates the dot product of a specified <see cref="Vector3"/> and the <see cref="Normal"/> vector of this <see cref="Plane"/>.</summary>
 		/// <param name="normal">A <see cref="Vector3"/>.</param>
 		/// <param name="result">Receives the resulting dot product.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void DotNormal( ref Vector3 normal, out float result )
 		{
 			result = Normal.X * normal.X + Normal.Y * normal.Y + Normal.Z * normal.Z;
@@ -140,8 +140,8 @@ namespace ManagedX
 		/// <summary>Calculates the dot product of a specified <see cref="Vector3"/> and the <see cref="Normal"/> vector of this <see cref="Plane"/> plus its distance (<see cref="Distance"/>) value.</summary>
 		/// <param name="value">A <see cref="Vector3"/>.</param>
 		/// <param name="result">Receives the dot product of a specified <see cref="Vector3"/> and the <see cref="Normal"/> vector of this <see cref="Plane"/> plus its distance (<see cref="Distance"/>) value.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void DotCoordinate( ref Vector3 value, out float result )
 		{
 			result = Normal.X * value.X + Normal.Y * value.Y + Normal.Z * value.Z + Distance;
@@ -159,8 +159,8 @@ namespace ManagedX
 		/// <summary>Calculates the intersection point with a <see cref="Ray"/>.</summary>
 		/// <param name="ray">A <see cref="Ray"/>.</param>
 		/// <param name="result">Receives the intersection point.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void CalculateIntersection( ref Ray ray, out Vector3 result )
 		{
 			float NdotP;
@@ -192,8 +192,8 @@ namespace ManagedX
 		/// <summary>Calculates the intersection line with another <see cref="Plane"/>.</summary>
 		/// <param name="other">A <see cref="Plane"/>.</param>
 		/// <param name="result">Receives a <see cref="Ray"/> representing the intersection line.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void CalculateIntersectionLine( ref Plane other, out Ray result )
 		{
 			var normal = other.Normal;
@@ -239,8 +239,8 @@ namespace ManagedX
 		/// <summary>Determines the location of a point relative to this <see cref="Plane"/>.</summary>
 		/// <param name="point">A <see cref="Vector3"/>.</param>
 		/// <param name="result">Receives a value indicating the location of the specified <paramref name="point"/> relative to this <see cref="Plane"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Locate( ref Vector3 point, out PlaneIntersectionType result )
 		{
 			float NdotP;
@@ -286,8 +286,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Plane"/> intersects a <see cref="BoundingBox"/>.</summary>
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives a value indicating whether this <see cref="Plane"/> intersects the <see cref="BoundingBox"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingBox box, out PlaneIntersectionType result )
 		{
 			var boxMin = box.Min;
@@ -373,8 +373,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Plane"/> intersects a <see cref="BoundingSphere"/>.</summary>
 		/// <param name="sphere">A <see cref="BoundingSphere"/>.</param>
 		/// <param name="result">Receives a value indicating whether this <see cref="Plane"/> intersects the bounding <paramref name="sphere"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingSphere sphere, out PlaneIntersectionType result )
 		{
 			var sphereCenter = sphere.Center;
@@ -417,8 +417,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="Plane"/> intersects a <see cref="BoundingFrustum"/>.</summary>
 		/// <param name="frustum">A <see cref="BoundingFrustum"/>.</param>
 		/// <param name="result">Receives a value indicating whether this <see cref="Plane"/> intersects the <see cref="BoundingFrustum"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingFrustum frustum, out PlaneIntersectionType result )
 		{
 			var corners = frustum.corners;
@@ -518,8 +518,8 @@ namespace ManagedX
 		/// <summary>Changes the coefficients of the <see cref="Normal"/> vector of a <see cref="Plane"/> to make it of unit length.</summary>
 		/// <param name="plane">A <see cref="Plane"/>.</param>
 		/// <param name="result">Receives the normalized <paramref name="plane"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Normalize( ref Plane plane, out Plane result )
 		{
 			var planeNormal = plane.Normal;
