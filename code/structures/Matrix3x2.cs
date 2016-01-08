@@ -59,7 +59,6 @@ namespace ManagedX
 			M11 = m11;
 			M12 = m12;
 			M21 = m21;
-			
 			M22 = m22;
 			M31 = m31;
 			M32 = m32;
@@ -157,6 +156,31 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Returns a 4x4 <see cref="Matrix"/> corresponding to this 3x2 matrix.</summary>
+		/// <returns>Returns a 4x4 <see cref="Matrix"/> corresponding to this 3x2 matrix.</returns>
+		public Matrix ToMatrix()
+		{
+			Matrix matrix;
+			matrix.M11 = M11;
+			matrix.M12 = M12;
+			matrix.M13 = 0.0f;
+			matrix.M14 = 0.0f;
+			matrix.M21 = M21;
+			matrix.M22 = M22;
+			matrix.M23 = 0.0f;
+			matrix.M24 = 0.0f;
+			matrix.M31 = 0.0f;
+			matrix.M32 = 0.0f;
+			matrix.M33 = 1.0f;
+			matrix.M34 = 0.0f;
+			matrix.M41 = M31;
+			matrix.M42 = M32;
+			matrix.M43 = 0.0f;
+			matrix.M44 = 1.0f;
+			return matrix;
+		}
+
+
 		/// <summary>Transforms a 2D point.</summary>
 		/// <param name="point">A <see cref="Vector2"/>.</param>
 		/// <param name="result">Receives the transformed <paramref name="point"/>.</param>
@@ -206,7 +230,7 @@ namespace ManagedX
 
 
 
-		/// <summary>The "zero" <see cref="Matrix3x2"/>.</summary>
+		/// <summary>The «zero» (and invalid) <see cref="Matrix3x2"/>.</summary>
 		public static readonly Matrix3x2 Zero;
 		
 
@@ -217,8 +241,202 @@ namespace ManagedX
 			0.0f, 0.0f
 		);
 
+
+		#region Static methods
 		
-		// TODO - Add, Subtract, Multiply, Divide, Create*
+		/// <summary>Adds two matrices.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="result">Receives the result of the addition.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Add( ref Matrix3x2 matrix, ref Matrix3x2 other, out Matrix3x2 result )
+		{
+			result.M11 = matrix.M11 + other.M11;
+			result.M12 = matrix.M12 + other.M12;
+			result.M21 = matrix.M21 + other.M21;
+			result.M22 = matrix.M22 + other.M22;
+			result.M31 = matrix.M31 + other.M31;
+			result.M32 = matrix.M32 + other.M32;
+		}
+
+		/// <summary>Adds two matrices.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <returns>Returns the result of the addition.</returns>
+		public static Matrix3x2 Add( Matrix3x2 matrix, Matrix3x2 other )
+		{
+			matrix.M11 += other.M11;
+			matrix.M12 += other.M12;
+			matrix.M21 += other.M21;
+			matrix.M22 += other.M22;
+			matrix.M31 += other.M31;
+			matrix.M32 += other.M32;
+			return matrix;
+		}
+
+
+		/// <summary>Subtracts a matrix from another matrix.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="result">Receives the result of the subtraction.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Subtract( ref Matrix3x2 matrix, ref Matrix3x2 other, out Matrix3x2 result )
+		{
+			result.M11 = matrix.M11 - other.M11;
+			result.M12 = matrix.M12 - other.M12;
+			result.M21 = matrix.M21 - other.M21;
+			result.M22 = matrix.M22 - other.M22;
+			result.M31 = matrix.M31 - other.M31;
+			result.M32 = matrix.M32 - other.M32;
+		}
+
+		/// <summary>Subtracts a matrix from another matrix.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <returns>Returns the result of the subtraction.</returns>
+		public static Matrix3x2 Subtract( Matrix3x2 matrix, Matrix3x2 other )
+		{
+			matrix.M11 -= other.M11;
+			matrix.M12 -= other.M12;
+			matrix.M21 -= other.M21;
+			matrix.M22 -= other.M22;
+			matrix.M31 -= other.M31;
+			matrix.M32 -= other.M32;
+			return matrix;
+		}
+
+
+		/// <summary>Multiplies two matrices.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="result">Receives the result of the multiplication.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Multiply( ref Matrix3x2 matrix, ref Matrix3x2 other, out Matrix3x2 result )
+		{
+			result.M11 = matrix.M11 * other.M11 + matrix.M12 * other.M21;
+			result.M12 = matrix.M11 * other.M12 + matrix.M12 * other.M22;
+			result.M21 = matrix.M21 * other.M11 + matrix.M22 * other.M21;
+			result.M22 = matrix.M21 * other.M12 + matrix.M22 * other.M22;
+			result.M31 = matrix.M31 * other.M11 + matrix.M32 * other.M21 + other.M31;
+			result.M32 = matrix.M31 * other.M12 + matrix.M32 * other.M22 + other.M32;
+		}
+
+		/// <summary>Multiplies two matrices.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Matrix3x2 Multiply( Matrix3x2 matrix, Matrix3x2 other )
+		{
+			Matrix3x2 result;
+			result.M11 = matrix.M11 * other.M11 + matrix.M12 * other.M21;
+			result.M12 = matrix.M11 * other.M12 + matrix.M12 * other.M22;
+			result.M21 = matrix.M21 * other.M11 + matrix.M22 * other.M21;
+			result.M22 = matrix.M21 * other.M12 + matrix.M22 * other.M22;
+			result.M31 = matrix.M31 * other.M11 + matrix.M32 * other.M21 + other.M31;
+			result.M32 = matrix.M31 * other.M12 + matrix.M32 * other.M22 + other.M32;
+			return result;
+		}
+
+		/// <summary>Multiplies a <see cref="Matrix3x2"/> by a value.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the multiplication.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Multiply( ref Matrix3x2 matrix, float value, out Matrix3x2 result )
+		{
+			result.M11 = matrix.M11 * value;
+			result.M12 = matrix.M12 * value;
+			result.M21 = matrix.M21 * value;
+			result.M22 = matrix.M22 * value;
+			result.M31 = matrix.M31 * value;
+			result.M32 = matrix.M32 * value;
+		}
+
+		/// <summary>Multiplies a <see cref="Matrix3x2"/> by a value.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Matrix3x2 Multiply( Matrix3x2 matrix, float value )
+		{
+			matrix.M11 *= value;
+			matrix.M12 *= value;
+			matrix.M21 *= value;
+			matrix.M22 *= value;
+			matrix.M31 *= value;
+			matrix.M32 *= value;
+			return matrix;
+		}
+
+
+		/// <summary>Divides two matrices.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="result">Receives the result of the division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Divide( ref Matrix3x2 matrix, ref Matrix3x2 other, out Matrix3x2 result )
+		{
+			result.M11 = matrix.M11 / other.M11;
+			result.M12 = matrix.M12 / other.M12;
+			result.M21 = matrix.M21 / other.M21;
+			result.M22 = matrix.M22 / other.M22;
+			result.M31 = matrix.M31 / other.M31;
+			result.M32 = matrix.M32 / other.M32;
+		}
+
+		/// <summary>Divides two matrices.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="other">A <see cref="Matrix3x2"/>.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Matrix3x2 Divide( Matrix3x2 matrix, Matrix3x2 other )
+		{
+			Matrix3x2 result;
+			result.M11 = matrix.M11 / other.M11;
+			result.M12 = matrix.M12 / other.M12;
+			result.M21 = matrix.M21 / other.M21;
+			result.M22 = matrix.M22 / other.M22;
+			result.M31 = matrix.M31 / other.M31;
+			result.M32 = matrix.M32 / other.M32;
+			return result;
+		}
+
+
+		/// <summary>Divides a <see cref="Matrix3x2"/> by a value.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the division.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Divide( ref Matrix3x2 matrix, float value, out Matrix3x2 result )
+		{
+			var oneOverValue = 1.0f / value;
+			result.M11 = matrix.M11 * oneOverValue;
+			result.M12 = matrix.M12 * oneOverValue;
+			result.M21 = matrix.M21 * oneOverValue;
+			result.M22 = matrix.M22 * oneOverValue;
+			result.M31 = matrix.M31 * oneOverValue;
+			result.M32 = matrix.M32 * oneOverValue;
+		}
+
+		/// <summary>Divides a <see cref="Matrix3x2"/> by a value.</summary>
+		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the division.</returns>
+		public static Matrix3x2 Divide( Matrix3x2 matrix, float value )
+		{
+			var oneOverValue = 1.0f / value;
+			matrix.M11 *= oneOverValue;
+			matrix.M12 *= oneOverValue;
+			matrix.M21 *= oneOverValue;
+			matrix.M22 *= oneOverValue;
+			matrix.M31 *= oneOverValue;
+			matrix.M32 *= oneOverValue;
+			return matrix;
+		}
 
 
 		/// <summary>Performs a linear interpolation between two matrices.</summary>
@@ -255,8 +473,6 @@ namespace ManagedX
 			return result;
 		}
 
-
-		#region Create*
 
 		/// <summary>Creates a scale matrix.</summary>
 		/// <param name="x">The horizontal scale.</param>
@@ -416,7 +632,38 @@ namespace ManagedX
 		}
 
 
-		//public static Matrix3x2 FromSRT( Vector2 scale, float rotation, Vector2 translation )
+		/// <summary>Creates a <see cref="Matrix3x2"/> from a <see cref="Matrix"/>.</summary>
+		/// <param name="matrix">A <see cref="Matrix"/>.</param>
+		/// <param name="result">Receives the created matrix.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void CreateFromMatrix( ref Matrix matrix, out Matrix3x2 result )
+		{
+			result.M11 = matrix.M11;
+			result.M12 = matrix.M12;
+			result.M21 = matrix.M21;
+			result.M22 = matrix.M22;
+			result.M31 = matrix.M41;
+			result.M32 = matrix.M42;
+		}
+
+		/// <summary>Creates a <see cref="Matrix3x2"/> from a <see cref="Matrix"/>.</summary>
+		/// <param name="matrix">A <see cref="Matrix"/>.</param>
+		/// <returns>Returns the created matrix.</returns>
+		public static Matrix3x2 CreateFromMatrix( Matrix matrix )
+		{
+			Matrix3x2 result;
+			result.M11 = matrix.M11;
+			result.M12 = matrix.M12;
+			result.M21 = matrix.M21;
+			result.M22 = matrix.M22;
+			result.M31 = matrix.M41;
+			result.M32 = matrix.M42;
+			return result;
+		}
+
+
+		//public static Matrix3x2 CreateFromSRT( Vector2 scale, float rotation, Vector2 translation )
 		//{
 		//	var cosRotation = (float)Math.Cos( (double)rotation );
 		//	var sinRotation = (float)Math.Sin( (double)rotation );
@@ -431,7 +678,7 @@ namespace ManagedX
 		//	return result;
 		//}
 
-		#endregion Create*
+		#endregion Static methods
 
 
 		#region Operators
@@ -585,22 +832,7 @@ namespace ManagedX
 			matrix.M32 *= oneOverValue;
 			return matrix;
 		}
-
-		/// <summary>Division operator.</summary>
-		/// <param name="value">A finite single-precision floating-point value.</param>
-		/// <param name="matrix">A <see cref="Matrix3x2"/>.</param>
-		/// <returns>Returns the result of the division.</returns>
-		public static Matrix3x2 operator /( float value, Matrix3x2 matrix )
-		{
-			matrix.M11 = value / matrix.M11;
-			matrix.M12 = value / matrix.M12;
-			matrix.M21 = value / matrix.M21;
-			matrix.M22 = value / matrix.M22;
-			matrix.M31 = value / matrix.M31;
-			matrix.M32 = value / matrix.M32;
-			return matrix;
-		}
-
+		
 		#endregion Operators
 
 	}

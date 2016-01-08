@@ -19,7 +19,7 @@ namespace ManagedX
 
 
 		private const float DefaultIntersectionThreshold = Ray.DefaultIntersectionThreshold;
-		private const float GJKScale = GJK.Scale;
+
 
 
 
@@ -295,7 +295,7 @@ namespace ManagedX
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
 					return;
 
-				var num4 = GJKScale * gjk.MaxLengthSquared;
+				var num4 = GJK.Scale * gjk.MaxLengthSquared;
 				if( gjk.FullSimplex || num < num4 )
 				{
 					result = true;
@@ -346,7 +346,7 @@ namespace ManagedX
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
 					return false;
 
-				var num4 = GJKScale * gjk.MaxLengthSquared;
+				var num4 = GJK.Scale * gjk.MaxLengthSquared;
 				if( gjk.FullSimplex || num < num4 )
 					return true;
 			}
@@ -401,7 +401,7 @@ namespace ManagedX
 				var num3 = num;
 				num = closestPoint.LengthSquared;
 
-				var num4 = GJKScale * gjk.MaxLengthSquared;
+				var num4 = GJK.Scale * gjk.MaxLengthSquared;
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
 					return;
 
@@ -456,8 +456,8 @@ namespace ManagedX
 				
 				var num3 = num;
 				num = closestPoint.LengthSquared;
-				
-				var num4 = GJKScale * gjk.MaxLengthSquared;
+
+				var num4 = GJK.Scale * gjk.MaxLengthSquared;
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
 					return false;
 
@@ -514,7 +514,7 @@ namespace ManagedX
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
 					return;
 
-				var num4 = GJKScale * gjk.MaxLengthSquared;
+				var num4 = GJK.Scale * gjk.MaxLengthSquared;
 				if( gjk.FullSimplex || num < num4 )
 				{
 					result = true;
@@ -567,7 +567,7 @@ namespace ManagedX
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
 					return false;
 
-				var num4 = GJKScale * gjk.MaxLengthSquared;
+				var num4 = GJK.Scale * gjk.MaxLengthSquared;
 				if( gjk.FullSimplex || num < num4 )
 					return true;
 			}
