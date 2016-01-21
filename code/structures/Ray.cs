@@ -607,6 +607,32 @@ namespace ManagedX
 		public static readonly Ray Zero;
 
 
+		/// <summary></summary>
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="result">Receives the result of the multiplication.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Multiply( ref Ray ray, float value, out Vector3 result )
+		{
+			result.X = ray.Position.X + ray.Direction.X * value;
+			result.Y = ray.Position.Y + ray.Direction.Y * value;
+			result.Z = ray.Position.Z + ray.Direction.Z * value;
+		}
+
+		/// <summary></summary>
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Vector3 Multiply( Ray ray, float value )
+		{
+			ray.Position.X += ray.Direction.X * value;
+			ray.Position.Y += ray.Direction.Y * value;
+			ray.Position.Z += ray.Direction.Z * value;
+			return ray.Position;
+		}
+
+
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
@@ -626,6 +652,32 @@ namespace ManagedX
 		public static bool operator !=( Ray ray, Ray other )
 		{
 			return !( ray.Position.Equals( ref other.Position ) && ray.Direction.Equals( ref other.Direction ) );
+		}
+
+
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Vector3 operator *( Ray ray, float value )
+		{
+			ray.Position.X += ray.Direction.X * value;
+			ray.Position.Y += ray.Direction.Y * value;
+			ray.Position.Z += ray.Direction.Z * value;
+			return ray.Position;
+		}
+
+		/// <summary>Multiplication operator.</summary>
+		/// <param name="value">A finite single-precision floating-point value.</param>
+		/// <param name="ray">A <see cref="Ray"/>.</param>
+		/// <returns>Returns the result of the multiplication.</returns>
+		public static Vector3 operator *( float value, Ray ray )
+		{
+			ray.Position.X += ray.Direction.X * value;
+			ray.Position.Y += ray.Direction.Y * value;
+			ray.Position.Z += ray.Direction.Z * value;
+			return ray.Position;
 		}
 
 		#endregion Operators

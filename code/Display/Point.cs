@@ -520,29 +520,6 @@ namespace ManagedX // .Graphics
 			return new Point( size.Width, size.Height );
 		}
 
-
-		/// <summary><see cref="Point"/> to <see cref="Vector2"/> conversion operator.</summary>
-		/// <param name="point">A <see cref="Point"/>.</param>
-		/// <returns>Returns a <see cref="Vector2"/> initialized with the specified <paramref name="point"/>.</returns>
-		public static explicit operator Vector2( Point point )
-		{
-			Vector2 p;
-			p.X = (float)point.X;
-			p.Y = (float)point.Y;
-			return p;
-		}
-
-		/// <summary><see cref="Vector2"/> to <see cref="Point"/> conversion operator.</summary>
-		/// <param name="point">A <see cref="Vector2"/>.</param>
-		/// <returns>Returns a <see cref="Point"/> initialized from the specified <paramref name="point"/>.</returns>
-		public static explicit operator Point( Vector2 point )
-		{
-			Point p;
-			p.X = (int)point.X;
-			p.Y = (int)point.Y;
-			return p;
-		}
-
 		#endregion Operators
 
 	}
