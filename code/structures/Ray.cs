@@ -607,7 +607,7 @@ namespace ManagedX
 		public static readonly Ray Zero;
 
 
-		/// <summary></summary>
+		/// <summary>Multiplies the <see cref="Direction"/> by a value and adds the <see cref="Position"/> to the result.</summary>
 		/// <param name="ray">A <see cref="Ray"/>.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the result of the multiplication.</param>
@@ -615,12 +615,15 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Ray ray, float value, out Vector3 result )
 		{
+			//Vector3 offset;
+			//Vector3.Multiply( ref ray.Direction, value, out offset );
+			//Vector3.Add( ref ray.Position, ref offset, out result );
 			result.X = ray.Position.X + ray.Direction.X * value;
 			result.Y = ray.Position.Y + ray.Direction.Y * value;
 			result.Z = ray.Position.Z + ray.Direction.Z * value;
 		}
 
-		/// <summary></summary>
+		/// <summary>Multiplies the <see cref="Direction"/> by a value, adds the <see cref="Position"/> and returns the result.</summary>
 		/// <param name="ray">A <see cref="Ray"/>.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <returns>Returns the result of the multiplication.</returns>

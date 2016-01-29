@@ -346,6 +346,16 @@ namespace ManagedX // .Graphics
 			Bottom += amount.Height;
 		}
 
+		/// <summary>Pushes the edges of the rectangle by the specified amount.</summary>
+		/// <param name="amount">A <see cref="Rect"/> indicating the left, top, right and bottom amounts.</param>
+		public void Inflate( Rect amount )
+		{
+			Left -= amount.Left;
+			Top -= amount.Top;
+			Right += amount.Right;
+			Bottom += amount.Bottom;
+		}
+
 
 		/// <summary>Returns a hash code for this <see cref="Rect"/>.</summary>
 		/// <returns>Returns a hash code for this <see cref="Rect"/>.</returns>
@@ -409,6 +419,62 @@ namespace ManagedX // .Graphics
 		}
 
 
+		/// <summary>Adds two rectangles.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
+		/// <param name="result">Receives the sum of the two specified rectangles.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Add( ref Rect rect, ref Rect other, out Rect result )
+		{
+			result.Left = rect.Left + other.Left;
+			result.Top = rect.Top + other.Top;
+			result.Right = rect.Right + other.Right;
+			result.Bottom = rect.Bottom + other.Bottom;
+		}
+
+		/// <summary>Adds two rectangles.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
+		/// <returns>Returns the sum of the two specified rectangles.</returns>
+		public static Rect Add( Rect rect, Rect other )
+		{
+			rect.Left += other.Left;
+			rect.Top += other.Top;
+			rect.Right += other.Right;
+			rect.Bottom += other.Bottom;
+			return rect;
+		}
+
+
+		/// <summary>Subtracts two rectangles.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
+		/// <param name="result">Receives the difference between the two specified rectangles.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Subtract( ref Rect rect, ref Rect other, out Rect result )
+		{
+			result.Left = rect.Left - other.Left;
+			result.Top = rect.Top - other.Top;
+			result.Right = rect.Right - other.Right;
+			result.Bottom = rect.Bottom - other.Bottom;
+		}
+
+		/// <summary>Subtracts two rectangles.</summary>
+		/// <param name="rect">A <see cref="Rect"/>.</param>
+		/// <param name="other">A <see cref="Rect"/>.</param>
+		/// <returns>Returns the difference between the two specified rectangles.</returns>
+		public static Rect Subtract( Rect rect, Rect other )
+		{
+			rect.Left -= other.Left;
+			rect.Top -= other.Top;
+			rect.Right -= other.Right;
+			rect.Bottom -= other.Bottom;
+			return rect;
+		}
+
+	
 		/// <summary>Creates a rectangle containing the two specified rectangles.</summary>
 		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <param name="other">A <see cref="Rect"/>.</param>
@@ -521,6 +587,34 @@ namespace ManagedX // .Graphics
 			rect.Top = -rect.Bottom;
 			rect.Right = -x;
 			rect.Bottom = -y;
+			return rect;
+		}
+
+
+		/// <summary>Addition operator.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns the sum of the two specified rectangles.</returns>
+		public static Rect operator +( Rect rect, Rect other )
+		{
+			rect.Left += other.Left;
+			rect.Top += other.Top;
+			rect.Right += other.Right;
+			rect.Bottom += other.Bottom;
+			return rect;
+		}
+
+
+		/// <summary>Subtraction operator.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns the difference of the two specified rectangles.</returns>
+		public static Rect operator -( Rect rect, Rect other )
+		{
+			rect.Left -= other.Left;
+			rect.Top -= other.Top;
+			rect.Right -= other.Right;
+			rect.Bottom -= other.Bottom;
 			return rect;
 		}
 
