@@ -474,7 +474,109 @@ namespace ManagedX // .Graphics
 			return rect;
 		}
 
-	
+
+		/// <summary>Creates a <see cref="Rect"/> structure initialized with the minimum values from two <see cref="Rect"/> structures.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Rect"/> structure initialized with the minimum values from the two specified <see cref="Rect"/> structures.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Min( ref Rect rect, ref Rect other, out Rect result )
+		{
+			if( other.Left < rect.Left )
+				result.Left = other.Left;
+			else
+				result.Left = rect.Left;
+
+			if( other.Top < rect.Top )
+				result.Top = other.Top;
+			else
+				result.Top = rect.Top;
+
+			if( other.Right < rect.Right )
+				result.Right = other.Right;
+			else
+				result.Right = rect.Right;
+
+			if( other.Bottom < rect.Bottom )
+				result.Bottom = other.Bottom;
+			else
+				result.Bottom = rect.Bottom;
+		}
+
+		/// <summary>Returns a <see cref="Rect"/> structure initialized with the minimum values from two <see cref="Rect"/> structures.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns a <see cref="Rect"/> structure initialized with the minimum values from two <see cref="Rect"/> structures.</returns>
+		public static Rect Min( Rect rect, Rect other )
+		{
+			if( other.Left < rect.Left )
+				rect.Left = other.Left;
+			
+			if( other.Top < rect.Top )
+				rect.Top = other.Top;
+
+			if( other.Right < rect.Right )
+				rect.Right = other.Right;
+
+			if( other.Bottom < rect.Bottom )
+				rect.Bottom = other.Bottom;
+
+			return rect;
+		}
+
+
+		/// <summary>Creates a <see cref="Rect"/> structure initialized with the maximum values from two <see cref="Rect"/> structures.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <param name="result">Receives a <see cref="Rect"/> structure initialized with the maximum values from the two specified <see cref="Rect"/> structures.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		public static void Max( ref Rect rect, ref Rect other, out Rect result )
+		{
+			if( other.Left > rect.Left )
+				result.Left = other.Left;
+			else
+				result.Left = rect.Left;
+
+			if( other.Top > rect.Top )
+				result.Top = other.Top;
+			else
+				result.Top = rect.Top;
+
+			if( other.Right > rect.Right )
+				result.Right = other.Right;
+			else
+				result.Right = rect.Right;
+
+			if( other.Bottom > rect.Bottom )
+				result.Bottom = other.Bottom;
+			else
+				result.Bottom = rect.Bottom;
+		}
+
+		/// <summary>Returns a <see cref="Rect"/> structure initialized with the maximum values from two <see cref="Rect"/> structures.</summary>
+		/// <param name="rect">A <see cref="Rect"/> structure.</param>
+		/// <param name="other">A <see cref="Rect"/> structure.</param>
+		/// <returns>Returns a <see cref="Rect"/> structure initialized with the maximum values from two <see cref="Rect"/> structures.</returns>
+		public static Rect Max( Rect rect, Rect other )
+		{
+			if( other.Left > rect.Left )
+				rect.Left = other.Left;
+
+			if( other.Top > rect.Top )
+				rect.Top = other.Top;
+
+			if( other.Right > rect.Right )
+				rect.Right = other.Right;
+
+			if( other.Bottom > rect.Bottom )
+				rect.Bottom = other.Bottom;
+
+			return rect;
+		}
+
+
 		/// <summary>Creates a rectangle containing the two specified rectangles.</summary>
 		/// <param name="rect">A <see cref="Rect"/>.</param>
 		/// <param name="other">A <see cref="Rect"/>.</param>
