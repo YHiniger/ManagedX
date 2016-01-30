@@ -301,6 +301,17 @@ namespace ManagedX.Graphics
 		}
 
 
+		/// <summary></summary>
+		public static readonly RGBA Transparent = new RGBA( 0.0f, 0.0f, 0.0f, 0.0f );
+		
+		/// <summary></summary>
+		public static readonly RGBA Black = new RGBA( 0.0f, 0.0f, 0.0f, 1.0f );
+		
+		/// <summary></summary>
+		public static readonly RGBA White = new RGBA( 1.0f, 1.0f, 1.0f, 1.0f );
+
+
+		#region Static methods
 
 		/// <summary>Calculates the opposite of an <see cref="RGBA"/> color.</summary>
 		/// <param name="color">An <see cref="RGBA"/> color.</param>
@@ -722,10 +733,11 @@ namespace ManagedX.Graphics
 			return source;
 		}
 
+		#endregion Static methods
 
 
 		#region Operators
-				
+
 		/// <summary>Equality comparer.</summary>
 		/// <param name="color">An <see cref="RGBA"/> structure.</param>
 		/// <param name="other">An <see cref="RGBA"/> structure.</param>

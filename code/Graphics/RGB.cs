@@ -167,7 +167,16 @@ namespace ManagedX.Graphics
 		}
 
 
+
+		/// <summary></summary>
+		public static readonly RGB Black = new RGB( 0.0f, 0.0f, 0.0f );
 		
+		/// <summary></summary>
+		public static readonly RGB White = new RGB( 1.0f, 1.0f, 1.0f );
+
+
+		#region Static methods
+
 		/// <summary>Calculates the opposite of an <see cref="RGB"/> color.</summary>
 		/// <param name="color">An <see cref="RGB"/> color.</param>
 		/// <param name="result">Receives the opposite of the specified <see cref="RGB"/> <paramref name="color"/>.</param>
@@ -558,9 +567,11 @@ namespace ManagedX.Graphics
 			return source;
 		}
 
+		#endregion Static methods
+
 
 		#region Operators
-				
+
 		/// <summary>Equality comparer.</summary>
 		/// <param name="rgb">An <see cref="RGB"/> structure.</param>
 		/// <param name="other">An <see cref="RGB"/> structure.</param>

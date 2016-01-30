@@ -56,6 +56,8 @@
     <Compile Include="code\enumerations\PlaneIntersectionType.cs" />
     <Compile Include="code\Design\I3DObject.cs" />
     <Compile Include="code\enumerations\StatusCode.cs" />
+    <Compile Include="code\exceptions\MissingRequirementException.cs" />
+    <Compile Include="code\exceptions\NoAudioHardwareException.cs" />
     <Compile Include="code\GJK.cs" />
     <Compile Include="code\Graphics\Color.cs" />
     <Compile Include="code\Graphics\HSL.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="code\Graphics\RGB.cs" />
     <Compile Include="code\Graphics\RGBA.cs" />
     <Compile Include="code\Graphics\Viewport.cs" />
+    <Compile Include="code\exceptions\NoSuitableGraphicsDeviceException.cs" />
     <Compile Include="code\structures\BoundingBox.cs" />
     <Compile Include="code\structures\BoundingFrustum.cs" />
     <Compile Include="code\structures\BoundingSphere.cs" />
@@ -73,7 +76,6 @@
     <Compile Include="code\structures\Ray.cs" />
     <Compile Include="code\structures\ScaleRotationTranslation.cs" />
     <Compile Include="code\structures\Vector4.cs" />
-    <Compile Include="code\MissingRequirementException.cs" />
     <Compile Include="code\structures\Vector3.cs" />
     <Compile Include="code\structures\Vector2.cs" />
     <Compile Include="code\XMath.cs" />
