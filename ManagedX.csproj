@@ -45,6 +45,7 @@
     <AssemblyOriginatorKeyFile>ManagedX.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="code\Design\IDevice.cs" />
     <Compile Include="code\Design\IServiceProviderEx.cs" />
     <Compile Include="code\Diagnostics\PerformanceCounter.cs" />
     <Compile Include="code\Display\Point.cs" />
