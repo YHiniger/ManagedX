@@ -8,12 +8,15 @@ namespace ManagedX
 	// WinUser.h
 	
 
-	/// <summary>Enumerates Windows error codes (HRESULT).</summary>
+	/// <summary>Enumerates Windows error codes (HRESULT starting with 0x8).</summary>
 	public enum ErrorCode : int
 	{
 		
 		/// <summary>The operation was successful.</summary>
 		None = 0,
+
+		
+		// FIXME - those are status codes, not error codes !
 
 		/// <summary>Access is denied.</summary>
 		AccessDenied = 5,
@@ -52,6 +55,8 @@ namespace ManagedX
 		/// </summary>
 		Empty = 4306,
 
+		// /FIXME - status codes
+
 
 		#region Stg*
 
@@ -67,26 +72,26 @@ namespace ManagedX
 
 
 		/// <summary>Not implemented.</summary>
-		NotImplemented = unchecked( (int)0x80004001 ), // E_NOTIMPL
+		NotImplemented = unchecked( (int)0x80004001 ),	// E_NOTIMPL
 
 		/// <summary>No such interface supported.</summary>
-		NoInterface = unchecked( (int)0x80004002 ), // E_NOINTERFACE
+		NoInterface = unchecked( (int)0x80004002 ),		// E_NOINTERFACE
 
 		/// <summary>Pointer that is not valid.</summary>
-		Pointer = unchecked( (int)0x80004003 ), // E_POINTER
+		Pointer = unchecked( (int)0x80004003 ),			// E_POINTER
 
 		/// <summary>Operation aborted.</summary>
-		Abort = unchecked( (int)0x80004004 ), // E_ABORT
+		Abort = unchecked( (int)0x80004004 ),			// E_ABORT
 
 		/// <summary>Unspecified failure.</summary>
-		Fail = unchecked( (int)0x80004005 ), // E_FAIL
+		Fail = unchecked( (int)0x80004005 ),			// E_FAIL
 
 
 		/// <summary>One or more arguments are not valid.</summary>
-		InvalidArgument = unchecked( (int)0x80070057 ), // E_INVALIDARG
+		InvalidArgument = unchecked( (int)0x80070057 ),	// E_INVALIDARG
 
 		/// <summary>Failed to allocate necessary memory.</summary>
-		OutOfMemory = unchecked( (int)0x8007000E ), // E_OUTOFMEMORY
+		OutOfMemory = unchecked( (int)0x8007000E ),		// E_OUTOFMEMORY
 
 
 		//D3DERR_WRONGTEXTUREFORMAT = 2289436696,
@@ -247,78 +252,78 @@ namespace ManagedX
 		#endregion DXGI
 
 
-		#region AudioClient
+		#region WASAPI
 
 		// AudioClient.h
 
 		/// <summary>The audio stream has not been successfully initialized.</summary>
-		AudioClientNotInitialized = unchecked( (int)0x88890001 ),			// AUDCLNT_E_NOT_INITIALIZED
+		AudioClientNotInitialized = unchecked( (int)0x88890001 ),					// AUDCLNT_E_NOT_INITIALIZED
 
 		/// <summary>The IAudioClient object is already initialized.</summary>
-		AudioClientAlreadyInitialized = unchecked( (int)0x88890002 ),		// AUDCLNT_E_ALREADY_INITIALIZED
+		AudioClientAlreadyInitialized = unchecked( (int)0x88890002 ),				// AUDCLNT_E_ALREADY_INITIALIZED
 
 		/// <summary>The caller tried to access an IAudioCaptureClient interface on a rendering endpoint, or an IAudioRenderClient interface on a capture endpoint.</summary>
-		AudioClientWrongEndPointType = unchecked( (int)0x88890003 ),		// AUDCLNT_E_WRONG_ENDPOINT_TYPE
+		AudioClientWrongEndPointType = unchecked( (int)0x88890003 ),				// AUDCLNT_E_WRONG_ENDPOINT_TYPE
 
 		/// <summary>The audio endpoint device has been unplugged, or the audio hardware or associated hardware resources have been reconfigured, disabled, removed, or otherwise made unavailable for use.</summary>
-		AudioClientDeviceInvalidated = unchecked( (int)0x88890004 ),		// AUDCLNT_E_DEVICE_INVALIDATED
+		AudioClientDeviceInvalidated = unchecked( (int)0x88890004 ),				// AUDCLNT_E_DEVICE_INVALIDATED
 
 		/// <summary>The audio stream was not stopped at the time the call was made.</summary>
-		AudioClientNotStopped = unchecked( (int)0x88890005 ),				// AUDCLNT_E_NOT_STOPPED
+		AudioClientNotStopped = unchecked( (int)0x88890005 ),						// AUDCLNT_E_NOT_STOPPED
 		
 		/// <summary></summary>
-		AudioClientBufferTooLarge = unchecked( (int)0x88890006 ),			// AUDCLNT_E_BUFFER_TOO_LARGE
+		AudioClientBufferTooLarge = unchecked( (int)0x88890006 ),					// AUDCLNT_E_BUFFER_TOO_LARGE
 		
 		/// <summary></summary>
-		AudioClientOutOfOrder = unchecked( (int)0x88890007 ),				// AUDCLNT_E_OUT_OF_ORDER
+		AudioClientOutOfOrder = unchecked( (int)0x88890007 ),						// AUDCLNT_E_OUT_OF_ORDER
 
 		/// <summary>The audio engine (shared mode) or audio endpoint device (exclusive mode) does not support the specified format.</summary>
-		AudioClientUnsupportedFormat = unchecked( (int)0x88890008 ),		// AUDCLNT_E_UNSUPPORTED_FORMAT
+		AudioClientUnsupportedFormat = unchecked( (int)0x88890008 ),				// AUDCLNT_E_UNSUPPORTED_FORMAT
 
 		/// <summary></summary>
-		AudioClientInvalidSize = unchecked( (int)0x88890009 ),				// AUDCLNT_E_INVALID_SIZE
+		AudioClientInvalidSize = unchecked( (int)0x88890009 ),						// AUDCLNT_E_INVALID_SIZE
 
 		/// <summary>The endpoint device is already in use.
 		/// <para>Either the device is being used in exclusive mode, or the device is being used in shared mode and the caller asked to use the device in exclusive mode.</para>
 		/// </summary>
-		AudioClientDeviceInUse = unchecked( (int)0x8889000a ),				// AUDCLNT_E_DEVICE_IN_USE
+		AudioClientDeviceInUse = unchecked( (int)0x8889000a ),						// AUDCLNT_E_DEVICE_IN_USE
 
 		/// <summary>The client is currently writing to or reading from the buffer.</summary>
-		AudioClientBufferOperationPending = unchecked( (int)0x8889000b ),	// AUDCLNT_E_BUFFER_OPERATION_PENDING
+		AudioClientBufferOperationPending = unchecked( (int)0x8889000b ),			// AUDCLNT_E_BUFFER_OPERATION_PENDING
 
 		/// <summary></summary>
-		AudioClientThreadNotRegistered = unchecked( (int)0x8889000c ),		// AUDCLNT_E_THREAD_NOT_REGISTERED
+		AudioClientThreadNotRegistered = unchecked( (int)0x8889000c ),				// AUDCLNT_E_THREAD_NOT_REGISTERED
 
 		/// <summary>The caller is requesting exclusive-mode use of the endpoint device, but the user has disabled exclusive-mode use of the device.</summary>
-		AudioClientExclusiveModeNotAllowed = unchecked( (int)0x8889000e ),	// AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED
+		AudioClientExclusiveModeNotAllowed = unchecked( (int)0x8889000e ),			// AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED
 
 		/// <summary>The method failed to create the audio endpoint for the render or the capture device.
 		/// <para>This can occur if the audio endpoint device has been unplugged, or the audio hardware or associated hardware resources have been reconfigured, disabled, removed, or otherwise made unavailable for use.</para>
 		/// </summary>
-		AudioClientEndPointCreateFailed = unchecked( (int)0x8889000f ),		// AUDCLNT_E_ENDPOINT_CREATE_FAILED
+		AudioClientEndPointCreateFailed = unchecked( (int)0x8889000f ),				// AUDCLNT_E_ENDPOINT_CREATE_FAILED
 
 		/// <summary>The Windows audio service is not running.</summary>
-		AudioClientServiceNotRunning = unchecked( (int)0x88890010 ),		// AUDCLNT_E_SERVICE_NOT_RUNNING
+		AudioClientServiceNotRunning = unchecked( (int)0x88890010 ),				// AUDCLNT_E_SERVICE_NOT_RUNNING
 
 		/// <summary>The audio stream was not initialized for event-driven buffering.</summary>
-		AudioClientEventHandleNotExpected = unchecked( (int)0x88890011 ),	// AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED
+		AudioClientEventHandleNotExpected = unchecked( (int)0x88890011 ),			// AUDCLNT_E_EVENTHANDLE_NOT_EXPECTED
 
 		/// <summary></summary>
-		AudioClientExclusiveModeOnly = unchecked( (int)0x88890012 ),		// AUDCLNT_E_EXCLUSIVE_MODE_ONLY
+		AudioClientExclusiveModeOnly = unchecked( (int)0x88890012 ),				// AUDCLNT_E_EXCLUSIVE_MODE_ONLY
 
 		/// <summary>The AUDCLNT_STREAMFLAGS_EVENTCALLBACK flag is set but parameters hnsBufferDuration and hnsPeriodicity are not equal.</summary>
 		AudioClientBufferDurationPeriodNotEqual = unchecked( (int)0x88890013 ),		// AUDCLNT_E_BUFDURATION_PERIOD_NOT_EQUAL
 
 		/// <summary>The audio stream is configured to use event-driven buffering, but the caller has not called IAudioClient::SetEventHandle to set the event handle on the stream.</summary>
-		AudioClientEventHandleNotSet = unchecked( (int)0x88890014 ),		// AUDCLNT_E_EVENTHANDLE_NOT_SET
+		AudioClientEventHandleNotSet = unchecked( (int)0x88890014 ),				// AUDCLNT_E_EVENTHANDLE_NOT_SET
 
 		/// <summary></summary>
-		AudioClientIncorrectBufferSize = unchecked( (int)0x88890015 ),		// AUDCLNT_E_INCORRECT_BUFFER_SIZE
+		AudioClientIncorrectBufferSize = unchecked( (int)0x88890015 ),				// AUDCLNT_E_INCORRECT_BUFFER_SIZE
 
 		/// <summary>Indicates that the buffer duration value requested by an exclusive-mode client is out of range.
 		/// <para>The requested duration value for pull mode must not be greater than 500 milliseconds; for push mode the duration value must not be greater than 2 seconds.</para>
 		/// </summary>
-		AudioClientBufferSizeError = unchecked( (int)0x88890016 ),			// AUDCLNT_E_BUFFER_SIZE_ERROR
+		AudioClientBufferSizeError = unchecked( (int)0x88890016 ),					// AUDCLNT_E_BUFFER_SIZE_ERROR
 
 		/// <summary>Indicates that the process-pass duration exceeded the maximum CPU usage.
 		/// <para>
@@ -328,50 +333,50 @@ namespace ManagedX
 		/// If this value is not found, then the default value of 40% is used to calculate the maximum CPU usage.
 		/// </para>
 		/// </summary>
-		AudioClientCpuUsageExceeded = unchecked( (int)0x88890017 ),			// AUDCLNT_E_CPUUSAGE_EXCEEDED
+		AudioClientCpuUsageExceeded = unchecked( (int)0x88890017 ),					// AUDCLNT_E_CPUUSAGE_EXCEEDED
 
 		/// <summary></summary>
-		AudioClientBufferError = unchecked( (int)0x88890018 ),				// AUDCLNT_E_BUFFER_ERROR
+		AudioClientBufferError = unchecked( (int)0x88890018 ),						// AUDCLNT_E_BUFFER_ERROR
 
 		/// <summary></summary>
-		AudioClientBufferSizeNotAligned = unchecked( (int)0x88890019 ),		// AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED
+		AudioClientBufferSizeNotAligned = unchecked( (int)0x88890019 ),				// AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED
 
 		/// <summary>Indicates that the device period requested by an exclusive-mode client is greater than 500 milliseconds.</summary>
-		AudioClientInvalidDevicePeriod = unchecked( (int)0x88890020 ),		// AUDCLNT_E_INVALID_DEVICE_PERIOD
+		AudioClientInvalidDevicePeriod = unchecked( (int)0x88890020 ),				// AUDCLNT_E_INVALID_DEVICE_PERIOD
 
 		/// <summary></summary>
-		AudioClientInvalidStreamFlag = unchecked( (int)0x88890021 ),		// AUDCLNT_E_INVALID_STREAM_FLAG
+		AudioClientInvalidStreamOption = unchecked( (int)0x88890021 ),				// AUDCLNT_E_INVALID_STREAM_FLAG
 
 		/// <summary></summary>
-		AudioClientEndPointOffloadNotCapable = unchecked( (int)0x88890022 ),// AUDCLNT_E_ENDPOINT_OFFLOAD_NOT_CAPABLE
+		AudioClientEndPointOffloadNotCapable = unchecked( (int)0x88890022 ),		// AUDCLNT_E_ENDPOINT_OFFLOAD_NOT_CAPABLE
 
 		/// <summary></summary>
-		AudioClientOutOfOffloadResources = unchecked( (int)0x88890023 ),	// AUDCLNT_E_OUT_OF_OFFLOAD_RESOURCES
+		AudioClientOutOfOffloadResources = unchecked( (int)0x88890023 ),			// AUDCLNT_E_OUT_OF_OFFLOAD_RESOURCES
 
 		/// <summary></summary>
-		AudioClientOffloadModeOnly = unchecked( (int)0x88890024 ),			// AUDCLNT_E_OFFLOAD_MODE_ONLY
+		AudioClientOffloadModeOnly = unchecked( (int)0x88890024 ),					// AUDCLNT_E_OFFLOAD_MODE_ONLY
 
 		/// <summary></summary>
-		AudioClientNonOffloadModeOnly = unchecked( (int)0x88890025 ),		// AUDCLNT_E_NONOFFLOAD_MODE_ONLY
+		AudioClientNonOffloadModeOnly = unchecked( (int)0x88890025 ),				// AUDCLNT_E_NONOFFLOAD_MODE_ONLY
 
 		/// <summary></summary>
-		AudioClientResourcesInvalidated = unchecked( (int)0x88890026 ),		// AUDCLNT_E_RESOURCES_INVALIDATED
+		AudioClientResourcesInvalidated = unchecked( (int)0x88890026 ),				// AUDCLNT_E_RESOURCES_INVALIDATED
 
 		/// <summary></summary>
-		AudioClientRawModeUnsupported = unchecked( (int)0x88890027 ),		// AUDCLNT_E_RAW_MODE_UNSUPPORTED
+		AudioClientRawModeUnsupported = unchecked( (int)0x88890027 ),				// AUDCLNT_E_RAW_MODE_UNSUPPORTED
 
 		/// <summary></summary>
-		AudioClientEnginePeriodicityLocked = unchecked( (int)0x88890028 ),	// AUDCLNT_E_ENGINE_PERIODICITY_LOCKED
+		AudioClientEnginePeriodicityLocked = unchecked( (int)0x88890028 ),			// AUDCLNT_E_ENGINE_PERIODICITY_LOCKED
 		
 		/// <summary></summary>
-		AudioClientEngineFormatLocked = unchecked( (int)0x88890029 ),		// AUDCLNT_E_ENGINE_FORMAT_LOCKED
-		
+		AudioClientEngineFormatLocked = unchecked( (int)0x88890029 ),				// AUDCLNT_E_ENGINE_FORMAT_LOCKED
 
-		//#define AUDCLNT_S_BUFFER_EMPTY                 AUDCLNT_SUCCESS(0x001)
-		//#define AUDCLNT_S_THREAD_ALREADY_REGISTERED    AUDCLNT_SUCCESS(0x002)
-		//#define AUDCLNT_S_POSITION_STALLED             AUDCLNT_SUCCESS(0x003)
 
-		#endregion // AudioClient
+		//AudioClientBufferEmpty = StatusCode.AudioClientBufferEmpty,							// AUDCLNT_S_BUFFER_EMPTY
+		//AudioClientThreadAlreadyRegistered = StatusCode.AudioClientThreadAlreadyRegistered,	// AUDCLNT_S_THREAD_ALREADY_REGISTERED
+		//AudioClientPositionStalled = StatusCode.AudioClientPositionStalled,					// AUDCLNT_S_POSITION_STALLED
+
+		#endregion WASAPI
 
 
 		#region XAudio2, XAPO
@@ -382,25 +387,25 @@ namespace ManagedX
 		/// <summary>Returned by XAudio2 for certain API usage errors (invalid calls and so on) that are hard to avoid completely and should be handled by a title at runtime.
 		/// <para>(API usage errors that are completely avoidable, such as invalid parameters, cause an ASSERT in debug builds and undefined behavior in retail builds, so no error code is defined for them.)</para>
 		/// </summary>
-		XAudio2InvalidCall = unchecked( (int)0x88960001 ), // XAUDIO2_E_INVALID_CALL
+		XAudio2InvalidCall = unchecked( (int)0x88960001 ),			// XAUDIO2_E_INVALID_CALL
 
 		/// <summary>The Xbox 360 XMA hardware suffered an unrecoverable error.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XMA", Justification = "XMA = ..." )]
-		XMADecoderError = unchecked( (int)0x88960002 ), // XAUDIO2_E_XMA_DECODER_ERROR
+		XMADecoderError = unchecked( (int)0x88960002 ),				// XAUDIO2_E_XMA_DECODER_ERROR
 
 		/// <summary>An effect failed to instantiate.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XAPO", Justification = "XAPO = X-Audio Processing Object" )]
-		XAPOCreationFailed = unchecked( (int)0x88960003 ), // XAUDIO2_E_XAPO_CREATION_FAILED
+		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XAPO", Justification = "XAPO = Cross-platform Audio Processing Object" )]
+		XAPOCreationFailed = unchecked( (int)0x88960003 ),			// XAUDIO2_E_XAPO_CREATION_FAILED
 
 		/// <summary>An audio device became unusable through being unplugged or some other event.</summary>
-		XAudio2DeviceInvalidated = unchecked( (int)0x88960004 ), // XAUDIO2_E_DEVICE_INVALIDATED
+		XAudio2DeviceInvalidated = unchecked( (int)0x88960004 ),	// XAUDIO2_E_DEVICE_INVALIDATED
 
 
 		/// <summary>Requested audio format is unsupported.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XAPO", Justification = "XAPO = X-Audio Processing Object" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XAPO", Justification = "XAPO = Cross-platform Audio Processing Object" )]
 		XAPOFormatUnsupported = unchecked( (int)0x88970001 ),
 
-		#endregion // XAudio2, XAPO
+		#endregion XAudio2, XAPO
 
 	}
 

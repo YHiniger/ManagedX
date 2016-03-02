@@ -4,10 +4,8 @@
 namespace ManagedX.Design
 {
 
-	/// <summary>Defines methods to retrieve service objects.
-	/// <para>Inherits from <see cref="IServiceProvider"/>.</para>
-	/// </summary>
-	public interface IServiceProviderEx : IServiceProvider
+	/// <summary>Defines methods to retrieve service objects.</summary>
+	public interface IServiceProviderEx
 	{
 
 		/// <summary>Returns a service given its type.</summary>

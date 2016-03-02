@@ -33,9 +33,23 @@
 		/// <summary><code>IDXGISwapChain.ResizeTarget</code> and <code>IDXGISwapChain.SetFullscreenState</code> will return this value if a fullscreen/windowed mode transition is occurring when either API is called.
 		/// <para>The native name of this constant is <code>DXGI_STATUS_MODE_CHANGE_IN_PROGRESS</code>.</para>
 		/// </summary>
-		DxgiModeChangeInProgress = 0x087A0008
+		DxgiModeChangeInProgress = 0x087A0008,
 
 		#endregion DXGI
+
+
+		#region WASAPI
+
+		/// <summary></summary>
+		AudioClientBufferEmpty = 0x08890001,				// AUDCLNT_S_BUFFER_EMPTY
+
+		/// <summary></summary>
+		AudioClientThreadAlreadyRegistered = 0x08890002,	// AUDCLNT_S_THREAD_ALREADY_REGISTERED
+
+		/// <summary></summary>
+		AudioClientPositionStalled = 0x08890003,			// AUDCLNT_S_POSITION_STALLED
+
+		#endregion WASAPI
 
 	}
 
