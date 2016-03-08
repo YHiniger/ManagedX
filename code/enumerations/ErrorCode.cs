@@ -16,7 +16,7 @@ namespace ManagedX
 		None = 0,
 
 		
-		// FIXME - those are status codes, not error codes !
+		// FIXME - those are status codes, not error codes ?
 
 		/// <summary>Access is denied.</summary>
 		AccessDenied = 5,
@@ -55,7 +55,7 @@ namespace ManagedX
 		/// </summary>
 		Empty = 4306,
 
-		// /FIXME - status codes
+		// /FIXME - status codes ?
 
 
 		#region Stg*
@@ -294,6 +294,8 @@ namespace ManagedX
 		/// <summary></summary>
 		AudioClientThreadNotRegistered = unchecked( (int)0x8889000c ),				// AUDCLNT_E_THREAD_NOT_REGISTERED
 
+		// 0x8889000d ?
+
 		/// <summary>The caller is requesting exclusive-mode use of the endpoint device, but the user has disabled exclusive-mode use of the device.</summary>
 		AudioClientExclusiveModeNotAllowed = unchecked( (int)0x8889000e ),			// AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED
 
@@ -340,6 +342,8 @@ namespace ManagedX
 
 		/// <summary></summary>
 		AudioClientBufferSizeNotAligned = unchecked( (int)0x88890019 ),				// AUDCLNT_E_BUFFER_SIZE_NOT_ALIGNED
+
+		// 0x8889001a -> 0x8889001f ?
 
 		/// <summary>Indicates that the device period requested by an exclusive-mode client is greater than 500 milliseconds.</summary>
 		AudioClientInvalidDevicePeriod = unchecked( (int)0x88890020 ),				// AUDCLNT_E_INVALID_DEVICE_PERIOD
@@ -390,7 +394,7 @@ namespace ManagedX
 		XAudio2InvalidCall = unchecked( (int)0x88960001 ),			// XAUDIO2_E_INVALID_CALL
 
 		/// <summary>The Xbox 360 XMA hardware suffered an unrecoverable error.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XMA", Justification = "XMA = ..." )]
+		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XMA", Justification = "XMA = Cross-platform Media Audio" )]
 		XMADecoderError = unchecked( (int)0x88960002 ),				// XAUDIO2_E_XMA_DECODER_ERROR
 
 		/// <summary>An effect failed to instantiate.</summary>
@@ -403,7 +407,7 @@ namespace ManagedX
 
 		/// <summary>Requested audio format is unsupported.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "XAPO", Justification = "XAPO = Cross-platform Audio Processing Object" )]
-		XAPOFormatUnsupported = unchecked( (int)0x88970001 ),
+		XAPOFormatUnsupported = unchecked( (int)0x88970001 ),		// ?
 
 		#endregion XAudio2, XAPO
 
