@@ -45,6 +45,13 @@
     <AssemblyOriginatorKeyFile>ManagedX.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="code\Audio\AudioChannels.cs" />
+    <Compile Include="code\Audio\AudioChannelsExtensions.cs" />
+    <Compile Include="code\Audio\SpeakerConfiguration.cs" />
+    <Compile Include="code\Audio\WaveFormat.cs" />
+    <Compile Include="code\Audio\WaveFormatEx.cs" />
+    <Compile Include="code\Audio\WaveFormatExtensible.cs" />
+    <Compile Include="code\Audio\WaveFormatTag.cs" />
     <Compile Include="code\Design\IDevice.cs" />
     <Compile Include="code\Design\IServiceProviderEx.cs" />
     <Compile Include="code\Diagnostics\PerformanceCounter.cs" />
