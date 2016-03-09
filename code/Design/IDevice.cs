@@ -6,7 +6,7 @@
 	{
 
 		/// <summary>Gets the identifier of the device.</summary>
-		string Identifier { get; }
+		string DeviceIdentifier { get; }
 
 
 		/// <summary>Gets the friendly name of the device.</summary>
