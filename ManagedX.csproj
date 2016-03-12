@@ -74,6 +74,7 @@
     <Compile Include="code\Graphics\RGBA.cs" />
     <Compile Include="code\Graphics\Viewport.cs" />
     <Compile Include="code\exceptions\NoSuitableGraphicsDeviceException.cs" />
+    <Compile Include="code\Design\NativeAttribute.cs" />
     <Compile Include="code\structures\BoundingBox.cs" />
     <Compile Include="code\structures\BoundingFrustum.cs" />
     <Compile Include="code\structures\BoundingSphere.cs" />
