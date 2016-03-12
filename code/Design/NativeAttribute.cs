@@ -6,7 +6,7 @@ namespace ManagedX.Design
 
 	/// <summary>Specifies the definition location and native name of a managed type.</summary>
 	[Serializable]
-	[AttributeUsage( AttributeTargets.Class | AttributeTargets.Delegate | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Struct, Inherited = false, AllowMultiple = false )]
+	[AttributeUsage( AttributeTargets.Class | AttributeTargets.Delegate | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Struct, Inherited = false, AllowMultiple = true )]
 	public sealed class NativeAttribute : Attribute
 	{
 
