@@ -1,4 +1,4 @@
-﻿namespace ManagedX
+﻿namespace ManagedX.Win32
 {
 	
 	/// <summary>Enumerates Windows status codes (HRESULT).</summary>
