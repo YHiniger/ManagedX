@@ -11,6 +11,7 @@ namespace ManagedX.Graphics
 	/// </summary>
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/hh404524%28v=vs.85%29.aspx</remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGBA" )]
+	[Design.Native( "DXGIType.h", "DXGI_RGBA" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct RGBA : IEquatable<RGBA>
