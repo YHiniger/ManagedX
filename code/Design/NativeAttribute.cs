@@ -16,7 +16,7 @@ namespace ManagedX.Design
 
 
 		/// <summary>Initializes a new <see cref="NativeAttribute"/>.</summary>
-		/// <param name="definitionLocation">The location of the native definition of the associated type.</param>
+		/// <param name="definitionLocation">The location of the native definition of the associated type (ie: WinUser.h).</param>
 		/// <param name="nativeName">The native name of the associated type.</param>
 		public NativeAttribute( string definitionLocation, string nativeName )
 			: base()
@@ -35,11 +35,11 @@ namespace ManagedX.Design
 
 
 
-		/// <summary>Gets the location of the definition of the associated type (ie: "WinGDI.h").</summary>
+		/// <summary>Gets the location of the definition of the associated type (ie: WinUser.h).</summary>
 		public string DefinitionLocation { get { return string.Copy( definitionLocation ); } }
 
 
-		/// <summary>Gets the native name of the associated type, or an empty string if the managed name is the same as the native name.</summary>
+		/// <summary>Gets the native name of the associated type, or an empty string.</summary>
 		public string NativeName { get { return string.Copy( nativeName ); } }
 
 	}
