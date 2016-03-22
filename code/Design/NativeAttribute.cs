@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace ManagedX.Design
+namespace ManagedX.Win32
 {
 
 	/// <summary>An attribute to specify the definition location and native name of a managed type.

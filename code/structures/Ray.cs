@@ -611,6 +611,7 @@ namespace ManagedX
 		/// <param name="ray">A <see cref="Ray"/>.</param>
 		/// <param name="value">A finite single-precision floating-point value.</param>
 		/// <param name="result">Receives the result of the multiplication.</param>
+		[SuppressMessage( "Microsoft.Design", "CA1062" )]
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Multiply( ref Ray ray, float value, out Vector3 result )
