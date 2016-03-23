@@ -236,7 +236,7 @@ namespace ManagedX.Win32
 		/// <summary>DXGI is unable to provide content protection on the swapchain. This is typically caused by an older driver,
 		/// or by the application using a swapchain that is incompatible with content protection.
 		/// </summary>
-		DxgiCanNotProtectContent = unchecked( (int)0x887A002A ),
+		DxgiCannotProtectContent = unchecked( (int)0x887A002A ),
 
 		/// <summary>The application is trying to use a resource to which it does not have the required access privileges.
 		/// This is most commonly caused by writing to a shared resource with read-only access.
