@@ -12,6 +12,7 @@ namespace ManagedX
 	/// </summary>
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/dn268308%28v=vs.85%29.aspx</remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "x" )]
+	[Win32.Native( "DXGI1_3.h", "DXGI_MATRIX_3X2_F" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 24 )]
 	public struct Matrix3x2 : IEquatable<Matrix3x2>

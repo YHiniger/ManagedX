@@ -52,7 +52,6 @@
     <Compile Include="code\Audio\WaveFormatEx.cs" />
     <Compile Include="code\Audio\WaveFormatExtensible.cs" />
     <Compile Include="code\Audio\WaveFormatTag.cs" />
-    <Compile Include="code\Design\IDevice.cs" />
     <Compile Include="code\Design\IServiceProviderEx.cs" />
     <Compile Include="code\Diagnostics\PerformanceCounter.cs" />
     <Compile Include="code\Display\Point.cs" />
