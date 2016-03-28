@@ -10,7 +10,7 @@ namespace ManagedX // .Diagnostics ?
 
 		private TimeSpan lastUpdateTime;
 		private TimeSpan elapsedTime;
-		private int tickCount;
+		private uint tickCount;
 		private int lastTickRate;
 
 
@@ -35,7 +35,7 @@ namespace ManagedX // .Diagnostics ?
 			elapsedTime += time - lastUpdateTime;
 			
 			var elapsed = elapsedTime.TotalSeconds;
-			if( elapsed > 1.0 )
+			if( elapsed >= 1.0 )
 			{
 				lastTickRate = (int)( (double)tickCount / elapsed );
 				tickCount = 0;
