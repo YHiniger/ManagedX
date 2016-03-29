@@ -28,7 +28,7 @@ namespace ManagedX // .Diagnostics ?
 
 		/// <summary>Updates the tick rate counter.</summary>
 		/// <param name="time">The time elapsed since the application start.</param>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "High performance required." )]
+		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "High performance required." )]
 		public void Tick( ref TimeSpan time )
 		{
 			tickCount++;
