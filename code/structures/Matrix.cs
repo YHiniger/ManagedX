@@ -82,24 +82,25 @@ namespace ManagedX
 
 
 
-		/// <summary>Initializes a new <see cref="Matrix"/>.</summary>
-		/// <param name="m11">Value at row 1 column 1 of the matrix.</param>
-		/// <param name="m12">Value at row 1 column 2 of the matrix.</param>
-		/// <param name="m13">Value at row 1 column 3 of the matrix.</param>
-		/// <param name="m14">Value at row 1 column 4 of the matrix.</param>
-		/// <param name="m21">Value at row 2 column 1 of the matrix.</param>
-		/// <param name="m22">Value at row 2 column 2 of the matrix.</param>
-		/// <param name="m23">Value at row 2 column 3 of the matrix.</param>
-		/// <param name="m24">Value at row 2 column 4 of the matrix.</param>
-		/// <param name="m31">Value at row 3 column 1 of the matrix.</param>
-		/// <param name="m32">Value at row 3 column 2 of the matrix.</param>
-		/// <param name="m33">Value at row 3 column 3 of the matrix.</param>
-		/// <param name="m34">Value at row 3 column 4 of the matrix.</param>
-		/// <param name="m41">Value at row 4 column 1 of the matrix.</param>
-		/// <param name="m42">Value at row 4 column 2 of the matrix.</param>
-		/// <param name="m43">Value at row 4 column 3 of the matrix.</param>
-		/// <param name="m44">Value at row 4 column 4 of the matrix.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray" )]
+        /// <summary>Initializes a new <see cref="Matrix"/>.</summary>
+        /// <param name="m11">Value at row 1 column 1 of the matrix.</param>
+        /// <param name="m12">Value at row 1 column 2 of the matrix.</param>
+        /// <param name="m13">Value at row 1 column 3 of the matrix.</param>
+        /// <param name="m14">Value at row 1 column 4 of the matrix.</param>
+        /// <param name="m21">Value at row 2 column 1 of the matrix.</param>
+        /// <param name="m22">Value at row 2 column 2 of the matrix.</param>
+        /// <param name="m23">Value at row 2 column 3 of the matrix.</param>
+        /// <param name="m24">Value at row 2 column 4 of the matrix.</param>
+        /// <param name="m31">Value at row 3 column 1 of the matrix.</param>
+        /// <param name="m32">Value at row 3 column 2 of the matrix.</param>
+        /// <param name="m33">Value at row 3 column 3 of the matrix.</param>
+        /// <param name="m34">Value at row 3 column 4 of the matrix.</param>
+        /// <param name="m41">Value at row 4 column 1 of the matrix.</param>
+        /// <param name="m42">Value at row 4 column 2 of the matrix.</param>
+        /// <param name="m43">Value at row 4 column 3 of the matrix.</param>
+        /// <param name="m44">Value at row 4 column 4 of the matrix.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "m")]
+        [SuppressMessage( "Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray" )]
 		public Matrix( 
 			float m11, float m12, float m13, float m14, 
 			float m21, float m22, float m23, float m24, 
@@ -2288,14 +2289,15 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Creates an orthogonal projection <see cref="Matrix"/>.</summary>
-		/// <param name="width">The width of the view volume.</param>
-		/// <param name="height">The height of the view volume.</param>
-		/// <param name="zNearPlane">The minimum z-value of the view volume.</param>
-		/// <param name="zFarPlane">The maximum z-value of the view volume.</param>
-		/// <param name="result">Receives the created orthogonal projection <see cref="Matrix"/>.</param>
-		/// <exception cref="ArgumentOutOfRangeException"/>
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+        /// <summary>Creates an orthogonal projection <see cref="Matrix"/>.</summary>
+        /// <param name="width">The width of the view volume.</param>
+        /// <param name="height">The height of the view volume.</param>
+        /// <param name="zNearPlane">The minimum z-value of the view volume.</param>
+        /// <param name="zFarPlane">The maximum z-value of the view volume.</param>
+        /// <param name="result">Receives the created orthogonal projection <see cref="Matrix"/>.</param>
+        /// <exception cref="ArgumentOutOfRangeException"/>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z")]
+        [SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateOrthographic( float width, float height, float zNearPlane, float zFarPlane, out Matrix result )
 		{
 			if( float.IsNaN( width ) || float.IsInfinity( width ) || width <= 0.0f )
@@ -2323,14 +2325,15 @@ namespace ManagedX
 			result.M43 = zNearPlane / ( zNearPlane - zFarPlane );
 			result.M44 = 1.0f;
 		}
-	
-		/// <summary>Returns an orthogonal projection <see cref="Matrix"/>.</summary>
-		/// <param name="width">The width of the view volume.</param>
-		/// <param name="height">The height of the view volume.</param>
-		/// <param name="zNearPlane">The minimum z-value of the view volume.</param>
-		/// <param name="zFarPlane">The maximum z-value of the view volume.</param>
-		/// <returns>Returns the created orthogonal projection <see cref="Matrix"/>.</returns>
-		public static Matrix CreateOrthographic( float width, float height, float zNearPlane, float zFarPlane )
+
+        /// <summary>Returns an orthogonal projection <see cref="Matrix"/>.</summary>
+        /// <param name="width">The width of the view volume.</param>
+        /// <param name="height">The height of the view volume.</param>
+        /// <param name="zNearPlane">The minimum z-value of the view volume.</param>
+        /// <param name="zFarPlane">The maximum z-value of the view volume.</param>
+        /// <returns>Returns the created orthogonal projection <see cref="Matrix"/>.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z")]
+        public static Matrix CreateOrthographic( float width, float height, float zNearPlane, float zFarPlane )
 		{
 			if( float.IsNaN( width ) || float.IsInfinity( width ) || width <= 0.0f )
 				throw new ArgumentOutOfRangeException( "width" );
@@ -2363,15 +2366,16 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Creates a customized, orthogonal projection <see cref="Matrix"/>.</summary>
-		/// <param name="left">Minimum x-value of the view volume.</param>
-		/// <param name="right">Maximum x-value of the view volume.</param>
-		/// <param name="bottom">Minimum y-value of the view volume.</param>
-		/// <param name="top">Maximum y-value of the view volume.</param>
-		/// <param name="zNearPlane">Minimum z-value of the view volume.</param>
-		/// <param name="zFarPlane">Maximum z-value of the view volume.</param>
-		/// <param name="result">Receives the created <see cref="Matrix"/>.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+        /// <summary>Creates a customized, orthogonal projection <see cref="Matrix"/>.</summary>
+        /// <param name="left">Minimum x-value of the view volume.</param>
+        /// <param name="right">Maximum x-value of the view volume.</param>
+        /// <param name="bottom">Minimum y-value of the view volume.</param>
+        /// <param name="top">Maximum y-value of the view volume.</param>
+        /// <param name="zNearPlane">Minimum z-value of the view volume.</param>
+        /// <param name="zFarPlane">Maximum z-value of the view volume.</param>
+        /// <param name="result">Receives the created <see cref="Matrix"/>.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z")]
+        [SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateOrthographicOffCenter( float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, out Matrix result )
 		{
 			result.M11 = 2.0f / ( right - left );
@@ -2391,15 +2395,16 @@ namespace ManagedX
 			result.M44 = 1.0f;
 		}
 
-		/// <summary>Returns a customized, orthogonal projection matrix.</summary>
-		/// <param name="left">Minimum x-value of the view volume.</param>
-		/// <param name="right">Maximum x-value of the view volume.</param>
-		/// <param name="bottom">Minimum y-value of the view volume.</param>
-		/// <param name="top">Maximum y-value of the view volume.</param>
-		/// <param name="zNearPlane">Minimum z-value of the view volume.</param>
-		/// <param name="zFarPlane">Maximum z-value of the view volume.</param>
-		/// <returns></returns>
-		public static Matrix CreateOrthographicOffCenter( float left, float right, float bottom, float top, float zNearPlane, float zFarPlane )
+        /// <summary>Returns a customized, orthogonal projection matrix.</summary>
+        /// <param name="left">Minimum x-value of the view volume.</param>
+        /// <param name="right">Maximum x-value of the view volume.</param>
+        /// <param name="bottom">Minimum y-value of the view volume.</param>
+        /// <param name="top">Maximum y-value of the view volume.</param>
+        /// <param name="zNearPlane">Minimum z-value of the view volume.</param>
+        /// <param name="zFarPlane">Maximum z-value of the view volume.</param>
+        /// <returns></returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "z")]
+        public static Matrix CreateOrthographicOffCenter( float left, float right, float bottom, float top, float zNearPlane, float zFarPlane )
 		{
 			Matrix result;
 			

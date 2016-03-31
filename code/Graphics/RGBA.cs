@@ -89,9 +89,10 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector4"/>.</summary>
-		/// <param name="rgbaVector">A <see cref="Vector4"/> representing the color.</param>
-		public RGBA( Vector4 rgbaVector )
+        /// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector4"/>.</summary>
+        /// <param name="rgbaVector">A <see cref="Vector4"/> representing the color.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgba")]
+        public RGBA( Vector4 rgbaVector )
 		{
 			R = rgbaVector.X;
 			G = rgbaVector.Y;
@@ -100,10 +101,11 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector3"/>.</summary>
-		/// <param name="rgbVector">A <see cref="Vector3"/> representing the color.</param>
-		/// <param name="alpha">The opacity (alpha) of the color.</param>
-		public RGBA( Vector3 rgbVector, float alpha )
+        /// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector3"/>.</summary>
+        /// <param name="rgbVector">A <see cref="Vector3"/> representing the color.</param>
+        /// <param name="alpha">The opacity (alpha) of the color.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb")]
+        public RGBA( Vector3 rgbVector, float alpha )
 		{
 			R = rgbVector.X;
 			G = rgbVector.Y;
@@ -111,9 +113,10 @@ namespace ManagedX.Graphics
 			A = alpha;
 		}
 
-		/// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector3"/>.</summary>
-		/// <param name="rgbVector">A <see cref="Vector3"/> representing the color.</param>
-		public RGBA( Vector3 rgbVector )
+        /// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector3"/>.</summary>
+        /// <param name="rgbVector">A <see cref="Vector3"/> representing the color.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb")]
+        public RGBA( Vector3 rgbVector )
 		{
 			R = rgbVector.X;
 			G = rgbVector.Y;
@@ -229,10 +232,11 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Returns an <see cref="RGB"/> color corresponding to this <see cref="RGBA"/> color.</summary>
-		/// <param name="preMultiply">Indicates whether the returned <see cref="RGB"/> color is multiplied by the opacity factor (alpha, see <see cref="A"/>).</param>
-		/// <returns>Returns an <see cref="RGB"/> color corresponding to this <see cref="RGBA"/> color.</returns>
-		public RGB ToRgb( bool preMultiply )
+        /// <summary>Returns an <see cref="RGB"/> color corresponding to this <see cref="RGBA"/> color.</summary>
+        /// <param name="preMultiply">Indicates whether the returned <see cref="RGB"/> color is multiplied by the opacity factor (alpha, see <see cref="A"/>).</param>
+        /// <returns>Returns an <see cref="RGB"/> color corresponding to this <see cref="RGBA"/> color.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGB")]
+        public RGB ToRGB( bool preMultiply )
 		{
 			RGB result;
 			if( !preMultiply )

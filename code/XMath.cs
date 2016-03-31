@@ -29,57 +29,61 @@ namespace ManagedX
 		public const float PiOver4 = Pi * 0.25f;
 
 
-		///// <summary>Defines the mathematical constant e.</summary>
-		//public const float E = 2.71828175f;
-
-		///// <summary>Represents the log base ten of e (<see cref="E"/>).</summary>
-		//public const float Log10E = 0.4342945f;
-
-		///// <summary>Represents the log base two of e (see <see cref="E"/>).</summary>
-		//public const float Log2E = 1.442695f;
 
 
-		///// <summary>Defines the value of the golden number.</summary>
-		//public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
+        ///// <summary>Defines the mathematical constant e.</summary>
+        //public const float E = 2.71828175f;
 
-		#endregion Constants
+        ///// <summary>Represents the log base ten of e (<see cref="E"/>).</summary>
+        //public const float Log10E = 0.4342945f;
+
+        ///// <summary>Represents the log base two of e (see <see cref="E"/>).</summary>
+        //public const float Log2E = 1.442695f;
 
 
+        ///// <summary>Defines the value of the golden number.</summary>
+        //public const float GoldenRatio = 1.61803398875f; // 0.5 + Sqrt( 5.0 ) / 2.0
 
-		#region Temperature conversion functions
+        #endregion Constants
 
-		/// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
-		/// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
-		/// <returns>Returns the specified temperature, in degrees Celcius.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+        #region Temperature conversion functions
+
+        /// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
+        /// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
+        /// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToCelcius( float temperatureInDegreesFahrenheit )
 		{
 			return ( temperatureInDegreesFahrenheit - 32.0f ) / 1.8f;
 		}
 
-		/// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
-		/// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
-		/// <returns>Returns the specified temperature, in degrees Celcius.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+        /// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
+        /// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
+        /// <returns>Returns the specified temperature, in degrees Celcius.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double ToCelcius( double temperatureInDegreesFahrenheit )
 		{
 			return ( temperatureInDegreesFahrenheit - 32.0 ) / 1.8;
 		}
 
 
-		/// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
-		/// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
-		/// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+        /// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
+        /// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
+        /// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float ToFahrenheit( float temperatureInDegreesCelcius )
 		{
 			return temperatureInDegreesCelcius * 1.8f + 32.0f;
 		}
 
-		/// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
-		/// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
-		/// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+        /// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
+        /// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
+        /// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double ToFahrenheit( double temperatureInDegreesCelcius )
 		{
 			return temperatureInDegreesCelcius * 1.8 + 32.0;
@@ -232,50 +236,53 @@ namespace ManagedX
 			return source + ( target - source ) * amount * amount * ( 3.0 - 2.0 * amount );
 		}
 
-		#endregion SmoothStep
 
+        #endregion SmoothStep
 
-		#region Barycentric
+        #region Barycentric
 
-		/// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
-		/// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
-		/// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
-		/// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
-		/// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
-		/// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
-		/// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+        /// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
+        /// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
+        /// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
+        /// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
+        /// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
+        /// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
+        /// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Barycentric")]
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Barycentric( float value1, float value2, float value3, float amount1, float amount2 )
 		{
 			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
 		}
 
-		/// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
-		/// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
-		/// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
-		/// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
-		/// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
-		/// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
-		/// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+        /// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
+        /// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
+        /// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
+        /// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
+        /// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
+        /// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
+        /// <returns>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Barycentric")]
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double Barycentric( double value1, double value2, double value3, double amount1, double amount2 )
 		{
 			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
 		}
 
-		#endregion Barycentric
 
-		
-		#region Hermite
+        #endregion Barycentric
 
-		/// <summary>Performs a Hermite spline interpolation.</summary>
-		/// <param name="position1">The first position.</param>
-		/// <param name="position2">The second position.</param>
-		/// <param name="tangent1">The first tangent.</param>
-		/// <param name="tangent2">The second tangent.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <returns>Returns the result of the interpolation.</returns>
-		public static float Hermite( float position1, float position2, float tangent1, float tangent2, float amount)
+        #region Hermite
+
+        /// <summary>Performs a Hermite spline interpolation.</summary>
+        /// <param name="position1">The first position.</param>
+        /// <param name="position2">The second position.</param>
+        /// <param name="tangent1">The first tangent.</param>
+        /// <param name="tangent2">The second tangent.</param>
+        /// <param name="amount">The weighting factor.</param>
+        /// <returns>Returns the result of the interpolation.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Hermite")]
+        public static float Hermite( float position1, float position2, float tangent1, float tangent2, float amount)
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -288,14 +295,15 @@ namespace ManagedX
 			return position1 * a + position2 * b + tangent1 * c + tangent2 * d;
 		}
 
-		/// <summary>Performs a Hermite spline interpolation.</summary>
-		/// <param name="position1">The first position.</param>
-		/// <param name="position2">The second position.</param>
-		/// <param name="tangent1">The first tangent.</param>
-		/// <param name="tangent2">The second tangent.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <returns>Returns the result of the interpolation.</returns>
-		public static double Hermite( double position1, double position2, double tangent1, double tangent2, double amount )
+        /// <summary>Performs a Hermite spline interpolation.</summary>
+        /// <param name="position1">The first position.</param>
+        /// <param name="position2">The second position.</param>
+        /// <param name="tangent1">The first tangent.</param>
+        /// <param name="tangent2">The second tangent.</param>
+        /// <param name="amount">The weighting factor.</param>
+        /// <returns>Returns the result of the interpolation.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Hermite")]
+        public static double Hermite( double position1, double position2, double tangent1, double tangent2, double amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -308,33 +316,35 @@ namespace ManagedX
 			return position1 * a + position2 * b + tangent1 * c + tangent2 * d;
 		}
 
-		#endregion Hermite
 
+        #endregion Hermite
 
-		#region Catmull-Rom
+        #region Catmull-Rom
 
-		/// <summary>Performs a Catmull-Rom interpolation using the specified positions.</summary>
-		/// <param name="value1">The first position in the interpolation.</param>
-		/// <param name="value2">The second position in the interpolation.</param>
-		/// <param name="value3">The third position in the interpolation.</param>
-		/// <param name="value4">The fourth position in the interpolation.</param>
-		/// <param name="amount">Weighting factor.</param>
-		/// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
-		public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
+        /// <summary>Performs a Catmull-Rom interpolation using the specified positions.</summary>
+        /// <param name="value1">The first position in the interpolation.</param>
+        /// <param name="value2">The second position in the interpolation.</param>
+        /// <param name="value3">The third position in the interpolation.</param>
+        /// <param name="value4">The fourth position in the interpolation.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Catmull")]
+        public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
 			return 0.5f * ( 2.0f * value2 + ( -value1 + value3 ) * amount + ( 2.0f * value1 - 5.0f * value2 + 4.0f * value3 - value4 ) * amountSquared + ( -value1 + 3.0f * value2 - 3.0f * value3 + value4 ) * amountCubed );
 		}
 
-		/// <summary>Performs a Catmull-Rom interpolation using the specified positions.</summary>
-		/// <param name="value1">The first position in the interpolation.</param>
-		/// <param name="value2">The second position in the interpolation.</param>
-		/// <param name="value3">The third position in the interpolation.</param>
-		/// <param name="value4">The fourth position in the interpolation.</param>
-		/// <param name="amount">Weighting factor.</param>
-		/// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
-		public static double CatmullRom( double value1, double value2, double value3, double value4, double amount )
+        /// <summary>Performs a Catmull-Rom interpolation using the specified positions.</summary>
+        /// <param name="value1">The first position in the interpolation.</param>
+        /// <param name="value2">The second position in the interpolation.</param>
+        /// <param name="value3">The third position in the interpolation.</param>
+        /// <param name="value4">The fourth position in the interpolation.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Catmull")]
+        public static double CatmullRom( double value1, double value2, double value3, double value4, double amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;

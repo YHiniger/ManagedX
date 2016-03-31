@@ -91,163 +91,187 @@ namespace ManagedX.Win32
 		InvalidArgument = unchecked( (int)0x80070057 ),	// E_INVALIDARG
 
 		/// <summary>Failed to allocate necessary memory.</summary>
-		OutOfMemory = unchecked( (int)0x8007000E ),		// E_OUTOFMEMORY
+		OutOfMemory = unchecked( (int)0x8007000E ),     // E_OUTOFMEMORY
 
 
-		//D3DERR_WRONGTEXTUREFORMAT = 2289436696,
-		//D3DERR_TOOMANYOPERATIONS = 2289436701,
-		//D3DERR_DRIVERINTERNALERROR = 2289436711,
-		//D3DERR_NOTFOUND = 2289436774,
-		//D3DERR_MOREDATA,
-		//D3DERR_DEVICELOST,
-		//D3DERR_DEVICENOTRESET,
-		//D3DERR_NOTAVAILABLE = 2289436784,
-		//D3DERR_OUTOFVIDEOMEMORY = 2289435004,
-		//D3DERR_INVALIDCALL = 2289436786,
-		//XACTENGINE_E_ALREADYINITIALIZED = 2328297473,
-		//XACTENGINE_E_NOTINITIALIZED,
-		//XACTENGINE_E_EXPIRED,
-		//XACTENGINE_E_NONOTIFICATIONCALLBACK,
-		//XACTENGINE_E_NOTIFICATIONREGISTERED,
-		//XACTENGINE_E_INVALIDUSAGE,
-		//XACTENGINE_E_INVALIDDATA,
-		//XACTENGINE_E_INSTANCELIMITFAILTOPLAY,
-		//XACTENGINE_E_NOGLOBALSETTINGS,
-		//XACTENGINE_E_INVALIDVARIABLEINDEX,
-		//XACTENGINE_E_INVALIDCATEGORY,
-		//XACTENGINE_E_INVALIDCUEINDEX,
-		//XACTENGINE_E_INVALIDWAVEINDEX,
-		//XACTENGINE_E_INVALIDTRACKINDEX,
-		//XACTENGINE_E_INVALIDSOUNDOFFSETORINDEX,
-		//XACTENGINE_E_READFILE,
-		//XACTENGINE_E_UNKNOWNEVENT,
-		//XACTENGINE_E_INCALLBACK,
-		//XACTENGINE_E_NOWAVEBANK,
-		//XACTENGINE_E_SELECTVARIATION,
-		//XACTENGINE_E_MULTIPLEAUDITIONENGINES,
-		//XACTENGINE_E_WAVEBANKNOTPREPARED,
-		//XACTENGINE_E_NORENDERER,
-		//XACTENGINE_E_INVALIDENTRYCOUNT,
-		//XACTENGINE_E_SEEKTIMEBEYONDCUEEND,
-		//XACTENGINE_E_AUDITION_WRITEFILE = 2328297729,
-		//XACTENGINE_E_AUDITION_NOSOUNDBANK,
-		//XACTENGINE_E_AUDITION_INVALIDRPCINDEX,
-		//XACTENGINE_E_AUDITION_MISSINGDATA,
-		//XACTENGINE_E_AUDITION_UNKNOWNCOMMAND,
-		//XACTENGINE_E_AUDITION_INVALIDDSPINDEX,
-		//XACTENGINE_E_AUDITION_MISSINGWAVE,
-		//XACTENGINE_E_AUDITION_CREATEDIRECTORYFAILED,
-		//XACTENGINE_E_AUDITION_INVALIDSESSION,
-		//ZDKSYSTEM_E_AUDIO_INSTANCELIMIT = 2343370753,
-		//ZDKSYSTEM_E_AUDIO_INVALIDSTATE,
-		//ZDKSYSTEM_E_AUDIO_INVALIDDATA,
-		//CAPTURE_ENGINE_E_DEVICEGONE = 2364407809,
-		//DIRECTRENDERING_E_INVALID_MODE = 2150814720,
-		//DIRECTRENDERING_E_ELEMENT_NOT_IN_VISUALTREE = 2281703676,
-		//VFW_E_NO_AUDIO_HARDWARE = 2147746390,
-		//STRSAFE_E_INSUFFICIENT_BUFFER = 2147942522,
-		//REGDB_E_CLASSNOTREG = 2147746132,
-		//ERROR_SHARING_VIOLATION = 2147942432
+        //D3DERR_WRONGTEXTUREFORMAT = 2289436696,
+        //D3DERR_TOOMANYOPERATIONS = 2289436701,
+        //D3DERR_DRIVERINTERNALERROR = 2289436711,
+        //D3DERR_NOTFOUND = 2289436774,
+        //D3DERR_MOREDATA,
+        //D3DERR_DEVICELOST,
+        //D3DERR_DEVICENOTRESET,
+        //D3DERR_NOTAVAILABLE = 2289436784,
+        //D3DERR_OUTOFVIDEOMEMORY = 2289435004,
+        //D3DERR_INVALIDCALL = 2289436786,
+        //XACTENGINE_E_ALREADYINITIALIZED = 2328297473,
+        //XACTENGINE_E_NOTINITIALIZED,
+        //XACTENGINE_E_EXPIRED,
+        //XACTENGINE_E_NONOTIFICATIONCALLBACK,
+        //XACTENGINE_E_NOTIFICATIONREGISTERED,
+        //XACTENGINE_E_INVALIDUSAGE,
+        //XACTENGINE_E_INVALIDDATA,
+        //XACTENGINE_E_INSTANCELIMITFAILTOPLAY,
+        //XACTENGINE_E_NOGLOBALSETTINGS,
+        //XACTENGINE_E_INVALIDVARIABLEINDEX,
+        //XACTENGINE_E_INVALIDCATEGORY,
+        //XACTENGINE_E_INVALIDCUEINDEX,
+        //XACTENGINE_E_INVALIDWAVEINDEX,
+        //XACTENGINE_E_INVALIDTRACKINDEX,
+        //XACTENGINE_E_INVALIDSOUNDOFFSETORINDEX,
+        //XACTENGINE_E_READFILE,
+        //XACTENGINE_E_UNKNOWNEVENT,
+        //XACTENGINE_E_INCALLBACK,
+        //XACTENGINE_E_NOWAVEBANK,
+        //XACTENGINE_E_SELECTVARIATION,
+        //XACTENGINE_E_MULTIPLEAUDITIONENGINES,
+        //XACTENGINE_E_WAVEBANKNOTPREPARED,
+        //XACTENGINE_E_NORENDERER,
+        //XACTENGINE_E_INVALIDENTRYCOUNT,
+        //XACTENGINE_E_SEEKTIMEBEYONDCUEEND,
+        //XACTENGINE_E_AUDITION_WRITEFILE = 2328297729,
+        //XACTENGINE_E_AUDITION_NOSOUNDBANK,
+        //XACTENGINE_E_AUDITION_INVALIDRPCINDEX,
+        //XACTENGINE_E_AUDITION_MISSINGDATA,
+        //XACTENGINE_E_AUDITION_UNKNOWNCOMMAND,
+        //XACTENGINE_E_AUDITION_INVALIDDSPINDEX,
+        //XACTENGINE_E_AUDITION_MISSINGWAVE,
+        //XACTENGINE_E_AUDITION_CREATEDIRECTORYFAILED,
+        //XACTENGINE_E_AUDITION_INVALIDSESSION,
+        //ZDKSYSTEM_E_AUDIO_INSTANCELIMIT = 2343370753,
+        //ZDKSYSTEM_E_AUDIO_INVALIDSTATE,
+        //ZDKSYSTEM_E_AUDIO_INVALIDDATA,
+        //CAPTURE_ENGINE_E_DEVICEGONE = 2364407809,
+        //DIRECTRENDERING_E_INVALID_MODE = 2150814720,
+        //DIRECTRENDERING_E_ELEMENT_NOT_IN_VISUALTREE = 2281703676,
+        //VFW_E_NO_AUDIO_HARDWARE = 2147746390,
+        //STRSAFE_E_INSUFFICIENT_BUFFER = 2147942522,
+        //REGDB_E_CLASSNOTREG = 2147746132,
+        //ERROR_SHARING_VIOLATION = 2147942432
 
 
-		#region DXGI
+        #region DXGI
 
-		// https://msdn.microsoft.com/en-us/library/windows/desktop/bb509553%28v=vs.85%29.aspx
-		// https://msdn.microsoft.com/en-us/library/windows/desktop/aa378137%28v=vs.85%29.aspx
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/bb509553%28v=vs.85%29.aspx
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/aa378137%28v=vs.85%29.aspx
 
 
-		/// <summary>The application provided invalid parameter data; this must be debugged and fixed before the application is released.
-		/// Either the parameters of the call or the state of some object was incorrect. Enable the D3D debug layer in order to see details via debug messages.
-		/// </summary>
-		DxgiInvalidCall = unchecked( (int)0x887A0001 ),
+        /// <summary>The application provided invalid parameter data; this must be debugged and fixed before the application is released.
+        /// Either the parameters of the call or the state of some object was incorrect. Enable the D3D debug layer in order to see details via debug messages.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiInvalidCall = unchecked( (int)0x887A0001 ),
 
-		/// <summary>The object was not found. If calling IDXGIFactory::EnumAdapters, there is no adapter with the specified ordinal.</summary>
-		DxgiNotFound = unchecked( (int)0x887A0002 ),
+        /// <summary>The object was not found. If calling IDXGIFactory::EnumAdapters, there is no adapter with the specified ordinal.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiNotFound = unchecked( (int)0x887A0002 ),
 
-		/// <summary>The buffer supplied by the application is not big enough to hold the requested data.</summary>
-		DxgiMoreData = unchecked( (int)0x887A0003 ),
+        /// <summary>The buffer supplied by the application is not big enough to hold the requested data.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiMoreData = unchecked( (int)0x887A0003 ),
 
-		/// <summary>The specified device interface or feature level is not supported on this system.</summary>
-		DxgiUnsupported = unchecked( (int)0x887A0004 ),
+        /// <summary>The specified device interface or feature level is not supported on this system.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiUnsupported = unchecked( (int)0x887A0004 ),
 
-		/// <summary>The video card has been physically removed from the system, or a driver upgrade for the video card has occurred. The application should destroy and recreate the device.
-		/// The GPU device instance has been suspended. Use ID3D10Device::GetDeviceRemovedReason to determine the appropriate action.
-		/// </summary>
-		DxgiDeviceRemoved = unchecked( (int)0x887A0005 ),
+        /// <summary>The video card has been physically removed from the system, or a driver upgrade for the video card has occurred. The application should destroy and recreate the device.
+        /// The GPU device instance has been suspended. Use ID3D10Device::GetDeviceRemovedReason to determine the appropriate action.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiDeviceRemoved = unchecked( (int)0x887A0005 ),
 
-		/// <summary>The application's device failed due to badly formed commands sent by the application. This is a design-time issue that should be investigated and fixed.
-		/// The GPU will not respond to more commands, most likely because of an invalid command passed by the calling application.
-		/// </summary>
-		DxgiDeviceHung = unchecked( (int)0x887A0006 ),
+        /// <summary>The application's device failed due to badly formed commands sent by the application. This is a design-time issue that should be investigated and fixed.
+        /// The GPU will not respond to more commands, most likely because of an invalid command passed by the calling application.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiDeviceHung = unchecked( (int)0x887A0006 ),
 
-		/// <summary>The device failed due to a badly formed command. This is a run-time issue; the application should destroy and recreate the device.
-		/// The GPU will not respond to more commands, most likely because some other application submitted invalid commands.
-		/// </summary>
-		DxgiDeviceReset = unchecked( (int)0x887A0007 ),
+        /// <summary>The device failed due to a badly formed command. This is a run-time issue; the application should destroy and recreate the device.
+        /// The GPU will not respond to more commands, most likely because some other application submitted invalid commands.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiDeviceReset = unchecked( (int)0x887A0007 ),
 
-		/// <summary>The GPU was busy at the moment when the call was made, and the call was neither executed nor scheduled.</summary>
-		DxgiWasStillDrawing = unchecked( (int)0x887A000A ),
+        /// <summary>The GPU was busy at the moment when the call was made, and the call was neither executed nor scheduled.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiWasStillDrawing = unchecked( (int)0x887A000A ),
 
-		/// <summary>An event (such as power cycle) interrupted the gathering of presentation statistics. Any previous statistics should be considered invalid.</summary>
-		DxgiFrameStatisticsDisjoint = unchecked( (int)0x887A000B ),
+        /// <summary>An event (such as power cycle) interrupted the gathering of presentation statistics. Any previous statistics should be considered invalid.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiFrameStatisticsDisjoint = unchecked( (int)0x887A000B ),
 
-		/// <summary>The application attempted to acquire exclusive ownership of an output, but failed because some other application (or device within the application) already acquired ownership.
-		/// Fullscreen mode could not be achieved because the specified output was already in use.
-		/// </summary>
-		DxgiGraphicsVidPNSourceInUse = unchecked( (int)0x887A000C ),
+        /// <summary>The application attempted to acquire exclusive ownership of an output, but failed because some other application (or device within the application) already acquired ownership.
+        /// Fullscreen mode could not be achieved because the specified output was already in use.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiGraphicsVidPNSourceInUse = unchecked( (int)0x887A000C ),
 
-		/// <summary>The driver encountered a problem and was put into the device removed state.
-		/// An internal issue prevented the driver from carrying out the specified operation.
-		/// The driver's state is probably suspect, and the application should not continue.
-		/// </summary>
-		DxgiDriverInternalError = unchecked( (int)0x887A0020 ),
+        /// <summary>The driver encountered a problem and was put into the device removed state.
+        /// An internal issue prevented the driver from carrying out the specified operation.
+        /// The driver's state is probably suspect, and the application should not continue.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiDriverInternalError = unchecked( (int)0x887A0020 ),
 
-		/// <summary>A global counter resource was in use, and the specified counter cannot be used by this Direct3D device at this time.</summary>
-		DxgiNonExclusive = unchecked( (int)0x887A0021 ),
+        /// <summary>A global counter resource was in use, and the specified counter cannot be used by this Direct3D device at this time.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "NonExclusive")]
+        DxgiNonExclusive = unchecked( (int)0x887A0021 ),
 
-		/// <summary>A resource is not available at the time of the call, but may become available later.</summary>
-		DxgiNotCurrentlyAvailable = unchecked( (int)0x887A0022 ),
+        /// <summary>A resource is not available at the time of the call, but may become available later.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiNotCurrentlyAvailable = unchecked( (int)0x887A0022 ),
 
-		/// <summary>Reserved.
-		/// The application's remote device has been removed due to session disconnect or network disconnect.
-		/// The application should call IDXGIFactory1::IsCurrent to find out when the remote device becomes available again.
-		/// </summary>
-		DxgiRemoteClientDisconnected = unchecked( (int)0x887A0023 ),
+        /// <summary>Reserved.
+        /// The application's remote device has been removed due to session disconnect or network disconnect.
+        /// The application should call IDXGIFactory1::IsCurrent to find out when the remote device becomes available again.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiRemoteClientDisconnected = unchecked( (int)0x887A0023 ),
 
-		/// <summary>Reserved.
-		/// The device has been removed during a remote session because the remote computer ran out of memory.
-		/// </summary>
-		DxgiRemoteOutOfMemory = unchecked( (int)0x887A0024 ),
+        /// <summary>Reserved.
+        /// The device has been removed during a remote session because the remote computer ran out of memory.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiRemoteOutOfMemory = unchecked( (int)0x887A0024 ),
 
-		/// <summary>The keyed mutex was abandoned.</summary>
-		DxgiAccessLost = unchecked( (int)0x887A0026 ),
+        /// <summary>The keyed mutex was abandoned.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiAccessLost = unchecked( (int)0x887A0026 ),
 
-		/// <summary>The timeout value has elapsed and the resource is not yet available.</summary>
-		DxgiWaitTimeout = unchecked( (int)0x887A0027 ),
+        /// <summary>The timeout value has elapsed and the resource is not yet available.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiWaitTimeout = unchecked( (int)0x887A0027 ),
 
-		/// <summary>The output duplication has been turned off because the Windows session ended or was disconnected.
-		/// This happens when a remote user disconnects, or when "switch user" is used locally.
-		/// </summary>
-		DxgiSessionDisconnected = unchecked( (int)0x887A0028 ),
+        /// <summary>The output duplication has been turned off because the Windows session ended or was disconnected.
+        /// This happens when a remote user disconnects, or when "switch user" is used locally.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiSessionDisconnected = unchecked( (int)0x887A0028 ),
 
-		/// <summary>The DXGI outuput (monitor) to which the swapchain content was restricted, has been disconnected or changed.</summary>
-		DxgiRestrictToOutputStale = unchecked( (int)0x887A0029 ),
+        /// <summary>The DXGI outuput (monitor) to which the swapchain content was restricted, has been disconnected or changed.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiRestrictToOutputStale = unchecked( (int)0x887A0029 ),
 
-		/// <summary>DXGI is unable to provide content protection on the swapchain. This is typically caused by an older driver,
-		/// or by the application using a swapchain that is incompatible with content protection.
-		/// </summary>
-		DxgiCannotProtectContent = unchecked( (int)0x887A002A ),
+        /// <summary>DXGI is unable to provide content protection on the swapchain. This is typically caused by an older driver,
+        /// or by the application using a swapchain that is incompatible with content protection.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiCannotProtectContent = unchecked( (int)0x887A002A ),
 
-		/// <summary>The application is trying to use a resource to which it does not have the required access privileges.
-		/// This is most commonly caused by writing to a shared resource with read-only access.
-		/// </summary>
-		DxgiAccessDenied = unchecked( (int)0x887A002B ),
+        /// <summary>The application is trying to use a resource to which it does not have the required access privileges.
+        /// This is most commonly caused by writing to a shared resource with read-only access.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiAccessDenied = unchecked( (int)0x887A002B ),
 
-		/// <summary>The application is trying to create a shared handle using a name that is already associated with some other resource.</summary>
-		DxgiNameAlreadyExists = unchecked( (int)0x887A002C ),
+        /// <summary>The application is trying to create a shared handle using a name that is already associated with some other resource.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiNameAlreadyExists = unchecked( (int)0x887A002C ),
 
-		/// <summary>The operation depends on an SDK component that is missing or mismatched.</summary>
-		DxgiSdkComponentMissing = unchecked( (int)0x887A002D ),
+        /// <summary>The operation depends on an SDK component that is missing or mismatched.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
+        DxgiSdkComponentMissing = unchecked( (int)0x887A002D ),
 
 		#endregion DXGI
 
@@ -325,17 +349,18 @@ namespace ManagedX.Win32
 		/// <summary>Indicates that the buffer duration value requested by an exclusive-mode client is out of range.
 		/// <para>The requested duration value for pull mode must not be greater than 500 milliseconds; for push mode the duration value must not be greater than 2 seconds.</para>
 		/// </summary>
-		AudioClientBufferSizeError = unchecked( (int)0x88890016 ),					// AUDCLNT_E_BUFFER_SIZE_ERROR
+		AudioClientBufferSizeError = unchecked( (int)0x88890016 ),                  // AUDCLNT_E_BUFFER_SIZE_ERROR
 
-		/// <summary>Indicates that the process-pass duration exceeded the maximum CPU usage.
-		/// <para>
-		/// The audio engine keeps track of CPU usage by maintaining the number of times the process-pass duration exceeds the maximum CPU usage.
-		/// The maximum CPU usage is calculated as a percent of the engine's periodicity.
-		/// The percentage value is the system's CPU throttle value (within the range of 10% and 90%).
-		/// If this value is not found, then the default value of 40% is used to calculate the maximum CPU usage.
-		/// </para>
-		/// </summary>
-		AudioClientCpuUsageExceeded = unchecked( (int)0x88890017 ),					// AUDCLNT_E_CPUUSAGE_EXCEEDED
+        /// <summary>Indicates that the process-pass duration exceeded the maximum CPU usage.
+        /// <para>
+        /// The audio engine keeps track of CPU usage by maintaining the number of times the process-pass duration exceeds the maximum CPU usage.
+        /// The maximum CPU usage is calculated as a percent of the engine's periodicity.
+        /// The percentage value is the system's CPU throttle value (within the range of 10% and 90%).
+        /// If this value is not found, then the default value of 40% is used to calculate the maximum CPU usage.
+        /// </para>
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Cpu")]
+        AudioClientCpuUsageExceeded = unchecked( (int)0x88890017 ),					// AUDCLNT_E_CPUUSAGE_EXCEEDED
 
 		/// <summary></summary>
 		AudioClientBufferError = unchecked( (int)0x88890018 ),						// AUDCLNT_E_BUFFER_ERROR

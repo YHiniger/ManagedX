@@ -269,9 +269,10 @@ namespace ManagedX.Audio
 		}
 
 
-		/// <summary>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</summary>
-		/// <returns>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</returns>
-		public WaveFormatEx ToWaveFormatEx()
+        /// <summary>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</summary>
+        /// <returns>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+        public WaveFormatEx ToWaveFormatEx()
 		{
 			return baseFormat;
 		}

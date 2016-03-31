@@ -78,9 +78,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
-		/// <param name="xyzw">A valid <see cref="Vector4"/>, containing components of the quaternion.</param>
-		public Quaternion( Vector4 xyzw )
+        /// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
+        /// <param name="xyzw">A valid <see cref="Vector4"/>, containing components of the quaternion.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "xyzw")]
+        public Quaternion( Vector4 xyzw )
 		{
 			X = xyzw.X;
 			Y = xyzw.Y;
@@ -89,9 +90,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
-		/// <param name="xyzw">The value used for both <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components; must be a finite number.</param>
-		public Quaternion( float xyzw )
+        /// <summary>Initializes a new <see cref="Quaternion"/>.</summary>
+        /// <param name="xyzw">The value used for both <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> components; must be a finite number.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "xyzw")]
+        public Quaternion( float xyzw )
 		{
 			this.W = this.Z = this.Y = this.X = xyzw;
 		}

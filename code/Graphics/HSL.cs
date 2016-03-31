@@ -191,10 +191,11 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Returns an <see cref="RGB"/> color corresponding to this <see cref="HSL"/> color.</summary>
-		/// <param name="preMultiply">Indicates whether the returned color is pre-multiplied.</param>
-		/// <returns>Returns an <see cref="RGB"/> color corresponding to this <see cref="HSL"/> color.</returns>
-		public RGB ToRgb( bool preMultiply )
+        /// <summary>Returns an <see cref="RGB"/> color corresponding to this <see cref="HSL"/> color.</summary>
+        /// <param name="preMultiply">Indicates whether the returned color is pre-multiplied.</param>
+        /// <returns>Returns an <see cref="RGB"/> color corresponding to this <see cref="HSL"/> color.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGB")]
+        public RGB ToRGB( bool preMultiply )
 		{
 			this.Normalize();
 
@@ -276,10 +277,11 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Returns an <see cref="RGBA"/> color corresponding to this <see cref="HSL"/> color.</summary>
-		/// <param name="preMultiply">Indicates whether the returned color is pre-multiplied.</param>
-		/// <returns>Returns an <see cref="RGBA"/> color corresponding to this <see cref="HSL"/> color.</returns>
-		public RGBA ToRgba( bool preMultiply )
+        /// <summary>Returns an <see cref="RGBA"/> color corresponding to this <see cref="HSL"/> color.</summary>
+        /// <param name="preMultiply">Indicates whether the returned color is pre-multiplied.</param>
+        /// <returns>Returns an <see cref="RGBA"/> color corresponding to this <see cref="HSL"/> color.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGBA")]
+        public RGBA ToRGBA( bool preMultiply )
 		{
 			this.Normalize();
 

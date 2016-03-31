@@ -6,10 +6,11 @@ namespace ManagedX.Audio
 {
 
 
-	/// <summary>General extended waveform format structure (defined in MMReg.h).
-	/// <para>Use this for all non PCM formats (information common to all formats).</para>
-	/// </summary>
-	[StructLayout( LayoutKind.Sequential, Pack = 2, Size = 18 )]
+    /// <summary>General extended waveform format structure (defined in MMReg.h).
+    /// <para>Use this for all non PCM formats (information common to all formats).</para>
+    /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+    [StructLayout( LayoutKind.Sequential, Pack = 2, Size = 18 )]
 	public struct WaveFormatEx : IEquatable<WaveFormatEx>, IEquatable<WaveFormat>
 	{
 

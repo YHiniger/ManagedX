@@ -44,14 +44,15 @@ namespace ManagedX
 
 
 
-		/// <summary>Initializes a new <see cref="Matrix3x2"/>.</summary>
-		/// <param name="m11">Value at row 1 column 1 of the matrix.</param>
-		/// <param name="m12">Value at row 1 column 2 of the matrix.</param>
-		/// <param name="m21">Value at row 2 column 1 of the matrix.</param>
-		/// <param name="m22">Value at row 2 column 2 of the matrix.</param>
-		/// <param name="m31">Value at row 3 column 1 of the matrix.</param>
-		/// <param name="m32">Value at row 3 column 2 of the matrix.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray" )]
+        /// <summary>Initializes a new <see cref="Matrix3x2"/>.</summary>
+        /// <param name="m11">Value at row 1 column 1 of the matrix.</param>
+        /// <param name="m12">Value at row 1 column 2 of the matrix.</param>
+        /// <param name="m21">Value at row 2 column 1 of the matrix.</param>
+        /// <param name="m22">Value at row 2 column 2 of the matrix.</param>
+        /// <param name="m31">Value at row 3 column 1 of the matrix.</param>
+        /// <param name="m32">Value at row 3 column 2 of the matrix.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "m")]
+        [SuppressMessage( "Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray" )]
 		public Matrix3x2( 
 			float m11, float m12,
 			float m21, float m22,

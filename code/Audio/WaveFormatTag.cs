@@ -27,9 +27,10 @@ namespace ManagedX.Audio
 
 		/// <summary>A-law.</summary>
 		ALaw = 6,
-		
-		/// <summary>Mu-law.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "µ" )]
+
+        /// <summary>Mu-law.</summary>
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "µLaw")]
+        [SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "µ" )]
 		µLaw = 7,
 		
 		/// <summary></summary>
@@ -41,12 +42,14 @@ namespace ManagedX.Audio
 		
 		/// <summary></summary>
 		MpegLayer3 = 55,
-		
-		/// <summary></summary>
-		DolbyAC3Spdif = 92,
-		
-		/// <summary></summary>
-		WmaSpdif = 164,
+
+        /// <summary></summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Spdif")]
+        DolbyAC3Spdif = 92,
+
+        /// <summary></summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Spdif")]
+        WmaSpdif = 164,
 
 		/// <summary><see cref="WaveFormatExtensible"/> tag.</summary>
 		Extensible = -2

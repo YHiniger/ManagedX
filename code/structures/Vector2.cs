@@ -36,9 +36,10 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Initializes a new <see cref="Vector2"/>.</summary>
-		/// <param name="xy">The value used for both <see cref="X"/> and <see cref="Y"/> components of the vector.</param>
-		public Vector2( float xy )
+        /// <summary>Initializes a new <see cref="Vector2"/>.</summary>
+        /// <param name="xy">The value used for both <see cref="X"/> and <see cref="Y"/> components of the vector.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "xy")]
+        public Vector2( float xy )
 		{
 			X = Y = xy;
 		}
@@ -674,14 +675,15 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Performs a Catmull-Rom interpolation.</summary>
-		/// <param name="value1">The first value in the interpolation.</param>
-		/// <param name="value2">The second value in the interpolation.</param>
-		/// <param name="value3">The third value in the interpolation.</param>
-		/// <param name="value4">The fourth value in the interpolation.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <param name="result">Receives the result of the Catmull-Rom interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+        /// <summary>Performs a Catmull-Rom interpolation.</summary>
+        /// <param name="value1">The first value in the interpolation.</param>
+        /// <param name="value2">The second value in the interpolation.</param>
+        /// <param name="value3">The third value in the interpolation.</param>
+        /// <param name="value4">The fourth value in the interpolation.</param>
+        /// <param name="amount">The weighting factor.</param>
+        /// <param name="result">Receives the result of the Catmull-Rom interpolation.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Catmull")]
+        [SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CatmullRom( ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, ref Vector2 value4, float amount, out Vector2 result )
 		{
@@ -692,14 +694,15 @@ namespace ManagedX
 			result.Y = 0.5f * ( 2.0f * value2.Y + ( -value1.Y + value3.Y ) * amount + ( 2.0f * value1.Y - 5.0f * value2.Y + 4.0f * value3.Y - value4.Y ) * amountSquared + ( -value1.Y + 3.0f * value2.Y - 3.0f * value3.Y + value4.Y ) * amountCubed );
 		}
 
-		/// <summary>Performs a Catmull-Rom interpolation.</summary>
-		/// <param name="value1">The first value in the interpolation.</param>
-		/// <param name="value2">The second value in the interpolation.</param>
-		/// <param name="value3">The third value in the interpolation.</param>
-		/// <param name="value4">The fourth value in the interpolation.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <returns>Returns the result of the Catmull-Rom interpolation.</returns>
-		public static Vector2 CatmullRom( Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount )
+        /// <summary>Performs a Catmull-Rom interpolation.</summary>
+        /// <param name="value1">The first value in the interpolation.</param>
+        /// <param name="value2">The second value in the interpolation.</param>
+        /// <param name="value3">The third value in the interpolation.</param>
+        /// <param name="value4">The fourth value in the interpolation.</param>
+        /// <param name="amount">The weighting factor.</param>
+        /// <returns>Returns the result of the Catmull-Rom interpolation.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Catmull")]
+        public static Vector2 CatmullRom( Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -710,14 +713,15 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Performs a Hermite spline interpolation.</summary>
-		/// <param name="position1">A source position.</param>
-		/// <param name="tangent1">The tangent associated with the source position.</param>
-		/// <param name="position2">Another source position.</param>
-		/// <param name="tangent2">The tangent associated with the other source position.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <param name="result">Receives the result of the Hermite spline interpolation.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+        /// <summary>Performs a Hermite spline interpolation.</summary>
+        /// <param name="position1">A source position.</param>
+        /// <param name="tangent1">The tangent associated with the source position.</param>
+        /// <param name="position2">Another source position.</param>
+        /// <param name="tangent2">The tangent associated with the other source position.</param>
+        /// <param name="amount">The weighting factor.</param>
+        /// <param name="result">Receives the result of the Hermite spline interpolation.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Hermite")]
+        [SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Hermite( ref Vector2 position1, ref Vector2 tangent1, ref Vector2 position2, ref Vector2 tangent2, float amount, out Vector2 result )
 		{
@@ -733,14 +737,15 @@ namespace ManagedX
 			result.Y = position1.Y * a + position2.Y * b + tangent1.Y * c + tangent2.Y * d;
 		}
 
-		/// <summary>Performs a Hermite spline interpolation.</summary>
-		/// <param name="position1">A source position.</param>
-		/// <param name="tangent1">The tangent associated with the source position.</param>
-		/// <param name="position2">Another source position.</param>
-		/// <param name="tangent2">The tangent associated with the other source position.</param>
-		/// <param name="amount">The weighting factor.</param>
-		/// <returns>Returns the result of the Hermite spline interpolation.</returns>
-		public static Vector2 Hermite( Vector2 position1, Vector2 tangent1, Vector2 position2, Vector2 tangent2, float amount )
+        /// <summary>Performs a Hermite spline interpolation.</summary>
+        /// <param name="position1">A source position.</param>
+        /// <param name="tangent1">The tangent associated with the source position.</param>
+        /// <param name="position2">Another source position.</param>
+        /// <param name="tangent2">The tangent associated with the other source position.</param>
+        /// <param name="amount">The weighting factor.</param>
+        /// <returns>Returns the result of the Hermite spline interpolation.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Hermite")]
+        public static Vector2 Hermite( Vector2 position1, Vector2 tangent1, Vector2 position2, Vector2 tangent2, float amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -756,14 +761,15 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
-		/// <param name="value1">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
-		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
-		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <param name="result">Receives a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+        /// <summary>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
+        /// <param name="value1">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
+        /// <param name="value2">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
+        /// <param name="value3">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
+        /// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
+        /// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+        /// <param name="result">Receives a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Barycentric")]
+        [SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Barycentric( ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, float amount1, float amount2, out Vector2 result )
 		{
@@ -771,14 +777,15 @@ namespace ManagedX
 			result.Y = value1.Y + amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y );
 		}
 
-		/// <summary>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
-		/// <param name="value1">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
-		/// <param name="value2">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
-		/// <param name="value3">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
-		/// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
-		/// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
-		/// <returns>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</returns>
-		public static Vector2 Barycentric( Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2 )
+        /// <summary>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</summary>
+        /// <param name="value1">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 1 of the triangle.</param>
+        /// <param name="value2">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 2 of the triangle.</param>
+        /// <param name="value3">A <see cref="Vector2"/> containing the 2D Cartesian coordinates of vertex 3 of the triangle.</param>
+        /// <param name="amount1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).</param>
+        /// <param name="amount2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).</param>
+        /// <returns>Returns a <see cref="Vector2"/> structure containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Barycentric")]
+        public static Vector2 Barycentric( Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2 )
 		{
 			value1.X += amount1 * ( value2.X - value1.X ) + amount2 * ( value3.X - value1.X );
 			value1.Y += amount1 * ( value2.Y - value1.Y ) + amount2 * ( value3.Y - value1.Y );

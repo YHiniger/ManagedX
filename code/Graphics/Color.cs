@@ -36,9 +36,10 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Initializes a new <see cref="Color"/>.</summary>
-		/// <param name="rgba">The packed RGBA value.</param>
-		[CLSCompliant( false )]
+        /// <summary>Initializes a new <see cref="Color"/>.</summary>
+        /// <param name="rgba">The packed RGBA value.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgba")]
+        [CLSCompliant( false )]
 		public Color( uint rgba )
 		{
 			this.rgba = rgba;
