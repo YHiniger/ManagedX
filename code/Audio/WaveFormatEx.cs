@@ -6,28 +6,30 @@ namespace ManagedX.Audio
 {
 
 
-    /// <summary>General extended waveform format structure (defined in MMReg.h).
-    /// <para>Use this for all non PCM formats (information common to all formats).</para>
-    /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+	/// <summary>General extended waveform format structure.
+	/// <para>Use this for all non PCM formats (information common to all formats).</para>
+	/// This structure is equivalent to the native <code>WAVEFORMATEX</code> structure (defined in MMReg.h).
+	/// </summary>
+	[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "That's the best I can do given the native name." )]
+	[Win32.Native( "MMReg.h", "WAVEFORMATEX" )]
     [StructLayout( LayoutKind.Sequential, Pack = 2, Size = 18 )]
 	public struct WaveFormatEx : IEquatable<WaveFormatEx>, IEquatable<WaveFormat>
 	{
 
-		internal WaveFormat baseFormat;
+		private WaveFormat baseFormat;
 		private ushort bitsPerSample;
 		private ushort extraInfoSize;
 
 
-		
+
 		#region Constructors
 
 		/// <summary>Initializes a new <see cref="WaveFormatEx"/> structure.</summary>
 		/// <param name="formatTag">The format tag.</param>
-		/// <param name="channelCount">The number of channels.</param>
-		/// <param name="samplesPerSecond">The sample rate, in hertz (Hz).</param>
-		/// <param name="averageBytesPerSecond">For buffer estimation.</param>
-		/// <param name="blockAlign">The block size of data, in bytes.</param>
+		/// <param name="channelCount">The number of channels; must be within the range [1,65535].</param>
+		/// <param name="samplesPerSecond">The sample rate, in hertz (Hz); must be greater than zero.</param>
+		/// <param name="averageBytesPerSecond">For buffer estimation; must be greater than zero.</param>
+		/// <param name="blockAlign">The block size of data, in bytes; must be within the range [0,65535].</param>
 		/// <param name="bitsPerSample">The number of bits per sample, within the range [0,65535].</param>
 		/// <param name="extraInfoSize">The size, in bytes, of the extra info (located after this <see cref="WaveFormatEx"/> structure), within the range [0,65535].</param>
 		/// <exception cref="ArgumentOutOfRangeException"/>
@@ -66,7 +68,7 @@ namespace ManagedX.Audio
 			if( extraInfoSize <= 0 || extraInfoSize > ushort.MaxValue )
 				throw new ArgumentOutOfRangeException( "extraInfoSize" );
 
-			this.baseFormat = waveFormat;
+			baseFormat = waveFormat;
 			this.bitsPerSample = (ushort)bitsPerSample;
 			this.extraInfoSize = (ushort)extraInfoSize;
 		}
@@ -137,7 +139,7 @@ namespace ManagedX.Audio
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public int BitsPerSample
 		{
-			get { return (int)bitsPerSample; }
+			get { return bitsPerSample; }
 			set
 			{
 				if( value < 0 || value > ushort.MaxValue )
@@ -153,7 +155,7 @@ namespace ManagedX.Audio
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public int ExtraInfoSize
 		{
-			get { return (int)extraInfoSize; }
+			get { return extraInfoSize; }
 			set
 			{
 				if( value < 0 || value > ushort.MaxValue )
@@ -171,11 +173,11 @@ namespace ManagedX.Audio
 		{
 			return baseFormat.GetHashCode() ^ ( (uint)bitsPerSample | ( (uint)extraInfoSize << 16 ) ).GetHashCode();
 		}
-		
 
-		/// <summary>Returns a value indicating whether this <see cref="WaveFormatEx"/> structure equals another structure of the same type.</summary>
+
+		/// <summary>Returns a value indicating whether this <see cref="WaveFormatEx"/> structure equals another <see cref="WaveFormatEx"/> structure.</summary>
 		/// <param name="other">A <see cref="WaveFormatEx"/> structure.</param>
-		/// <returns>Returns true if all fields of the <paramref name="other"/> structure equal the fields of this <see cref="WaveFormatEx"/> structure.</returns>
+		/// <returns>Returns true if the <paramref name="other"/> <see cref="WaveFormatEx"/> structure equals this <see cref="WaveFormatEx"/> structure, otherwise returns false.</returns>
 		public bool Equals( WaveFormatEx other )
 		{
 			return baseFormat.Equals( other.baseFormat ) && ( bitsPerSample == other.bitsPerSample ) && ( extraInfoSize == other.extraInfoSize );
@@ -184,7 +186,7 @@ namespace ManagedX.Audio
 
 		/// <summary>Returns a value indicating whether this <see cref="WaveFormatEx"/> structure is equivalent to a <see cref="WaveFormat"/> structure.</summary>
 		/// <param name="other">A <see cref="WaveFormat"/> structure.</param>
-		/// <returns>Returns true if all fields of the <paramref name="other"/> structure equal the fields of this <see cref="WaveFormatEx"/> structure.</returns>
+		/// <returns>Returns true if the <see cref="WaveFormat"/> structure is equivalent to this <see cref="WaveFormatEx"/> structure, otherwise returns false.</returns>
 		public bool Equals( WaveFormat other )
 		{
 			return baseFormat.Equals( other );
@@ -193,7 +195,7 @@ namespace ManagedX.Audio
 
 		/// <summary>Returns a value indicating whether this <see cref="WaveFormatEx"/> structure is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns></returns>
+		/// <returns>Returns true if the specified object is a <see cref="WaveFormatEx"/> or a <see cref="WaveFormat"/> structure equivalent to this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			if( obj is WaveFormatEx )

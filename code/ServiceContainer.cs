@@ -6,7 +6,7 @@ namespace ManagedX
 {
 
 	/// <summary>A service container; implements <see cref="IServiceProvider"/>.</summary>
-	public class ServiceContainer : IServiceProvider, Design.IServiceProviderEx
+	public class ServiceContainer : IServiceProvider, Design.IServiceProvider1
 	{
 
 		private Dictionary<Type, object> services;

@@ -5,9 +5,11 @@ using System.Runtime.InteropServices;
 namespace ManagedX.Audio
 {
 
-	/// <summary>General waveform format structure (defined in MMReg.h).
+	/// <summary>General waveform format structure.
 	/// <para>Use this for all non PCM formats (information common to all formats).</para>
+	/// This structure is equivalent to the native <code>WAVEFORMAT</code> structure (defined in MMReg.h).
 	/// </summary>
+	[Win32.Native( "MMReg.h", "WAVEFORMAT" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 2, Size = 14 )]
 	public struct WaveFormat : IEquatable<WaveFormat>
 	{
@@ -22,10 +24,10 @@ namespace ManagedX.Audio
 
 		/// <summary>Initializes a new <see cref="WaveFormat"/> structure.</summary>
 		/// <param name="formatTag">A format tag.</param>
-		/// <param name="channelCount">The number of channels.</param>
-		/// <param name="samplesPerSecond">The sample rate, in hertz (Hz).</param>
-		/// <param name="averageBytesPerSecond">For buffer estimation.</param>
-		/// <param name="blockAlign">The block size of data, in bytes.</param>
+		/// <param name="channelCount">The number of channels; must be within the range [1,65535].</param>
+		/// <param name="samplesPerSecond">The sample rate, in hertz (Hz); must be greater than zero.</param>
+		/// <param name="averageBytesPerSecond">For buffer estimation; must be greater than zero.</param>
+		/// <param name="blockAlign">The block size of data, in bytes; must be within the range [0,65535].</param>
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public WaveFormat( short formatTag, int channelCount, int samplesPerSecond, int averageBytesPerSecond, int blockAlign )
 		{
@@ -66,7 +68,7 @@ namespace ManagedX.Audio
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public int ChannelCount
 		{
-			get { return (int)channelCount; }
+			get { return channelCount; }
 			set
 			{
 				if( value < 0 || value > ushort.MaxValue )
@@ -112,7 +114,7 @@ namespace ManagedX.Audio
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public int BlockAlign
 		{
-			get { return (int)blockAlign; }
+			get { return blockAlign; }
 			set
 			{
 				if( value < 0 || value > ushort.MaxValue )
@@ -134,7 +136,7 @@ namespace ManagedX.Audio
 
 		/// <summary>Returns a value indicating whether this <see cref="WaveFormat"/> structure equals another <see cref="WaveFormat"/> structure.</summary>
 		/// <param name="other">A <see cref="WaveFormat"/> structure.</param>
-		/// <returns>Returns true if all fields of the <paramref name="other"/> structure equal the fields of this <see cref="WaveFormat"/> structure.</returns>
+		/// <returns>Returns true if the <paramref name="other"/> <see cref="WaveFormat"/> structure equals this <see cref="WaveFormat"/> structure, otherwise returns false.</returns>
 		public bool Equals( WaveFormat other )
 		{
 			return
@@ -148,7 +150,7 @@ namespace ManagedX.Audio
 
 		/// <summary>Returns a value indicating whether this <see cref="WaveFormat"/> structure is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="WaveFormat"/> structure which equals this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="WaveFormat"/> structure equivalent this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			return ( obj is WaveFormat ) && this.Equals( (WaveFormat)obj );
@@ -165,7 +167,7 @@ namespace ManagedX.Audio
 		/// <summary>Equality comparer.</summary>
 		/// <param name="format">A <see cref="WaveFormat"/> structure.</param>
 		/// <param name="other">A <see cref="WaveFormat"/> structure.</param>
-		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
+		/// <returns>Returns true if the structures are equivalent, otherwise returns false.</returns>
 		public static bool operator ==( WaveFormat format, WaveFormat other )
 		{
 			return format.Equals( other );
@@ -175,7 +177,7 @@ namespace ManagedX.Audio
 		/// <summary>Inequality comparer.</summary>
 		/// <param name="format">A <see cref="WaveFormat"/> structure.</param>
 		/// <param name="other">A <see cref="WaveFormat"/> structure.</param>
-		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
+		/// <returns>Returns true if the structures are not equivalent, otherwise returns false.</returns>
 		public static bool operator !=( WaveFormat format, WaveFormat other )
 		{
 			return !format.Equals( other );

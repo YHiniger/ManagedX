@@ -5,11 +5,13 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX.Audio
 {
-	
+
 	/// <summary>New wave format development should be based on this structure.
-	/// <para>WaveFormatExtensible (defined in MMReg.h) allows you to avoid having to register a new format tag with Microsoft.</para>
+	/// <para>WaveFormatExtensible allows you to avoid having to register a new format tag with Microsoft.</para>
 	/// Simply define a new GUID value for the <see cref="WaveFormatExtensible.SubFormat"/> field and use <see cref="WaveFormatTag.Extensible"/> in the <see cref="WaveFormatExtensible.FormatTag"/> field.
+	/// <para>This structure is equivalent to the native <code>WAVEFORMATEXTENSIBLE</code> structure (defined in MMReg.h).</para>
 	/// </summary>
+	[Win32.Native( "MMReg.h", "WAVEFORMATEXTENSIBLE" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 2, Size = 40 )]
 	public struct WaveFormatExtensible : IEquatable<WaveFormatExtensible>, IEquatable<WaveFormatEx>, IEquatable<WaveFormat>
 	{
@@ -17,9 +19,9 @@ namespace ManagedX.Audio
 		/// <summary>Defines the (minimum) value expected for <see cref="ExtraInfoSize"/>.</summary>
 		public const int ExpectedExtraInfoSize = 22;
 
-		
 
-		internal WaveFormatEx baseFormat;
+
+		private WaveFormatEx baseFormat;
 		private ushort samples;	// Either ValidBitsPerSample, SamplesPerBlock or Reserved(0)
 		private AudioChannels channelMask;
 		private Guid subFormat;
@@ -253,7 +255,7 @@ namespace ManagedX.Audio
 
 		/// <summary>Returns a value indicating whether this <see cref="WaveFormatExtensible"/> structure is equivalent to an object.</summary>
 		/// <param name="obj">An object.</param>
-		/// <returns>Returns true if the specified object is a <see cref="WaveFormatExtensible"/> structure which equals this structure, or a <see cref="WaveFormatEx"/> or a <see cref="WaveFormat"/> structure equivalent to this structure, otherwise returns false.</returns>
+		/// <returns>Returns true if the specified object is a <see cref="WaveFormatExtensible"/>, a <see cref="WaveFormatEx"/> or a <see cref="WaveFormat"/> structure equivalent to this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
 			if( obj is WaveFormatExtensible )
@@ -269,10 +271,10 @@ namespace ManagedX.Audio
 		}
 
 
-        /// <summary>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</summary>
-        /// <returns>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        public WaveFormatEx ToWaveFormatEx()
+		/// <summary>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</summary>
+		/// <returns>Returns a <see cref="WaveFormatEx"/> structure initialized with this <see cref="WaveFormatExtensible"/> structure.</returns>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix" )]
+		public WaveFormatEx ToWaveFormatEx()
 		{
 			return baseFormat;
 		}
@@ -300,6 +302,7 @@ namespace ManagedX.Audio
 		{
 			return format.ToWaveFormatEx(); 
 		}
+
 
 		/// <summary><see cref="WaveFormatExtensible"/> to <see cref="WaveFormat"/> conversion operator.</summary>
 		/// <param name="format">A <see cref="WaveFormatExtensible"/> structure.</param>

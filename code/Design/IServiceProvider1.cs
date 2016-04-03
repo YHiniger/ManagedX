@@ -1,11 +1,8 @@
-﻿using System;
-
-
-namespace ManagedX.Design
+﻿namespace ManagedX.Design
 {
 
 	/// <summary>Defines methods to retrieve service objects.</summary>
-	public interface IServiceProviderEx
+	public interface IServiceProvider1
 	{
 
 		/// <summary>Returns a service given its type.</summary>

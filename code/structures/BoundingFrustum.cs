@@ -72,7 +72,7 @@ namespace ManagedX
 
 		#endregion Planes
 
-		
+
 		/// <summary>Gets or sets the <see cref="Matrix"/> describing this <see cref="BoundingFrustum"/>.</summary>
 		public Matrix Matrix
 		{
@@ -171,7 +171,7 @@ namespace ManagedX
 
 			if( corners == null )
 				throw new InvalidOperationException();
-			
+
 			corners.CopyTo( destination, startIndex );
 		}
 
@@ -274,13 +274,13 @@ namespace ManagedX
 			while( true )
 			{
 				var vector = -closestPoint;
-				
+
 				Vector3 vector2;
 				this.SupportMapping( ref vector, out vector2 );
-				
+
 				Vector3 vector3;
 				box.SupportMapping( ref closestPoint, out vector3 );
-				
+
 				Vector3 vector4;
 				Vector3.Subtract( ref vector2, ref vector3, out vector4 );
 				var num2 = closestPoint.X * vector4.X + closestPoint.Y * vector4.Y + closestPoint.Z * vector4.Z;
@@ -289,7 +289,7 @@ namespace ManagedX
 
 				gjk.AddSupportPoint( ref vector4 );
 				closestPoint = gjk.ClosestPoint;
-				
+
 				float num3 = num;
 				num = closestPoint.LengthSquared;
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
@@ -437,23 +437,23 @@ namespace ManagedX
 				vector.X = -closestPoint.X;
 				vector.Y = -closestPoint.Y;
 				vector.Z = -closestPoint.Z;
-				
+
 				Vector3 vector2;
 				this.SupportMapping( ref vector, out vector2 );
-				
+
 				Vector3 vector3;
 				frustum.SupportMapping( ref closestPoint, out vector3 );
-				
+
 				Vector3 vector4;
 				Vector3.Subtract( ref vector2, ref vector3, out vector4 );
-				
+
 				var num2 = closestPoint.X * vector4.X + closestPoint.Y * vector4.Y + closestPoint.Z * vector4.Z;
 				if( num2 > 0.0f )
 					return false;
 
 				gjk.AddSupportPoint( ref vector4 );
 				closestPoint = gjk.ClosestPoint;
-				
+
 				var num3 = num;
 				num = closestPoint.LengthSquared;
 
@@ -492,23 +492,23 @@ namespace ManagedX
 			while( true )
 			{
 				var vector2 = -vector;
-				
+
 				Vector3 vector3;
 				this.SupportMapping( ref vector2, out vector3 );
-				
+
 				Vector3 vector4;
 				sphere.SupportMapping( ref vector, out vector4 );
-				
+
 				Vector3 vector5;
 				Vector3.Subtract( ref vector3, ref vector4, out vector5 );
-				
+
 				var dot = vector.X * vector5.X + vector.Y * vector5.Y + vector.Z * vector5.Z;
 				if( dot > 0.0f )
 					return;
 
 				gjk.AddSupportPoint( ref vector5 );
 				vector = gjk.ClosestPoint;
-				
+
 				var num3 = num;
 				num = vector.LengthSquared;
 				if( num3 - num <= DefaultIntersectionThreshold * num3 )
@@ -627,7 +627,7 @@ namespace ManagedX
 				if( result == ContainmentType.Disjoint )
 					return ContainmentType.Intersects;
 			}
-			
+
 			return ContainmentType.Contains;
 		}
 
@@ -733,22 +733,22 @@ namespace ManagedX
 
 			Plane plane;
 			float PdotC;
-			
+
 			for( var p = 0; p < planes.Length; p++ )
 			{
 				plane = planes[ p ];
 				PdotC = plane.Normal.X * center.X + plane.Normal.Y * center.Y + plane.Normal.Z * center.Z + plane.Distance;
-				
+
 				if( PdotC > radius )
 				{
 					result = ContainmentType.Disjoint;
 					return;
 				}
-				
+
 				if( PdotC < -radius )
 					count++;
 			}
-			
+
 			result = ( count == 6 ) ? ContainmentType.Contains : ContainmentType.Intersects;
 		}
 
@@ -760,18 +760,18 @@ namespace ManagedX
 			var center = sphere.Center;
 			var radius = sphere.Radius;
 			var count = 0;
-			
+
 			Plane plane;
 			float PdotC;
-			
+
 			for( var p = 0; p < planes.Length; p++ )
 			{
 				plane = planes[ p ];
 				PdotC = plane.Normal.X * center.X + plane.Normal.Y * center.Y + plane.Normal.Z * center.Z + plane.Distance;
-				
+
 				if( PdotC > radius )
 					return ContainmentType.Disjoint;
-				
+
 				if( PdotC < -radius )
 					count++;
 			}

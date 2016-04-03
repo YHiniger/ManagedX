@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 
 namespace ManagedX.Win32
@@ -8,6 +9,7 @@ namespace ManagedX.Win32
 	/// <para>In a future implementation of ManagedX, this attribute should help tracking native API changes.</para>
 	/// </summary>
 	[Serializable]
+	[ComVisible( false )]
 	[AttributeUsage( AttributeTargets.Class | AttributeTargets.Delegate | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Struct | AttributeTargets.Field, Inherited = false, AllowMultiple = true )]
 	public sealed class NativeAttribute : Attribute
 	{

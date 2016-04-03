@@ -15,24 +15,24 @@ namespace ManagedX.Graphics
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public int X;
-		
+
 		/// <summary></summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
 		public int Y;
-		
+
 		/// <summary></summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Width;
-		
+
 		/// <summary></summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public int Height;
-		
+
 		/// <summary></summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float MinDepth;
-		
+
 		/// <summary></summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float MaxDepth;
@@ -44,7 +44,7 @@ namespace ManagedX.Graphics
 			get
 			{
 				if( Width == 0 || Height == 0 )
-					return 0.0f;
+					return 0.0f; // FIXME ? the "DXGI rule" used in the Rational structure should also apply here: return 1.0f;
 				return (float)Width / (float)Height;
 			}
 		}
@@ -64,20 +64,20 @@ namespace ManagedX.Graphics
 			}
 			set
 			{
-				X = value.Left;
-				Y = value.Top;
-				Width = value.Right - value.Left;
-				Height = value.Bottom - value.Top;
+				X = Math.Min( value.Left, value.Right );
+				Y = Math.Min( value.Top, value.Bottom );
+				Width = Math.Abs( value.Right - value.Left );
+				Height = Math.Abs( value.Bottom - value.Top );
 			}
 		}
 
 
-        /// <summary></summary>
-        /// <param name="position"></param>
-        /// <param name="worldViewProjection"></param>
-        /// <param name="result"></param>
-        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "worldView")]
-        [SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		/// <summary></summary>
+		/// <param name="position"></param>
+		/// <param name="worldViewProjection"></param>
+		/// <param name="result"></param>
+		[SuppressMessage( "Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "worldView" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Project( ref Vector3 position, ref Matrix worldViewProjection, out Vector3 result )
 		{
@@ -111,13 +111,13 @@ namespace ManagedX.Graphics
 		}
 
 
-        /// <summary></summary>
-        /// <param name="position"></param>
-        /// <param name="inverseWorldViewProjection"></param>
-        /// <param name="result"></param>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unproject")]
-        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "WorldView")]
-        [SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		/// <summary></summary>
+		/// <param name="position"></param>
+		/// <param name="inverseWorldViewProjection"></param>
+		/// <param name="result"></param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unproject" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "WorldView" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Unproject( ref Vector3 position, ref Matrix inverseWorldViewProjection, out Vector3 result )
 		{
@@ -132,14 +132,14 @@ namespace ManagedX.Graphics
 				Vector3.Divide( ref result, n, out result );
 		}
 
-        /// <summary></summary>
-        /// <param name="position"></param>
-        /// <param name="projection"></param>
-        /// <param name="view"></param>
-        /// <param name="world"></param>
-        /// <returns></returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unproject")]
-        public Vector3 Unproject( Vector3 position, Matrix projection, Matrix view, Matrix world )
+		/// <summary></summary>
+		/// <param name="position"></param>
+		/// <param name="projection"></param>
+		/// <param name="view"></param>
+		/// <param name="world"></param>
+		/// <returns></returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unproject" )]
+		public Vector3 Unproject( Vector3 position, Matrix projection, Matrix view, Matrix world )
 		{
 			Matrix worldViewProj;
 			Matrix.Multiply( ref world, ref view, out worldViewProj );
@@ -161,7 +161,7 @@ namespace ManagedX.Graphics
 			return X ^ Y ^ Width ^ Height ^ MinDepth.GetHashCode() ^ MaxDepth.GetHashCode();
 		}
 
-		
+
 		/// <summary>Returns a value indicating whether this <see cref="Viewport"/> equals another <see cref="Viewport"/>.</summary>
 		/// <param name="other">A <see cref="Viewport"/>.</param>
 		/// <returns>Returns true if this <see cref="Viewport"/> and the <paramref name="other"/> <see cref="Viewport"/> are equal, otherwise returns false.</returns>
