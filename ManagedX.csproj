@@ -55,10 +55,10 @@
     <Compile Include="code\Audio\WaveFormatTag.cs" />
     <Compile Include="code\Design\IServiceProvider1.cs" />
     <Compile Include="code\Diagnostics\PerformanceCounter.cs" />
-    <Compile Include="code\Display\Point.cs" />
-    <Compile Include="code\Display\Rational.cs" />
-    <Compile Include="code\Display\Rect.cs" />
-    <Compile Include="code\Display\Size.cs" />
+    <Compile Include="code\Graphics\Point.cs" />
+    <Compile Include="code\Graphics\Rational.cs" />
+    <Compile Include="code\Graphics\Rect.cs" />
+    <Compile Include="code\Graphics\Size.cs" />
     <Compile Include="code\enumerations\ContainmentType.cs" />
     <Compile Include="code\enumerations\ErrorCode.cs" />
     <Compile Include="code\enumerations\PlaneIndex.cs" />
@@ -102,6 +102,7 @@
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
