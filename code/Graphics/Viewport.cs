@@ -5,35 +5,63 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX.Graphics
 {
+	using Win32;
 
-	/// <summary></summary>
+
+	/// <summary>Defines the dimensions of a viewport.
+	/// <para>This structure is equivalent to the native <code>D3D11_VIEWPORT</code> structure (defined in D3D11.h),
+	/// and its alias <code>D3D12_VIEWPORT</code> (defined in D3D12.h).
+	/// </para>
+	/// </summary>
+	/// <remarks>
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/ff476260%28v=vs.85%29.aspx
+	/// </remarks>
+	[Native( "D3D11.h", "D3D11_VIEWPORT" )]
+	[Native( "D3D12.h", "D3D12_VIEWPORT" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 24 )]
 	public struct Viewport : IEquatable<Viewport>
 	{
 
 		/// <summary></summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
-		public int X;
+		public const float MinBounds10 = -16384.0f;
 
 		/// <summary></summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
-		public int Y;
+		public const float MaxBounds10 = +16383.0f;
+
 
 		/// <summary></summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		public int Width;
+		public const float MinBounds = -32768.0f;
 
 		/// <summary></summary>
-		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-		public int Height;
+		public const float MaxBounds = +32767.0f;
 
-		/// <summary></summary>
+
+
+		/// <summary>X position of the left hand side of the viewport.
+		/// Ranges between D3D11_VIEWPORT_BOUNDS_MIN and D3D11_VIEWPORT_BOUNDS_MAX.
+		/// </summary>
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		public float TopLeftX;
+
+		/// <summary>Y position of the top of the viewport.
+		/// Ranges between D3D11_VIEWPORT_BOUNDS_MIN and D3D11_VIEWPORT_BOUNDS_MAX.
+		/// </summary>
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		public float TopLeftY;
+
+		/// <summary>Width of the viewport; must be greater than or equal to zero.</summary>
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		public float Width;
+
+		/// <summary>Height of the viewport; must be greater than or equal to zero.</summary>
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		public float Height;
+
+		/// <summary>Minimum depth of the viewport, within the range [0,1].</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float MinDepth;
 
-		/// <summary></summary>
+		/// <summary>Maximum depth of the viewport, within the ranges [0,1].</summary>
 		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
 		public float MaxDepth;
 
@@ -55,19 +83,21 @@ namespace ManagedX.Graphics
 		{
 			get
 			{
+				var x = (int)TopLeftX;
+				var y = (int)TopLeftY;
 				Rect rect;
-				rect.Left = X;
-				rect.Top = Y;
-				rect.Right = X + Width;
-				rect.Bottom = Y + Height;
+				rect.Left = x;
+				rect.Top = y;
+				rect.Right = x + (int)Width;
+				rect.Bottom = y + (int)Height;
 				return rect;
 			}
 			set
 			{
-				X = Math.Min( value.Left, value.Right );
-				Y = Math.Min( value.Top, value.Bottom );
-				Width = Math.Abs( value.Right - value.Left );
-				Height = Math.Abs( value.Bottom - value.Top );
+				TopLeftX = (float)Math.Min( value.Left, value.Right );
+				TopLeftY = (float)Math.Min( value.Top, value.Bottom );
+				Width = (float)Math.Abs( value.Right - value.Left );
+				Height = (float)Math.Abs( value.Bottom - value.Top );
 			}
 		}
 
@@ -88,8 +118,8 @@ namespace ManagedX.Graphics
 			if( n != 0.0f )
 				Vector3.Divide( ref transformed, n, out transformed );
 
-			result.X = ( transformed.X + 1.0f ) * 0.5f * (float)Width + (float)X;
-			result.Y = ( -transformed.Y + 1.0f ) * 0.5f * (float)Height + (float)Y;
+			result.X = ( transformed.X + 1.0f ) * 0.5f * (float)Width + (float)TopLeftX;
+			result.Y = ( -transformed.Y + 1.0f ) * 0.5f * (float)Height + (float)TopLeftY;
 			result.Z = transformed.Z * ( MaxDepth - MinDepth ) + MinDepth;
 		}
 
@@ -121,8 +151,8 @@ namespace ManagedX.Graphics
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Unproject( ref Vector3 position, ref Matrix inverseWorldViewProjection, out Vector3 result )
 		{
-			position.X = ( position.X - (float)X ) / (float)Width * 2.0f - 1.0f;
-			position.Y = -( ( position.Y - (float)Y ) / (float)Height * 2.0f - 1.0f );
+			position.X = ( position.X - (float)TopLeftX ) / (float)Width * 2.0f - 1.0f;
+			position.Y = -( ( position.Y - (float)TopLeftY ) / (float)Height * 2.0f - 1.0f );
 			position.Z = ( position.Z - MinDepth ) / ( MaxDepth - MinDepth );
 
 			inverseWorldViewProjection.Transform( ref position, out result );
@@ -158,7 +188,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns a hash code for this <see cref="Viewport"/>.</returns>
 		public override int GetHashCode()
 		{
-			return X ^ Y ^ Width ^ Height ^ MinDepth.GetHashCode() ^ MaxDepth.GetHashCode();
+			return TopLeftX.GetHashCode() ^ TopLeftY.GetHashCode() ^ Width.GetHashCode() ^ Height.GetHashCode() ^ MinDepth.GetHashCode() ^ MaxDepth.GetHashCode();
 		}
 
 
@@ -167,7 +197,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if this <see cref="Viewport"/> and the <paramref name="other"/> <see cref="Viewport"/> are equal, otherwise returns false.</returns>
 		public bool Equals( Viewport other )
 		{
-			return ( X == other.X ) && ( Y == other.Y ) && ( Width == other.Width ) && ( Height == other.Height ) && ( MinDepth == other.MinDepth ) && ( MaxDepth == other.MaxDepth );
+			return ( TopLeftX == other.TopLeftX ) && ( TopLeftY == other.TopLeftY ) && ( Width == other.Width ) && ( Height == other.Height ) && ( MinDepth == other.MinDepth ) && ( MaxDepth == other.MaxDepth );
 		}
 
 
@@ -192,7 +222,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the viewports are equal, otherwise returns false.</returns>
 		public static bool operator ==( Viewport viewport, Viewport other )
 		{
-			return ( viewport.X == other.X ) && ( viewport.Y == other.Y ) && ( viewport.Width == other.Width ) && ( viewport.Height == other.Height ) && ( viewport.MinDepth == other.MinDepth ) && ( viewport.MaxDepth == other.MaxDepth );
+			return ( viewport.TopLeftX == other.TopLeftX ) && ( viewport.TopLeftY == other.TopLeftY ) && ( viewport.Width == other.Width ) && ( viewport.Height == other.Height ) && ( viewport.MinDepth == other.MinDepth ) && ( viewport.MaxDepth == other.MaxDepth );
 		}
 
 
@@ -202,7 +232,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the viewports are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Viewport viewport, Viewport other )
 		{
-			return ( viewport.X != other.X ) || ( viewport.Y != other.Y ) || ( viewport.Width != other.Width ) || ( viewport.Height != other.Height ) || ( viewport.MinDepth != other.MinDepth ) || ( viewport.MaxDepth != other.MaxDepth );
+			return ( viewport.TopLeftX != other.TopLeftX ) || ( viewport.TopLeftY != other.TopLeftY ) || ( viewport.Width != other.Width ) || ( viewport.Height != other.Height ) || ( viewport.MinDepth != other.MinDepth ) || ( viewport.MaxDepth != other.MaxDepth );
 		}
 
 		#endregion Operators

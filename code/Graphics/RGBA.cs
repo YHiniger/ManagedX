@@ -5,13 +5,21 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX.Graphics
 {
+	using Win32;
+
 
 	/// <summary>Represents an RGBA color.
-	/// <para>This structure is equivalent to the native structures <code>DXGI_RGBA</code> and <code>D3DCOLORVALUE</code>.</para>
+	/// <para>This structure is equivalent to the native structure <code>D3DCOLORVALUE</code>, and its aliases <code>D2D_COLOR_F</code> and <code>DXGI_RGBA</code>.</para>
 	/// </summary>
-	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/hh404524%28v=vs.85%29.aspx</remarks>
+	/// <remarks>
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dd368193%28v=vs.85%29.aspx
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dd368175%28v=vs.85%29.aspx
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/hh404524%28v=vs.85%29.aspx
+	/// </remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGBA" )]
-	[Win32.Native( "DXGIType.h", "DXGI_RGBA" )]
+	[Native( "D3D9Types.h", "D3DCOLORVALUE" )]
+	[Native( "D2DBaseTypes.h", "D2D_COLOR_F" )]
+	[Native( "DXGIType.h", "DXGI_RGBA" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct RGBA : IEquatable<RGBA>

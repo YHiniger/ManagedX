@@ -90,22 +90,22 @@ namespace ManagedX
 		#region Operators
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="srt">A <see cref="ScaleRotationTranslation"/>.</param>
+		/// <param name="transform">A <see cref="ScaleRotationTranslation"/>.</param>
 		/// <param name="other">A <see cref="ScaleRotationTranslation"/>.</param>
 		/// <returns>Returns true if the structures are equal, otherwise returns false.</returns>
-		public static bool operator ==( ScaleRotationTranslation srt, ScaleRotationTranslation other )
+		public static bool operator ==( ScaleRotationTranslation transform, ScaleRotationTranslation other )
 		{
-			return srt.Scale.Equals( ref other.Scale ) && srt.Rotation.Equals( ref other.Rotation ) && srt.Translation.Equals( ref other.Translation );
+			return transform.Scale.Equals( ref other.Scale ) && transform.Rotation.Equals( ref other.Rotation ) && transform.Translation.Equals( ref other.Translation );
 		}
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="srt">A <see cref="ScaleRotationTranslation"/>.</param>
+		/// <param name="transform">A <see cref="ScaleRotationTranslation"/>.</param>
 		/// <param name="other">A <see cref="ScaleRotationTranslation"/>.</param>
 		/// <returns>Returns true if the structures are not equal, otherwise returns false.</returns>
-		public static bool operator !=( ScaleRotationTranslation srt, ScaleRotationTranslation other )
+		public static bool operator !=( ScaleRotationTranslation transform, ScaleRotationTranslation other )
 		{
-			return !( srt.Scale.Equals( ref other.Scale ) && srt.Rotation.Equals( ref other.Rotation ) && srt.Translation.Equals( ref other.Translation ) );
+			return !( transform.Scale.Equals( ref other.Scale ) && transform.Rotation.Equals( ref other.Rotation ) && transform.Translation.Equals( ref other.Translation ) );
 		}
 
 		#endregion Operators

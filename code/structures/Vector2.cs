@@ -5,8 +5,14 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX
 {
-	
-	/// <summary>A 2D vector.</summary>
+	using Win32;
+
+
+	/// <summary>A 2D vector.
+	/// <para>This structure is equivalent to the native <code>D2D_VECTOR_2F</code> and <code>D2D_POINT_2F</code> structures (defined in D2DBaseTypes.h).</para>
+	/// </summary>
+	[Native( "D2DBaseTypes.h", "D2D_VECTOR_2F" )]
+	[Native( "D2DBaseTypes.h", "D2D_POINT_2F" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Vector2 : IEquatable<Vector2>

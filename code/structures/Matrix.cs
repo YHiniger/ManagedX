@@ -5,8 +5,12 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX
 {
+	using Win32;
+
 
 	/// <summary>A 4x4 matrix.</summary>
+	[Native( "D2DBaseTypes.h", "D2D_MATRIX_4X4_F" )]
+	[Native( "D2D1.h", "D2D1_MATRIX_4X4_F" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 64 )]
 	public struct Matrix : IEquatable<Matrix>

@@ -5,14 +5,21 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX
 {
+	using Win32;
+
 
 	/// <summary>A 3x2 (3 rows, 2 columns) matrix.
 	/// <para>Used with GetMatrixTransform and SetMatrixTransform to indicate the scaling and translation transform for SwapChainPanel swap chains.</para>
-	/// This structure is equivalent to the native <code>DXGI_MATRIX_3X2_F</code> structure (defined in DXGI1_3.h).
+	/// This structure is equivalent to the native structures <code>DXGI_MATRIX_3X2_F</code> (defined in DXGI1_3.h) and <code>D2D_MATRIX_3X2_F</code> (defined in D2DBaseTypes.h).
 	/// </summary>
-	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/dn268308%28v=vs.85%29.aspx</remarks>
+	/// <remarks>
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dd368178%28v=vs.85%29.aspx
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dn268308%28v=vs.85%29.aspx
+	/// </remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "x" )]
-	[Win32.Native( "DXGI1_3.h", "DXGI_MATRIX_3X2_F" )]
+	[Native( "D2DBaseTypes.h", "D2D_MATRIX_3X2_F" )]
+	[Native( "D2D1.h", "D2D1_MATRIX_3X2_F" )]
+	[Native( "DXGI1_3.h", "DXGI_MATRIX_3X2_F" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 24 )]
 	public struct Matrix3x2 : IEquatable<Matrix3x2>

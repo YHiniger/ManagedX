@@ -5,9 +5,18 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX // .Graphics
 {
+	using Win32;
 
-	/// <summary>Defines the (integer) coordinates of the upper-left and lower-right corners of a rectangle.</summary>
+
+	/// <summary>Defines the (integer) coordinates of the upper-left and lower-right corners of a rectangle.
+	/// <para>This structure is equivalent to the native structure <code>RECT</code> (defined in WinDef.h),
+	/// and its aliases <code>D3D11_RECT</code> (defined in D3D11.h) and <code>D3D12_RECT</code> (defined in D3D12.h).
+	/// </para>
+	/// </summary>
 	[System.Diagnostics.DebuggerStepThrough]
+	[Native( "WinDef.h", "RECT" )]
+	[Native( "D3D11.h", "D3D11_RECT" )]
+	[Native( "D3D12.h", "D3D12_RECT" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct Rect : IEquatable<Rect>
