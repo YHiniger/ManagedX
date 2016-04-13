@@ -46,51 +46,6 @@ namespace ManagedX
 
         #endregion Constants
 
-        #region Temperature conversion functions
-
-        /// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
-        /// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
-        /// <returns>Returns the specified temperature, in degrees Celcius.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
-        [MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float ToCelcius( float temperatureInDegreesFahrenheit )
-		{
-			return ( temperatureInDegreesFahrenheit - 32.0f ) / 1.8f;
-		}
-
-        /// <summary>Converts a temperature in degrees Fahrenheit (°F) to a temperature in degrees Celcius (°C).</summary>
-        /// <param name="temperatureInDegreesFahrenheit">A temperature in degrees Fahrenheit.</param>
-        /// <returns>Returns the specified temperature, in degrees Celcius.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
-        [MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double ToCelcius( double temperatureInDegreesFahrenheit )
-		{
-			return ( temperatureInDegreesFahrenheit - 32.0 ) / 1.8;
-		}
-
-
-        /// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
-        /// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
-        /// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
-        [MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float ToFahrenheit( float temperatureInDegreesCelcius )
-		{
-			return temperatureInDegreesCelcius * 1.8f + 32.0f;
-		}
-
-        /// <summary>Converts a temperature in degrees Celcius (°C) to a temperature in degrees Fahrenheit (°F).</summary>
-        /// <param name="temperatureInDegreesCelcius">A temperature in degrees Celcius.</param>
-        /// <returns>Returns the specified temperature, in degrees Fahrenheit.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Celcius")]
-        [MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static double ToFahrenheit( double temperatureInDegreesCelcius )
-		{
-			return temperatureInDegreesCelcius * 1.8 + 32.0;
-		}
-
-		#endregion Temperature conversion functions
-
 
 		#region Angle conversion functions
 
