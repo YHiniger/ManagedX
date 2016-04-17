@@ -20,6 +20,7 @@ namespace ManagedX.Graphics
 	[Native( "D3D9Types.h", "D3DCOLORVALUE" )]
 	[Native( "D2DBaseTypes.h", "D2D_COLOR_F" )]
 	[Native( "DXGIType.h", "DXGI_RGBA" )]
+	[Native( "D3D11.h", "D3D11_VIDEO_COLOR_RGBA" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct RGBA : IEquatable<RGBA>
