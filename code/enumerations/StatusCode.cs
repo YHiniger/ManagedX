@@ -41,6 +41,26 @@
 		#endregion DXGI
 
 
+		#region D3D
+
+		/// <summary>The presentation area is occluded.
+		/// Occlusion means that the presentation window is minimized or another device entered the fullscreen mode on the same monitor as the presentation window and the presentation window is completely on that monitor.
+		/// Occlusion will not occur if the client area is covered by another window.
+		/// Occluded applications can continue rendering and all calls will succeed, but the occluded presentation window will not be updated.
+		/// Preferably the application should stop rendering to the presentation window using the device and keep calling CheckDeviceState until <see cref="None"/> or <see cref="D3DPresentModeChanged"/> returns.
+		/// </summary>
+		D3DPresentOccluded = 0x08760878,
+
+		/// <summary>The desktop display mode has been changed.
+		/// The application can continue rendering, but there might be color conversion/stretching.
+		/// Pick a back buffer format similar to the current display mode, and call Reset to recreate the swap chains.
+		/// The device will leave this state after a Reset is called.
+		/// </summary>
+		D3DPresentModeChanged = 0x08760877, // 2167
+
+		#endregion D3D
+
+
 		#region WASAPI
 
 		/// <summary></summary>
