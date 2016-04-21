@@ -151,8 +151,8 @@ namespace ManagedX.Graphics
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Unproject( ref Vector3 position, ref Matrix inverseWorldViewProjection, out Vector3 result )
 		{
-			position.X = ( position.X - (float)TopLeftX ) / (float)Width * 2.0f - 1.0f;
-			position.Y = -( ( position.Y - (float)TopLeftY ) / (float)Height * 2.0f - 1.0f );
+			position.X = ( position.X - TopLeftX ) / Width * 2.0f - 1.0f;
+			position.Y = -( ( position.Y - TopLeftY ) / Height * 2.0f - 1.0f );
 			position.Z = ( position.Z - MinDepth ) / ( MaxDepth - MinDepth );
 
 			inverseWorldViewProjection.Transform( ref position, out result );
