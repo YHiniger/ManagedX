@@ -63,9 +63,11 @@ namespace ManagedX.Win32
 		// https://msdn.microsoft.com/en-us/library/windows/desktop/dd542645%28v=vs.85%29.aspx
 
 		/// <summary>STG: access denied.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Stg" )]
 		StgAccessDenied = unchecked((int)0x80030005),       // STG_E_ACCESSDENIED
 
 		/// <summary>STG: invalid parameter.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Stg" )]
 		StgInvalidArgument = unchecked((int)0x80030057),    // STG_E_INVALIDPARAMETER
 
 		#endregion // Stg*

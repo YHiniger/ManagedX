@@ -10,14 +10,14 @@ namespace ManagedX
 	public class MissingRequirementException : Exception
 	{
 
-		/// <summary>Instantiates a new <see cref="MissingRequirementException"/>.</summary>
+		/// <summary>Initializes a new <see cref="MissingRequirementException"/>.</summary>
 		public MissingRequirementException()
 			: base()
 		{
 		}
 
 
-		/// <summary>Instantiates a new <see cref="MissingRequirementException"/>.</summary>
+		/// <summary>Initializes a new <see cref="MissingRequirementException"/> with a specified error message.</summary>
 		/// <param name="message">The exception message.</param>
 		public MissingRequirementException( string message )
 			: base( message )
@@ -25,7 +25,7 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Instantiates a new <see cref="MissingRequirementException"/>.</summary>
+		/// <summary>Initializes a new <see cref="MissingRequirementException"/> with a specified error message and a reference to the inner exception which caused this exception.</summary>
 		/// <param name="message">The exception message.</param>
 		/// <param name="innerException">The inner exception.</param>
 		public MissingRequirementException( string message, Exception innerException )
@@ -34,9 +34,9 @@ namespace ManagedX
 		}
 
 
-		/// <summary>Instantiates a new <see cref="MissingRequirementException"/>.</summary>
-		/// <param name="info"></param>
-		/// <param name="context"></param>
+		/// <summary>Initializes a new <see cref="MissingRequirementException"/> with serialized data.</summary>
+		/// <param name="info">Holds the serialized object data about the exception being thrown.</param>
+		/// <param name="context">Contextual information about the source or destination.</param>
 		protected MissingRequirementException( SerializationInfo info, StreamingContext context )
 			: base( info, context )
 		{
