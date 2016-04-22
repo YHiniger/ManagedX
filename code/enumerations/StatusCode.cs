@@ -46,7 +46,7 @@ namespace ManagedX.Win32
 		/// <summary>The Present operation was not visible because the target monitor was being used for some other purpose.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
 		[Native( "WinError.h", "DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE" )]
-		DxgiGraphicsVidPnSourceInUse = 0x087A0006,
+		DxgiGraphicsVidPNSourceInUse = 0x087A0006,
 
 		/// <summary>The desktop display mode has been changed, there might be color conversion/stretching.
 		/// The application should call <code>IDXGISwapChain.ResizeBuffers</code> to match the new display mode.
@@ -65,13 +65,15 @@ namespace ManagedX.Win32
 
 		/// <summary>The swapchain has become unoccluded.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unoccluded" )]
 		[Native( "WinError.h", "DXGI_STATUS_UNOCCLUDED" )]
 		DxgiUnoccluded = 0x087A0009,
 
 		/// <summary>The adapter did not have access to the required resources to complete the Desktop Duplication Present() call, the Present() call needs to be made again.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "DDA" )]
 		[Native( "WinError.h", "DXGI_STATUS_DDA_WAS_STILL_DRAWING" )]
-		DxgiDdaWasStillDrawing = 0x087A000A,
+		DxgiDDAWasStillDrawing = 0x087A000A,
 
 		/// <summary>The present succeeded but the caller should present again on the next V-sync, even if there are no changes to the content.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
