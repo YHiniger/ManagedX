@@ -1,4 +1,7 @@
-﻿namespace ManagedX.Win32
+﻿using System.Diagnostics.CodeAnalysis;
+
+
+namespace ManagedX.Win32
 {
 	
 	/// <summary>Enumerates Windows status codes (HRESULT).</summary>
@@ -14,29 +17,66 @@
 		InPlaceTruncated = 0x000401A0,
 
 
-        #region DXGI
+		#region DXGI
 
-        // https://msdn.microsoft.com/en-us/library/windows/desktop/cc308061%28v=vs.85%29.aspx
+		// https://msdn.microsoft.com/en-us/library/windows/desktop/cc308061%28v=vs.85%29.aspx
 
-        /// <summary>The window content is not visible.
-        /// When receiving this status, an application can stop rendering and use <code>PresentOptions.Test</code> to determine when to resume rendering.
-        /// <para>The native name of this constant is <code>DXGI_STATUS_OCCLUDED</code>.</para>
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
-        DxgiOccluded = 0x087A0001,
+		/// <summary>The window content is not visible.
+		/// <para>When receiving this status, an application can stop rendering and use <code>PresentOptions.Test</code> to determine when to resume rendering.</para>
+		/// </summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_OCCLUDED" )]
+		DxgiOccluded = 0x087A0001,
 
-        /// <summary>The desktop display mode has been changed, there might be color conversion/stretching.
-        /// The application should call <code>IDXGISwapChain.ResizeBuffers</code> to match the new display mode.
-        /// <para>The native name of this constant is <code>DXGI_STATUS_MODE_CHANGED</code>.</para>
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
-        DxgiModeChange = 0x087A0007,
+		/// <summary>The Present operation was partially invisible to the user.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_CLIPPED" )]
+		DxgiClipped = 0x087A0002,
 
-        /// <summary><code>IDXGISwapChain.ResizeTarget</code> and <code>IDXGISwapChain.SetFullscreenState</code> will return this value if a fullscreen/windowed mode transition is occurring when either API is called.
-        /// <para>The native name of this constant is <code>DXGI_STATUS_MODE_CHANGE_IN_PROGRESS</code>.</para>
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi")]
-        DxgiModeChangeInProgress = 0x087A0008,
+		/// <summary>The driver is requesting that the DXGI runtime not use shared resources to communicate with the Desktop Window Manager.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_NO_REDIRECTION" )]
+		DxgiNoRedirection = 0x087A0004,
+
+		/// <summary>The Present operation was not visible because the Windows session has switched to another desktop (for example, ctrl-alt-del).</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_NO_DESKTOP_ACCESS" )]
+		DxgiNoDesktopAccess = 0x087A0005,
+
+		/// <summary>The Present operation was not visible because the target monitor was being used for some other purpose.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE" )]
+		DxgiGraphicsVidPnSourceInUse = 0x087A0006,
+
+		/// <summary>The desktop display mode has been changed, there might be color conversion/stretching.
+		/// The application should call <code>IDXGISwapChain.ResizeBuffers</code> to match the new display mode.
+		/// <para>The native name of this constant is <code>DXGI_STATUS_MODE_CHANGED</code>.</para>
+		/// </summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_MODE_CHANGED" )]
+		DxgiModeChanged = 0x087A0007,
+
+		/// <summary><code>IDXGISwapChain.ResizeTarget</code> and <code>IDXGISwapChain.SetFullscreenState</code> will return this value if a fullscreen/windowed mode transition is occurring when either API is called.
+		/// <para>The native name of this constant is <code>DXGI_STATUS_MODE_CHANGE_IN_PROGRESS</code>.</para>
+		/// </summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_MODE_CHANGE_IN_PROGRESS" )]
+		DxgiModeChangeInProgress = 0x087A0008,
+
+		/// <summary>The swapchain has become unoccluded.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_UNOCCLUDED" )]
+		DxgiUnoccluded = 0x087A0009,
+
+		/// <summary>The adapter did not have access to the required resources to complete the Desktop Duplication Present() call, the Present() call needs to be made again.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_DDA_WAS_STILL_DRAWING" )]
+		DxgiDdaWasStillDrawing = 0x087A000A,
+
+		/// <summary>The present succeeded but the caller should present again on the next V-sync, even if there are no changes to the content.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
+		[Native( "WinError.h", "DXGI_STATUS_PRESENT_REQUIRED" )]
+		DxgiPresentRequired = 0x087A002F,
 
 		#endregion DXGI
 
@@ -56,7 +96,7 @@
 		/// Pick a back buffer format similar to the current display mode, and call Reset to recreate the swap chains.
 		/// The device will leave this state after a Reset is called.
 		/// </summary>
-		D3DPresentModeChanged = 0x08760877, // 2167
+		D3DPresentModeChanged = 0x08760877,
 
 		#endregion D3D
 
