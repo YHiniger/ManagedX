@@ -76,60 +76,60 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary></summary>
-		/// <param name="color"></param>
-		/// <param name="alpha"></param>
-		public RGBA( RGB color, float alpha )
+		/// <summary>Initializes a new <see cref="RGBA"/> structure from an <see cref="RGB"/> and an alpha value.</summary>
+		/// <param name="rgb">An <see cref="RGB"/> color.</param>
+		/// <param name="alpha">The alpha (opacity) value.</param>
+		public RGBA( RGB rgb, float alpha )
 		{
-			R = color.R;
-			G = color.G;
-			B = color.B;
+			R = rgb.R;
+			G = rgb.G;
+			B = rgb.B;
 			A = alpha;
 		}
 
-		/// <summary></summary>
-		/// <param name="color"></param>
-		public RGBA( RGB color )
+		/// <summary>Initializes a new <see cref="RGBA"/> structure from an <see cref="RGB"/>.</summary>
+		/// <param name="rgb">An <see cref="RGB"/> color.</param>
+		public RGBA( RGB rgb )
 		{
-			R = color.R;
-			G = color.G;
-			B = color.B;
+			R = rgb.R;
+			G = rgb.G;
+			B = rgb.B;
 			A = 1.0f;
 		}
 
 
-        /// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector4"/>.</summary>
-        /// <param name="rgbaVector">A <see cref="Vector4"/> representing the color.</param>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgba")]
-        public RGBA( Vector4 rgbaVector )
+		/// <summary>Initializes a new <see cref="RGBA"/> structure from a <see cref="Vector4"/>.</summary>
+		/// <param name="rgba">A <see cref="Vector4"/> representing the color.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgba" )]
+		public RGBA( Vector4 rgba )
 		{
-			R = rgbaVector.X;
-			G = rgbaVector.Y;
-			B = rgbaVector.Z;
-			A = rgbaVector.W;
+			R = rgba.X;
+			G = rgba.Y;
+			B = rgba.Z;
+			A = rgba.W;
 		}
 
 
-        /// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector3"/>.</summary>
-        /// <param name="rgbVector">A <see cref="Vector3"/> representing the color.</param>
-        /// <param name="alpha">The opacity (alpha) of the color.</param>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb")]
-        public RGBA( Vector3 rgbVector, float alpha )
+		/// <summary>Initializes a new <see cref="RGBA"/> structure from a <see cref="Vector3"/>.</summary>
+		/// <param name="rgb">A <see cref="Vector3"/> representing the color.</param>
+		/// <param name="alpha">The opacity (alpha) of the color.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb" )]
+		public RGBA( Vector3 rgb, float alpha )
 		{
-			R = rgbVector.X;
-			G = rgbVector.Y;
-			B = rgbVector.Z;
+			R = rgb.X;
+			G = rgb.Y;
+			B = rgb.Z;
 			A = alpha;
 		}
 
-        /// <summary>Initializes a new <see cref="RGBA"/> structure with a <see cref="Vector3"/>.</summary>
-        /// <param name="rgbVector">A <see cref="Vector3"/> representing the color.</param>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb")]
-        public RGBA( Vector3 rgbVector )
+		/// <summary>Initializes a new <see cref="RGBA"/> structure from a <see cref="Vector3"/>.</summary>
+		/// <param name="rgb">A <see cref="Vector3"/> representing the color.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb" )]
+		public RGBA( Vector3 rgb )
 		{
-			R = rgbVector.X;
-			G = rgbVector.Y;
-			B = rgbVector.Z;
+			R = rgb.X;
+			G = rgb.Y;
+			B = rgb.Z;
 			A = 1.0f;
 		}
 
@@ -315,13 +315,13 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary></summary>
+		/// <summary>An <see cref="RGBA"/> structure whose components are set to 0.</summary>
 		public static readonly RGBA Transparent = new RGBA( 0.0f, 0.0f, 0.0f, 0.0f );
-		
-		/// <summary></summary>
+
+		/// <summary>An <see cref="RGBA"/> structure whose components are set to 0, except the opacity which is set to 1.</summary>
 		public static readonly RGBA Black = new RGBA( 0.0f, 0.0f, 0.0f, 1.0f );
-		
-		/// <summary></summary>
+
+		/// <summary>An <see cref="RGBA"/> structure whose components are set to 1.</summary>
 		public static readonly RGBA White = new RGBA( 1.0f, 1.0f, 1.0f, 1.0f );
 
 

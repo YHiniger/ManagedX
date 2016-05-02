@@ -1,7 +1,7 @@
 ﻿namespace ManagedX.Design
 {
 	
-	/// <summary>Defines properties to be implemented by 3D objects (ie: projectiles, audio emitters/listeners, etc).</summary>
+	/// <summary>Defines properties to be implemented by 3D objects (ie: projectiles, audio emitters/listeners, cameras, etc).</summary>
 	public interface I3DObject
 	{
 		
@@ -17,8 +17,10 @@
 		Vector3 Top { get; set; }
 
 
-		/// <summary>Gets or sets the object velocity, in user-defined world units per second.</summary>
-		Vector3 Velocity { get; set; }
+		/// <summary>Gets or sets the object velocity, in user-defined world units per second.
+		/// <para>Implementations should store the velocity as a direction vector and a speed.</para>
+		/// </summary>
+		Vector3 Velocity { get; set; } // = MoveDirection * Speed, so that we don't need to calculate the speed (=length of the vector)
 	
 	}
 

@@ -10,7 +10,7 @@
 	public enum AudioChannels : int
 	{
 
-		/// <summary>No channel specified.</summary>
+		/// <summary>No channels specified.</summary>
 		None = 0x00000000,
 		
 		/// <summary>The front left channel.</summary>

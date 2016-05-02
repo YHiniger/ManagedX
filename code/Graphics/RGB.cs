@@ -170,10 +170,10 @@ namespace ManagedX.Graphics
 
 
 
-		/// <summary></summary>
+		/// <summary>An <see cref="RGB"/> structure whose components are set to 0.</summary>
 		public static readonly RGB Black = new RGB( 0.0f, 0.0f, 0.0f );
-		
-		/// <summary></summary>
+
+		/// <summary>An <see cref="RGB"/> structure whose components are set to 1.</summary>
 		public static readonly RGB White = new RGB( 1.0f, 1.0f, 1.0f );
 
 
@@ -569,8 +569,8 @@ namespace ManagedX.Graphics
 			return source;
 		}
 
-
         #endregion Static methods
+
 
         #region Operators
 
@@ -803,27 +803,6 @@ namespace ManagedX.Graphics
 			result.B = vector.Z;
 			return result;
 		}
-
-
-		//public static explicit operator float[]( RGB color )
-		//{
-		//	return new float[] { color.R, color.G, color.B };
-		//}
-
-		//public static explicit operator RGB( float[] components )
-		//{
-		//	if( components == null )
-		//		throw new ArgumentNullException( "components" );
-			
-		//	if( components.Length < 3 )
-		//		throw new InvalidCastException( "Not enough components." );
-
-		//	RGB result;
-		//	result.R = components[ 0 ];
-		//	result.G = components[ 1 ];
-		//	result.B = components[ 2 ];
-		//	return result;
-		//}
 
 		#endregion Operators
 

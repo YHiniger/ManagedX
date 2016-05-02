@@ -21,14 +21,11 @@
 			while( i < 32 )
 			{
 				channelCount += ( c >> i ) & 1;
-				//if( ( ( c >> i ) & 1 ) == 1 )
-				//	++channelCount;
 				++i;
 			}
 
 			return (int)channelCount;
 		}
-
 
 		/// <summary>Returns the number of channels corresponding to a <see cref="SpeakerConfiguration"/>.</summary>
 		/// <param name="speakerConfiguration">A <see cref="SpeakerConfiguration"/> value.</param>
@@ -68,7 +65,6 @@
 
 			return -1;
 		}
-
 
 		/// <summary>Returns the index of an audio channel in a speaker configuration, or -1.</summary>
 		/// <param name="speakerConfiguration">A speaker configuration.</param>

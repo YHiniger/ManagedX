@@ -54,8 +54,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="BoundingBox"/> contains a point.</summary>
 		/// <param name="point">A <see cref="Vector3"/>.</param>
 		/// <param name="result">Receives a value indicating the extent of overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref Vector3 point, out ContainmentType result )
 		{
 			if( ( point.X > Min.X && point.X < Max.X ) && ( point.Y > Min.Y && point.Y < Max.Y ) && ( point.Z > Min.Z && point.Z < Max.Z ) )
@@ -84,8 +84,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="BoundingBox"/> contains another <see cref="BoundingBox"/>.</summary>
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives a value indicating the extent of overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref BoundingBox box, out ContainmentType result )
 		{
 			var boxMin = box.Min;
@@ -135,8 +135,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="BoundingBox"/> contains a <see cref="BoundingSphere"/>.</summary>
 		/// <param name="sphere">A <see cref="BoundingSphere"/>.</param>
 		/// <param name="result">Receives a value indicating the extent of overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref BoundingSphere sphere, out ContainmentType result )
 		{
 			var sphereCenter = sphere.Center;
@@ -193,8 +193,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="BoundingBox"/> contains a <see cref="BoundingFrustum"/>.</summary>
 		/// <param name="frustum">A <see cref="BoundingFrustum"/>.</param>
 		/// <param name="result">Receives a value indicating the extent of overlap.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Contains( ref BoundingFrustum frustum, out ContainmentType result )
 		{
 			var cornerArray = frustum.corners;
@@ -252,8 +252,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="BoundingBox"/> intersects another <see cref="BoundingBox"/>.</summary>
 		/// <param name="box">A <see cref="BoundingBox"/>.</param>
 		/// <param name="result">Receives true if this <see cref="BoundingBox"/> and the other <see cref="BoundingBox"/> intersect, false otherwise.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingBox box, out bool result )
 		{
 			//unsafe
@@ -291,8 +291,8 @@ namespace ManagedX
 		/// <summary>Determines whether this <see cref="BoundingBox"/> intersects a <see cref="BoundingSphere"/>.</summary>
 		/// <param name="sphere">A <see cref="BoundingSphere"/>.</param>
 		/// <param name="result">Receives true if this <see cref="BoundingBox"/> and the <see cref="BoundingSphere"/> intersect, false otherwise.</param>
-		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref BoundingSphere sphere, out bool result )
 		{
 			var sphereCenter = sphere.Center;
@@ -325,8 +325,8 @@ namespace ManagedX
 		///// <summary>Determines whether this <see cref="BoundingBox"/> intersects a <see cref="BoundingFrustum"/>.</summary>
 		///// <param name="frustum">A valid <see cref="BoundingFrustum"/>.</param>
 		///// <param name="result">Receives true if this <see cref="BoundingBox"/> and the <see cref="BoundingFrustum"/> intersect, false otherwise.</param>
-		//[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		//[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
+		//[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
+		//[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		//public void Intersects( ref BoundingFrustum frustum, out bool result )
 		//{
 		//	frustum.Intersects( ref this, out result );
@@ -343,6 +343,7 @@ namespace ManagedX
 		//}
 
 
+		// Required by BoundingFrustum/GJK
 		internal void SupportMapping( ref Vector3 vector, out Vector3 result )
 		{
 			result.X = ( vector.X >= 0.0f ) ? Max.X : Min.X;

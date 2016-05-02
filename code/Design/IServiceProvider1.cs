@@ -2,7 +2,7 @@
 {
 
 	/// <summary>Defines methods to retrieve service objects.</summary>
-	public interface IServiceProvider1
+	public interface IServiceProvider1 // : System.IServiceProvider
 	{
 
 		/// <summary>Returns a service given its type.</summary>

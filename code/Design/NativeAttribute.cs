@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX.Win32
 {
-	// FIXME - move to ManagedX.Design namespace !
+	// FIXME - move to ManagedX.Design namespace ?
 
 
 	/// <summary>An attribute to specify the definition location and native name of a managed type.
