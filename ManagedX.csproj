@@ -55,6 +55,8 @@
     <Compile Include="code\Audio\WaveFormatTag.cs" />
     <Compile Include="code\Design\IServiceProvider1.cs" />
     <Compile Include="code\Diagnostics\PerformanceCounter.cs" />
+    <Compile Include="code\Graphics\DisplayRotation.cs" />
+    <Compile Include="code\Graphics\ModeScaling.cs" />
     <Compile Include="code\Graphics\Point.cs" />
     <Compile Include="code\Graphics\Rational.cs" />
     <Compile Include="code\Graphics\Rect.cs" />
