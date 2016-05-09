@@ -73,6 +73,7 @@
     <Compile Include="code\Graphics\LUID.cs" />
     <Compile Include="code\Graphics\RGB.cs" />
     <Compile Include="code\Graphics\RGBA.cs" />
+    <Compile Include="code\Graphics\VideoSignalStandard.cs" />
     <Compile Include="code\Graphics\Viewport.cs" />
     <Compile Include="code\exceptions\NoSuitableGraphicsDeviceException.cs" />
     <Compile Include="code\Design\NativeAttribute.cs" />
