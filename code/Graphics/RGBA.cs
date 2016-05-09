@@ -79,6 +79,7 @@ namespace ManagedX.Graphics
 		/// <summary>Initializes a new <see cref="RGBA"/> structure from an <see cref="RGB"/> and an alpha value.</summary>
 		/// <param name="rgb">An <see cref="RGB"/> color.</param>
 		/// <param name="alpha">The alpha (opacity) value.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb" )]
 		public RGBA( RGB rgb, float alpha )
 		{
 			R = rgb.R;
@@ -89,6 +90,7 @@ namespace ManagedX.Graphics
 
 		/// <summary>Initializes a new <see cref="RGBA"/> structure from an <see cref="RGB"/>.</summary>
 		/// <param name="rgb">An <see cref="RGB"/> color.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb" )]
 		public RGBA( RGB rgb )
 		{
 			R = rgb.R;
