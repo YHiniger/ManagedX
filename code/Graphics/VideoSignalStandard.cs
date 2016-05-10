@@ -5,9 +5,10 @@ namespace ManagedX.Graphics
 {
 	using Win32;
 
+	// This enumeration is used by DisplayConfig
 
 	/// <summary>Enumerates constants which represent video signal standards.
-	/// <para>This enumeration reflects the native <code>D3DKMDT_VIDEO_SIGNAL_STANDARD</code> enumeration (defined in D3Dkmdt.h).</para>
+	/// <para>This enumeration is equivalent to the native <code>D3DKMDT_VIDEO_SIGNAL_STANDARD</code> enumeration (defined in D3Dkmdt.h).</para>
 	/// </summary>
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/hardware/ff546632%28v=vs.85%29.aspx</remarks>
 	[Native( "D3Dkmdt.h", "D3DKMDT_VIDEO_SIGNAL_STANDARD" )]

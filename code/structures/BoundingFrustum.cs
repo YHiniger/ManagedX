@@ -6,7 +6,10 @@ using System.Globalization;
 namespace ManagedX
 {
 
-	/// <summary>Defines a frustum and helps determine whether forms intersect with it.</summary>
+	/// <summary>Defines a frustum and helps determine whether forms intersect with it.
+	/// <para>This structure is equivalent to the native <code>BoundingFrustum</code> structure (defined in DirectXCollision.h).</para>
+	/// </summary>
+	[Win32.Native( "DirectXCollision.h" )]
 	[Serializable]
 	public struct BoundingFrustum : IEquatable<BoundingFrustum>
 	{

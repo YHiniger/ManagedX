@@ -6,7 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 namespace ManagedX
 {
 
-	/// <summary>A bounding sphere.</summary>
+	/// <summary>A bounding sphere.
+	/// <para>This structure is equivalent to the native <code>BoundingSphere</code> structure (defined in DirectXCollision.h).</para>
+	/// </summary>
+	[Win32.Native( "DirectXCollision.h" )]
 	[Serializable]
 	public struct BoundingSphere : IEquatable<BoundingSphere>
 	{

@@ -63,11 +63,11 @@
     <Compile Include="code\Graphics\ScanLineOrdering.cs" />
     <Compile Include="code\Graphics\Size.cs" />
     <Compile Include="code\enumerations\ContainmentType.cs" />
-    <Compile Include="code\enumerations\ErrorCode.cs" />
+    <Compile Include="code\Win32\ErrorCode.cs" />
     <Compile Include="code\enumerations\PlaneIndex.cs" />
     <Compile Include="code\enumerations\PlaneIntersectionType.cs" />
     <Compile Include="code\Design\I3DObject.cs" />
-    <Compile Include="code\enumerations\StatusCode.cs" />
+    <Compile Include="code\Win32\StatusCode.cs" />
     <Compile Include="code\exceptions\MissingRequirementException.cs" />
     <Compile Include="code\exceptions\NoAudioHardwareException.cs" />
     <Compile Include="code\GJK.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="code\Graphics\VideoSignalStandard.cs" />
     <Compile Include="code\Graphics\Viewport.cs" />
     <Compile Include="code\exceptions\NoSuitableGraphicsDeviceException.cs" />
-    <Compile Include="code\Design\NativeAttribute.cs" />
+    <Compile Include="code\Win32\NativeAttribute.cs" />
     <Compile Include="code\ServiceContainer.cs" />
     <Compile Include="code\structures\BoundingBox.cs" />
     <Compile Include="code\structures\BoundingFrustum.cs" />

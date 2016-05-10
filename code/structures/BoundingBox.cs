@@ -5,8 +5,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ManagedX
 {
-	
-	/// <summary>A bounding box.</summary>
+
+	/// <summary>A bounding box.
+	/// <para>This structure is equivalent to the native <code>BoundingBox</code> structure (defined in DirectXCollision.h).</para>
+	/// </summary>
+	[Win32.Native( "DirectXCollision.h" )]
 	[Serializable]
 	public struct BoundingBox : IEquatable<BoundingBox>
 	{
