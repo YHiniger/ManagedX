@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Diagnostics.CodeAnalysis;
 
 
 namespace ManagedX.Graphics
 {
 
 	/// <summary>A locally unique identifier (LUID).</summary>
+	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/aa379261%28v=vs.85%29.aspx</remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Luid" )]
 	[System.Diagnostics.DebuggerStepThrough]
 	[Win32.Native( "WinNT.h", "LUID" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
-	public struct Luid : IEquatable<Luid>, IComparable<Luid>
+	public struct Luid : IEquatable<Luid>
 	{
 
 		private uint lowPart;
@@ -54,21 +55,6 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Returns a value indicating whether this <see cref="Luid"/> is equal(0), smaller(-1) or greater(+1) than another <see cref="Luid"/>.</summary>
-		/// <param name="other">A <see cref="Luid"/>.</param>
-		/// <returns>Returns -1 if this <see cref="Luid"/> is smaller than the <paramref name="other"/> <see cref="Luid"/>, +1 if it's greater or 0 if they're equal.</returns>
-		public int CompareTo( Luid other )
-		{
-			if( highPart < other.highPart )
-				return -1;
-
-			if( highPart > other.highPart )
-				return +1;
-
-			return lowPart.CompareTo( other.lowPart );
-		}
-
-
 		/// <summary>Returns a string representing this <see cref="Luid"/> in a hexadecimal form.</summary>
 		/// <returns>Returns a string representing this <see cref="Luid"/> in a hexadecimal form.</returns>
 		public override string ToString()
@@ -83,79 +69,32 @@ namespace ManagedX.Graphics
 
 		#region Operators
 
-		/// <summary>Implicit conversion operator.</summary>
-		/// <param name="luid">A <see cref="Luid"/>.</param>
-		/// <returns>Returns a <see cref="long"/> representing the <paramref name="luid"/>.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "luid" )]
-		public static implicit operator long( Luid luid )
+		/// <summary><see cref="Luid"/> to <see cref="long"/> conversion operator.</summary>
+		/// <param name="identifier">An <see cref="Luid"/>.</param>
+		/// <returns>Returns a <see cref="long"/> representing the <paramref name="identifier"/>.</returns>
+		public static implicit operator long( Luid identifier )
 		{
-			return luid.ToInt64();
+			return identifier.ToInt64();
 		}
 
 
 		/// <summary>Equality comparer.</summary>
-		/// <param name="luid">A <see cref="Luid"/>.</param>
+		/// <param name="identifier">A <see cref="Luid"/>.</param>
 		/// <param name="other">A <see cref="Luid"/>.</param>
 		/// <returns>Returns true if the <see cref="Luid"/> values are equal, otherwise returns false.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "luid" )]
-		public static bool operator ==( Luid luid, Luid other )
+		public static bool operator ==( Luid identifier, Luid other )
 		{
-			return luid.Equals( other );
+			return identifier.Equals( other );
 		}
 
 
 		/// <summary>Inequality comparer.</summary>
-		/// <param name="luid">A <see cref="Luid"/>.</param>
+		/// <param name="identifier">A <see cref="Luid"/>.</param>
 		/// <param name="other">A <see cref="Luid"/>.</param>
 		/// <returns>Returns true if the <see cref="Luid"/> values are not equal, otherwise returns false.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "luid" )]
-		public static bool operator !=( Luid luid, Luid other )
+		public static bool operator !=( Luid identifier, Luid other )
 		{
-			return !luid.Equals( other );
-		}
-
-
-		/// <summary>Inferiority comparer.</summary>
-		/// <param name="luid">A <see cref="Luid"/>.</param>
-		/// <param name="other">A <see cref="Luid"/>.</param>
-		/// <returns>Returns true if the <paramref name="luid"/> is lower than the <paramref name="other"/> <see cref="Luid"/>, otherwise returns false.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "luid" )]
-		public static bool operator <( Luid luid, Luid other )
-		{
-			return luid.CompareTo( other ) < 0;
-		}
-
-
-		/// <summary>Inferiority or equality comparer.</summary>
-		/// <param name="luid">A <see cref="Luid"/>.</param>
-		/// <param name="other">A <see cref="Luid"/>.</param>
-		/// <returns>Returns true if the <paramref name="luid"/> is lower than or equal to the <paramref name="other"/> <see cref="Luid"/>, otherwise returns false.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "luid" )]
-		public static bool operator <=( Luid luid, Luid other )
-		{
-			return luid.CompareTo( other ) <= 0;
-		}
-
-
-		/// <summary>Superiority comparer.</summary>
-		/// <param name="luid">A <see cref="Luid"/>.</param>
-		/// <param name="other">A <see cref="Luid"/>.</param>
-		/// <returns>Returns true if the <paramref name="luid"/> is greater than the <paramref name="other"/> <see cref="Luid"/>, otherwise returns false.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "luid" )]
-		public static bool operator >( Luid luid, Luid other )
-		{
-			return luid.CompareTo( other ) > 0;
-		}
-
-
-		/// <summary>Superiority or equality comparer.</summary>
-		/// <param name="luid">A <see cref="Luid"/>.</param>
-		/// <param name="other">A <see cref="Luid"/>.</param>
-		/// <returns>Returns true if the <paramref name="luid"/> is greater than or equal to the <paramref name="other"/> <see cref="Luid"/>, otherwise returns false.</returns>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "luid" )]
-		public static bool operator >=( Luid luid, Luid other )
-		{
-			return luid.CompareTo( other ) >= 0;
+			return !identifier.Equals( other );
 		}
 
 		#endregion Operators
