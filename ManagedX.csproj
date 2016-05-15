@@ -55,6 +55,7 @@
     <Compile Include="code\Audio\WaveFormatTag.cs" />
     <None Include="code\Design\IEquatableStruct.cs" />
     <Compile Include="code\Design\IServiceProvider1.cs" />
+    <Compile Include="code\enumerations\ComparisonOperator.cs" />
     <Compile Include="code\Graphics\DisplayRotation.cs" />
     <Compile Include="code\Graphics\ModeScaling.cs" />
     <Compile Include="code\Graphics\Point.cs" />
