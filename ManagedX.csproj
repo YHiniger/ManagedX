@@ -53,11 +53,13 @@
     <Compile Include="code\Audio\WaveFormatEx.cs" />
     <Compile Include="code\Audio\WaveFormatExtensible.cs" />
     <Compile Include="code\Audio\WaveFormatTag.cs" />
+    <None Include="code\Design\IEquatableStruct.cs" />
     <Compile Include="code\Design\IServiceProvider1.cs" />
     <Compile Include="code\Graphics\DisplayRotation.cs" />
     <Compile Include="code\Graphics\ModeScaling.cs" />
     <Compile Include="code\Graphics\Point.cs" />
     <Compile Include="code\Graphics\Rational.cs" />
+    <Compile Include="code\Graphics\Box.cs" />
     <Compile Include="code\Graphics\Rect.cs" />
     <Compile Include="code\Graphics\ScanLineOrdering.cs" />
     <Compile Include="code\Graphics\Size.cs" />

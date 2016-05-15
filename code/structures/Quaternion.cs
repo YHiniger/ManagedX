@@ -948,14 +948,14 @@ namespace ManagedX
 				( W == other.W );
 		}
 
-		internal bool Equals( ref Quaternion other )
-		{
-			return
-				( X == other.X ) &&
-				( Y == other.Y ) &&
-				( Z == other.Z ) &&
-				( W == other.W );
-		}
+		//internal bool Equals( ref Quaternion other )
+		//{
+		//	return
+		//		( X == other.X ) &&
+		//		( Y == other.Y ) &&
+		//		( Z == other.Z ) &&
+		//		( W == other.W );
+		//}
 
 
 		/// <summary>Returns a value indicating whether this <see cref="Quaternion"/> is equivalent to an object.</summary>

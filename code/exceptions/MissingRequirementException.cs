@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 
 
@@ -6,6 +7,7 @@ namespace ManagedX
 {
 
 	/// <summary>An <see cref="Exception"/> to be thrown when a requirement is missing (ie: no audio device, no suitable graphics device, no internet connection, etc).</summary>
+	[DebuggerStepThrough]
 	[Serializable]
 	public class MissingRequirementException : Exception
 	{
