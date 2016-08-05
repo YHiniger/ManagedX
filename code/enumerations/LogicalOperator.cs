@@ -4,7 +4,6 @@
 namespace ManagedX
 {
 
-	/// <summary>Enumerates logical operators.</summary>
 	[Flags]
 	internal enum LogicalOperators : int
 	{
@@ -12,26 +11,27 @@ namespace ManagedX
 		/// <summary>No operator specified.</summary>
 		None = 0x00000000,
 
-		/// <summary>NOT operator.</summary>
+		/// <summary>NOT operator; can be set with <see cref="And"/>, <see cref="Or"/>, or <see cref="Xor"/>.</summary>
 		Not = 0x00000001,
 		
-		/// <summary>AND operator; can't be set with <see cref="Or"/> or <see cref="Xor"/>.</summary>
+		/// <summary>AND operator; can be set with <see cref="Not"/>.</summary>
 		And = 0x00000002,
-		
-		/// <summary>OR operator; can't be set with <see cref="And"/> or <see cref="Xor"/>.</summary>
+
+		/// <summary>OR operator; can be set with <see cref="Not"/>.</summary>
 		Or = 0x00000004,
 
-		/// <summary>Exclusive OR operator; can't be set with <see cref="And"/> or <see cref="Or"/>.</summary>
+		/// <summary>Exclusive OR operator; can be set with <see cref="Not"/>.</summary>
 		Xor = 0x00000008
 		
 	}
 
 
 	/// <summary>Enumerates logical operators.</summary>
+	[Serializable]
 	public enum LogicalOperator : int
 	{
 
-		/// <summary>Undefined operator.</summary>
+		/// <summary>Undefined operator (pass-through).</summary>
 		None = LogicalOperators.None,
 
 		/// <summary>NOT operator.</summary>
