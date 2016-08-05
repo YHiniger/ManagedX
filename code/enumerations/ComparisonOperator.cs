@@ -1,9 +1,12 @@
-﻿namespace ManagedX
+﻿using System;
+
+
+namespace ManagedX
 {
 
 	/// <summary>Enumerates indicators used in comparison operators.</summary>
 	/// <seealso cref="ComparisonOperator"/>
-	[System.Flags]
+	[Flags]
 	public enum ComparisonOperators : int
 	{
 
@@ -24,6 +27,7 @@
 
 	/// <summary>Enumerates comparison operators.</summary>
 	/// <seealso cref="ComparisonOperators"/>
+	[Serializable]
 	public enum ComparisonOperator : int
 	{
 
