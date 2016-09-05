@@ -27,6 +27,7 @@ namespace ManagedX
 
 
 	/// <summary>Enumerates logical operators.</summary>
+	[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Design", "CA1027:MarkEnumsWithFlags" )]
 	[Serializable]
 	public enum LogicalOperator : int
 	{
@@ -44,15 +45,17 @@ namespace ManagedX
 		Or = LogicalOperators.Or,
 
 		/// <summary>Exclusive OR operator.</summary>
-		XOr = LogicalOperators.Xor,
+		Xor = LogicalOperators.Xor,
 
 		/// <summary>NOT AND operator.</summary>
-		NAnd = LogicalOperators.Not | LogicalOperators.And,
+		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Nand" )]
+		Nand = LogicalOperators.Not | LogicalOperators.And,
 		
 		/// <summary>NOT OR operator.</summary>
-		NOr = LogicalOperators.Not | LogicalOperators.Or,
-		
+		Nor = LogicalOperators.Not | LogicalOperators.Or,
+
 		/// <summary>Exclusive NOR (NOT XOR) operator.</summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Equiv" )]
 		Equiv = LogicalOperators.Not | LogicalOperators.Xor
 		
 	}

@@ -27,6 +27,7 @@
 			return (int)channelCount;
 		}
 
+
 		/// <summary>Returns the number of channels corresponding to a <see cref="SpeakerConfiguration"/>.</summary>
 		/// <param name="speakerConfiguration">A <see cref="SpeakerConfiguration"/> value.</param>
 		/// <returns>Returns the number of channels set.</returns>
@@ -34,6 +35,7 @@
 		{
 			return GetChannelCount( (AudioChannels)speakerConfiguration );
 		}
+
 
 
 		/// <summary>Returns the index of a channel in a combination of audio channels, or -1.</summary>
@@ -66,6 +68,7 @@
 			return -1;
 		}
 
+
 		/// <summary>Returns the index of an audio channel in a speaker configuration, or -1.</summary>
 		/// <param name="speakerConfiguration">A speaker configuration.</param>
 		/// <param name="channel">An audio channel.</param>
@@ -74,6 +77,7 @@
 		{
 			return GetChannelIndex( (AudioChannels)speakerConfiguration, channel );
 		}
+
 
 
 		/// <summary>Converts a <see cref="SpeakerConfiguration"/> to an <see cref="AudioChannels"/> value.</summary>

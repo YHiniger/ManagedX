@@ -16,8 +16,8 @@ namespace ManagedX.Win32
 	public sealed class NativeAttribute : Attribute
 	{
 
-		private string fileName;
-		private string typeName;
+		private readonly string fileName;
+		private readonly string typeName;
 
 
 

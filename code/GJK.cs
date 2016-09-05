@@ -112,7 +112,9 @@ namespace ManagedX
 
 		private static float Dot( ref Vector3 a, ref Vector3 b )
 		{
-			return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+			float result;
+			Vector3.Dot( ref a, ref b, out result );
+			return result;
 		}
 		
 		private void UpdateDeterminant( int xmIdx )
