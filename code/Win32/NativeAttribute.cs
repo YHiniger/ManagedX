@@ -7,9 +7,7 @@ namespace ManagedX.Win32
 	// FIXME - move to ManagedX.Design namespace ?
 
 
-	/// <summary>An attribute to specify the definition location and native name of a managed type.
-	/// <para>In a future implementation of ManagedX, this attribute should help tracking native API changes.</para>
-	/// </summary>
+	/// <summary>An attribute to specify the definition location and native name of a managed implementation of an unmanaged type.</summary>
 	[Serializable]
 	[ComVisible( false )]
 	[AttributeUsage( AttributeTargets.Class | AttributeTargets.Delegate | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Struct | AttributeTargets.Field, Inherited = false, AllowMultiple = true )]

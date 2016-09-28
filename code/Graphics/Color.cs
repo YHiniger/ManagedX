@@ -9,7 +9,7 @@ namespace ManagedX.Graphics
 	/// <summary>An RGBA color (8 bits per component).</summary>
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 4 )]
-	public unsafe struct Color : IEquatable<Color>
+	unsafe public struct Color : IEquatable<Color>
 	{
 
 		private uint rgba;
@@ -25,7 +25,7 @@ namespace ManagedX.Graphics
 		/// <param name="opacity">The opacity (alpha component) of the color.</param>
 		public Color( byte red, byte green, byte blue, byte opacity )
 		{
-			fixed( void* ptr = &rgba )
+			fixed( uint* ptr = &rgba )
 			{
 				var b = (byte*)ptr;
 				b[ 0 ] = red;
@@ -55,13 +55,13 @@ namespace ManagedX.Graphics
 		{
 			get
 			{
-				fixed( void* ptr = &rgba )
-					return *(byte*)ptr;
+				fixed( uint* ptr = &rgba )
+					return ( (byte*)ptr )[ 0 ];
 			}
 			set
 			{
-				fixed( void* ptr = &rgba )
-					*(byte*)ptr = value;
+				fixed( uint* ptr = &rgba )
+					( (byte*)ptr )[ 0 ] = value;
 			}
 		}
 
@@ -72,13 +72,13 @@ namespace ManagedX.Graphics
 		{
 			get
 			{
-				fixed( void* ptr = &rgba )
-					return *( (byte*)ptr + 1 );
+				fixed( uint* ptr = &rgba )
+					return ( (byte*)ptr )[ 1 ];
 			}
 			set
 			{
-				fixed( void* ptr = &rgba )
-					*( (byte*)ptr + 1 ) = value;
+				fixed( uint* ptr = &rgba )
+					( (byte*)ptr )[ 1 ] = value;
 			}
 		}
 
@@ -89,13 +89,13 @@ namespace ManagedX.Graphics
 		{
 			get
 			{
-				fixed( void* ptr = &rgba )
-					return *( (byte*)ptr + 2 );
+				fixed( uint* ptr = &rgba )
+					return ( (byte*)ptr )[ 2 ];
 			}
 			set
 			{
-				fixed( void* ptr = &rgba )
-					*( (byte*)ptr + 2 ) = value;
+				fixed( uint* ptr = &rgba )
+					( (byte*)ptr )[ 2 ] = value;
 			}
 		}
 
@@ -106,13 +106,13 @@ namespace ManagedX.Graphics
 		{
 			get
 			{
-				fixed( void* ptr = &rgba )
-					return *( (byte*)ptr + 3 );
+				fixed( uint* ptr = &rgba )
+					return ( (byte*)ptr )[ 3 ];
 			}
 			set
 			{
-				fixed( void* ptr = &rgba )
-					*( (byte*)ptr + 3 ) = value;
+				fixed( uint* ptr = &rgba )
+					( (byte*)ptr )[ 3 ] = value;
 			}
 		}
 
@@ -123,9 +123,14 @@ namespace ManagedX.Graphics
 		public Vector3 ToVector3( bool preMultiply )
 		{
 			Vector3 result;
-			result.X = (float)this.R / 255.0f;
-			result.Y = (float)this.G / 255.0f;
-			result.Z = (float)this.B / 255.0f;
+			fixed ( uint* ptr = &rgba )
+			{
+				var ptr2 = (byte*)ptr;
+
+				result.X = (float)ptr2[ 0 ] / 255.0f;
+				result.Y = (float)ptr2[ 1 ] / 255.0f;
+				result.Z = (float)ptr2[ 2 ] / 255.0f;
+			}
 
 			if( preMultiply )
 			{
@@ -145,10 +150,15 @@ namespace ManagedX.Graphics
 		public Vector4 ToVector4( bool preMultiply )
 		{
 			Vector4 result;
-			result.X = (float)this.R / 255.0f;
-			result.Y = (float)this.G / 255.0f;
-			result.Z = (float)this.B / 255.0f;
-			result.W = (float)this.A / 255.0f;
+			fixed ( uint* ptr = &rgba )
+			{
+				var ptr2 = (byte*)ptr;
+
+				result.X = (float)ptr2[ 0 ] / 255.0f;
+				result.Y = (float)ptr2[ 1 ] / 255.0f;
+				result.Z = (float)ptr2[ 2 ] / 255.0f;
+				result.W = (float)ptr2[ 3 ] / 255.0f;
+			}
 
 			if( preMultiply )
 			{
@@ -165,7 +175,11 @@ namespace ManagedX.Graphics
 		/// <returns>Returns an array filled with the <see cref="R"/>, <see cref="G"/>, <see cref="B"/> and <see cref="A"/> components of this <see cref="Color"/>.</returns>
 		public byte[] ToArray()
 		{
-			return new byte[] { this.R, this.G, this.B, this.A };
+			fixed ( uint* ptr = &rgba )
+			{
+				var ptr2 = (byte*)ptr;
+				return new byte[] { ptr2[ 0 ], ptr2[ 1 ], ptr2[ 2 ], ptr2[ 3 ] };
+			}
 		}
 
 
@@ -209,7 +223,7 @@ namespace ManagedX.Graphics
 		/// <param name="result">Receives a <see cref="Color"/> structure initialized with the minimum value of each component between the two specified <see cref="Color"/> structures.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
-		public static void Min( ref Color color, ref Color other, ref Color result )
+		public static void Min( ref Color color, ref Color other, out Color result )
 		{
 			result = new Color( Math.Min( color.R, other.R ), Math.Min( color.G, other.G ), Math.Min( color.B, other.B ), Math.Min( color.A, other.A ) );
 		}
@@ -234,7 +248,7 @@ namespace ManagedX.Graphics
 		/// <param name="result">Receives a <see cref="Color"/> structure initialized with the maximum value of each component between the two specified <see cref="Color"/> structures.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
-		public static void Max( ref Color color, ref Color other, ref Color result )
+		public static void Max( ref Color color, ref Color other, out Color result )
 		{
 			result = new Color( Math.Max( color.R, other.R ), Math.Max( color.G, other.G ), Math.Max( color.B, other.B ), Math.Max( color.A, other.A ) );
 		}
