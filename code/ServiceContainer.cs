@@ -9,7 +9,7 @@ namespace ManagedX
 	public class ServiceContainer : IServiceProvider, Design.IServiceProvider1
 	{
 
-		private Dictionary<Type, object> services;
+		private readonly Dictionary<Type, object> services;
 
 
 

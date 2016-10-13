@@ -25,8 +25,8 @@ namespace ManagedX.Win32
 		public NativeAttribute( string definitionFileName, string nativeName )
 			: base()
 		{
-			this.fileName = definitionFileName ?? string.Empty;
-			this.typeName = nativeName ?? string.Empty;
+			this.fileName = ( definitionFileName ?? string.Empty ).Trim();
+			this.typeName = ( nativeName ?? string.Empty ).Trim();
 		}
 
 

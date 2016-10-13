@@ -46,6 +46,7 @@
     <AssemblyOriginatorKeyFile>ManagedX.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="code\ArrayExtensions.cs" />
     <Compile Include="code\Audio\AudioChannels.cs" />
     <Compile Include="code\Audio\AudioChannelsExtensions.cs" />
     <Compile Include="code\Audio\SpeakerConfiguration.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="code\structures\Vector3.cs" />
     <Compile Include="code\structures\Vector2.cs" />
     <Compile Include="code\XMath.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="README.md" />
   </ItemGroup>
