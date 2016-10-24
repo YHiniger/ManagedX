@@ -9,14 +9,14 @@ namespace ManagedX
 	public class ServiceContainer : IServiceProvider, Design.IServiceProvider1
 	{
 
-		private readonly Dictionary<Type, object> services;
+		private readonly Dictionary<Guid, object> services;
 
 
 
 		/// <summary>Initializes a new <see cref="ServiceContainer"/>.</summary>
 		public ServiceContainer()
 		{
-			services = new Dictionary<Type, object>();
+			services = new Dictionary<Guid, object>();
 		}
 
 
@@ -35,15 +35,10 @@ namespace ManagedX
 			if( service == null )
 				throw new ArgumentNullException( "service" );
 
-
-			//var svcType = service.GetType();
-			//if( !svcType.InheritsFrom( serviceType ) && !svcType.Implements( serviceType ) )
-			//	throw new ArgumentException( "Service type mismatch." );
-
 			if( service == this )
 				throw new ArgumentException( "Invalid service.", "service" );
 
-			services.Add( serviceType, service );
+			services.Add( serviceType.GUID, service );
 		}
 
 
@@ -60,10 +55,10 @@ namespace ManagedX
 
 			var serviceType = typeof( TService );
 			object svc = null;
-			if( services.TryGetValue( serviceType, out svc ) )
+			if( services.TryGetValue( serviceType.GUID, out svc ) )
 				throw new InvalidOperationException();
 
-			services.Add( serviceType, service );
+			services.Add( serviceType.GUID, service );
 		}
 
 
@@ -77,7 +72,7 @@ namespace ManagedX
 				throw new ArgumentNullException( "serviceType" );
 
 			object output = null;
-			if( !services.TryGetValue( serviceType, out output ) )
+			if( !services.TryGetValue( serviceType.GUID, out output ) )
 				output = null;
 			return output;
 		}
@@ -101,7 +96,7 @@ namespace ManagedX
 			if( serviceType == null )
 				throw new ArgumentNullException( "serviceType" );
 
-			return services.Remove( serviceType );
+			return services.Remove( serviceType.GUID );
 		}
 
 
