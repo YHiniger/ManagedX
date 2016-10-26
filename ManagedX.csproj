@@ -68,6 +68,8 @@
     <Compile Include="code\Graphics\Size.cs" />
     <Compile Include="code\enumerations\ContainmentType.cs" />
     <Compile Include="code\MemoryHelper.cs" />
+    <Compile Include="code\ReadOnlySafeCollection_T.cs" />
+    <Compile Include="code\SafeCollection_T.cs" />
     <Compile Include="code\Win32\ErrorCode.cs" />
     <Compile Include="code\enumerations\PlaneIndex.cs" />
     <Compile Include="code\enumerations\PlaneIntersectionType.cs" />
