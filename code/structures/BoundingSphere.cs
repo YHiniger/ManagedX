@@ -673,6 +673,9 @@ namespace ManagedX
 		}
 
 
+		/// <summary></summary>
+		public static readonly BoundingSphere Empty;
+
 
 		#region Operators
 
