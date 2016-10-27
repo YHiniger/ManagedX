@@ -20,6 +20,26 @@ namespace ManagedX
 		}
 
 
+		/// <summary>Initializes a new <see cref="SafeCollection{T}"/> from a list.</summary>
+		/// <param name="list">The list to copy to this collection; must not be null.
+		/// <para>Null references are ignored, as well as duplicates.</para>
+		/// </param>
+		/// <exception cref="ArgumentNullException"/>
+		public SafeCollection( System.Collections.Generic.IList<T> list )
+			: base()
+		{
+			if( list == null )
+				throw new ArgumentNullException( "list" );
+
+			for( var e = 0; e < list.Count; ++e )
+			{
+				var element = list[ e ];
+				if( element != null && !base.Contains( element ) )
+					base.Add( element );
+			}
+		}
+
+
 
 		/// <summary>Inserts an element in the collection at the specified index.</summary>
 		/// <param name="index">The zero-based index at which the specified <paramref name="item"/> should be inserted.</param>
