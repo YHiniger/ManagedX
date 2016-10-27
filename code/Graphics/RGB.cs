@@ -2,6 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
+//#pragma warning disable 1051
+//#pragma warning disable 1704
+
 
 namespace ManagedX.Graphics
 {
@@ -48,10 +51,10 @@ namespace ManagedX.Graphics
 		}
 
 
-        /// <summary>Initializes a new <see cref="RGB"/> structure from a <see cref="Vector3"/>.</summary>
-        /// <param name="rgb">A <see cref="Vector3"/> representing the RGB color.</param>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb")]
-        public RGB( Vector3 rgb )
+		/// <summary>Initializes a new <see cref="RGB"/> structure from a <see cref="Vector3"/>.</summary>
+		/// <param name="rgb">A <see cref="Vector3"/> representing the RGB color.</param>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb" )]
+		public RGB( Vector3 rgb )
 		{
 			R = rgb.X;
 			G = rgb.Y;
@@ -129,18 +132,18 @@ namespace ManagedX.Graphics
 			return ( obj is RGB ) && this.Equals( (RGB)obj );
 		}
 
-		
+
 		/// <summary>Returns a <see cref="Color"/> corresponding to this <see cref="RGB"/> color.</summary>
 		/// <returns>Returns a <see cref="Color"/> corresponding to this <see cref="RGB"/> color.</returns>
 		public Color ToColor()
 		{
 			var clamped = this;
 			clamped.Saturate();
-			
+
 			return new Color( (byte)( clamped.R * 255.0f ), (byte)( clamped.G * 255.0f ), (byte)( clamped.B * 255.0f ), 255 );
 		}
 
-	
+
 		/// <summary>Returns a <see cref="Vector3"/> corresponding to this <see cref="RGB"/> color.</summary>
 		/// <returns>Returns a <see cref="Vector3"/> corresponding to this <see cref="RGB"/> color.</returns>
 		public Vector3 ToVector3()
@@ -569,33 +572,33 @@ namespace ManagedX.Graphics
 			return source;
 		}
 
-        #endregion Static methods
+		#endregion Static methods
 
 
-        #region Operators
+		#region Operators
 
-        /// <summary>Equality comparer.</summary>
-        /// <param name="rgb">An <see cref="RGB"/> structure.</param>
-        /// <param name="other">An <see cref="RGB"/> structure.</param>
-        /// <returns>Returns true if the <see cref="RGB"/> structures are equal, otherwise returns false.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb")]
-        public static bool operator ==( RGB rgb, RGB other )
+		/// <summary>Equality comparer.</summary>
+		/// <param name="rgb">An <see cref="RGB"/> structure.</param>
+		/// <param name="other">An <see cref="RGB"/> structure.</param>
+		/// <returns>Returns true if the <see cref="RGB"/> structures are equal, otherwise returns false.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb" )]
+		public static bool operator ==( RGB rgb, RGB other )
 		{
 			return rgb.Equals( other );
 		}
 
 
-        /// <summary>Inequality comparer.</summary>
-        /// <param name="rgb">An <see cref="RGB"/> structure.</param>
-        /// <param name="other">An <see cref="RGB"/> structure.</param>
-        /// <returns>Returns true if the <see cref="RGB"/> structures are not equal, otherwise returns false.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb")]
-        public static bool operator !=( RGB rgb, RGB other )
+		/// <summary>Inequality comparer.</summary>
+		/// <param name="rgb">An <see cref="RGB"/> structure.</param>
+		/// <param name="other">An <see cref="RGB"/> structure.</param>
+		/// <returns>Returns true if the <see cref="RGB"/> structures are not equal, otherwise returns false.</returns>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgb" )]
+		public static bool operator !=( RGB rgb, RGB other )
 		{
 			return !rgb.Equals( other );
 		}
 
-		
+
 
 		/// <summary>Unary negation operator.</summary>
 		/// <param name="color">An <see cref="RGB"/> color.</param>
