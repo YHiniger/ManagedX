@@ -514,6 +514,42 @@ namespace ManagedX
 			return value;
 		}
 
+
+
+		/// <summary>Returns a char representing the symbol of a <see cref="ComparisonOperator"/>.</summary>
+		/// <param name="self">A <see cref="ComparisonOperator"/>.</param>
+		/// <returns>Returns a char which represents the symbol of a <see cref="ComparisonOperator"/>.</returns>
+		/// <exception cref="NotSupportedException"/>
+		public static char ToChar( this ComparisonOperator self )
+		{
+			switch( self )
+			{
+				case ComparisonOperator.Undefined:
+					return '\0';
+
+				case ComparisonOperator.Equality:
+					return '=';
+
+				case ComparisonOperator.Inferiority:
+					return '<';
+
+				case ComparisonOperator.InferiorityOrEquality:
+					return '≤';
+
+				case ComparisonOperator.Superiority:
+					return '>';
+
+				case ComparisonOperator.SuperiorityOrEquality:
+					return '≥';
+
+				case ComparisonOperator.Inequality:
+					return '≠';
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+
 		#endregion Extension methods
 
 	}

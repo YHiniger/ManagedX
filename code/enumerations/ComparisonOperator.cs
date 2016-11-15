@@ -6,6 +6,7 @@ namespace ManagedX
 
 	/// <summary>Enumerates indicators used in comparison operators.</summary>
 	/// <seealso cref="ComparisonOperator"/>
+	[Serializable]
 	[Flags]
 	public enum ComparisonOperators : int
 	{
