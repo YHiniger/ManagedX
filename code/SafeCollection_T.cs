@@ -45,7 +45,7 @@ namespace ManagedX
 		/// <param name="index">The zero-based index at which the specified <paramref name="item"/> should be inserted.</param>
 		/// <param name="item">The object to insert; must not be null.</param>
 		/// <exception cref="ArgumentNullException"/>
-		protected sealed override void InsertItem( int index, T item )
+		protected override void InsertItem( int index, T item )
 		{
 			if( item == null )
 				throw new ArgumentNullException( "item" );
@@ -59,7 +59,7 @@ namespace ManagedX
 		/// <param name="index">The zero-based index of the element to replace.</param>
 		/// <param name="item">The new element; must not be null.</param>
 		/// <exception cref="ArgumentNullException"/>
-		protected sealed override void SetItem( int index, T item )
+		protected override void SetItem( int index, T item )
 		{
 			if( item == null )
 				throw new ArgumentNullException( "item" );
