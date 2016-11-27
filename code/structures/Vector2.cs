@@ -13,6 +13,7 @@ namespace ManagedX
 	/// </summary>
 	[Native( "D2DBaseTypes.h", "D2D_VECTOR_2F" )]
 	[Native( "D2DBaseTypes.h", "D2D_POINT_2F" )]
+	[Native( "MFAPI.h", "MF_FLOAT2" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Vector2 : IEquatable<Vector2>

@@ -5,8 +5,11 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX
 {
+	using Win32;
+
 
 	/// <summary>A quaternion, used for vector rotation.</summary>
+	[Native( "MFAPI.h", "MF_QUATERNION" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct Quaternion : IEquatable<Quaternion>

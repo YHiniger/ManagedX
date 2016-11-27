@@ -5,8 +5,11 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX
 {
-	
+	using Win32;
+
+
 	/// <summary>A 3D vector.</summary>
+	[Native( "MFAPI.h", "MF_FLOAT3" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 12 )]
 	public struct Vector3 : IEquatable<Vector3>
