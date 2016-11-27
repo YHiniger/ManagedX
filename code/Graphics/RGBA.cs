@@ -15,12 +15,14 @@ namespace ManagedX.Graphics
 	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dd368193%28v=vs.85%29.aspx
 	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dd368175%28v=vs.85%29.aspx
 	/// https://msdn.microsoft.com/en-us/library/windows/desktop/hh404524%28v=vs.85%29.aspx
+	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dd318405(v=vs.85).aspx
 	/// </remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGBA" )]
 	[Native( "D3D9Types.h", "D3DCOLORVALUE" )]
 	[Native( "D2DBaseTypes.h", "D2D_COLOR_F" )]
 	[Native( "DXGIType.h", "DXGI_RGBA" )]
 	[Native( "D3D11.h", "D3D11_VIDEO_COLOR_RGBA" )]
+	[Native( "DXVAHD.h", "DXVAHD_COLOR_RGBA" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct RGBA : IEquatable<RGBA>
