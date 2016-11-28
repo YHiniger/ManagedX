@@ -72,7 +72,7 @@ namespace ManagedX.Win32
 
 		#endregion // Stg*
 
-
+		
 		/// <summary>Not implemented.</summary>
 		NotImplemented = unchecked((int)0x80004001),    // E_NOTIMPL
 
@@ -87,6 +87,11 @@ namespace ManagedX.Win32
 
 		/// <summary>Unspecified failure.</summary>
 		Fail = unchecked((int)0x80004005),          // E_FAIL
+
+
+		/// <summary>Unexpected failure.</summary>
+		[Native( "WinError.h", "E_UNEXPECTED" )]
+		Unexpected = unchecked((int)0x8000FFFF),
 
 
 		/// <summary>One or more arguments are not valid.</summary>
@@ -508,6 +513,15 @@ namespace ManagedX.Win32
 		XAPOFormatUnsupported = unchecked((int)0x88970001),     // ?
 
 		#endregion XAudio2, XAPO
+
+
+		#region MediaFoundation
+
+		/// <summary>The Media Sample does not have a duration.</summary>
+		[Native( "MFError.h", "MF_E_NO_SAMPLE_DURATION" )]
+		NoSampleDuration = unchecked((int)0xC00D36C9),
+
+		#endregion MediaFoundation
 
 	}
 

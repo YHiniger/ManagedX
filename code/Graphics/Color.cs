@@ -5,8 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedX.Graphics
 {
-	
+
 	/// <summary>An RGBA color (8 bits per component).</summary>
+	[Win32.Native( "MFObjects.h", "MFARGB" )]	// TODO - ensure the components are match !
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 4 )]
 	unsafe public struct Color : IEquatable<Color>
