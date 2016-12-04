@@ -11,7 +11,7 @@ namespace ManagedX.Audio
 	/// This structure is equivalent to the native <code>WAVEFORMATEX</code> structure (defined in MMReg.h).
 	/// </summary>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "That's the best I can do given the native name." )]
-	[Win32.Native( "MMReg.h", "WAVEFORMATEX" )]
+	[Win32.Source( "MMReg.h", "WAVEFORMATEX" )]
     [StructLayout( LayoutKind.Sequential, Pack = 2, Size = 18 )]
 	public struct WaveFormatEx : IEquatable<WaveFormatEx>, IEquatable<WaveFormat>
 	{

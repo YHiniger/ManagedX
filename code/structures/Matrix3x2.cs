@@ -17,9 +17,9 @@ namespace ManagedX
 	/// https://msdn.microsoft.com/en-us/library/windows/desktop/dn268308%28v=vs.85%29.aspx
 	/// </remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "x" )]
-	[Native( "D2DBaseTypes.h", "D2D_MATRIX_3X2_F" )]
-	[Native( "D2D1.h", "D2D1_MATRIX_3X2_F" )]
-	[Native( "DXGI1_3.h", "DXGI_MATRIX_3X2_F" )]
+	[Source( "D2DBaseTypes.h", "D2D_MATRIX_3X2_F" )]
+	[Source( "D2D1.h", "D2D1_MATRIX_3X2_F" )]
+	[Source( "DXGI1_3.h", "DXGI_MATRIX_3X2_F" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 24 )]
 	public struct Matrix3x2 : IEquatable<Matrix3x2>

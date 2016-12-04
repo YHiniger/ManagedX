@@ -11,7 +11,7 @@ namespace ManagedX.Graphics
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/aa379261%28v=vs.85%29.aspx</remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Luid" )]
 	[System.Diagnostics.DebuggerStepThrough]
-	[Win32.Native( "WinNT.h", "LUID" )]
+	[Win32.Source( "WinNT.h", "LUID" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Luid : IEquatable<Luid>
 	{

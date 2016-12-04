@@ -13,7 +13,7 @@ namespace ManagedX.Win32
 	{
 
 		/// <summary>The operation was successful.</summary>
-		None = 0,
+		None = StatusCode.None,
 
 
 		// FIXME - those are status codes, not error codes ?
@@ -72,33 +72,40 @@ namespace ManagedX.Win32
 
 		#endregion // Stg*
 
-		
+
 		/// <summary>Not implemented.</summary>
-		NotImplemented = unchecked((int)0x80004001),    // E_NOTIMPL
+		[Source( "WinError.h", "E_NOTIMPL" )]
+		NotImplemented = unchecked((int)0x80004001),
 
 		/// <summary>No such interface supported.</summary>
-		NoInterface = unchecked((int)0x80004002),       // E_NOINTERFACE
+		[Source( "WinError.h", "E_NOINTERFACE" )]
+		NoInterface = unchecked((int)0x80004002),
 
 		/// <summary>Pointer that is not valid.</summary>
-		Pointer = unchecked((int)0x80004003),           // E_POINTER
+		[Source( "WinError.h", "E_POINTER" )]
+		Pointer = unchecked((int)0x80004003),
 
 		/// <summary>Operation aborted.</summary>
-		Abort = unchecked((int)0x80004004),         // E_ABORT
+		[Source( "WinError.h", "E_ABORT" )]
+		Abort = unchecked((int)0x80004004),
 
 		/// <summary>Unspecified failure.</summary>
-		Fail = unchecked((int)0x80004005),          // E_FAIL
+		[Source( "WinError.h", "E_FAIL" )]
+		Fail = unchecked((int)0x80004005),
 
 
 		/// <summary>Unexpected failure.</summary>
-		[Native( "WinError.h", "E_UNEXPECTED" )]
+		[Source( "WinError.h", "E_UNEXPECTED" )]
 		Unexpected = unchecked((int)0x8000FFFF),
 
 
 		/// <summary>One or more arguments are not valid.</summary>
-		InvalidArgument = unchecked((int)0x80070057),   // E_INVALIDARG
+		[Source( "WinError.h", "E_INVALIDARG" )]
+		InvalidArgument = unchecked((int)0x80070057),
 
 		/// <summary>Failed to allocate necessary memory.</summary>
-		OutOfMemory = unchecked((int)0x8007000E),     // E_OUTOFMEMORY
+		[Source( "WinError.h", "E_OUTOFMEMORY" )]
+		OutOfMemory = unchecked((int)0x8007000E),
 
 
 		#region Direct3D ( 0x887x???? )
@@ -132,37 +139,37 @@ namespace ManagedX.Win32
 
 
 		/// <summary>There are too many unique instances (>4096) of a particular type of state object.</summary>
-		[Native( "WinError.h", "D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS" )]
+		[Source( "WinError.h", "D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS" )]
 		D3D10TooManyUniqueStateObjects = unchecked((int)0x88790001),
 
 		/// <summary>The file was not found.</summary>
-		[Native( "WinError.h", "D3D10_ERROR_FILE_NOT_FOUND" )]
+		[Source( "WinError.h", "D3D10_ERROR_FILE_NOT_FOUND" )]
 		D3D10FileNotFound = unchecked((int)0x88790002),
 
 
 		/// <summary>There are too many unique instances (>4096) of a particular type of state object.</summary>
-		[Native( "WinError.h", "D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS" )]
+		[Source( "WinError.h", "D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS" )]
 		D3DTooManyUniqueStateObjects = unchecked((int)0x887C0001),
 
 		/// <summary>The file was not found.</summary>
-		[Native( "WinError.h", "D3D11_ERROR_FILE_NOT_FOUND" )]
+		[Source( "WinError.h", "D3D11_ERROR_FILE_NOT_FOUND" )]
 		D3DFileNotFound = unchecked((int)0x887C0002),
 
 		/// <summary>There are too many unique instances (>2^20) of a particular type of view object.</summary>
-		[Native( "WinError.h", "D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS" )]
+		[Source( "WinError.h", "D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS" )]
 		D3DTooManyUniqueViewObjects = unchecked((int)0x887C0003),
 
 		/// <summary>The first call to ID3D11DeviceContext::Map after either ID3D11Device::CreateDeferredContext or ID3D11DeviceContext::FinishCommandList per Resource was not D3D11_MAP_WRITE_DISCARD.</summary>
-		[Native( "WinError.h", "D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD" )]
+		[Source( "WinError.h", "D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD" )]
 		D3DDeferredContextMapWithoutInitialDiscard = unchecked((int)0x887C0004),
 
 
 		/// <summary>The blob provided does not match the adapter that the device was created on.</summary>
-		[Native( "WinError.h", "D3D12_ERROR_ADAPTER_NOT_FOUND" )]
+		[Source( "WinError.h", "D3D12_ERROR_ADAPTER_NOT_FOUND" )]
 		D3DAdapterNotFound = unchecked((int)0x887E0001),
 
 		/// <summary>The blob provided was created for a different version of the driver, and must be re-created.</summary>
-		[Native( "WinError.h", "D3D12_ERROR_DRIVER_VERSION_MISMATCH" )]
+		[Source( "WinError.h", "D3D12_ERROR_DRIVER_VERSION_MISMATCH" )]
 		D3DDriverVersionMismatch = unchecked((int)0x887E0002),
 
 		#endregion Direct3D
@@ -178,60 +185,60 @@ namespace ManagedX.Win32
 		/// Either the parameters of the call or the state of some object was incorrect. Enable the D3D debug layer in order to see details via debug messages.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_INVALID_CALL" )]
+		[Source( "WinError.h", "DXGI_ERROR_INVALID_CALL" )]
 		DxgiInvalidCall = unchecked((int)0x887A0001),
 
 		/// <summary>The object was not found. If calling IDXGIFactory::EnumAdapters, there is no adapter with the specified ordinal.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_NOT_FOUND" )]
+		[Source( "WinError.h", "DXGI_ERROR_NOT_FOUND" )]
 		DxgiNotFound = unchecked((int)0x887A0002),
 
 		/// <summary>The buffer supplied by the application is not big enough to hold the requested data.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_MORE_DATA" )]
+		[Source( "WinError.h", "DXGI_ERROR_MORE_DATA" )]
 		DxgiMoreData = unchecked((int)0x887A0003),
 
 		/// <summary>The specified device interface or feature level is not supported on this system.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_UNSUPPORTED" )]
+		[Source( "WinError.h", "DXGI_ERROR_UNSUPPORTED" )]
 		DxgiUnsupported = unchecked((int)0x887A0004),
 
 		/// <summary>The video card has been physically removed from the system, or a driver upgrade for the video card has occurred. The application should destroy and recreate the device.
 		/// The GPU device instance has been suspended. Use ID3D10Device::GetDeviceRemovedReason to determine the appropriate action.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_DEVICE_REMOVED" )]
+		[Source( "WinError.h", "DXGI_ERROR_DEVICE_REMOVED" )]
 		DxgiDeviceRemoved = unchecked((int)0x887A0005),
 
 		/// <summary>The application's device failed due to badly formed commands sent by the application. This is a design-time issue that should be investigated and fixed.
 		/// The GPU will not respond to more commands, most likely because of an invalid command passed by the calling application.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_DEVICE_HUNG" )]
+		[Source( "WinError.h", "DXGI_ERROR_DEVICE_HUNG" )]
 		DxgiDeviceHung = unchecked((int)0x887A0006),
 
 		/// <summary>The device failed due to a badly formed command. This is a run-time issue; the application should destroy and recreate the device.
 		/// The GPU will not respond to more commands, most likely because some other application submitted invalid commands.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_DEVICE_RESET" )]
+		[Source( "WinError.h", "DXGI_ERROR_DEVICE_RESET" )]
 		DxgiDeviceReset = unchecked((int)0x887A0007),
 
 		/// <summary>The GPU was busy at the moment when the call was made, and the call was neither executed nor scheduled.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_WAS_STILL_DRAWING" )]
+		[Source( "WinError.h", "DXGI_ERROR_WAS_STILL_DRAWING" )]
 		DxgiWasStillDrawing = unchecked((int)0x887A000A),
 
 		/// <summary>An event (such as power cycle) interrupted the gathering of presentation statistics. Any previous statistics should be considered invalid.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_FRAME_STATISTICS_DISJOINT" )]
+		[Source( "WinError.h", "DXGI_ERROR_FRAME_STATISTICS_DISJOINT" )]
 		DxgiFrameStatisticsDisjoint = unchecked((int)0x887A000B),
 
 		/// <summary>The application attempted to acquire exclusive ownership of an output, but failed because some other application (or device within the application) already acquired ownership.
 		/// Fullscreen mode could not be achieved because the specified output was already in use.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE" )]
+		[Source( "WinError.h", "DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE" )]
 		DxgiGraphicsVidPNSourceInUse = unchecked((int)0x887A000C),
 
 		/// <summary>The driver encountered a problem and was put into the device removed state.
@@ -239,18 +246,18 @@ namespace ManagedX.Win32
 		/// The driver's state is probably suspect, and the application should not continue.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_DRIVER_INTERNAL_ERROR" )]
+		[Source( "WinError.h", "DXGI_ERROR_DRIVER_INTERNAL_ERROR" )]
 		DxgiDriverInternalError = unchecked((int)0x887A0020),
 
 		/// <summary>A global counter resource was in use, and the specified counter cannot be used by this Direct3D device at this time.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "NonExclusive" )]
-		[Native( "WinError.h", "DXGI_ERROR_NONEXCLUSIVE" )]
+		[Source( "WinError.h", "DXGI_ERROR_NONEXCLUSIVE" )]
 		DxgiNonExclusive = unchecked((int)0x887A0021),
 
 		/// <summary>A resource is not available at the time of the call, but may become available later.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_NOT_CURRENTLY_AVAILABLE" )]
+		[Source( "WinError.h", "DXGI_ERROR_NOT_CURRENTLY_AVAILABLE" )]
 		DxgiNotCurrentlyAvailable = unchecked((int)0x887A0022),
 
 		/// <summary>Reserved.
@@ -258,97 +265,97 @@ namespace ManagedX.Win32
 		/// The application should call IDXGIFactory1::IsCurrent to find out when the remote device becomes available again.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED" )]
+		[Source( "WinError.h", "DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED" )]
 		DxgiRemoteClientDisconnected = unchecked((int)0x887A0023),
 
 		/// <summary>Reserved.
 		/// The device has been removed during a remote session because the remote computer ran out of memory.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_REMOTE_OUTOFMEMORY" )]
+		[Source( "WinError.h", "DXGI_ERROR_REMOTE_OUTOFMEMORY" )]
 		DxgiRemoteOutOfMemory = unchecked((int)0x887A0024),
 
 		/// <summary>An on-going mode change prevented completion of the call.
 		/// <para>The call may succeed if attempted later.</para>
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_MODE_CHANGE_IN_PROGRESS" )]
+		[Source( "WinError.h", "DXGI_ERROR_MODE_CHANGE_IN_PROGRESS" )]
 		DxgiModeChangeInProgress = unchecked((int)0x887A0025),
 
 		/// <summary>The keyed mutex was abandoned.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_ACCESS_LOST" )]
+		[Source( "WinError.h", "DXGI_ERROR_ACCESS_LOST" )]
 		DxgiAccessLost = unchecked((int)0x887A0026),
 
 		/// <summary>The timeout value has elapsed and the resource is not yet available.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_WAIT_TIMEOUT" )]
+		[Source( "WinError.h", "DXGI_ERROR_WAIT_TIMEOUT" )]
 		DxgiWaitTimeout = unchecked((int)0x887A0027),
 
 		/// <summary>The output duplication has been turned off because the Windows session ended or was disconnected.
 		/// This happens when a remote user disconnects, or when "switch user" is used locally.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_SESSION_DISCONNECTED" )]
+		[Source( "WinError.h", "DXGI_ERROR_SESSION_DISCONNECTED" )]
 		DxgiSessionDisconnected = unchecked((int)0x887A0028),
 
 		/// <summary>The DXGI outuput (monitor) to which the swapchain content was restricted, has been disconnected or changed.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_RESTRICT_TO_OUTPUT_STALE" )]
+		[Source( "WinError.h", "DXGI_ERROR_RESTRICT_TO_OUTPUT_STALE" )]
 		DxgiRestrictToOutputStale = unchecked((int)0x887A0029),
 
 		/// <summary>DXGI is unable to provide content protection on the swapchain. This is typically caused by an older driver,
 		/// or by the application using a swapchain that is incompatible with content protection.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_CANNOT_PROTECT_CONTENT" )]
+		[Source( "WinError.h", "DXGI_ERROR_CANNOT_PROTECT_CONTENT" )]
 		DxgiCannotProtectContent = unchecked((int)0x887A002A),
 
 		/// <summary>The application is trying to use a resource to which it does not have the required access privileges.
 		/// This is most commonly caused by writing to a shared resource with read-only access.
 		/// </summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_ACCESS_DENIED" )]
+		[Source( "WinError.h", "DXGI_ERROR_ACCESS_DENIED" )]
 		DxgiAccessDenied = unchecked((int)0x887A002B),
 
 		/// <summary>The application is trying to create a shared handle using a name that is already associated with some other resource.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_NAME_ALREADY_EXISTS" )]
+		[Source( "WinError.h", "DXGI_ERROR_NAME_ALREADY_EXISTS" )]
 		DxgiNameAlreadyExists = unchecked((int)0x887A002C),
 
 		/// <summary>The operation depends on an SDK component that is missing or mismatched.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_SDK_COMPONENT_MISSING" )]
+		[Source( "WinError.h", "DXGI_ERROR_SDK_COMPONENT_MISSING" )]
 		DxgiSdkComponentMissing = unchecked((int)0x887A002D),
 
 		/// <summary>The DXGI objects that the application has created are no longer current and need to be recreated for this operation to be performed.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_NOT_CURRENT" )]
+		[Source( "WinError.h", "DXGI_ERROR_NOT_CURRENT" )]
 		DxgiNotCurrent = unchecked((int)0x887A002E),
 
 		/// <summary>Insufficient HW protected memory exits for proper function.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
-		[Native( "WinError.h", "DXGI_ERROR_HW_PROTECTION_OUTOFMEMORY" )]
+		[Source( "WinError.h", "DXGI_ERROR_HW_PROTECTION_OUTOFMEMORY" )]
 		DxgiHardwareProtectionOutOfMemory = unchecked((int)0x887A0030),
 
 
 		/// <summary>The GPU was busy when the operation was requested.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Ddi" )]
-		[Native( "WinError.h", "DXGI_DDI_ERR_WASSTILLDRAWING" )]
+		[Source( "WinError.h", "DXGI_DDI_ERR_WASSTILLDRAWING" )]
 		DxgiDdiWasStillDrawing = unchecked((int)0x887B0001),
 
 		/// <summary>The driver has rejected the creation of this resource.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Ddi" )]
-		[Native( "WinError.h", "DXGI_DDI_ERR_UNSUPPORTED" )]
+		[Source( "WinError.h", "DXGI_DDI_ERR_UNSUPPORTED" )]
 		DxgiDdiUnsupported = unchecked((int)0x887B0002),
 
 		/// <summary>The GPU counter was in use by another process or d3d device when application requested access to it.</summary>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dxgi" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Ddi" )]
 		[SuppressMessage( "Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "NonExclusive" )]
-		[Native( "WinError.h", "DXGI_DDI_ERR_NONEXCLUSIVE" )]
+		[Source( "WinError.h", "DXGI_DDI_ERR_NONEXCLUSIVE" )]
 		DxgiDdiNonExclusive = unchecked((int)0x887B0003),
 
 		#endregion DXGI
@@ -517,9 +524,99 @@ namespace ManagedX.Win32
 
 		#region MediaFoundation
 
+		// MFError.h
+
+		/// <summary>The request is invalid in the current state.</summary>
+		[Source( "MFError.h", "MF_E_INVALIDREQUEST" )]
+		InvalidRequest = unchecked((int)0xC00D36B2),
+
+		/// <summary>The stream number provided was invalid.</summary>
+		[Source( "MFError.h", "MF_E_INVALIDSTREAMNUMBER" )]
+		InvalidStreamNumber = unchecked((int)0xC00D36B3),
+
+		/// <summary>The data specified for the media type is invalid, inconsistent, or not supported by this object.</summary>
+		[Source( "MFError.h", "MF_E_INVALIDMEDIATYPE" )]
+		InvalidMediaType = unchecked((int)0xC00D36B4),
+
+		/// <summary>This object needs to be initialized before the requested operation can be carried out.</summary>
+		[Source( "MFError.h", "MF_E_NOT_INITIALIZED" )]
+		NotInitialized = unchecked((int)0xC00D36B6),
+
+		/// <summary>An object ran out of media types to suggest therefore the requested chain of streaming objects cannot be completed.</summary>
+		[Source( "MFError.h", "MF_E_NO_MORE_TYPES" )]
+		NoMoreTypes = unchecked((int)0xC00D36B9),
+
+		/// <summary>Invalid index.</summary>
+		[Source( "MFError.h", "MF_E_INVALIDINDEX" )]
+		InvalidIndex = unchecked((int)0xC00D36BF),
+
+		/// <summary>An invalid timestamp was given.</summary>
+		[Source( "MFError.h", "MF_E_INVALID_TIMESTAMP" )]
+		InvalidTimestamp = unchecked((int)0xC00D36C0),
+
+		/// <summary>The Media Sample does not have a timestamp.</summary>
+		[Source( "MFError.h", "MF_E_NO_SAMPLE_TIMESTAMP" )]
+		NoSampleTimestamp = unchecked((int)0xC00D36C8),
+
 		/// <summary>The Media Sample does not have a duration.</summary>
-		[Native( "MFError.h", "MF_E_NO_SAMPLE_DURATION" )]
+		[Source( "MFError.h", "MF_E_NO_SAMPLE_DURATION" )]
 		NoSampleDuration = unchecked((int)0xC00D36C9),
+
+		/// <summary>The specified operation requires a clock and no clock is available.</summary>
+		[Source( "MFError.h", "MF_E_NO_CLOCK" )]
+		NoClock = unchecked((int)0xC00D36D7),
+
+		/// <summary>This callback has already been passed in to this event generator.</summary>
+		[Source( "MFError.h", "MF_E_MULTIPLE_BEGIN" )]
+		MultipleBegin = unchecked((int)0xC00D36D9),
+
+		/// <summary>Some component is already listening to events on this event generator.</summary>
+		[Source( "MFError.h", "MF_E_MULTIPLE_SUBSCRIBERS" )]
+		MultipleSubscribers = unchecked((int)0xC00D36DA),
+
+		/// <summary>MFStartup called with the wrong MF_VERSION. Mismatched bits?</summary>
+		[Source( "MFError.h", "MF_E_BAD_STARTUP_VERSION" )]
+		BadStartupVersion = unchecked((int)0xC00D36E3),
+
+		/// <summary>The Media Foundation platform is disabled when the system is running in Safe Mode.</summary>
+		[Source( "MFError.h", "MF_E_DISABLED_IN_SAFEMODE" )]
+		DisabledInSafeMode = unchecked((int)0xC00D36EF),
+
+		/// <summary>The operation failed because an invalid combination of workqueue ID and flags was specified.</summary>
+		[Source( "MFError.h", "MF_E_INVALID_WORKQUEUE" )]
+		InvalidWorkQueue = unchecked((int)0xC00D36FF),
+
+		/// <summary>A media source cannot go from the stopped state to the paused state.</summary>
+		[Source( "MFError.h", "MF_E_INVALID_STATE_TRANSITION" )]
+		InvalidStateTransition = unchecked((int)0xC00D3E82),
+
+		/// <summary>The request is invalid because Shutdown() has been called.</summary>
+		[Source( "MFError.h", "MF_E_SHUTDOWN" )]
+		Shutdown = unchecked((int)0xC00D3E85),
+
+		/// <summary>The requested Stream Sink has been removed and cannot be used.</summary>
+		[Source( "MFError.h", "MF_E_STREAMSINK_REMOVED" )]
+		StreamSinkRemoved = unchecked((int)0xC00D4A38),
+
+		/// <summary>Stream sinks cannot be added to or removed from this media sink because its set of streams is fixed.</summary>
+		[Source( "MFError.h", "MF_E_STREAMSINKS_FIXED" )]
+		StreamSinksFixed = unchecked((int)0xC00D4A3B),
+
+		/// <summary>The specified stream sink already exists.</summary>
+		[Source( "MFError.h", "MF_E_STREAMSINK_EXISTS" )]
+		StreamSinkExists = unchecked((int)0xC00D4A3C),
+
+		/// <summary>No Presentation Time Source has been specified.</summary>
+		[Source( "MFError.h", "MF_E_CLOCK_NO_TIME_SOURCE" )]
+		ClockNoTimeSource = unchecked((int)0xC00D9C41),
+
+		/// <summary>The clock is already in the requested state.</summary>
+		[Source( "MFError.h", "MF_E_CLOCK_STATE_ALREADY_SET" )]
+		ClockStateAlreadySet = unchecked((int)0xC00D9C42),
+
+		/// <summary>The clock has too many advanced features to carry out the request.</summary>
+		[Source( "MFError.h", "MF_E_CLOCK_NOT_SIMPLE" )]
+		ClockNotSimple = unchecked((int)0xC00D9C43),
 
 		#endregion MediaFoundation
 

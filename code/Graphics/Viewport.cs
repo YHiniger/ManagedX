@@ -16,8 +16,8 @@ namespace ManagedX.Graphics
 	/// <remarks>
 	/// https://msdn.microsoft.com/en-us/library/windows/desktop/ff476260%28v=vs.85%29.aspx
 	/// </remarks>
-	[Native( "D3D11.h", "D3D11_VIEWPORT" )]
-	[Native( "D3D12.h", "D3D12_VIEWPORT" )]
+	[Source( "D3D11.h", "D3D11_VIEWPORT" )]
+	[Source( "D3D12.h", "D3D12_VIEWPORT" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 24 )]
 	public struct Viewport : IEquatable<Viewport>
 	{

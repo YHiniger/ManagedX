@@ -11,7 +11,7 @@ namespace ManagedX // .Graphics
 	/// <summary>Defines a 3D box.</summary>
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/ff476089%28v=vs.85%29.aspx</remarks>
 	[System.Diagnostics.DebuggerStepThrough]
-	[Native( "D3D11.h", "D3D11_BOX" )]
+	[Source( "D3D11.h", "D3D11_BOX" )]
 	//[Native( "D3D12.h", "D3D12_BOX" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 24 )]

@@ -9,7 +9,7 @@ namespace ManagedX.Audio
 	/// <para>Use this for all non PCM formats (information common to all formats).</para>
 	/// This structure is equivalent to the native <code>WAVEFORMAT</code> structure (defined in MMReg.h).
 	/// </summary>
-	[Win32.Native( "MMReg.h", "WAVEFORMAT" )]
+	[Win32.Source( "MMReg.h", "WAVEFORMAT" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 2, Size = 14 )]
 	public struct WaveFormat : IEquatable<WaveFormat>
 	{

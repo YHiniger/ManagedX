@@ -14,9 +14,9 @@ namespace ManagedX // .Graphics
 	/// </para>
 	/// </summary>
 	[System.Diagnostics.DebuggerStepThrough]
-	[Native( "WinDef.h", "RECT" )]
-	[Native( "D3D11.h", "D3D11_RECT" )]
-	[Native( "D3D12.h", "D3D12_RECT" )]
+	[Source( "WinDef.h", "RECT" )]
+	[Source( "D3D11.h", "D3D11_RECT" )]
+	[Source( "D3D12.h", "D3D12_RECT" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 16 )]
 	public struct Rect : IEquatable<Rect>

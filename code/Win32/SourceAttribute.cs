@@ -11,7 +11,7 @@ namespace ManagedX.Win32
 	[Serializable]
 	[ComVisible( false )]
 	[AttributeUsage( AttributeTargets.Class | AttributeTargets.Delegate | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Struct | AttributeTargets.Field, Inherited = false, AllowMultiple = true )]
-	public sealed class NativeAttribute : Attribute
+	public sealed class SourceAttribute : Attribute
 	{
 
 		private readonly string fileName;
@@ -19,10 +19,10 @@ namespace ManagedX.Win32
 
 
 
-		/// <summary>Initializes a new <see cref="NativeAttribute"/>.</summary>
+		/// <summary>Initializes a new <see cref="SourceAttribute"/>.</summary>
 		/// <param name="definitionFileName">The location of the native definition of the associated type (ie: WinUser.h).</param>
 		/// <param name="nativeName">The native name of the associated type.</param>
-		public NativeAttribute( string definitionFileName, string nativeName )
+		public SourceAttribute( string definitionFileName, string nativeName )
 			: base()
 		{
 			this.fileName = ( definitionFileName ?? string.Empty ).Trim();
@@ -30,9 +30,9 @@ namespace ManagedX.Win32
 		}
 
 
-		/// <summary>Initializes a new <see cref="NativeAttribute"/>.</summary>
+		/// <summary>Initializes a new <see cref="SourceAttribute"/>.</summary>
 		/// <param name="definitionFileName">The location (file name) of the native definition of the associated type (ie: WinUser.h).</param>
-		public NativeAttribute( string definitionFileName )
+		public SourceAttribute( string definitionFileName )
 			: this( definitionFileName, string.Empty )
 		{
 		}

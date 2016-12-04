@@ -13,33 +13,33 @@
 	/// https://msdn.microsoft.com/en-us/library/windows/hardware/ff553970%28v=vs.85%29.aspx (DISPLAYCONFIG_ROTATION)
 	/// https://msdn.microsoft.com/en-us/library/windows/desktop/bb173065%28v=vs.85%29.aspx (DXGI_MODE_ROTATION)
 	/// </remarks>
-	[Native( "WinGDI.h", "DISPLAYCONFIG_ROTATION" )]
-	[Native( "DXGIType.h", "DXGI_MODE_ROTATION" )]
+	[Source( "WinGDI.h", "DISPLAYCONFIG_ROTATION" )]
+	[Source( "DXGIType.h", "DXGI_MODE_ROTATION" )]
 	public enum DisplayRotation : int
 	{
 
 		/// <summary>Unspecified.</summary>
-		[Native( "DXGIType.h", "DXGI_MODE_ROTATION_UNSPECIFIED" )]
+		[Source( "DXGIType.h", "DXGI_MODE_ROTATION_UNSPECIFIED" )]
 		Unspecified,
 
 		/// <summary>Rotation is 0 degrees—landscape mode.</summary>
-		[Native( "WinGDI.h", "DISPLAYCONFIG_ROTATION_IDENTITY" )]
-		[Native( "DXGIType.h", "DXGI_MODE_ROTATION_IDENTITY" )]
+		[Source( "WinGDI.h", "DISPLAYCONFIG_ROTATION_IDENTITY" )]
+		[Source( "DXGIType.h", "DXGI_MODE_ROTATION_IDENTITY" )]
 		Identity,
 
 		/// <summary>Rotation is 90 degrees clockwise—portrait mode.</summary>
-		[Native( "WinGDI.h", "DISPLAYCONFIG_ROTATION_ROTATE90" )]
-		[Native( "DXGIType.h", "DXGI_MODE_ROTATION_ROTATE90" )]
+		[Source( "WinGDI.h", "DISPLAYCONFIG_ROTATION_ROTATE90" )]
+		[Source( "DXGIType.h", "DXGI_MODE_ROTATION_ROTATE90" )]
 		Rotate90,
 
 		/// <summary>Rotation is 180 degrees clockwise—inverted landscape mode.</summary>
-		[Native( "WinGDI.h", "DISPLAYCONFIG_ROTATION_ROTATE180" )]
-		[Native( "DXGIType.h", "DXGI_MODE_ROTATION_ROTATE180" )]
+		[Source( "WinGDI.h", "DISPLAYCONFIG_ROTATION_ROTATE180" )]
+		[Source( "DXGIType.h", "DXGI_MODE_ROTATION_ROTATE180" )]
 		Rotate180,
 
 		/// <summary>Rotation is 270 degrees clockwise—inverted portrait mode.</summary>
-		[Native( "WinGDI.h", "DISPLAYCONFIG_ROTATION_ROTATE270" )]
-		[Native( "DXGIType.h", "DXGI_MODE_ROTATION_ROTATE270" )]
+		[Source( "WinGDI.h", "DISPLAYCONFIG_ROTATION_ROTATE270" )]
+		[Source( "DXGIType.h", "DXGI_MODE_ROTATION_ROTATE270" )]
 		Rotate270
 
 	}

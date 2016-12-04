@@ -11,7 +11,7 @@ namespace ManagedX.Audio
 	/// Simply define a new GUID value for the <see cref="WaveFormatExtensible.SubFormat"/> field and use <see cref="WaveFormatTag.Extensible"/> in the <see cref="WaveFormatExtensible.FormatTag"/> field.
 	/// <para>This structure is equivalent to the native <code>WAVEFORMATEXTENSIBLE</code> structure (defined in MMReg.h).</para>
 	/// </summary>
-	[Win32.Native( "MMReg.h", "WAVEFORMATEXTENSIBLE" )]
+	[Win32.Source( "MMReg.h", "WAVEFORMATEXTENSIBLE" )]
 	[StructLayout( LayoutKind.Sequential, Pack = 2, Size = 40 )]
 	public struct WaveFormatExtensible : IEquatable<WaveFormatExtensible>, IEquatable<WaveFormatEx>, IEquatable<WaveFormat>
 	{

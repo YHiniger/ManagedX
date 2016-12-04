@@ -7,20 +7,20 @@
 	/// <para>This enumeration is equivalent to the native <code>PlaneIntersectionType</code> enumeration (defined in DirectXCollision.h).</para>
 	/// </summary>
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.directxcollision.planeintersectiontype%28v=vs.85%29.aspx</remarks>
-	[Native( "DirectXCollision.h" )]
+	[Source( "DirectXCollision.h" )]
 	public enum PlaneIntersectionType : int
 	{
 
 		/// <summary>The object is in front of the plane.</summary>
-		[Native( "DirectXCollision.h", "FRONT" )]
+		[Source( "DirectXCollision.h", "FRONT" )]
 		Front,
 
 		/// <summary>The object intersects the plane.</summary>
-		[Native( "DirectXCollision.h", "INTERSECTING" )]
+		[Source( "DirectXCollision.h", "INTERSECTING" )]
 		Intersecting,
 
 		/// <summary>The object is behind the plane.</summary>
-		[Native( "DirectXCollision.h", "BACK" )]
+		[Source( "DirectXCollision.h", "BACK" )]
 		Back
 
 	}

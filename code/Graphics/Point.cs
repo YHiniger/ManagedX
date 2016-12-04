@@ -9,7 +9,7 @@ namespace ManagedX // .Graphics
 	/// <summary>Defines the (integer) coordinates of a point in 2D space.</summary>
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/hardware/ff553913%28v=vs.85%29.aspx</remarks>
 	[System.Diagnostics.DebuggerStepThrough]
-	[Win32.Native( "WinGDI.h", "DISPLAYCONFIG_2DREGION" )]
+	[Win32.Source( "WinGDI.h", "DISPLAYCONFIG_2DREGION" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 8 )]
 	public struct Point : IEquatable<Point>

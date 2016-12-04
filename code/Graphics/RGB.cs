@@ -14,7 +14,7 @@ namespace ManagedX.Graphics
 	/// </summary>
 	/// <remarks>https://msdn.microsoft.com/en-us/library/windows/desktop/bb173062%28v=vs.85%29.aspx</remarks>
 	[SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGB" )]
-	[Win32.Native( "DXGIType.h", "DXGI_RGB" )]
+	[Win32.Source( "DXGIType.h", "DXGI_RGB" )]
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 12 )]
 	public struct RGB : IEquatable<RGB>
