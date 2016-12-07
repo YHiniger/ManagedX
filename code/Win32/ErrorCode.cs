@@ -13,7 +13,7 @@ namespace ManagedX.Win32
 	{
 
 		/// <summary>The operation was successful.</summary>
-		None = StatusCode.None,
+		None = 0x00000000,
 
 
 		// FIXME - those are status codes, not error codes ?
