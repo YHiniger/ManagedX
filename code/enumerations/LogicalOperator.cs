@@ -54,7 +54,7 @@ namespace ManagedX
 		/// <summary>NOT OR operator.</summary>
 		Nor = LogicalOperators.Not | LogicalOperators.Or,
 
-		/// <summary>Exclusive NOR (NOT XOR) operator.</summary>
+		/// <summary>Exclusive NOR (XNOR) operator.</summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Equiv" )]
 		Equiv = LogicalOperators.Not | LogicalOperators.Xor
 		
