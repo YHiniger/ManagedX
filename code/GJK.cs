@@ -16,22 +16,10 @@ namespace ManagedX
 		
 		private static int[] BitsToIndices = new int[]
 		{
-			0,
-			1,
-			2,
-			17,
-			3,
-			25,
-			26,
-			209,
-			4,
-			33,
-			34,
-			273,
-			35,
-			281,
-			282,
-			2257
+			0, 1, 2, 17,
+			3, 25, 26, 209,
+			4, 33, 34, 273,
+			35, 281, 282, 2257
 		};
 
 
@@ -86,15 +74,14 @@ namespace ManagedX
 			
 			y[ index ] = newPoint;
 			yLengthSquared[ index ] = newPoint.LengthSquared;
-			
-			Vector3 vector;
+
 			int index2;
 			float lengthSquared;
 			for( var i = BitsToIndices[ simplexBits ]; i != 0; i >>= 3 )
 			{
 				index2 = ( i & 7 ) - 1;
 				
-				Vector3.Subtract( ref y[ index2 ], ref newPoint, out vector );
+				Vector3.Subtract( ref y[ index2 ], ref newPoint, out Vector3 vector );
 				
 				edges[ index2 ][ index ] = vector;
 				edges[ index ][ index2 ] = -vector;
@@ -112,8 +99,7 @@ namespace ManagedX
 
 		private static float Dot( ref Vector3 a, ref Vector3 b )
 		{
-			float result;
-			Vector3.Dot( ref a, ref b, out result );
+			Vector3.Dot( ref a, ref b, out float result );
 			return result;
 		}
 		
@@ -228,8 +214,7 @@ namespace ManagedX
 		{
 			float n = 0.0f;
 			var vector = Vector3.Zero;
-			
-			Vector3 v;
+
 			int index;
 			float d;
 			maxLengthSquared = 0.0f;
@@ -240,7 +225,7 @@ namespace ManagedX
 				
 				n += d;
 				
-				Vector3.Multiply( ref y[ index ], d, out v );
+				Vector3.Multiply( ref y[ index ], d, out Vector3 v );
 				Vector3.Add( ref vector, ref v, out vector );
 
 				maxLengthSquared = Math.Max( maxLengthSquared, yLengthSquared[ index ] );

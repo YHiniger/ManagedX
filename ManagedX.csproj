@@ -58,6 +58,7 @@
     <Compile Include="code\Design\IServiceProvider1.cs" />
     <Compile Include="code\enumerations\ComparisonOperator.cs" />
     <Compile Include="code\enumerations\LogicalOperator.cs" />
+    <Compile Include="code\exceptions\ManagedXException.cs" />
     <Compile Include="code\Graphics\DisplayRotation.cs" />
     <Compile Include="code\Graphics\ModeScaling.cs" />
     <Compile Include="code\Graphics\Point.cs" />

@@ -26,7 +26,6 @@ namespace ManagedX
 		/// <param name="service">The service; must not be null.</param>
 		/// <exception cref="ArgumentNullException"/>
 		/// <exception cref="ArgumentException"/>
-		/// <exception cref="InvalidOperationException"/>
 		public void AddService( Type serviceType, object service )
 		{
 			if( serviceType == null )
@@ -53,12 +52,11 @@ namespace ManagedX
 			if( service == null )
 				throw new ArgumentNullException( "service" );
 
-			var serviceType = typeof( TService );
-			object svc = null;
-			if( services.TryGetValue( serviceType.GUID, out svc ) )
+			var serviceTypeGuid = typeof( TService ).GUID;
+			if( services.TryGetValue( serviceTypeGuid, out object svc ) )
 				throw new InvalidOperationException();
 
-			services.Add( serviceType.GUID, service );
+			services.Add( serviceTypeGuid, service );
 		}
 
 
@@ -71,8 +69,7 @@ namespace ManagedX
 			if( serviceType == null )
 				throw new ArgumentNullException( "serviceType" );
 
-			object output = null;
-			if( !services.TryGetValue( serviceType.GUID, out output ) )
+			if( !services.TryGetValue( serviceType.GUID, out object output ) )
 				output = null;
 			return output;
 		}

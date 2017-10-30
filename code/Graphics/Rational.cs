@@ -108,7 +108,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Rational"/> which equals this <see cref="Rational"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Rational ) && this.Equals( (Rational)obj );
+			return ( obj is Rational r ) && this.Equals( r );
 		}
 
 

@@ -24,7 +24,7 @@ namespace ManagedX
 			/// <param name="count">Number of bytes to copy.</param>
 			/// <returns>Returns zero if successful; an error code on failure.</returns>
 			/// <remarks>https://msdn.microsoft.com/en-us/library/wes2t00f.aspx</remarks>
-			[DllImport( LibraryName, CallingConvention = CallingConvention.Cdecl, ExactSpelling = true, PreserveSig = true, SetLastError = false )]
+			[DllImport( LibraryName, CallingConvention = CallingConvention.Cdecl, ExactSpelling = true, PreserveSig = true )]
 			internal static extern int memcpy_s(
 				[In] IntPtr dest,
 				[In] UIntPtr destSize,
