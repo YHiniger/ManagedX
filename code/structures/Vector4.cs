@@ -205,7 +205,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Vector4"/> which equals this <see cref="Vector4"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Vector4 ) && this.Equals( (Vector4)obj );
+			return obj is Vector4 v && this.Equals( v );
 		}
 
 
@@ -654,8 +654,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Distance( ref Vector4 position, ref Vector4 other, out float result )
 		{
-			Vector4 diff;
-			Subtract( ref position, ref other, out diff );
+			Subtract( ref position, ref other, out Vector4 diff );
 			result = diff.Length;
 		}
 
@@ -665,8 +664,7 @@ namespace ManagedX
 		/// <returns>Returns the distance between two <see cref="Vector4"/> positions.</returns>
 		public static float Distance( Vector4 position, Vector4 other )
 		{
-			Vector4 diff;
-			Subtract( ref position, ref other, out diff );
+			Subtract( ref position, ref other, out Vector4 diff );
 			return diff.Length;
 		}
 
@@ -679,8 +677,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void DistanceSquared( ref Vector4 position, ref Vector4 other, out float result )
 		{
-			Vector4 diff;
-			Subtract( ref position, ref other, out diff );
+			Subtract( ref position, ref other, out Vector4 diff );
 			result = diff.LengthSquared;
 		}
 
@@ -690,8 +687,7 @@ namespace ManagedX
 		/// <returns>Returns the square of the distance between the two specified positions.</returns>
 		public static float DistanceSquared( Vector4 position, Vector4 other )
 		{
-			Vector4 diff;
-			Subtract( ref position, ref other, out diff );
+			Subtract( ref position, ref other, out Vector4 diff );
 			return diff.LengthSquared;
 		}
 

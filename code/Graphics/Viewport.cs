@@ -111,8 +111,7 @@ namespace ManagedX.Graphics
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Project( ref Vector3 position, ref Matrix worldViewProjection, out Vector3 result )
 		{
-			Vector3 transformed;
-			worldViewProjection.Transform( ref position, out transformed );
+			worldViewProjection.Transform( ref position, out Vector3 transformed );
 
 			var n = position.X * worldViewProjection.M14 + position.Y * worldViewProjection.M24 + position.Z * worldViewProjection.M34 + worldViewProjection.M44;
 			if( n != 0.0f )
@@ -131,12 +130,10 @@ namespace ManagedX.Graphics
 		/// <returns></returns>
 		public Vector3 Project( Vector3 position, Matrix projection, Matrix view, Matrix world )
 		{
-			Matrix worldViewProj;
-			Matrix.Multiply( ref world, ref view, out worldViewProj );
+			Matrix.Multiply( ref world, ref view, out Matrix worldViewProj );
 			Matrix.Multiply( ref worldViewProj, ref projection, out worldViewProj );
 
-			Vector3 transformed;
-			this.Project( ref position, ref worldViewProj, out transformed );
+			this.Project( ref position, ref worldViewProj, out Vector3 transformed );
 			return transformed;
 		}
 
@@ -171,15 +168,12 @@ namespace ManagedX.Graphics
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unproject" )]
 		public Vector3 Unproject( Vector3 position, Matrix projection, Matrix view, Matrix world )
 		{
-			Matrix worldViewProj;
-			Matrix.Multiply( ref world, ref view, out worldViewProj );
+			Matrix.Multiply( ref world, ref view, out Matrix worldViewProj );
 			Matrix.Multiply( ref worldViewProj, ref projection, out worldViewProj );
 
-			Matrix invWorldViewProj;
-			Matrix.Invert( ref worldViewProj, out invWorldViewProj );
+			Matrix.Invert( ref worldViewProj, out Matrix invWorldViewProj );
 
-			Vector3 result;
-			this.Unproject( ref position, ref invWorldViewProj, out result );
+			this.Unproject( ref position, ref invWorldViewProj, out Vector3 result );
 			return result;
 		}
 
@@ -206,7 +200,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the specified object is a <see cref="Viewport"/> which equals this <see cref="Viewport"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Viewport ) && this.Equals( (Viewport)obj );
+			return obj is Viewport v && this.Equals( v );
 		}
 
 

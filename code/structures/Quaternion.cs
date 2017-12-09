@@ -966,7 +966,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Quaternion"/> which equals this <see cref="Quaternion"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Quaternion ) && this.Equals( (Quaternion)obj );
+			return obj is Quaternion q && this.Equals( q );
 		}
 
 
@@ -1310,8 +1310,7 @@ namespace ManagedX
 		/// <returns>Returns the result of the interpolation.</returns>
 		public static Quaternion SLerp( Quaternion source, Quaternion target, float amount )
 		{
-			Quaternion result;
-			SLerp( ref source, ref target, amount, out result );
+			SLerp( ref source, ref target, amount, out Quaternion result );
 			return result;
 		}
 

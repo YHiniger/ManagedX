@@ -145,7 +145,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Vector2"/> which equals this <see cref="Vector2"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Vector2 ) && this.Equals( (Vector2)obj );
+			return obj is Vector2 v && this.Equals( v );
 		}
 
 

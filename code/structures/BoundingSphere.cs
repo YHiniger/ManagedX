@@ -48,9 +48,8 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public void Contains( ref Vector3 point, out ContainmentType result )
 		{
-			float distanceSquared;
-			Vector3.DistanceSquared( ref Center, ref point, out distanceSquared );
-			
+			Vector3.DistanceSquared( ref Center, ref point, out float distanceSquared );
+
 			var radiusSquared = Radius * Radius;
 			
 			if( distanceSquared < radiusSquared )
@@ -66,9 +65,8 @@ namespace ManagedX
 		/// <returns>Returns a value indicating the extent of overlap.</returns>
 		public ContainmentType Contains( Vector3 point )
 		{
-			float distanceSquared;
-			Vector3.DistanceSquared( ref Center, ref point, out distanceSquared );
-			
+			Vector3.DistanceSquared( ref Center, ref point, out float distanceSquared );
+
 			var radiusSquared = Radius * Radius;
 			
 			if( distanceSquared < radiusSquared )
@@ -88,9 +86,8 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public void Contains( ref BoundingSphere sphere, out ContainmentType result )
 		{
-			float distance;
-			Vector3.Distance( ref Center, ref sphere.Center, out distance );
-			
+			Vector3.Distance( ref Center, ref sphere.Center, out float distance );
+
 			var sphereRadius = sphere.Radius;
 
 			if( distance > Radius + sphereRadius )
@@ -106,9 +103,8 @@ namespace ManagedX
 		/// <returns>Returns a value indicating the extent of overlap.</returns>
 		public ContainmentType Contains( BoundingSphere sphere )
 		{
-			float distance;
-			Vector3.Distance( ref Center, ref sphere.Center, out distance );
-			
+			Vector3.Distance( ref Center, ref sphere.Center, out float distance );
+
 			var sphereRadius = sphere.Radius;
 
 			if( distance > Radius + sphereRadius )
@@ -128,8 +124,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public void Contains( ref BoundingBox box, out ContainmentType result )
 		{
-			bool intersects;
-			box.Intersects( ref this, out intersects );
+			box.Intersects( ref this, out bool intersects );
 			if( !intersects )
 			{
 				result = ContainmentType.Disjoint;
@@ -199,8 +194,7 @@ namespace ManagedX
 		/// <returns>Returns a value indicating whether this <see cref="BoundingSphere"/> contains the specified <paramref name="box"/>.</returns>
 		public ContainmentType Contains( BoundingBox box )
 		{
-			bool intersects;
-			box.Intersects( ref this, out intersects );
+			box.Intersects( ref this, out bool intersects );
 			if( !intersects )
 				return ContainmentType.Disjoint;
 
@@ -282,10 +276,9 @@ namespace ManagedX
 			var radiusSquared = Radius * Radius;
 
 			result = ContainmentType.Contains;
-			Vector3 vector;
 			for( var i = 0; i < BoundingFrustum.CornerCount; i++ )
 			{
-				Vector3.Subtract( ref corners[ i ], ref Center, out vector );
+				Vector3.Subtract( ref corners[ i ], ref Center, out Vector3 vector );
 				if( vector.LengthSquared > radiusSquared )
 				{
 					result = ContainmentType.Intersects;
@@ -308,14 +301,13 @@ namespace ManagedX
 			
 			var radiusSquared = Radius * Radius;
 
-			Vector3 vector2;
 			for( var i = 0; i < BoundingFrustum.CornerCount; i++ )
 			{
-				Vector3.Subtract( ref cornerArray[ i ], ref Center, out vector2 );
+				Vector3.Subtract( ref cornerArray[ i ], ref Center, out Vector3 vector2 );
 				if( vector2.LengthSquared > radiusSquared )
 					return ContainmentType.Intersects;
 			}
-			
+
 			return ContainmentType.Contains;
 		}
 
@@ -331,9 +323,8 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public void Intersects( ref BoundingSphere sphere, out bool result )
 		{
-			float distanceSquared;
-			Vector3.DistanceSquared( ref Center, ref sphere.Center, out distanceSquared );
-			
+			Vector3.DistanceSquared( ref Center, ref sphere.Center, out float distanceSquared );
+
 			var radius2 = sphere.Radius;
 			result = ( Radius * Radius + 2.0f * Radius * radius2 + radius2 * radius2 > distanceSquared );
 		}
@@ -343,8 +334,7 @@ namespace ManagedX
 		/// <returns>Returns a value indicating whether the <see cref="BoundingSphere"/> instances intersect.</returns>
 		public bool Intersects( BoundingSphere sphere )
 		{
-			float distanceSquared;
-			Vector3.DistanceSquared( ref Center, ref sphere.Center, out distanceSquared );
+			Vector3.DistanceSquared( ref Center, ref sphere.Center, out float distanceSquared );
 			var radius2 = sphere.Radius;
 			return ( Radius * Radius + 2.0f * Radius * radius2 + radius2 * radius2 > distanceSquared );
 		}
@@ -357,12 +347,10 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#" )]
 		public void Intersects( ref BoundingBox box, out bool result )
 		{
-			Vector3 clamped;
-			Vector3.Clamp( ref Center, ref box.Min, ref box.Max, out clamped );
+			Vector3.Clamp( ref Center, ref box.Min, ref box.Max, out Vector3 clamped );
 
-			float distanceSquared;
-			Vector3.DistanceSquared( ref Center, ref clamped, out distanceSquared );
-			
+			Vector3.DistanceSquared( ref Center, ref clamped, out float distanceSquared );
+
 			result = ( distanceSquared <= Radius * Radius );
 		}
 
@@ -371,10 +359,8 @@ namespace ManagedX
 		/// <returns>Returns a value indicating whether this <see cref="BoundingSphere"/> and the <see cref="BoundingBox"/> intersect, otherwise returns false.</returns>
 		public bool Intersects( BoundingBox box )
 		{
-			Vector3 vector;
-			Vector3.Clamp( ref this.Center, ref box.Min, ref box.Max, out vector );
-			float num;
-			Vector3.DistanceSquared( ref this.Center, ref vector, out num );
+			Vector3.Clamp( ref this.Center, ref box.Min, ref box.Max, out Vector3 vector );
+			Vector3.DistanceSquared( ref this.Center, ref vector, out float num );
 			return num <= this.Radius * this.Radius;
 		}
 
@@ -433,7 +419,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="BoundingSphere"/> which equals this <see cref="BoundingSphere"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is BoundingSphere ) && this.Equals( (BoundingSphere)obj );
+			return ( obj is BoundingSphere bs ) && this.Equals( bs );
 		}
 
 
@@ -446,9 +432,8 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void Merge( ref BoundingSphere sphere, ref BoundingSphere other, out BoundingSphere result )
 		{
-			Vector3 value;
-			Vector3.Subtract( ref other.Center, ref sphere.Center, out value );
-			
+			Vector3.Subtract( ref other.Center, ref sphere.Center, out Vector3 value );
+
 			var distance = value.Length;
 			var radius = sphere.Radius;
 			var radius2 = other.Radius;
@@ -482,8 +467,7 @@ namespace ManagedX
 		/// <returns>Returns the resulting <see cref="BoundingSphere"/>.</returns>
 		public static BoundingSphere Merge( BoundingSphere sphere, BoundingSphere other )
 		{
-			Vector3 value;
-			Vector3.Subtract( ref other.Center, ref sphere.Center, out value );
+			Vector3.Subtract( ref other.Center, ref sphere.Center, out Vector3 value );
 
 			var distance = value.Length;
 			var radius = sphere.Radius;
@@ -546,15 +530,12 @@ namespace ManagedX
 					vector6 = point;
 			}
 
-			float distance1;
-			Vector3.Distance( ref vector, ref vector2, out distance1 );
-			
-			float distance2;
-			Vector3.Distance( ref vector4, ref vector3, out distance2 );
-			
-			float distance3;
-			Vector3.Distance( ref vector6, ref vector5, out distance3 );
-			
+			Vector3.Distance( ref vector, ref vector2, out float distance1 );
+
+			Vector3.Distance( ref vector4, ref vector3, out float distance2 );
+
+			Vector3.Distance( ref vector6, ref vector5, out float distance3 );
+
 			Vector3 position;
 			float distance;
 			if( distance1 > distance2 )
@@ -612,13 +593,11 @@ namespace ManagedX
 			var boxMin = box.Min;
 			var boxMax = box.Max;
 
-			Vector3 sum;
-			Vector3.Add( ref boxMin, ref boxMax, out sum );
-			
+			Vector3.Add( ref boxMin, ref boxMax, out Vector3 sum );
+
 			Vector3.Multiply( ref sum, 0.5f, out result.Center );
-			
-			float distance;
-			Vector3.Distance( ref boxMin, ref boxMax, out distance );
+
+			Vector3.Distance( ref boxMin, ref boxMax, out float distance );
 			result.Radius = distance * 0.5f;
 		}
 
@@ -630,14 +609,12 @@ namespace ManagedX
 			var boxMin = box.Min;
 			var boxMax = box.Max;
 
-			Vector3 sum;
-			Vector3.Add( ref boxMin, ref boxMax, out sum );
-			
+			Vector3.Add( ref boxMin, ref boxMax, out Vector3 sum );
+
 			BoundingSphere result;
 			Vector3.Multiply( ref sum, 0.5f, out result.Center );
 
-			float distance;
-			Vector3.Distance( ref boxMin, ref boxMax, out distance );
+			Vector3.Distance( ref boxMin, ref boxMax, out float distance );
 			result.Radius = distance * 0.5f;
 			
 			return result;

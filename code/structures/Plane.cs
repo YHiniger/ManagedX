@@ -163,11 +163,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void CalculateIntersection( ref Ray ray, out Vector3 result )
 		{
-			float NdotP;
-			Vector3.Dot( ref Normal, ref ray.Position, out NdotP );
+			Vector3.Dot( ref Normal, ref ray.Position, out float NdotP );
 
-			float NdotD;
-			Vector3.Dot( ref Normal, ref ray.Direction, out NdotD );
+			Vector3.Dot( ref Normal, ref ray.Direction, out float NdotD );
 
 			var distance = ( -Distance - NdotP ) / NdotD;
 			result = ray.Position + ray.Direction * distance;
@@ -178,11 +176,9 @@ namespace ManagedX
 		/// <returns>Returns the intersection point with the specified <paramref name="ray"/>.</returns>
 		public Vector3 CalculateIntersection( Ray ray )
 		{
-			float NdotP;
-			Vector3.Dot( ref Normal, ref ray.Position, out NdotP );
+			Vector3.Dot( ref Normal, ref ray.Position, out float NdotP );
 
-			float NdotD;
-			Vector3.Dot( ref Normal, ref ray.Direction, out NdotD );
+			Vector3.Dot( ref Normal, ref ray.Direction, out float NdotD );
 
 			var distance = ( -Distance - NdotP ) / NdotD;
 			return ray.Position + ray.Direction * distance;
@@ -197,18 +193,14 @@ namespace ManagedX
 		public void CalculateIntersectionLine( ref Plane other, out Ray result )
 		{
 			var normal = other.Normal;
-			
-			Vector3 direction;
-			Vector3.Cross( ref Normal, ref normal, out direction );
 
-			Vector3 a;
-			Vector3.Multiply( ref normal, -Distance, out a );
+			Vector3.Cross( ref Normal, ref normal, out Vector3 direction );
 
-			Vector3 b;
-			Vector3.Multiply( ref Normal, other.Distance, out b );
+			Vector3.Multiply( ref normal, -Distance, out Vector3 a );
 
-			Vector3 c;
-			Vector3.Add( ref a, ref b, out c );
+			Vector3.Multiply( ref Normal, other.Distance, out Vector3 b );
+
+			Vector3.Add( ref a, ref b, out Vector3 c );
 
 			result.Position = Vector3.Cross( c, direction ) / direction.LengthSquared;
 			result.Direction = direction;
@@ -222,14 +214,11 @@ namespace ManagedX
 			Ray result;
 			Vector3.Cross( ref Normal, ref other.Normal, out result.Direction );
 
-			Vector3 a;
-			Vector3.Multiply( ref other.Normal, -Distance, out a );
+			Vector3.Multiply( ref other.Normal, -Distance, out Vector3 a );
 
-			Vector3 b;
-			Vector3.Multiply( ref Normal, other.Distance, out b );
+			Vector3.Multiply( ref Normal, other.Distance, out Vector3 b );
 
-			Vector3 c;
-			Vector3.Add( ref a, ref b, out c );
+			Vector3.Add( ref a, ref b, out Vector3 c );
 
 			result.Position = Vector3.Cross( c, result.Direction ) / result.Direction.LengthSquared;
 			return result;
@@ -243,8 +232,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Locate( ref Vector3 point, out PlaneIntersectionType result )
 		{
-			float NdotP;
-			Vector3.Dot( ref Normal, ref point, out NdotP );
+			Vector3.Dot( ref Normal, ref point, out float NdotP );
 			NdotP += Distance;
 
 			if( NdotP > 0.0f )
@@ -267,8 +255,7 @@ namespace ManagedX
 		/// <returns>Returns a value indicating the location of the specified <paramref name="point"/> relative to this <see cref="Plane"/>.</returns>
 		public PlaneIntersectionType Locate( Vector3 point )
 		{
-			float NdotP;
-			Vector3.Dot( ref Normal, ref point, out NdotP );
+			Vector3.Dot( ref Normal, ref point, out float NdotP );
 			NdotP += Distance;
 
 			if( NdotP > 0.0f )
@@ -426,16 +413,15 @@ namespace ManagedX
 				throw new ArgumentException( "Invalid bounding frustum.", "frustum" );
 
 			var flags = 0;
-			float NdotP;
 			for( var i = 0; i < BoundingFrustum.CornerCount; i++ )
 			{
-				Vector3.Dot( ref Normal, ref corners[ i ], out NdotP );
-				
+				Vector3.Dot( ref Normal, ref corners[ i ], out float NdotP );
+
 				if( NdotP + Distance > 0.0f )
 					flags |= 1;
 				else
 					flags |= 2;
-				
+
 				if( flags == 3 )
 				{
 					result = PlaneIntersectionType.Intersecting;
@@ -454,20 +440,19 @@ namespace ManagedX
 			var flags = 0;
 			var corners = frustum.corners;
 
-			float NdotP;
 			for( var i = 0; i < BoundingFrustum.CornerCount; i++ )
 			{
-				Vector3.Dot( ref Normal, ref corners[ i ], out NdotP );
-				
+				Vector3.Dot( ref Normal, ref corners[ i ], out float NdotP );
+
 				if( NdotP + Distance > 0.0f )
 					flags |= 1;
 				else
 					flags |= 2;
-				
+
 				if( flags == 3 )
 					return PlaneIntersectionType.Intersecting;
 			}
-			
+
 			if( flags != 1 )
 				return PlaneIntersectionType.Back;
 			
@@ -499,7 +484,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Plane"/> which equals this <see cref="Plane"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Plane ) && this.Equals( (Plane)obj );
+			return obj is Plane p && this.Equals( p );
 		}
 
 

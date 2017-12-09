@@ -50,7 +50,7 @@ namespace ManagedX // .Graphics
 
 
 		/// <summary>Gets a value indicating whether the components of this <see cref="Size"/> are set to zero (see <see cref="Empty"/>).</summary>
-		public bool IsEmpty { get { return ( Width == 0 ) && ( Height == 0 ); } }
+		public bool IsEmpty => ( Width == 0 ) && ( Height == 0 );
 
 
 		/// <summary>Returns a hash code for this <see cref="Size"/>.</summary>
@@ -75,7 +75,7 @@ namespace ManagedX // .Graphics
 		/// <returns>Returns true if the specified object is a <see cref="Size"/> which equals this size, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Size ) && this.Equals( (Size)obj );
+			return obj is Size s && this.Equals( s );
 		}
 
 

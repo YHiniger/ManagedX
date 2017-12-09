@@ -297,7 +297,7 @@ namespace ManagedX // .Graphics
 		/// <returns>Returns true if the specified object is a <see cref="Box"/> which equals this <see cref="Box"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Box ) && this.Equals( (Box)obj );
+			return obj is Box b && this.Equals( b );
 		}
 
 

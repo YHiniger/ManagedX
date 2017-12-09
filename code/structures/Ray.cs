@@ -51,11 +51,9 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Intersects( ref Vector3 point, out float result )
 		{
-			Vector3 vector;
-			Vector3.Subtract( ref point, ref Position, out vector );
-			
-			float RdotP;
-			Vector3.Dot( ref Direction, ref vector, out RdotP );	// assumes the ray direction is normalized
+			Vector3.Subtract( ref point, ref Position, out Vector3 vector );
+
+			Vector3.Dot( ref Direction, ref vector, out float RdotP );  // assumes the ray direction is normalized
 
 			if( RdotP <= 0.0f )
 			{
@@ -74,11 +72,9 @@ namespace ManagedX
 		/// <returns>Returns the distance this <see cref="Ray"/> intersects the <paramref name="point"/> at, or NaN if there is no intersection.</returns>
 		public float Intersects( Vector3 point )
 		{
-			Vector3 vector;
-			Vector3.Subtract( ref point, ref Position, out vector );
+			Vector3.Subtract( ref point, ref Position, out Vector3 vector );
 
-			float RdotP;
-			Vector3.Dot( ref Direction, ref vector, out RdotP );	// assumes the ray direction is normalized
+			Vector3.Dot( ref Direction, ref vector, out float RdotP );  // assumes the ray direction is normalized
 
 			if( RdotP <= 0.0f )
 				return float.NaN;
@@ -106,8 +102,7 @@ namespace ManagedX
 			var rayPosition = ray.Position;
 			var rayDirection = ray.Direction;
 
-			Vector3 planeNormal;
-			Vector3.Cross( ref Direction, ref rayDirection, out planeNormal );
+			Vector3.Cross( ref Direction, ref rayDirection, out Vector3 planeNormal );
 
 			var x = rayPosition.X - Position.X;
 			var y = rayPosition.Y - Position.Y;
@@ -119,8 +114,7 @@ namespace ManagedX
 			var rayDirection2 = ( Position + result * Direction ) - rayPosition;
 			var rayLength = rayDirection2.Length;
 
-			float dot;
-			Vector3.Dot( ref rayDirection2, ref rayDirection, out dot );
+			Vector3.Dot( ref rayDirection2, ref rayDirection, out float dot );
 			if( Math.Abs( dot / rayLength ) < 1.0f - DefaultIntersectionThreshold )
 				result = float.NaN;
 		}
@@ -133,8 +127,7 @@ namespace ManagedX
 			if( ray.Equals( this ) )
 				return 0.0f;
 
-			Vector3 planeNormal;
-			Vector3.Cross( ref Direction, ref ray.Direction, out planeNormal );
+			Vector3.Cross( ref Direction, ref ray.Direction, out Vector3 planeNormal );
 
 			var x = ray.Position.X - Position.X;
 			var y = ray.Position.Y - Position.Y;
@@ -148,8 +141,7 @@ namespace ManagedX
 			rayDirection = ( Position + result * Direction ) - ray.Position;
 			rayDirection.Normalize();
 
-			float dot;
-			Vector3.Dot( ref rayDirection, ref ray.Direction, out dot );
+			Vector3.Dot( ref rayDirection, ref ray.Direction, out float dot );
 			if( Math.Abs( dot ) < 1.0f - DefaultIntersectionThreshold )
 				result = float.NaN;
 			
@@ -438,8 +430,7 @@ namespace ManagedX
 			if( planes == null || planes.Length != BoundingFrustum.PlaneCount )
 				throw new ArgumentException( "Invalid bounding frustum.", "frustum" );
 
-			ContainmentType containmentType;
-			frustum.Contains( ref Position, out containmentType );
+			frustum.Contains( ref Position, out ContainmentType containmentType );
 			if( containmentType == ContainmentType.Contains )
 			{
 				result = 0.0f;
@@ -450,16 +441,16 @@ namespace ManagedX
 			var maxRatio = float.MinValue;
 
 			result = float.NaN;
-			
-			float NdotD, NdotP, ratio;
+
+			float ratio;
 			Plane plane;
 			for( var i = 0; i < BoundingFrustum.PlaneCount; i++ )
 			{
 				plane = planes[ i ];
 				
-				Vector3.Dot( ref Direction, ref plane.Normal, out NdotD );
+				Vector3.Dot( ref Direction, ref plane.Normal, out float NdotD );
 				
-				Vector3.Dot( ref Position, ref plane.Normal, out NdotP );
+				Vector3.Dot( ref Position, ref plane.Normal, out float NdotP );
 				NdotP += plane.Distance;
 
 				if( Math.Abs( NdotD ) < DefaultIntersectionThreshold )
@@ -510,22 +501,21 @@ namespace ManagedX
 			if( frustum.planes == null || frustum.planes.Length != BoundingFrustum.PlaneCount )
 				throw new ArgumentException( "Invalid bounding frustum.", "frustum" );
 
-			ContainmentType containmentType;
-			frustum.Contains( ref Position, out containmentType );
+			frustum.Contains( ref Position, out ContainmentType containmentType );
 			if( containmentType == ContainmentType.Contains )
 				return 0.0f;
 
 			var minRatio = float.MaxValue;
 			var maxRatio = float.MinValue;
 
-			float NdotD, NdotP, ratio;
+			float ratio;
 			Plane plane;
 			for( var i = 0; i < BoundingFrustum.PlaneCount; i++ )
 			{
 				plane = frustum.planes[ i ];
 
-				Vector3.Dot( ref Direction, ref plane.Normal, out NdotD );
-				Vector3.Dot( ref Position, ref plane.Normal, out NdotP );
+				Vector3.Dot( ref Direction, ref plane.Normal, out float NdotD );
+				Vector3.Dot( ref Position, ref plane.Normal, out float NdotP );
 				NdotP += plane.Distance;
 
 				if( Math.Abs( NdotD ) < DefaultIntersectionThreshold )
@@ -590,7 +580,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Ray"/> which equals this <see cref="Ray"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Ray ) && this.Equals( (Ray)obj );
+			return obj is Ray r && this.Equals( r );
 		}
 
 

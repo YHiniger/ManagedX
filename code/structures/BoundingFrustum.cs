@@ -123,8 +123,7 @@ namespace ManagedX
 			for( var p = 0; p < PlaneCount; p++ )
 				planes[ p ].Normalize();
 
-			Ray ray;
-			planes[ 0 ].CalculateIntersectionLine( ref planes[ 2 ], out ray );
+			planes[ 0 ].CalculateIntersectionLine( ref planes[ 2 ], out Ray ray );
 			planes[ 4 ].CalculateIntersection( ref ray, out corners[ 0 ] );
 			planes[ 5 ].CalculateIntersection( ref ray, out corners[ 3 ] );
 
@@ -266,8 +265,7 @@ namespace ManagedX
 
 			gjk.Reset();
 
-			Vector3 closestPoint;
-			Vector3.Subtract( ref this.corners[ 0 ], ref box.Min, out closestPoint );
+			Vector3.Subtract( ref this.corners[ 0 ], ref box.Min, out Vector3 closestPoint );
 			if( closestPoint.LengthSquared < DefaultIntersectionThreshold )
 				Vector3.Subtract( ref this.corners[ 0 ], ref box.Max, out closestPoint );
 
@@ -278,14 +276,11 @@ namespace ManagedX
 			{
 				var vector = -closestPoint;
 
-				Vector3 vector2;
-				this.SupportMapping( ref vector, out vector2 );
+				this.SupportMapping( ref vector, out Vector3 vector2 );
 
-				Vector3 vector3;
-				box.SupportMapping( ref closestPoint, out vector3 );
+				box.SupportMapping( ref closestPoint, out Vector3 vector3 );
 
-				Vector3 vector4;
-				Vector3.Subtract( ref vector2, ref vector3, out vector4 );
+				Vector3.Subtract( ref vector2, ref vector3, out Vector3 vector4 );
 				var num2 = closestPoint.X * vector4.X + closestPoint.Y * vector4.Y + closestPoint.Z * vector4.Z;
 				if( num2 > 0.0f )
 					return;
@@ -318,8 +313,7 @@ namespace ManagedX
 
 			gjk.Reset();
 
-			Vector3 closestPoint;
-			Vector3.Subtract( ref this.corners[ 0 ], ref box.Min, out closestPoint );
+			Vector3.Subtract( ref this.corners[ 0 ], ref box.Min, out Vector3 closestPoint );
 			if( closestPoint.LengthSquared < DefaultIntersectionThreshold )
 				Vector3.Subtract( ref this.corners[ 0 ], ref box.Max, out closestPoint );
 
@@ -329,14 +323,11 @@ namespace ManagedX
 			{
 				var vector = -closestPoint;
 
-				Vector3 vector2;
-				this.SupportMapping( ref vector, out vector2 );
+				this.SupportMapping( ref vector, out Vector3 vector2 );
 
-				Vector3 vector3;
-				box.SupportMapping( ref closestPoint, out vector3 );
+				box.SupportMapping( ref closestPoint, out Vector3 vector3 );
 
-				Vector3 vector4;
-				Vector3.Subtract( ref vector2, ref vector3, out vector4 );
+				Vector3.Subtract( ref vector2, ref vector3, out Vector3 vector4 );
 				var num2 = closestPoint.X * vector4.X + closestPoint.Y * vector4.Y + closestPoint.Z * vector4.Z;
 				if( num2 > 0.0f )
 					return false;
@@ -374,8 +365,7 @@ namespace ManagedX
 
 			gjk.Reset();
 
-			Vector3 closestPoint;
-			Vector3.Subtract( ref corners[ 0 ], ref frustumCorners[ 0 ], out closestPoint );
+			Vector3.Subtract( ref corners[ 0 ], ref frustumCorners[ 0 ], out Vector3 closestPoint );
 			if( closestPoint.LengthSquared < DefaultIntersectionThreshold )
 				Vector3.Subtract( ref corners[ 0 ], ref frustumCorners[ 1 ], out closestPoint );
 
@@ -385,14 +375,11 @@ namespace ManagedX
 			{
 				var vector = -closestPoint;
 
-				Vector3 vector2;
-				this.SupportMapping( ref vector, out vector2 );
+				this.SupportMapping( ref vector, out Vector3 vector2 );
 
-				Vector3 vector3;
-				frustum.SupportMapping( ref closestPoint, out vector3 );
+				frustum.SupportMapping( ref closestPoint, out Vector3 vector3 );
 
-				Vector3 vector4;
-				Vector3.Subtract( ref vector2, ref vector3, out vector4 );
+				Vector3.Subtract( ref vector2, ref vector3, out Vector3 vector4 );
 
 				var dot = closestPoint.X * vector4.X + closestPoint.Y * vector4.Y + closestPoint.Z * vector4.Z;
 				if( dot > 0.0f )
@@ -428,8 +415,7 @@ namespace ManagedX
 
 			gjk.Reset();
 
-			Vector3 closestPoint;
-			Vector3.Subtract( ref corners[ 0 ], ref frustum.corners[ 0 ], out closestPoint );
+			Vector3.Subtract( ref corners[ 0 ], ref frustum.corners[ 0 ], out Vector3 closestPoint );
 			if( closestPoint.LengthSquared < DefaultIntersectionThreshold )
 				Vector3.Subtract( ref corners[ 0 ], ref frustum.corners[ 1 ], out closestPoint );
 
@@ -441,14 +427,11 @@ namespace ManagedX
 				vector.Y = -closestPoint.Y;
 				vector.Z = -closestPoint.Z;
 
-				Vector3 vector2;
-				this.SupportMapping( ref vector, out vector2 );
+				this.SupportMapping( ref vector, out Vector3 vector2 );
 
-				Vector3 vector3;
-				frustum.SupportMapping( ref closestPoint, out vector3 );
+				frustum.SupportMapping( ref closestPoint, out Vector3 vector3 );
 
-				Vector3 vector4;
-				Vector3.Subtract( ref vector2, ref vector3, out vector4 );
+				Vector3.Subtract( ref vector2, ref vector3, out Vector3 vector4 );
 
 				var num2 = closestPoint.X * vector4.X + closestPoint.Y * vector4.Y + closestPoint.Z * vector4.Z;
 				if( num2 > 0.0f )
@@ -483,8 +466,7 @@ namespace ManagedX
 
 			gjk.Reset();
 
-			Vector3 vector;
-			Vector3.Subtract( ref corners[ 0 ], ref sphere.Center, out vector );
+			Vector3.Subtract( ref corners[ 0 ], ref sphere.Center, out Vector3 vector );
 
 			if( vector.LengthSquared < DefaultIntersectionThreshold )
 				vector = Vector3.UnitX;
@@ -496,14 +478,11 @@ namespace ManagedX
 			{
 				var vector2 = -vector;
 
-				Vector3 vector3;
-				this.SupportMapping( ref vector2, out vector3 );
+				this.SupportMapping( ref vector2, out Vector3 vector3 );
 
-				Vector3 vector4;
-				sphere.SupportMapping( ref vector, out vector4 );
+				sphere.SupportMapping( ref vector, out Vector3 vector4 );
 
-				Vector3 vector5;
-				Vector3.Subtract( ref vector3, ref vector4, out vector5 );
+				Vector3.Subtract( ref vector3, ref vector4, out Vector3 vector5 );
 
 				var dot = vector.X * vector5.X + vector.Y * vector5.Y + vector.Z * vector5.Z;
 				if( dot > 0.0f )
@@ -537,8 +516,7 @@ namespace ManagedX
 
 			gjk.Reset();
 
-			Vector3 vector;
-			Vector3.Subtract( ref corners[ 0 ], ref sphere.Center, out vector );
+			Vector3.Subtract( ref corners[ 0 ], ref sphere.Center, out Vector3 vector );
 
 			if( vector.LengthSquared < DefaultIntersectionThreshold )
 				vector = Vector3.UnitX;
@@ -549,14 +527,11 @@ namespace ManagedX
 			{
 				var vector2 = -vector;
 
-				Vector3 vector3;
-				this.SupportMapping( ref vector2, out vector3 );
+				this.SupportMapping( ref vector2, out Vector3 vector3 );
 
-				Vector3 vector4;
-				sphere.SupportMapping( ref vector, out vector4 );
+				sphere.SupportMapping( ref vector, out Vector3 vector4 );
 
-				Vector3 vector5;
-				Vector3.Subtract( ref vector3, ref vector4, out vector5 );
+				Vector3.Subtract( ref vector3, ref vector4, out Vector3 vector5 );
 
 				var dot = vector.X * vector5.X + vector.Y * vector5.Y + vector.Z * vector5.Z;
 				if( dot > 0.0f )
@@ -623,10 +598,9 @@ namespace ManagedX
 			if( !this.Intersects( frustum ) )
 				return ContainmentType.Disjoint;
 
-			ContainmentType result;
 			for( var c = 0; c < CornerCount; c++ )
 			{
-				this.Contains( ref otherCorners[ c ], out result );
+				this.Contains( ref otherCorners[ c ], out ContainmentType result );
 				if( result == ContainmentType.Disjoint )
 					return ContainmentType.Intersects;
 			}
@@ -685,8 +659,7 @@ namespace ManagedX
 
 			for( var i = 0; i < PlaneCount; i++ )
 			{
-				PlaneIntersectionType planeIntersectionType;
-				planes[ i ].Intersects( ref box, out planeIntersectionType );
+				planes[ i ].Intersects( ref box, out PlaneIntersectionType planeIntersectionType );
 
 				if( planeIntersectionType == PlaneIntersectionType.Front )
 				{
@@ -709,8 +682,7 @@ namespace ManagedX
 			var intersects = false;
 			for( var i = 0; i < PlaneCount; i++ )
 			{
-				PlaneIntersectionType planeIntersectionType;
-				planes[ i ].Intersects( ref box, out planeIntersectionType );
+				planes[ i ].Intersects( ref box, out PlaneIntersectionType planeIntersectionType );
 
 				if( planeIntersectionType == PlaneIntersectionType.Front )
 					return ContainmentType.Disjoint;
@@ -790,10 +762,9 @@ namespace ManagedX
 			var maxPdotV = float.MinValue;
 			var index = 0;
 
-			float PdotV;
 			for( var i = 0; i < CornerCount; i++ )
 			{
-				Vector3.Dot( ref corners[ i ], ref vector, out PdotV );
+				Vector3.Dot( ref corners[ i ], ref vector, out float PdotV );
 				if( PdotV > maxPdotV )
 				{
 					index = i;

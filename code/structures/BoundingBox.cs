@@ -44,8 +44,7 @@ namespace ManagedX
 		{
 			get
 			{
-				Vector3 result;
-				Vector3.Add( ref Min, ref Max, out result );
+				Vector3.Add( ref Min, ref Max, out Vector3 result );
 				Vector3.Multiply( ref result, 0.5f, out result );
 				return result;
 			}
@@ -145,11 +144,9 @@ namespace ManagedX
 			var sphereCenter = sphere.Center;
 			var radius = sphere.Radius;
 
-			Vector3 clamped;
-			Vector3.Clamp( ref sphereCenter, ref Min, ref Max, out clamped );
-			
-			float distanceSquared;
-			Vector3.DistanceSquared( ref sphereCenter, ref clamped, out distanceSquared );
+			Vector3.Clamp( ref sphereCenter, ref Min, ref Max, out Vector3 clamped );
+
+			Vector3.DistanceSquared( ref sphereCenter, ref clamped, out float distanceSquared );
 
 
 			if( distanceSquared > radius * radius )
@@ -173,11 +170,9 @@ namespace ManagedX
 		{
 			var sphereCenter = sphere.Center;
 
-			Vector3 clamped;
-			Vector3.Clamp( ref sphereCenter, ref Min, ref Max, out clamped );
+			Vector3.Clamp( ref sphereCenter, ref Min, ref Max, out Vector3 clamped );
 
-			float distanceSquared;
-			Vector3.DistanceSquared( ref sphereCenter, ref clamped, out distanceSquared );
+			Vector3.DistanceSquared( ref sphereCenter, ref clamped, out float distanceSquared );
 
 			var radius = sphere.Radius;
 
@@ -210,17 +205,16 @@ namespace ManagedX
 				return;
 			}
 
-			ContainmentType containmentType;
 			for( var c = 0; c < BoundingFrustum.CornerCount; c++ )
 			{
-				this.Contains( ref cornerArray[ c ], out containmentType );
+				this.Contains( ref cornerArray[ c ], out ContainmentType containmentType );
 				if( containmentType == ContainmentType.Disjoint )
 				{
 					result = ContainmentType.Intersects;
 					return;
 				}
 			}
-			
+
 			result = ContainmentType.Contains;
 		}
 
@@ -236,14 +230,13 @@ namespace ManagedX
 			if( !frustum.Intersects( this ) )
 				return ContainmentType.Disjoint;
 
-			ContainmentType containmentType;
 			for( var c = 0; c < BoundingFrustum.CornerCount; c++ )
 			{
-				this.Contains( ref cornerArray[ c ], out containmentType );
+				this.Contains( ref cornerArray[ c ], out ContainmentType containmentType );
 				if( containmentType == ContainmentType.Disjoint )
 					return ContainmentType.Intersects;
 			}
-			
+
 			return ContainmentType.Contains;
 		}
 
@@ -301,12 +294,10 @@ namespace ManagedX
 			var sphereCenter = sphere.Center;
 			var sphereRadius = sphere.Radius;
 
-			Vector3 clamped;
-			Vector3.Clamp( ref sphereCenter, ref Min, ref Max, out clamped );
-			
-			float distanceSquared;
-			Vector3.DistanceSquared( ref sphereCenter, ref clamped, out distanceSquared );
-			
+			Vector3.Clamp( ref sphereCenter, ref Min, ref Max, out Vector3 clamped );
+
+			Vector3.DistanceSquared( ref sphereCenter, ref clamped, out float distanceSquared );
+
 			result = ( distanceSquared <= sphereRadius * sphereRadius );
 		}
 
@@ -315,11 +306,9 @@ namespace ManagedX
 		/// <returns>Returns true if this <see cref="BoundingBox"/> and the <see cref="BoundingSphere"/> intersect, otherwise returns false.</returns>
 		public bool Intersects( BoundingSphere sphere )
 		{
-			Vector3 clamped;
-			Vector3.Clamp( ref sphere.Center, ref Min, ref Max, out clamped );
+			Vector3.Clamp( ref sphere.Center, ref Min, ref Max, out Vector3 clamped );
 
-			float distanceSquared;
-			Vector3.DistanceSquared( ref sphere.Center, ref clamped, out distanceSquared );
+			Vector3.DistanceSquared( ref sphere.Center, ref clamped, out float distanceSquared );
 
 			return ( distanceSquared <= sphere.Radius * sphere.Radius );
 		}
@@ -424,7 +413,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="BoundingBox"/> which equals this bounding box, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is BoundingBox ) && this.Equals( (BoundingBox)obj );
+			return ( obj is BoundingBox bb ) && this.Equals( bb );
 		}
 
 

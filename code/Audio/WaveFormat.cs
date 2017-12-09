@@ -153,7 +153,7 @@ namespace ManagedX.Audio
 		/// <returns>Returns true if the specified object is a <see cref="WaveFormat"/> structure equivalent this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is WaveFormat ) && this.Equals( (WaveFormat)obj );
+			return obj is WaveFormat wf && this.Equals( wf );
 		}
 
 

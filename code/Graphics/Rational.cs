@@ -24,8 +24,8 @@ namespace ManagedX
 	public struct Rational : IEquatable<Rational>, IComparable<Rational>
 	{
 
-		private uint numerator;
-		private uint denominator;
+		private readonly uint numerator;
+		private readonly uint denominator;
 
 
 
@@ -48,10 +48,10 @@ namespace ManagedX
 		/// <exception cref="ArgumentOutOfRangeException"/>
 		public Rational( long numerator, long denominator )
 		{
-			if( numerator < 0 || numerator > int.MaxValue )
+			if( numerator < 0 || numerator > uint.MaxValue )
 				throw new ArgumentOutOfRangeException( "numerator" );
 			
-			if( denominator < 0 || denominator > int.MaxValue )
+			if( denominator < 0 || denominator > uint.MaxValue )
 				throw new ArgumentOutOfRangeException( "denominator" );
 			
 			this.numerator = (uint)numerator;
@@ -108,7 +108,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Rational"/> which equals this <see cref="Rational"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Rational r ) && this.Equals( r );
+			return obj is Rational r && this.Equals( r );
 		}
 
 

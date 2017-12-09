@@ -4,14 +4,14 @@
 namespace ManagedX
 {
 
-	/// <summary>Enumerates indicators used in comparison operators.</summary>
+	/// <summary>Indicators (flags) used in comparison operators.</summary>
 	/// <seealso cref="ComparisonOperator"/>
 	[Serializable]
 	[Flags]
 	public enum ComparisonOperators : int
 	{
 
-		/// <summary>Undefined.</summary>
+		/// <summary>No operator specified.</summary>
 		None = 0x00000000,
 
 		/// <summary>Equality comparison indicator (=); this indicator can be combined with either <see cref="Inferiority"/> or <see cref="Superiority"/>.</summary>
@@ -26,7 +26,7 @@ namespace ManagedX
 	}
 
 
-	/// <summary>Enumerates comparison operators.</summary>
+	/// <summary>Comparison operators.</summary>
 	/// <seealso cref="ComparisonOperators"/>
 	[Serializable]
 	public enum ComparisonOperator : int
@@ -51,7 +51,7 @@ namespace ManagedX
 		SuperiorityOrEquality = ComparisonOperators.Superiority | ComparisonOperators.Equality,
 
 		/// <summary>Inequality comparison (≠).</summary>
-		Inequality = ComparisonOperators.Inferiority | ComparisonOperators.Superiority,
+		Inequality = ComparisonOperators.Inferiority | ComparisonOperators.Superiority
 
 	}
 

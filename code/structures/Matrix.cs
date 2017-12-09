@@ -671,8 +671,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public void Transform( ref Plane plane, out Plane result )
 		{
-			Matrix inverted;
-			Matrix.Invert( ref this, out inverted );
+			Invert( ref this, out Matrix inverted );
 
 			var x = plane.Normal.X;
 			var y = plane.Normal.Y;
@@ -690,8 +689,7 @@ namespace ManagedX
 		/// <returns>Returns the transformed <paramref name="plane"/>.</returns>
 		public Plane Transform( Plane plane )
 		{
-			Matrix inverted;
-			Matrix.Invert( ref this, out inverted );
+			Invert( ref this, out Matrix inverted );
 
 			var x = plane.Normal.X;
 			var y = plane.Normal.Y;
@@ -731,8 +729,7 @@ namespace ManagedX
 			if( count <= 0 || source.Length <= count + sourceIndex || destination.Length <= count + destinationIndex )
 				throw new ArgumentOutOfRangeException( "count" );
 
-			Matrix inverted;
-			Matrix.Invert( ref this, out inverted );
+			Invert( ref this, out Matrix inverted );
 
 			Plane input, output;
 			float x, y, z, d;
@@ -830,7 +827,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Matrix"/> which equals this <see cref="Matrix"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Matrix ) && this.Equals( (Matrix)obj );
+			return obj is Matrix m && this.Equals( m );
 		}
 
 
@@ -1956,8 +1953,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateFromYawPitchRoll( float yaw, float pitch, float roll, out Matrix result )
 		{
-			Quaternion rotation;
-			Quaternion.CreateFromYawPitchRoll( yaw, pitch, roll, out rotation );
+			Quaternion.CreateFromYawPitchRoll( yaw, pitch, roll, out Quaternion rotation );
 			CreateFromQuaternion( ref rotation, out result );
 		}
 
@@ -1968,11 +1964,9 @@ namespace ManagedX
 		/// <returns>Returns the rotation <see cref="Matrix"/>.</returns>
 		public static Matrix CreateFromYawPitchRoll( float yaw, float pitch, float roll )
 		{
-			Quaternion rotation;
-			Quaternion.CreateFromYawPitchRoll( yaw, pitch, roll, out rotation );
-			
-			Matrix result;
-			CreateFromQuaternion( ref rotation, out result );
+			Quaternion.CreateFromYawPitchRoll( yaw, pitch, roll, out Quaternion rotation );
+
+			CreateFromQuaternion( ref rotation, out Matrix result );
 			return result;
 		}
 
@@ -1989,12 +1983,10 @@ namespace ManagedX
 			var front = -forward;
 			front.Normalize();
 
-			Vector3 right;
-			Vector3.Cross( ref up, ref front, out right );
+			Vector3.Cross( ref up, ref front, out Vector3 right );
 			right.Normalize();
 
-			Vector3 top;
-			Vector3.Cross( ref front, ref right, out top );
+			Vector3.Cross( ref front, ref right, out Vector3 top );
 			// up doesn't need to be normalized, since forward and right have already been normalized
 
 			result.M11 = right.X;
@@ -2028,8 +2020,7 @@ namespace ManagedX
 			forward.Negate();
 			forward.Normalize();
 
-			Vector3 right;
-			Vector3.Cross( ref up, ref forward, out right );
+			Vector3.Cross( ref up, ref forward, out Vector3 right );
 			right.Normalize();
 
 			Vector3.Cross( ref forward, ref right, out up );
@@ -2070,15 +2061,15 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateLookAt( ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix result )
 		{
-			Vector3 targetToCamera, side, up;
+			Vector3 targetToCamera;
 
 			targetToCamera = cameraPosition - cameraTarget;
 			targetToCamera.Normalize();
 
-			Vector3.Cross( ref cameraUpVector, ref targetToCamera, out side );
+			Vector3.Cross( ref cameraUpVector, ref targetToCamera, out Vector3 side );
 			side.Normalize();
 
-			Vector3.Cross( ref targetToCamera, ref side, out up );
+			Vector3.Cross( ref targetToCamera, ref side, out Vector3 up );
 
 			result.M11 = side.X;
 			result.M12 = up.X;
@@ -2108,15 +2099,15 @@ namespace ManagedX
 		/// <returns>Returns the created view <see cref="Matrix"/>.</returns>
 		public static Matrix CreateLookAt( Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector )
 		{
-			Vector3 targetToCamera, side, up;
-			
+			Vector3 targetToCamera;
+
 			targetToCamera = cameraPosition - cameraTarget;
 			targetToCamera.Normalize();
 			
-			Vector3.Cross( ref cameraUpVector, ref targetToCamera, out side );
+			Vector3.Cross( ref cameraUpVector, ref targetToCamera, out Vector3 side );
 			side.Normalize();
 			
-			Vector3.Cross( ref targetToCamera, ref side, out up );
+			Vector3.Cross( ref targetToCamera, ref side, out Vector3 up );
 			
 			Matrix result;
 			
@@ -2224,8 +2215,7 @@ namespace ManagedX
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
 		public static void CreateShadow( ref Vector3 lightSourceDirection, ref Plane plane, out Matrix result )
 		{
-			Plane normalizedPlane;
-			Plane.Normalize( ref plane, out normalizedPlane );
+			Plane.Normalize( ref plane, out Plane normalizedPlane );
 
 			var NdotL = normalizedPlane.Normal.X * lightSourceDirection.X + normalizedPlane.Normal.Y * lightSourceDirection.Y + normalizedPlane.Normal.Z * lightSourceDirection.Z;
 			var minusX = -normalizedPlane.Normal.X;
@@ -2694,8 +2684,7 @@ namespace ManagedX
 			else
 				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared ); // normalized
 
-			Vector3 rightVector;
-			Vector3.Cross( ref cameraUpVector, ref cameraToObject, out rightVector );
+			Vector3.Cross( ref cameraUpVector, ref cameraToObject, out Vector3 rightVector );
 			rightVector.Normalize();
 
 			Vector3.Cross( ref cameraToObject, ref rightVector, out cameraUpVector );
@@ -2739,9 +2728,8 @@ namespace ManagedX
 					cameraToObject = Vector3.Forward;
 			else
 				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared ); // normalized
-			
-			Vector3 rightVector;
-			Vector3.Cross( ref cameraUpVector, ref cameraToObject, out rightVector );
+
+			Vector3.Cross( ref cameraUpVector, ref cameraToObject, out Vector3 rightVector );
 			rightVector.Normalize();
 			
 			Vector3.Cross( ref cameraToObject, ref rightVector, out cameraUpVector );
@@ -2790,10 +2778,9 @@ namespace ManagedX
 				else
 					cameraToObject = Vector3.Forward;
 			else
-				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared );	// normalized
+				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared );  // normalized
 
-			float dot;
-			Vector3.Dot( ref rotateAxis, ref cameraToObject, out dot );
+			Vector3.Dot( ref rotateAxis, ref cameraToObject, out float dot );
 
 			Vector3 frontVector, sideVector;
 			if( Math.Abs( dot ) > ConstrainedBillboardThreshold )
@@ -2865,11 +2852,10 @@ namespace ManagedX
 				else
 					cameraToObject = Vector3.Forward;
 			else
-				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared );	// normalized
-			
-			float dot;
-			Vector3.Dot( ref rotateAxis, ref cameraToObject, out dot );
-			
+				cameraToObject /= (float)Math.Sqrt( (double)distanceSquared );  // normalized
+
+			Vector3.Dot( ref rotateAxis, ref cameraToObject, out float dot );
+
 			Vector3 frontVector, sideVector;
 			if( Math.Abs( dot ) > ConstrainedBillboardThreshold )
 			{
@@ -2929,6 +2915,7 @@ namespace ManagedX
 		/// <param name="result">Receives a <see cref="Matrix"/> initialized with the specified parameters.</param>
 		[SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference" )]
 		[SuppressMessage( "Microsoft.Design", "CA1021:AvoidOutParameters" )]
+		[SuppressMessage( "Microsoft.Design", "CA1062", MessageId = "3" )]
 		public static void CreateFromScaleRotationTranslation( ref Vector3 scale, ref Quaternion rotation, ref Vector3 translation, out Matrix result )
 		{
 			CreateFromQuaternion( ref rotation, out result );
@@ -2960,8 +2947,7 @@ namespace ManagedX
 		/// <returns>Returns a <see cref="Matrix"/> initialized with the specified parameters.</returns>
 		public static Matrix CreateFromScaleRotationTranslation( Vector3 scale, Quaternion rotation, Vector3 translation )
 		{
-			Matrix result;
-			CreateFromQuaternion( ref rotation, out result );
+			CreateFromQuaternion( ref rotation, out Matrix result );
 
 			var factor = scale.X;
 			result.M11 *= factor;

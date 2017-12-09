@@ -215,7 +215,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the specified object is an <see cref="RGBA"/> structure which equals this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is RGBA ) && this.Equals( (RGBA)obj );
+			return obj is RGBA rgba && this.Equals( rgba );
 		}
 
 

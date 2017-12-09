@@ -23,11 +23,11 @@ namespace ManagedX
 		};
 
 
-		private Vector3[] y;
-		private float[] yLengthSquared;
-		private Vector3[][] edges;
-		private float[][] edgeLengthSquared;
-		private float[][] determinants;
+		private readonly Vector3[] y;
+		private readonly float[] yLengthSquared;
+		private readonly Vector3[][] edges;
+		private readonly float[][] edgeLengthSquared;
+		private readonly float[][] determinants;
 		private int simplexBits;
 		private float maxLengthSquared;
 		private Vector3 closestPoint;

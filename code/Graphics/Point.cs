@@ -82,7 +82,7 @@ namespace ManagedX // .Graphics
 		/// <returns>Returns true if the specified object is a <see cref="Point"/> which equals this <see cref="Point"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Point ) && this.Equals( (Point)obj );
+			return obj is Point p && this.Equals( p );
 		}
 
 

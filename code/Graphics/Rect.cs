@@ -388,7 +388,7 @@ namespace ManagedX // .Graphics
 		/// <returns>Returns true if the specified object is a <see cref="Rect"/> which equals this <see cref="Rect"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Rect ) && this.Equals( (Rect)obj );
+			return obj is Rect r && this.Equals( r );
 		}
 
 

@@ -16,8 +16,8 @@ namespace ManagedX.Graphics
 	public struct Luid : IEquatable<Luid>
 	{
 
-		private uint lowPart;
-		private int highPart;
+		private readonly uint lowPart;
+		private readonly int highPart;
 
 
 
@@ -51,7 +51,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the specified object is a <see cref="Luid"/> which equals this <see cref="Luid"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Luid ) && this.Equals( (Luid)obj );
+			return obj is Luid id && this.Equals( id );
 		}
 
 

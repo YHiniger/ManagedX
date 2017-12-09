@@ -107,7 +107,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the specified object is an <see cref="HSL"/> color which equals this <see cref="HSL"/> color, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is HSL ) && this.Equals( (HSL)obj );
+			return obj is HSL hsl && this.Equals( hsl );
 		}
 
 

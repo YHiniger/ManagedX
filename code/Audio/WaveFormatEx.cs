@@ -198,11 +198,11 @@ namespace ManagedX.Audio
 		/// <returns>Returns true if the specified object is a <see cref="WaveFormatEx"/> or a <see cref="WaveFormat"/> structure equivalent to this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			if( obj is WaveFormatEx )
-				return this.Equals( (WaveFormatEx)obj );
+			if( obj is WaveFormatEx wfx )
+				return this.Equals( wfx );
 
-			if( obj is WaveFormat )
-				return this.Equals( (WaveFormat)obj );
+			if( obj is WaveFormat wf )
+				return this.Equals( wf );
 
 			return false;
 		}

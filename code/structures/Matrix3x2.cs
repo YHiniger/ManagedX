@@ -148,7 +148,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Matrix3x2"/> which equals this <see cref="Matrix3x2"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Matrix3x2 ) && this.Equals( (Matrix3x2)obj );
+			return obj is Matrix3x2 m && this.Equals( m );
 		}
 
 

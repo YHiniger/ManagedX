@@ -177,7 +177,7 @@ namespace ManagedX
 		/// <returns>Returns true if the specified object is a <see cref="Vector3"/> structure which equals this structure, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Vector3 ) && this.Equals( (Vector3)obj );
+			return obj is Vector3 v && this.Equals( v );
 		}
 
 

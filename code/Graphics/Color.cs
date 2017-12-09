@@ -206,7 +206,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the specified object is a <see cref="Color"/> which equals this <see cref="Color"/>, otherwise returns false.</returns>
 		public override bool Equals( object obj )
 		{
-			return ( obj is Color ) && this.Equals( (Color)obj );
+			return obj is Color c && this.Equals( c );
 		}
 
 
