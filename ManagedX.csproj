@@ -65,6 +65,7 @@
     <Compile Include="code\Graphics\Rational.cs" />
     <Compile Include="code\Graphics\Box.cs" />
     <Compile Include="code\Graphics\Rect.cs" />
+    <Compile Include="code\Graphics\ScanlineOrdering.cs" />
     <Compile Include="code\Graphics\Size.cs" />
     <Compile Include="code\enumerations\ContainmentType.cs" />
     <Compile Include="code\MemoryHelper.cs" />
