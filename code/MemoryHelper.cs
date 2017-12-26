@@ -25,9 +25,9 @@ namespace ManagedX
 			/// <returns>Returns zero if successful; an error code on failure.</returns>
 			/// <remarks>https://msdn.microsoft.com/en-us/library/wes2t00f.aspx</remarks>
 			[DllImport( LibraryName, CallingConvention = CallingConvention.Cdecl, ExactSpelling = true, PreserveSig = true )]
-#pragma warning disable IDE1006
+#pragma warning disable IDE1006, CS208
 			internal static extern int memcpy_s(
-#pragma warning restore IDE1006
+#pragma warning restore IDE1006, CS208
 				[In] IntPtr dest,
 				[In] UIntPtr destSize,
 				[In] IntPtr src,

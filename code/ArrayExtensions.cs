@@ -13,7 +13,7 @@ namespace ManagedX
 		/// <param name="structure">A reference to the structure whose address is to be retrieved.</param>
 		/// <returns>Returns the address of the specified structure.</returns>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#" )]
-		public unsafe static IntPtr GetAddressOf<T>( ref T structure )
+		unsafe public static IntPtr GetAddressOf<T>( ref T structure )	// It is crucial to pass the structure by reference !
 			where T : struct
 		{
 			var reference = __makeref(structure);

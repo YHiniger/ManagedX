@@ -149,28 +149,41 @@ namespace ManagedX.Win32
 
 		/// <summary>There are too many unique instances (>4096) of a particular type of state object.</summary>
 		[Source( "WinError.h", "D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS" )]
-		D3DTooManyUniqueStateObjects = unchecked((int)0x887C0001),
+		D3D11TooManyUniqueStateObjects = unchecked((int)0x887C0001),
 
 		/// <summary>The file was not found.</summary>
 		[Source( "WinError.h", "D3D11_ERROR_FILE_NOT_FOUND" )]
-		D3DFileNotFound = unchecked((int)0x887C0002),
+		D3D11FileNotFound = unchecked((int)0x887C0002),
 
 		/// <summary>There are too many unique instances (>2^20) of a particular type of view object.</summary>
 		[Source( "WinError.h", "D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS" )]
-		D3DTooManyUniqueViewObjects = unchecked((int)0x887C0003),
+		D3D11TooManyUniqueViewObjects = unchecked((int)0x887C0003),
 
 		/// <summary>The first call to ID3D11DeviceContext::Map after either ID3D11Device::CreateDeferredContext or ID3D11DeviceContext::FinishCommandList per Resource was not D3D11_MAP_WRITE_DISCARD.</summary>
 		[Source( "WinError.h", "D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD" )]
-		D3DDeferredContextMapWithoutInitialDiscard = unchecked((int)0x887C0004),
+		D3D11DeferredContextMapWithoutInitialDiscard = unchecked((int)0x887C0004),
 
 
 		/// <summary>The blob provided does not match the adapter that the device was created on.</summary>
 		[Source( "WinError.h", "D3D12_ERROR_ADAPTER_NOT_FOUND" )]
-		D3DAdapterNotFound = unchecked((int)0x887E0001),
+		D3D12AdapterNotFound = unchecked((int)0x887E0001),
 
 		/// <summary>The blob provided was created for a different version of the driver, and must be re-created.</summary>
 		[Source( "WinError.h", "D3D12_ERROR_DRIVER_VERSION_MISMATCH" )]
-		D3DDriverVersionMismatch = unchecked((int)0x887E0002),
+		D3D12DriverVersionMismatch = unchecked((int)0x887E0002),
+
+
+		///// <summary>The file was not found.</summary>
+		//[Source( "", "D3D12_ERROR_FILE_NOT_FOUND" )]
+		//D3D12FileNotFound,
+
+		///// <summary>There are too many unique instances of a particular type of state object.</summary>
+		//[Source( "", "D3D12_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS" )]
+		//D3D12TooManyUniqueStateObjects,
+
+		///// <summary>There are too many unique instances of a particular type of view object.</summary>
+		//[Source( "", "D3D12_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS" )]
+		//D3D12TooManyUniqueViewObjects,
 
 		#endregion Direct3D
 

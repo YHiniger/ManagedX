@@ -7,7 +7,7 @@ namespace ManagedX.Graphics
 {
 
 	/// <summary>An RGBA color (8 bits per component).</summary>
-	[Win32.Source( "MFObjects.h", "MFARGB" )]	// TODO - ensure the components are match !
+	[Win32.Source( "MFObjects.h", "MFARGB" )]	// TODO - ensure the components match !
 	[Serializable]
 	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 4 )]
 	unsafe public struct Color : IEquatable<Color>
