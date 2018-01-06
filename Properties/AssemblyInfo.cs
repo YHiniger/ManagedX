@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 #endif
 [assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "ManagedX" )]
-[assembly: AssemblyCopyright( "Copyright © Yvan J.W. HINIGER 2014-2017" )]
+[assembly: AssemblyCopyright( "Copyright © Yvan J.W. HINIGER 2014-2018" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
