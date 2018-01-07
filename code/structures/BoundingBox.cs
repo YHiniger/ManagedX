@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 
 
 namespace ManagedX
@@ -11,6 +12,7 @@ namespace ManagedX
 	/// </summary>
 	[Win32.Source( "DirectXCollision.h" )]
 	[Serializable]
+	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 24 )]
 	public struct BoundingBox : IEquatable<BoundingBox>
 	{
 

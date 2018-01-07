@@ -98,6 +98,7 @@ namespace ManagedX
 		/// <summary>Reduces an angle to a value within the range [-π,+π].</summary>
 		/// <param name="radians">An angle, in radians.</param>
 		/// <returns>Returns the specified angle reduced to the range [-π,+π].</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float WrapAngle( float radians )
 		{
 			radians %= TwoPi;
@@ -114,6 +115,7 @@ namespace ManagedX
 		/// <summary>Reduces an angle to a value within the range [-π,+π].</summary>
 		/// <param name="radians">An angle, in radians.</param>
 		/// <returns>Returns the specified angle reduced to the range [-π,+π].</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double WrapAngle( double radians )
 		{
 			const double Pi2 = Math.PI * 2.0;
@@ -166,6 +168,7 @@ namespace ManagedX
 		/// <param name="target">A finite single-precision floating-point value.</param>
 		/// <param name="amount">A finite single-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
 		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float SmoothStep( float source, float target, float amount )
 		{
 			if( amount < 0.0f || float.IsNaN( amount ) )
@@ -181,6 +184,7 @@ namespace ManagedX
 		/// <param name="target">A finite double-precision floating-point value.</param>
 		/// <param name="amount">A finite double-precision floating-point value; will be saturated (=forced within the range [0,1]).</param>
 		/// <returns>Returns the cubic interpolation between the two specified values.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double SmoothStep( double source, double target, double amount )
 		{
 			if( amount < 0.0 || double.IsNaN( amount ) )
@@ -190,7 +194,6 @@ namespace ManagedX
 			
 			return source + ( target - source ) * amount * amount * ( 3.0 - 2.0 * amount );
 		}
-
 
         #endregion SmoothStep
 
@@ -209,7 +212,7 @@ namespace ManagedX
 		{
 			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
 		}
-
+		
         /// <summary>Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.</summary>
         /// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
         /// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
@@ -224,7 +227,6 @@ namespace ManagedX
 			return value1 + ( value2 - value1 ) * amount1 + ( value3 - value1 ) * amount2;
 		}
 
-
         #endregion Barycentric
 
         #region Hermite
@@ -237,7 +239,8 @@ namespace ManagedX
         /// <param name="amount">The weighting factor.</param>
         /// <returns>Returns the result of the interpolation.</returns>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Hermite")]
-        public static float Hermite( float position1, float position2, float tangent1, float tangent2, float amount)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float Hermite( float position1, float position2, float tangent1, float tangent2, float amount)
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -258,7 +261,8 @@ namespace ManagedX
         /// <param name="amount">The weighting factor.</param>
         /// <returns>Returns the result of the interpolation.</returns>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Hermite")]
-        public static double Hermite( double position1, double position2, double tangent1, double tangent2, double amount )
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double Hermite( double position1, double position2, double tangent1, double tangent2, double amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -270,7 +274,6 @@ namespace ManagedX
 
 			return position1 * a + position2 * b + tangent1 * c + tangent2 * d;
 		}
-
 
         #endregion Hermite
 
@@ -284,7 +287,8 @@ namespace ManagedX
         /// <param name="amount">Weighting factor.</param>
         /// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Catmull")]
-        public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float CatmullRom( float value1, float value2, float value3, float value4, float amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -299,7 +303,8 @@ namespace ManagedX
         /// <param name="amount">Weighting factor.</param>
         /// <returns>Returns the Catmull-Rom interpolation of the specified positions.</returns>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Catmull")]
-        public static double CatmullRom( double value1, double value2, double value3, double value4, double amount )
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static double CatmullRom( double value1, double value2, double value3, double value4, double amount )
 		{
 			var amountSquared = amount * amount;
 			var amountCubed = amount * amountSquared;
@@ -314,6 +319,7 @@ namespace ManagedX
 		/// <param name="y">The Y component of the vector.</param>
 		/// <returns>Returns the length of the specified vector.</returns>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Length( float x, float y )
 		{
 			return (float)Math.Sqrt( (double)( x * x + y * y ) );
@@ -325,6 +331,7 @@ namespace ManagedX
 		/// <param name="z">The Z component of the vector.</param>
 		/// <returns>Returns the length of the specified vector.</returns>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Length( float x, float y, float z )
 		{
 			return (float)Math.Sqrt( (double)( x * x + y * y + z * z ) );
@@ -337,6 +344,7 @@ namespace ManagedX
 		/// <param name="w">The w component of the vector.</param>
 		/// <returns>Returns the length of the specified vector.</returns>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Length( float x, float y, float z, float w )
 		{
 			return (float)Math.Sqrt( (double)( x * x + y * y + z * z + w * w ) );
@@ -348,6 +356,7 @@ namespace ManagedX
 		/// <param name="y">The Y component of the vector.</param>
 		/// <returns>Returns the square of the length of the specified vector.</returns>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float LengthSquared( float x, float y )
 		{
 			return x * x + y * y;
@@ -359,6 +368,7 @@ namespace ManagedX
 		/// <param name="z">The Z component of the vector.</param>
 		/// <returns>Returns the square of the length of the specified vector.</returns>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float LengthSquared( float x, float y, float z )
 		{
 			return x * x + y * y + z * z;
@@ -371,6 +381,7 @@ namespace ManagedX
 		/// <param name="w">The w component of the vector.</param>
 		/// <returns>Returns the square of the length of the specified vector.</returns>
 		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float LengthSquared( float x, float y, float z, float w )
 		{
 			return x * x + y * y + z * z + w * w;
@@ -382,6 +393,7 @@ namespace ManagedX
 		/// <summary>Converts <see cref="float.NaN"/> to 0, <see cref="float.PositiveInfinity"/> to <see cref="float.MaxValue"/> and <see cref="float.NegativeInfinity"/> to <see cref="float.MinValue"/>; otherwise, returns the specified value.</summary>
 		/// <param name="value">A single-precision floating-point value.</param>
 		/// <returns>Returns the nearest finite value.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float MakeFinite( this float value )
 		{
 			if( float.IsNaN( value ) )
@@ -400,6 +412,7 @@ namespace ManagedX
 		/// <summary>Converts <see cref="double.NaN"/> to 0, <see cref="double.PositiveInfinity"/> to <see cref="double.MaxValue"/> and <see cref="double.NegativeInfinity"/> to <see cref="double.MinValue"/>; otherwise, returns the specified value.</summary>
 		/// <param name="value">A double-precision floating-point value.</param>
 		/// <returns>Returns the nearest finite value.</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double MakeFinite( this double value )
 		{
 			if( double.IsNaN( value ) )
@@ -427,6 +440,7 @@ namespace ManagedX
 		/// <para><paramref name="max"/> if <paramref name="value"/> is greater than or equal to <paramref name="max"/>.</para>
 		/// <para><paramref name="value"/> otherwise.</para>
 		/// </returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static TValue Clamp<TValue>( this TValue value, TValue min, TValue max )
 			where TValue : struct, IComparable<TValue>
 		{
@@ -448,6 +462,7 @@ namespace ManagedX
 		/// <para>Returns <paramref name="max"/> if <paramref name="value"/> is greater than or equal to <paramref name="max"/>.</para>
 		/// Returns <paramref name="value"/> otherwise.
 		/// </returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Clamp( this float value, float min, float max )
 		{
 			if( float.IsNaN( value ) )
@@ -470,6 +485,7 @@ namespace ManagedX
 		/// <para>Returns <paramref name="max"/> if <paramref name="value"/> is greater than or equal to <paramref name="max"/>.</para>
 		/// Returns <paramref name="value"/> otherwise.
 		/// </returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double Clamp( this double value, double min, double max )
 		{
 			if( double.IsNaN( value ) )
@@ -489,6 +505,7 @@ namespace ManagedX
 		/// <summary>Returns the nearest finite value within the range [0,1].</summary>
 		/// <param name="value">The value to be saturated.</param>
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float Saturate( this float value )
 		{
 			if( float.IsNaN( value ) || value < 0.0f )
@@ -503,6 +520,7 @@ namespace ManagedX
 		/// <summary>Returns the nearest finite value within the range [0,1].</summary>
 		/// <param name="value">The value to be saturated.</param>
 		/// <returns>Returns the nearest value within the range [0,1].</returns>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static double Saturate( this double value )
 		{
 			if( double.IsNaN( value ) || value < 0.0 )

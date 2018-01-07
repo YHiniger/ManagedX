@@ -47,7 +47,6 @@
     <AssemblyOriginatorKeyFile>ManagedX.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="code\ArrayExtensions.cs" />
     <Compile Include="code\Audio\AudioChannels.cs" />
     <Compile Include="code\Audio\AudioChannelsExtensions.cs" />
     <Compile Include="code\Audio\SpeakerConfiguration.cs" />
@@ -74,7 +73,6 @@
     <Compile Include="code\enumerations\PlaneIndex.cs" />
     <Compile Include="code\enumerations\PlaneIntersectionType.cs" />
     <Compile Include="code\Design\I3DObject.cs" />
-    <Compile Include="code\Win32\HResultHelper.cs" />
     <Compile Include="code\Win32\SourceAttribute.cs" />
     <Compile Include="code\Win32\StatusCode.cs" />
     <Compile Include="code\exceptions\MissingRequirementException.cs" />

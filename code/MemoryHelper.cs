@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace ManagedX
 {
 
-	/// <summary></summary>
+	/// <summary>Provides functions to copy memory blocks.</summary>
 	public static class MemoryHelper
 	{
 
@@ -27,12 +27,12 @@ namespace ManagedX
 			[DllImport( LibraryName, CallingConvention = CallingConvention.Cdecl, ExactSpelling = true, PreserveSig = true )]
 #pragma warning disable IDE1006, CS208
 			internal static extern int memcpy_s(
-#pragma warning restore IDE1006, CS208
 				[In] IntPtr dest,
 				[In] UIntPtr destSize,
 				[In] IntPtr src,
 				[In] UIntPtr count
 			);
+#pragma warning restore IDE1006, CS208
 
 		}
 

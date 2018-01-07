@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 
 namespace ManagedX
@@ -11,6 +12,7 @@ namespace ManagedX
 	/// </summary>
 	[Win32.Source( "DirectXCollision.h" )]
 	[Serializable]
+	//[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 64 + PlaneCount * 16 + CornerCount * 12 )]
 	public struct BoundingFrustum : IEquatable<BoundingFrustum>
 	{
 
@@ -27,9 +29,11 @@ namespace ManagedX
 
 
 		private Matrix matrix;
-		internal Plane[] planes;
-		internal Vector3[] corners;
-		private GJK gjk;
+		[MarshalAs( UnmanagedType.ByValArray, SizeConst = PlaneCount )]
+		internal readonly Plane[] planes;
+		[MarshalAs( UnmanagedType.ByValArray, SizeConst = CornerCount )]
+		internal readonly Vector3[] corners;
+		private readonly GJK gjk;
 
 
 
