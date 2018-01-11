@@ -208,7 +208,7 @@ namespace ManagedX
 
 
 
-		/// <summary>The «zero» <see cref="Vector3"/>.</summary>
+		/// <summary>The «zero», or «null», <see cref="Vector3"/>.</summary>
 		public static readonly Vector3 Zero;
 
 		/// <summary>A <see cref="Vector3"/> whose components are set to 1.</summary>

@@ -219,9 +219,9 @@ namespace ManagedX.Graphics
 		}
 
 
-		/// <summary>Returns a <see cref="Color"/> corresponding to this <see cref="RGB"/> color.</summary>
+		/// <summary>Returns a <see cref="Color"/> corresponding to this <see cref="RGBA"/> color.</summary>
 		/// <param name="preMultiply"></param>
-		/// <returns>Returns a <see cref="Color"/> corresponding to this <see cref="RGB"/> color.</returns>
+		/// <returns>Returns a <see cref="Color"/> corresponding to this <see cref="RGBA"/> color.</returns>
 		public Color ToColor( bool preMultiply )
 		{
 			RGBA rgba;
@@ -251,20 +251,10 @@ namespace ManagedX.Graphics
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RGB")]
         public RGB ToRGB( bool preMultiply )
 		{
-			RGB result;
-			if( !preMultiply )
-			{
-				result.R = R;
-				result.G = G;
-				result.B = B;
-			}
+			if( preMultiply )
+				return new RGB( R * A, G * A, B * A );
 			else
-			{
-				result.R = R * A;
-				result.G = G * A;
-				result.B = B * A;
-			}
-			return result;
+				return new RGB( R, G, B );
 		}
 
 
@@ -273,20 +263,10 @@ namespace ManagedX.Graphics
 		/// <returns>Returns a <see cref="Vector3"/> corresponding to this <see cref="RGBA"/> color.</returns>
 		public Vector3 ToVector3( bool preMultiply )
 		{
-			Vector3 result;
-			if( !preMultiply )
-			{
-				result.X = R;
-				result.Y = G;
-				result.Z = B;
-			}
+			if( preMultiply )
+				return new Vector3( R * A, G * A, B * A );
 			else
-			{
-				result.X = R * A;
-				result.Y = G * A;
-				result.Z = B * A;
-			}
-			return result;
+				return new Vector3( R, G, B );
 		}
 
 
@@ -294,12 +274,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns a <see cref="Vector4"/> corresponding to this <see cref="RGBA"/> color.</returns>
 		public Vector4 ToVector4()
 		{
-			Vector4 result;
-			result.X = R;
-			result.Y = G;
-			result.Z = B;
-			result.W = A;
-			return result;
+			return new Vector4( R, G, B, A );
 		}
 
 

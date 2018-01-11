@@ -137,9 +137,8 @@ namespace ManagedX.Graphics
 		/// <returns>Returns a <see cref="Color"/> corresponding to this <see cref="RGB"/> color.</returns>
 		public Color ToColor()
 		{
-			var clamped = this;
+			var clamped = new RGB( R, G, B );
 			clamped.Saturate();
-
 			return new Color( (byte)( clamped.R * 255.0f ), (byte)( clamped.G * 255.0f ), (byte)( clamped.B * 255.0f ), 255 );
 		}
 
@@ -148,11 +147,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns a <see cref="Vector3"/> corresponding to this <see cref="RGB"/> color.</returns>
 		public Vector3 ToVector3()
 		{
-			Vector3 result;
-			result.X = R;
-			result.Y = G;
-			result.Z = B;
-			return result;
+			return new Vector3( R, G, B );
 		}
 
 

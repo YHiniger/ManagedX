@@ -6,14 +6,39 @@ using System.Runtime.InteropServices;
 namespace ManagedX.Graphics
 {
 
-	/// <summary>An RGBA color (8 bits per component).</summary>
-	[Win32.Source( "MFObjects.h", "MFARGB" )]	// TODO - ensure the components match !
+	/// <summary>An ARGB (8 bits per component) color.</summary>
+	[Win32.Source( "MFObjects.h", "MFARGB" )]
 	[Serializable]
-	[StructLayout( LayoutKind.Sequential, Pack = 4, Size = 4 )]
+	[StructLayout( LayoutKind.Explicit, Pack = 4, Size = 4 )]
 	unsafe public struct Color : IEquatable<Color>
 	{
 
-		private uint rgba;
+		[FieldOffset( 0 )]
+		private uint bgra;
+
+		/// <summary>The blue component of this <see cref="Color"/>.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "B" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[FieldOffset( 0 )]
+		public byte B;
+
+		/// <summary>The green component of this <see cref="Color"/>.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "G" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[FieldOffset( 1 )]
+		public byte G;
+
+		/// <summary>The red component of this <see cref="Color"/>.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "R" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[FieldOffset( 2 )]
+		public byte R;
+
+		/// <summary>The alpha component (opacity) of this <see cref="Color"/>.</summary>
+		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "A" )]
+		[SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
+		[FieldOffset( 3 )]
+		public byte A;
 
 
 		
@@ -26,111 +51,41 @@ namespace ManagedX.Graphics
 		/// <param name="opacity">The opacity (alpha component) of the color.</param>
 		public Color( byte red, byte green, byte blue, byte opacity )
 		{
-			fixed( uint* ptr = &rgba )
-			{
-				var b = (byte*)ptr;
-				b[ 0 ] = red;
-				b[ 1 ] = green;
-				b[ 2 ] = blue;
-				b[ 3 ] = opacity;
-			}
+			bgra = 0;
+			B = blue;
+			G = green;
+			R = red;
+			A = opacity;
 		}
 
 
-        /// <summary>Initializes a new <see cref="Color"/>.</summary>
-        /// <param name="rgba">The packed RGBA value.</param>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rgba")]
+		/// <summary>Initializes a new <see cref="Color"/>.</summary>
+		/// <param name="bgra">The packed ARGB value.</param>
+		[SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "bgra")]
         [CLSCompliant( false )]
-		public Color( uint rgba )
+		public Color( uint bgra )
 		{
-			this.rgba = rgba;
+			A = R = G = B = 0;
+			this.bgra = bgra;
 		}
 
 		#endregion Constructors
 
 
 
-		/// <summary>Gets or sets the red component of this <see cref="Color"/>.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
-		public byte R
-		{
-			get
-			{
-				fixed( uint* ptr = &rgba )
-					return ( (byte*)ptr )[ 0 ];
-			}
-			set
-			{
-				fixed( uint* ptr = &rgba )
-					( (byte*)ptr )[ 0 ] = value;
-			}
-		}
-
-
-		/// <summary>Gets or sets the green component of this <see cref="Color"/>.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
-		public byte G
-		{
-			get
-			{
-				fixed( uint* ptr = &rgba )
-					return ( (byte*)ptr )[ 1 ];
-			}
-			set
-			{
-				fixed( uint* ptr = &rgba )
-					( (byte*)ptr )[ 1 ] = value;
-			}
-		}
-
-		
-		/// <summary>Gets or sets the blue component of this <see cref="Color"/>.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
-		public byte B
-		{
-			get
-			{
-				fixed( uint* ptr = &rgba )
-					return ( (byte*)ptr )[ 2 ];
-			}
-			set
-			{
-				fixed( uint* ptr = &rgba )
-					( (byte*)ptr )[ 2 ] = value;
-			}
-		}
-
-
-		/// <summary>Gets or sets the alpha component (opacity) of this <see cref="Color"/>.</summary>
-		[SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly" )]
-		public byte A
-		{
-			get
-			{
-				fixed( uint* ptr = &rgba )
-					return ( (byte*)ptr )[ 3 ];
-			}
-			set
-			{
-				fixed( uint* ptr = &rgba )
-					( (byte*)ptr )[ 3 ] = value;
-			}
-		}
-
-
 		/// <summary>Returns a <see cref="Vector3"/> representing this <see cref="Color"/>.</summary>
-		/// <param name="preMultiply">Indicates whether to multiply the <see cref="R"/>, <see cref="G"/> and <see cref="B"/> components by the alpha (see <see cref="A"/>) value.</param>
+		/// <param name="preMultiply">Indicates whether to multiply the <see cref="R"/>, <see cref="G"/> and <see cref="B"/> components by the <see cref="A"/> value.</param>
 		/// <returns>Returns a <see cref="Vector3"/> representing this <see cref="Color"/>.</returns>
 		public Vector3 ToVector3( bool preMultiply )
 		{
 			Vector3 result;
-			fixed ( uint* ptr = &rgba )
+			fixed ( uint* ptr = &bgra )
 			{
 				var ptr2 = (byte*)ptr;
 
-				result.X = (float)ptr2[ 0 ] / 255.0f;
+				result.X = (float)ptr2[ 2 ] / 255.0f;
 				result.Y = (float)ptr2[ 1 ] / 255.0f;
-				result.Z = (float)ptr2[ 2 ] / 255.0f;
+				result.Z = (float)ptr2[ 0 ] / 255.0f;
 			}
 
 			if( preMultiply )
@@ -151,13 +106,13 @@ namespace ManagedX.Graphics
 		public Vector4 ToVector4( bool preMultiply )
 		{
 			Vector4 result;
-			fixed ( uint* ptr = &rgba )
+			fixed ( uint* ptr = &bgra )
 			{
 				var ptr2 = (byte*)ptr;
 
-				result.X = (float)ptr2[ 0 ] / 255.0f;
+				result.X = (float)ptr2[ 2 ] / 255.0f;
 				result.Y = (float)ptr2[ 1 ] / 255.0f;
-				result.Z = (float)ptr2[ 2 ] / 255.0f;
+				result.Z = (float)ptr2[ 0 ] / 255.0f;
 				result.W = (float)ptr2[ 3 ] / 255.0f;
 			}
 
@@ -176,10 +131,10 @@ namespace ManagedX.Graphics
 		/// <returns>Returns an array filled with the <see cref="R"/>, <see cref="G"/>, <see cref="B"/> and <see cref="A"/> components of this <see cref="Color"/>.</returns>
 		public byte[] ToArray()
 		{
-			fixed ( uint* ptr = &rgba )
+			fixed ( uint* ptr = &bgra )
 			{
 				var ptr2 = (byte*)ptr;
-				return new byte[] { ptr2[ 0 ], ptr2[ 1 ], ptr2[ 2 ], ptr2[ 3 ] };
+				return new byte[] { ptr2[ 2 ], ptr2[ 1 ], ptr2[ 0 ], ptr2[ 3 ] };
 			}
 		}
 
@@ -188,7 +143,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns a hash code for this <see cref="Color"/>.</returns>
 		public override int GetHashCode()
 		{
-			return unchecked( (int)rgba );
+			return unchecked((int)bgra);
 		}
 
 
@@ -197,7 +152,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if this <see cref="Color"/> and the <paramref name="other"/> <see cref="Color"/> are equal, otherwise returns false.</returns>
 		public bool Equals( Color other )
 		{
-			return ( rgba == other.rgba );
+			return ( bgra == other.bgra );
 		}
 
 		
@@ -329,7 +284,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the colors are equal, otherwise returns false.</returns>
 		public static bool operator ==( Color color, Color other )
 		{
-			return color.rgba == other.rgba;
+			return color.bgra == other.bgra;
 		}
 
 
@@ -339,7 +294,7 @@ namespace ManagedX.Graphics
 		/// <returns>Returns true if the colors are not equal, otherwise returns false.</returns>
 		public static bool operator !=( Color color, Color other )
 		{
-			return color.rgba != other.rgba;
+			return color.bgra != other.bgra;
 		}
 
 		#endregion Operators
