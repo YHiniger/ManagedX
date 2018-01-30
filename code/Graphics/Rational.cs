@@ -10,12 +10,11 @@ namespace ManagedX
 	/// <summary>Represents a rational number (unsigned).
 	/// <para>This structure is equivalent to the native 
 	/// <code>DISPLAYCONFIG_RATIONAL</code> (defined in WinGDI.h) and
-	/// <code>DXGI_RATIONAL</code> (defined in DXGI.h) structures.</para>
+	/// <code>DXGI_RATIONAL</code> (defined in DXGI.h) structures.
+	/// </para>
 	/// </summary>
-	/// <remarks>
-	/// https://msdn.microsoft.com/en-us/library/windows/hardware/ff553968%28v=vs.85%29.aspx (DISPLAYCONFIG_RATIONAL)
-	/// https://msdn.microsoft.com/en-us/library/windows/desktop/bb173069%28v=vs.85%29.aspx (DXGI_RATIONAL)
-	/// </remarks>
+	/// <msdn>https://msdn.microsoft.com/en-us/library/windows/desktop/bb173069%28v=vs.85%29.aspx</msdn>
+	/// <msdn>https://msdn.microsoft.com/en-us/library/windows/hardware/ff553968%28v=vs.85%29.aspx</msdn>
 	[System.Diagnostics.DebuggerStepThrough]
 	[Source( "DXGIType.h", "DXGI_RATIONAL" )]
 	[Source( "WinGDI.h", "DISPLAYCONFIG_RATIONAL" )]
@@ -62,30 +61,6 @@ namespace ManagedX
 
 
 
-		/// <summary>Returns a double-precision floating-point value equivalent to this <see cref="Rational"/>.</summary>
-		/// <returns>Returns a double-precision floating-point value equivalent to this <see cref="Rational"/>.</returns>
-		public double ToDouble()
-		{
-			if( denominator == 0u )
-				return 1.0;
-			// this follows the "rule" defined in DXGI.
-			
-			return (double)numerator / (double)denominator;
-		}
-
-
-		/// <summary>Returns a single-precision floating-point value equivalent to this <see cref="Rational"/>.</summary>
-		/// <returns>Returns a single-precision floating-point value equivalent to this <see cref="Rational"/>.</returns>
-		public float ToSingle()
-		{
-			if( denominator == 0u )
-				return 1.0f;
-			// this follows the "rule" defined in DXGI.
-
-			return (float)numerator / (float)denominator;
-		}
-
-
 		/// <summary>Returns a hash code for this <see cref="Rational"/>.</summary>
 		/// <returns>Returns a hash code for this <see cref="Rational"/>.</returns>
 		public override int GetHashCode()
@@ -99,7 +74,7 @@ namespace ManagedX
 		/// <returns>Returns true if the rationals are equal, otherwise returns false.</returns>
 		public bool Equals( Rational other )
 		{
-			return ( numerator * other.denominator == other.numerator * denominator );
+			return this.ToInt32() == other.ToInt32();
 		}
 
 
@@ -117,9 +92,43 @@ namespace ManagedX
 		/// <returns>Returns -1 if this structure is smaller than the <paramref name="other"/> <see cref="Rational"/>, +1 if it's greater, or 0 if they are equal.</returns>
 		public int CompareTo( Rational other )
 		{
-			var n1 = numerator * other.denominator;
-			var n2 = other.numerator * denominator;
-			return n1.CompareTo( n2 );
+			return this.ToInt32().CompareTo( other.ToInt32() );
+		}
+
+
+		/// <summary>Returns an integer value equivalent to this <see cref="Rational"/>.</summary>
+		/// <returns>Returns an integer value equivalent to this <see cref="Rational"/>.</returns>
+		public int ToInt32()
+		{
+			if( denominator == 0u )
+				return 1;
+			// this follows the "rule" defined in DXGI.
+
+			return unchecked((int)( numerator / denominator ));
+		}
+
+
+		/// <summary>Returns a single-precision floating-point value equivalent to this <see cref="Rational"/>.</summary>
+		/// <returns>Returns a single-precision floating-point value equivalent to this <see cref="Rational"/>.</returns>
+		public float ToSingle()
+		{
+			if( denominator == 0u )
+				return 1.0f;
+			// this follows the "rule" defined in DXGI.
+
+			return (float)numerator / (float)denominator;
+		}
+
+
+		/// <summary>Returns a double-precision floating-point value equivalent to this <see cref="Rational"/>.</summary>
+		/// <returns>Returns a double-precision floating-point value equivalent to this <see cref="Rational"/>.</returns>
+		public double ToDouble()
+		{
+			if( denominator == 0u )
+				return 1.0;
+			// this follows the "rule" defined in DXGI.
+			
+			return (double)numerator / (double)denominator;
 		}
 
 
@@ -200,6 +209,15 @@ namespace ManagedX
 			return rational.CompareTo( other ) >= 0;
 		}
 
+
+
+		/// <summary><see cref="Rational"/> to <see cref="int"/> conversion operator.</summary>
+		/// <param name="rational">A <see cref="Rational"/>.</param>
+		/// <returns>Returns an integer value equivalent to the specified <paramref name="rational"/>.</returns>
+		public static explicit operator int( Rational rational )
+		{
+			return rational.ToInt32();
+		}
 
 
 		/// <summary><see cref="Rational"/> to <see cref="float"/> conversion operator.</summary>

@@ -60,6 +60,20 @@ namespace ManagedX.Graphics
 
 
 		/// <summary>Initializes a new <see cref="Color"/>.</summary>
+		/// <param name="red">The red component of the color.</param>
+		/// <param name="green">The green component of the color.</param>
+		/// <param name="blue">The blue component of the color.</param>
+		public Color( byte red, byte green, byte blue )
+		{
+			bgra = 0;
+			B = blue;
+			G = green;
+			R = red;
+			A = 255;
+		}
+
+
+		/// <summary>Initializes a new <see cref="Color"/>.</summary>
 		/// <param name="bgra">The packed ARGB value.</param>
 		[SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "bgra")]
         [CLSCompliant( false )]
