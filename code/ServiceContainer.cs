@@ -4,9 +4,11 @@ using System.Collections.Generic;
 
 namespace ManagedX
 {
+	using Design;
+
 
 	/// <summary>A service container; implements <see cref="IServiceProvider"/>.</summary>
-	public class ServiceContainer : IServiceProvider, Design.IServiceProvider1
+	public class ServiceContainer : IServiceProvider1
 	{
 
 		private readonly Dictionary<Guid, object> services;

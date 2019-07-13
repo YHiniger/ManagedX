@@ -6,15 +6,15 @@ using System.Runtime.InteropServices;
 
 
 [assembly: AssemblyTitle( "ManagedX.dll" )]
-[assembly: AssemblyDescription( "ManagedX.dll" )]
+[assembly: AssemblyDescription( "ManagedX core library" )]
 #if DEBUG
 [assembly: AssemblyConfiguration( "Debug" )]
 #else
 [assembly: AssemblyConfiguration( "Release" )]
 #endif
 [assembly: AssemblyCompany( "" )]
-[assembly: AssemblyProduct( "https://github.com/YHiniger" )]
-[assembly: AssemblyCopyright( "Copyright © Yvan J.W. HINIGER 2014-2018" )]
+[assembly: AssemblyProduct( "ManagedX" )]
+[assembly: AssemblyCopyright( "Copyright © Yvan J.W. HINIGER 2014-2019" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
